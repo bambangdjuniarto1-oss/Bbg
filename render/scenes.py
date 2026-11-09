@@ -519,9 +519,19 @@ def main():
     ap.add_argument("--res", default="720x1280")
     ap.add_argument("--samples", type=int, default=8)
     ap.add_argument("--frames", default=None)
+    ap.add_argument("--speed", type=float, default=1.0,
+                    help="percepat adegan (mis. 1.28 = ikut VO yang dipercepat 1.28x)")
     args = ap.parse_args(sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else sys.argv[1:])
 
     t0, t1, gf0, n = scene_range(args.scene)
+    r = args.speed
+    # timeline keluaran: waktu dibagi r; frame keluaran k memakai posisi sumber 1 + (k-1)*r
+    gf0_out = round(t0 / r * FPS)
+    n_out = round(t1 / r * FPS) - gf0_out
+
+    def src_set(k):
+        p = min(float(n), 1 + (k - 1) * r)
+        sc.frame_set(int(p), subframe=p - int(p))
     lp.reset()
     W.PLACED.clear()
     bpy.context.preferences.edit.keyframe_new_interpolation_type = "LINEAR"
@@ -537,10 +547,10 @@ def main():
     cam = sc.camera
 
     os.makedirs(os.path.join(args.out, "frames"), exist_ok=True)
-    data = {"scene": args.scene, "t0": t0, "t1": t1, "global_f0": gf0, "n": n, "fps": FPS, "res": [rx, ry],
-            "frames": {}}
-    for f in range(1, n + 1):
-        sc.frame_set(f)
+    data = {"scene": args.scene, "t0": t0, "t1": t1, "global_f0": gf0_out, "n": n_out, "fps": FPS,
+            "res": [rx, ry], "speed": r, "frames": {}}
+    for f in range(1, n_out + 1):
+        src_set(f)
         pos = {}
         for name, p in A.items():
             v = world_to_camera_view(sc, cam, Vector(p))
@@ -550,15 +560,15 @@ def main():
     with open(os.path.join(args.out, "anchors.json"), "w") as fh:
         json.dump(data, fh)
 
-    lo, hi = (1, n) if not args.frames else map(int, args.frames.split("-"))
+    lo, hi = (1, n_out) if not args.frames else map(int, args.frames.split("-"))
     for f in range(lo, hi + 1):
         path = os.path.join(args.out, "frames", f"{f:04d}.png")
         if os.path.exists(path) and not args.frames:
             continue
-        sc.frame_set(f)
+        src_set(f)
         sc.render.filepath = path
         bpy.ops.render.render(write_still=True)
-    print("DONE", args.scene, n)
+    print("DONE", args.scene, n_out)
 
 
 if __name__ == "__main__":

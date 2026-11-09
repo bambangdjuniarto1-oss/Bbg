@@ -90,12 +90,15 @@ def main():
     ap.add_argument("--encode-only", action="store_true")
     ap.add_argument("--no-encode", action="store_true")
     ap.add_argument("--skip-done", action="store_true")
+    ap.add_argument("--speed", type=float, default=None,
+                    help="percepat render lama (speed 1.0) dengan mengambil frame terdekat")
+    ap.add_argument("--comp", default=None, help="folder frame hasil compositing")
     a = ap.parse_args()
 
     cfg = json.load(open(a.config))
     words = json.load(open(a.words))
     subs = global_chunks(words, cfg["keywords"])
-    comp_dir = os.path.join(os.path.dirname(os.path.abspath(a.out)), "composited")
+    comp_dir = a.comp or os.path.join(os.path.dirname(os.path.abspath(a.out)), "composited")
     os.makedirs(comp_dir, exist_ok=True)
     only = set(a.only.split(",")) if a.only else None
 
@@ -107,15 +110,25 @@ def main():
             sdir = os.path.join(a.render, sid)
             anch = json.load(open(os.path.join(sdir, "anchors.json")))
             sx = anch["res"][0] / 1080
-            for f in range(1, anch["n"] + 1):
+            r = anch.get("speed", 1.0)
+            n_out, gf0 = anch["n"], anch["global_f0"]
+            resample = bool(a.speed) and r == 1.0 and a.speed != 1.0
+            if resample:  # render lama 1x -> ambil frame sumber terdekat
+                r = a.speed
+                gf0 = round(anch["t0"] / r * FPS)
+                n_out = round(anch["t1"] / r * FPS) - gf0
+            for k in range(1, n_out + 1):
+                f = min(anch["n"], round(1 + (k - 1) * r)) if resample else k
                 src = os.path.join(sdir, "frames", f"{f:04d}.png")
-                g = anch["global_f0"] + f
+                g = gf0 + k
                 dst = os.path.join(comp_dir, f"{g:05d}.png")
                 if not os.path.exists(src) or (a.skip_done and os.path.exists(dst)):
                     continue
-                t = (f - 1) / FPS
+                t = (k - 1) / FPS * r          # waktu adegan dalam skala narasi asli
                 tg = anch["t0"] + t
-                img = Image.open(src).convert("RGBA").resize((1080, 1920), Image.LANCZOS)
+                img = Image.open(src).convert("RGBA")
+                if img.size != (1080, 1920):
+                    img = img.resize((1080, 1920), Image.LANCZOS)
                 C.draw_header(img, 470, 640)
                 pos = anch["frames"][str(f)]
                 if sc.get("hud"):
@@ -142,7 +155,7 @@ def main():
                 if sc.get("cta"):
                     draw_cta(img, t - sc["cta"])
                 img.convert("RGB").save(dst, compress_level=1)
-            print("composited", sid, anch["n"], flush=True)
+            print("composited", sid, n_out, flush=True)
 
     if a.no_encode:
         return
