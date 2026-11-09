@@ -135,6 +135,18 @@ MOTIF = [(0, 79), (.75, 78), (1.5, 74), (2.5, 71), (3, 74),            # bar gan
          (4, 76), (4.75, 74), (5.5, 71), (6.5, 72), (7, 71)]          # bar genap
 
 
+# variasi B (video tahu): kunci C mayor, progresi C-G-Am-F, motif lain
+CHORDS_B = [
+    (36, [55, 60, 64, 67]),   # C
+    (43, [55, 59, 62, 67]),   # G
+    (45, [57, 60, 64, 69]),   # Am
+    (41, [57, 60, 65, 69]),   # F
+]
+MOTIF_B = [(0, 76), (.5, 79), (1.5, 76), (2, 74), (3, 72),
+           (4, 74), (4.5, 76), (5.5, 72), (6.5, 69), (7, 72)]
+VARIANTS = {"A": None, "B": (CHORDS_B, MOTIF_B)}
+
+
 def render(dur, bpm=128.0, brk=(20.6, 24.4)):
     beat = 60.0 / bpm
     bar = 4 * beat
@@ -222,8 +234,12 @@ def main():
     ap.add_argument("dur", type=float)
     ap.add_argument("--bpm", type=float, default=128.0)
     ap.add_argument("--break", dest="brk", type=float, nargs=2, default=[20.6, 24.4])
+    ap.add_argument("--variant", default="A", choices=sorted(VARIANTS))
     a = ap.parse_args()
     import soundfile as sf
+    global CHORDS, MOTIF
+    if VARIANTS[a.variant]:
+        CHORDS, MOTIF = VARIANTS[a.variant]
     sf.write(a.out, render(a.dur, a.bpm, tuple(a.brk)).T, SR, subtype="PCM_16")
     print("wrote", a.out)
 

@@ -1,0 +1,531 @@
+{
+ "keywords": [
+  "tahu",
+  "kuning",
+  "7,5",
+  "juta",
+  "toko",
+  "sistem",
+  "pabrik",
+  "rp6.000",
+  "rp8.500",
+  "rp2.500",
+  "margin",
+  "rumah",
+  "sisa",
+  "customer",
+  "kompleks",
+  "terjadwal",
+  "database",
+  "jaringan",
+  "pelanggan",
+  "100",
+  "30",
+  "rp7.500.000",
+  "laba",
+  "kotor",
+  "kurir",
+  "tim",
+  "sederhana",
+  "berulang",
+  "follow",
+  "realistis",
+  "antar"
+ ],
+ "scenes": [
+  {
+   "id": "T01",
+   "bubble": "Jualan **tahu kuning**?",
+   "labels": [
+    {
+     "anchor": "SELLER",
+     "title": "TUKANG TAHU",
+     "sub": "jualan keliling",
+     "color": "orange",
+     "t": 0.4,
+     "lift": 90
+    }
+   ]
+  },
+  {
+   "id": "T02",
+   "bubble": "**Rp7,5 juta**/bulan?",
+   "hud": {
+    "title": "POTENSI INCOME",
+    "start": 0,
+    "to": 7.5,
+    "max": 7.5,
+    "unit": "juta / bulan",
+    "t": 0.6,
+    "dur": 2.6,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "decimals": 1,
+    "target_text": "per bulan"
+   }
+  },
+  {
+   "id": "T03",
+   "bubble": "Kuncinya **sistem**",
+   "labels": [
+    {
+     "anchor": "NOTOKO",
+     "title": "TANPA TOKO",
+     "sub": "",
+     "color": "red",
+     "t": 0.2,
+     "lift": 120
+    },
+    {
+     "anchor": "NOSTOK",
+     "title": "TANPA STOK BESAR",
+     "sub": "",
+     "color": "red",
+     "t": 1.1,
+     "lift": 60
+    },
+    {
+     "anchor": "SISTEM",
+     "title": "KUNCI: SISTEM",
+     "sub": "penjualan",
+     "color": "green",
+     "t": 2.0,
+     "lift": 40
+    }
+   ]
+  },
+  {
+   "id": "T04",
+   "bubble": "Gandeng **pabrik tahu**",
+   "labels": [
+    {
+     "anchor": "PABRIK_FRONT",
+     "title": "PABRIK TAHU KUNING",
+     "sub": "mitra produksi",
+     "color": "orange",
+     "t": 0.9,
+     "lift": 60
+    },
+    {
+     "anchor": "SALAM",
+     "title": "KERJA SAMA",
+     "sub": "",
+     "color": "green",
+     "t": 2.6,
+     "lift": 80
+    }
+   ]
+  },
+  {
+   "id": "T05",
+   "bubble": "Isi 10 = **Rp6.000**",
+   "labels": [
+    {
+     "anchor": "ISI10",
+     "title": "1 BUNGKUS ISI 10",
+     "sub": "",
+     "color": "orange",
+     "t": 1.4,
+     "lift": 90
+    }
+   ],
+   "hud": {
+    "title": "HARGA PABRIK",
+    "start": 0,
+    "to": 6000,
+    "max": 6000,
+    "unit": "/ bungkus",
+    "t": 0.4,
+    "dur": 1.2,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "target_text": "isi 10"
+   }
+  },
+  {
+   "id": "T06",
+   "bubble": "Antar sampai **rumah**",
+   "labels": [
+    {
+     "anchor": "RUMAH",
+     "title": "SIAP ANTAR",
+     "sub": "sampai rumah",
+     "color": "blue",
+     "t": 3.4,
+     "lift": 70
+    }
+   ],
+   "hud": {
+    "title": "HARGA JUAL",
+    "start": 0,
+    "to": 8500,
+    "max": 8500,
+    "unit": "/ bungkus",
+    "t": 0.4,
+    "dur": 1.4,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "target_text": "ke konsumen"
+   }
+  },
+  {
+   "id": "T07",
+   "bubble": "Margin **Rp2.500**",
+   "labels": [
+    {
+     "anchor": "HPABRIK",
+     "title": "HARGA PABRIK",
+     "sub": "Rp6.000",
+     "color": "orange",
+     "t": 0.3,
+     "lift": 90
+    },
+    {
+     "anchor": "HJUAL",
+     "title": "HARGA JUAL",
+     "sub": "Rp8.500",
+     "color": "blue",
+     "t": 1.0,
+     "lift": 130
+    },
+    {
+     "anchor": "MARGIN",
+     "title": "MARGIN",
+     "sub": "Rp2.500",
+     "color": "green",
+     "t": 2.4,
+     "lift": 30
+    }
+   ],
+   "hud": {
+    "title": "MARGIN",
+    "start": 0,
+    "to": 2500,
+    "max": 2500,
+    "unit": "/ bungkus",
+    "t": 2.3,
+    "dur": 1.2,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "target_text": "8.500 - 6.000",
+    "green_when_full": true
+   }
+  },
+  {
+   "id": "T08",
+   "bubble": "Biar nggak **sisa**?",
+   "labels": [
+    {
+     "anchor": "TUMPUK",
+     "title": "STOK MENUMPUK",
+     "sub": "",
+     "color": "orange",
+     "t": 0.8,
+     "lift": 90
+    },
+    {
+     "anchor": "RUGI",
+     "title": "SISA = TERBUANG",
+     "sub": "rugi",
+     "color": "red",
+     "t": 2.2,
+     "lift": 50
+    }
+   ]
+  },
+  {
+   "id": "T09",
+   "bubble": "Cari **pelanggan** dulu",
+   "labels": [
+    {
+     "anchor": "KOMPLEKS_A",
+     "title": "KOMPLEKS A",
+     "sub": "",
+     "color": "purple",
+     "t": 0.3,
+     "lift": 60
+    },
+    {
+     "anchor": "KOMPLEKS_B",
+     "title": "KOMPLEKS B",
+     "sub": "",
+     "color": "purple",
+     "t": 1.2,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "T10",
+   "bubble": "Kirim **terjadwal**",
+   "labels": [
+    {
+     "anchor": "RUMAH",
+     "title": "PELANGGAN TETAP",
+     "sub": "kirim tiap Kamis",
+     "color": "green",
+     "t": 1.6,
+     "lift": 60
+    }
+   ],
+   "panels": [
+    {
+     "type": "schedule",
+     "t": 0.3,
+     "y": 640,
+     "day": "KAM",
+     "title": "JADWAL KIRIM",
+     "tag": "1x SEMINGGU"
+    }
+   ]
+  },
+  {
+   "id": "T11",
+   "bubble": "Catat di **database**",
+   "panels": [
+    {
+     "type": "table",
+     "t": 0.05,
+     "y": 620,
+     "rows": [
+      [
+       "Bu Sari",
+       "A-3",
+       "2",
+       "Senin"
+      ],
+      [
+       "Pak Budi",
+       "A-7",
+       "1",
+       "Selasa"
+      ],
+      [
+       "Bu Rina",
+       "B-2",
+       "3",
+       "Kamis"
+      ],
+      [
+       "Bu Wati",
+       "B-5",
+       "2",
+       "Sabtu"
+      ]
+     ],
+     "step": 0.22
+    }
+   ]
+  },
+  {
+   "id": "T12",
+   "bubble": "Ambil **sesuai pesanan**",
+   "labels": [
+    {
+     "anchor": "BOKS",
+     "title": "SESUAI PESANAN",
+     "sub": "nggak sisa",
+     "color": "green",
+     "t": 1.4,
+     "lift": 60
+    }
+   ],
+   "panels": [
+    {
+     "type": "table",
+     "t": -3,
+     "y": 620,
+     "rows": [
+      [
+       "Bu Sari",
+       "A-3",
+       "2",
+       "Senin"
+      ],
+      [
+       "Pak Budi",
+       "A-7",
+       "1",
+       "Selasa"
+      ],
+      [
+       "Bu Rina",
+       "B-2",
+       "3",
+       "Kamis"
+      ],
+      [
+       "Bu Wati",
+       "B-5",
+       "2",
+       "Sabtu"
+      ]
+     ],
+     "until": 1.1
+    }
+   ],
+   "hud": {
+    "title": "PESANAN HARI INI",
+    "start": 0,
+    "to": 100,
+    "max": 100,
+    "unit": "bungkus",
+    "t": 0.6,
+    "dur": 2.2,
+    "pos": [
+     56,
+     1430
+    ],
+    "target_text": "dari database",
+    "green_when_full": true
+   }
+  },
+  {
+   "id": "T13",
+   "bubble": "Jaringan **pelanggan tetap**",
+   "labels": []
+  },
+  {
+   "id": "T14",
+   "bubble": "Target **100**/hari",
+   "hud": {
+    "title": "TARGET HARIAN",
+    "start": 0,
+    "to": 100,
+    "max": 100,
+    "unit": "bungkus / hari",
+    "t": 0.2,
+    "dur": 2.0,
+    "pos": [
+     56,
+     1430
+    ],
+    "target_text": "setiap hari",
+    "green_when_full": true
+   }
+  },
+  {
+   "id": "T15",
+   "bubble": "**Rp7,5 juta**/bulan",
+   "hud": {
+    "title": "Rp2.500 × 100 × 30 HARI",
+    "start": 0,
+    "to": 7500000,
+    "max": 7500000,
+    "unit": "/ bulan",
+    "t": 0.4,
+    "dur": 4.2,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "target_text": "",
+    "green_when_full": true
+   }
+  },
+  {
+   "id": "T16",
+   "bubble": "Masih **laba kotor**",
+   "labels": [
+    {
+     "anchor": "BENSIN",
+     "title": "BENSIN",
+     "sub": "biaya",
+     "color": "red",
+     "t": 2.8,
+     "lift": 60
+    },
+    {
+     "anchor": "KURIR",
+     "title": "KURIR",
+     "sub": "biaya",
+     "color": "red",
+     "t": 3.4,
+     "lift": 40
+    },
+    {
+     "anchor": "OPS",
+     "title": "OPERASIONAL",
+     "sub": "biaya",
+     "color": "red",
+     "t": 4.2,
+     "lift": 40
+    }
+   ],
+   "hud": {
+    "title": "LABA KOTOR",
+    "start": 7500000,
+    "to": 7500000,
+    "max": 7500000,
+    "unit": "/ bulan",
+    "t": 1.4,
+    "dur": 0.01,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "target_text": "belum dipotong biaya"
+   }
+  },
+  {
+   "id": "T17",
+   "bubble": "Rekrut **kurir** & tim",
+   "labels": [
+    {
+     "anchor": "AREA1",
+     "title": "AREA BARU",
+     "sub": "",
+     "color": "purple",
+     "t": 2.5,
+     "lift": 40
+    },
+    {
+     "anchor": "AREA2",
+     "title": "AREA BARU",
+     "sub": "",
+     "color": "purple",
+     "t": 3.5,
+     "lift": 40
+    }
+   ]
+  },
+  {
+   "id": "T18",
+   "bubble": "Kebutuhan **sederhana**",
+   "labels": [
+    {
+     "anchor": "RUMAH",
+     "title": "DIBELI BERULANG",
+     "sub": "tiap minggu",
+     "color": "green",
+     "t": 3.0,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "T19",
+   "bubble": "Layak **dicoba**?",
+   "labels": []
+  },
+  {
+   "id": "T20",
+   "bubble": "**Follow** ya!",
+   "cta": 1.4
+  }
+ ]
+}

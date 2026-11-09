@@ -74,6 +74,101 @@ def draw_cta(img, t_in, y=1530):
                                  fill=(255, 255, 255, int(255 * a)), stroke_width=4, stroke_fill=(15, 15, 18))
 
 
+DAYS = ["SEN", "SEL", "RAB", "KAM", "JUM", "SAB", "MIN"]
+
+
+def _card(w, h):
+    layer = Image.new("RGBA", (w + 14, h + 16), (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+    d.rounded_rectangle([8, 12, w + 8, h + 12], 30, fill=(20, 20, 24, 255))
+    d.rounded_rectangle([0, 0, w, h], 30, fill=(255, 255, 255, 255), outline=C.INK, width=4)
+    return layer, d
+
+
+def _fade_in(layer, t_in, until=None, t_local=None):
+    a = C.ease_out(t_in / .3)
+    if until is not None and t_local is not None:
+        a *= max(0.0, min(1.0, 1 - (t_local - until) / .25))
+    return a
+
+
+def _place(img, layer, a, x, y, t_in):
+    if a <= .01:
+        return
+    if a < 1:
+        layer.putalpha(layer.getchannel("A").point(lambda v: int(v * a)))
+    img.alpha_composite(layer, (int(x), int(y + (1 - C.ease_out(t_in / .3)) * 40)))
+
+
+def draw_schedule(img, p, t_in, t_local):
+    """panel jadwal kirim mingguan: 7 hari, satu hari ditandai (ikon tahu)."""
+    w, h = 900, 250
+    layer, d = _card(w, h)
+    f1, f2 = C.font(C.F800, 34), C.font(C.F800, 30)
+    d.text((36, 26), p.get("title", "JADWAL KIRIM"), font=f1, fill=C.INK)
+    tag = p.get("tag", "1x SEMINGGU")
+    tw = C.font(C.F800, 26).getlength(tag)
+    d.rounded_rectangle([w - 36 - tw - 36, 24, w - 36, 72], 24, fill=C.RED + (255,))
+    d.text((w - 36 - tw - 18, 32), tag, font=C.font(C.F800, 26), fill=(255, 255, 255))
+    pw = (w - 72 - 6 * 14) / 7
+    for i, day in enumerate(DAYS):
+        x0 = 36 + i * (pw + 14)
+        hit = day == p.get("day", "KAM")
+        s = C.ease_out_back((t_in - .5) / .3) if hit else 1
+        col = (255, 205, 40, 255) if (hit and t_in > .5) else (238, 241, 244, 255)
+        d.rounded_rectangle([x0, 100, x0 + pw, 220], 22, fill=col)
+        d.text((x0 + (pw - f2.getlength(day)) / 2, 112), day, font=f2, fill=C.INK)
+        if hit and t_in > .5:
+            q = 26 * max(.01, s)
+            cx, cy = x0 + pw / 2, 182
+            d.rounded_rectangle([cx - q, cy - q * .75, cx + q, cy + q * .75], 6, fill=(244, 194, 31, 255),
+                                outline=(150, 110, 10, 255), width=3)
+    _place(img, layer, _fade_in(layer, t_in, p.get("until"), t_local), (img.width - w) / 2, p.get("y", 700), t_in)
+
+
+def draw_table(img, p, t_in, t_local):
+    """panel database pelanggan: baris muncul satu per satu."""
+    rows = p["rows"]
+    cols = p.get("cols", ["NAMA", "BLOK", "BKS", "HARI"])
+    cw = p.get("widths", [330, 150, 130, 220])
+    w = sum(cw) + 72
+    rh = 62
+    h = 96 + 54 + rh * len(rows) + 24
+    layer, d = _card(w, h)
+    f1, fh, fr = C.font(C.F800, 34), C.font(C.F800, 24), C.font(C.F700, 32)
+    d.text((36, 28), p.get("title", "DATABASE PELANGGAN"), font=f1, fill=C.INK)
+    d.ellipse([w - 70, 36, w - 40, 66], fill=(76, 196, 108, 255))
+    y = 96
+    d.rounded_rectangle([24, y, w - 24, y + 46], 14, fill=(238, 241, 244, 255))
+    x = 36
+    for c, cwid in zip(cols, cw):
+        d.text((x, y + 9), c, font=fh, fill=(110, 118, 128))
+        x += cwid
+    for k, row in enumerate(rows):
+        ra = C.ease_out((t_in - .3 - k * p.get("step", .28)) / .25)
+        if ra <= 0:
+            continue
+        y = 96 + 54 + k * rh
+        x = 36 - (1 - ra) * 30
+        if k % 2:
+            d.rounded_rectangle([24, y - 4, w - 24, y + rh - 8], 12, fill=(248, 249, 250, int(255 * ra)))
+        for j, (v, cwid) in enumerate(zip(row, cw)):
+            col = C.INK if j != 2 else C.RED
+            d.text((x, y + 8), str(v), font=fr, fill=col + (int(255 * ra),) if len(col) == 3 else col)
+            x += cwid
+    _place(img, layer, _fade_in(layer, t_in, p.get("until"), t_local), (img.width - w) / 2, p.get("y", 640), t_in)
+
+
+def draw_panel(img, p, t_local):
+    t_in = t_local - p.get("t", 0)
+    if t_in <= 0:
+        return
+    if p["type"] == "schedule":
+        draw_schedule(img, p, t_in, t_local)
+    elif p["type"] == "table":
+        draw_table(img, p, t_in, t_local)
+
+
 def hud_value(hud, t):
     p = (t - hud["t"]) / max(.01, hud["dur"])
     return hud["start"] + (hud["to"] - hud["start"]) * C.ease_out(p)
@@ -145,6 +240,8 @@ def main():
                     ax = min(max(ax, half + 10), 1070 - half)
                     C.draw_label(img, lb["title"], lb.get("sub", ""), lb["color"], ax, ay, t - lb.get("t", .2),
                                  lb.get("lift", 110))
+                for pn in sc.get("panels", []):
+                    draw_panel(img, pn, t)
                 draw_bubble_center(img, sc["bubble"], t - .05)
                 cur = None
                 for st, en, parts in subs:

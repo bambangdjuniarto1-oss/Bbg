@@ -162,16 +162,23 @@ def draw_hud(img, hud, value, t_in, x, y):
     a = ease_out(t_in / 0.3)
     if a <= 0.01:
         return
-    w, h = 500, 150
+    fn = font(F800, 58)
+    fu = font(F700, 28)
+    fc = font(F800, 22)
+
+    def fmt(v):
+        if hud.get("decimals"):
+            return hud.get("prefix", "") + f"{v:.{hud['decimals']}f}".replace(".", ",")
+        return hud.get("prefix", "") + f"{int(round(v)):,}".replace(",", ".")
+    num = fmt(value)
+    need = 32 + fn.getlength(fmt(max(hud.get("to", value), value))) + 8 + fu.getlength(hud.get("unit", "")) + 26
+    need = max(need, 26 + fc.getlength(hud["title"]) + 30 + font(F700, 22).getlength(hud.get("target_text", "")) + 26)
+    w, h = int(max(500, need)), 150
     layer = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     d = ImageDraw.Draw(layer)
     d.rounded_rectangle([0, 0, w, h], 22, fill=(28, 32, 38, 215))
-    fc = font(F800, 22)
     d.text((26, 20), hud["title"], font=fc, fill=(220, 225, 230))
-    fn = font(F800, 58)
-    num = hud.get("prefix", "") + f"{int(round(value)):,}".replace(",", ".")
     d.text((26, 52), num, font=fn, fill=YELLOW)
-    fu = font(F700, 28)
     d.text((32 + fn.getlength(num), 78), hud.get("unit", ""), font=fu, fill=(220, 225, 230))
     frac = max(0.0, min(1.0, value / hud["max"]))
     d.rounded_rectangle([26, 124, w - 26, 136], 6, fill=(70, 76, 84))
