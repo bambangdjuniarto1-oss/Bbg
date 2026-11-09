@@ -180,7 +180,7 @@ def draw_hud(img, hud, value, t_in, x, y):
         d.rounded_rectangle([26, 124, 26 + (w - 52) * frac, 136], 6, fill=bar)
     fm = font(F700, 22)
     tgt = hud.get("target_text", f"target {hud['max']:,}".replace(",", "."))
-    d.text((w - 26 - fm.getlength(tgt), 84), tgt, font=fm, fill=(160, 168, 176))
+    d.text((w - 26 - fm.getlength(tgt), 21), tgt, font=fm, fill=(160, 168, 176))
     if a < 1:
         layer.putalpha(layer.getchannel("A").point(lambda v: int(v * a)))
     img.alpha_composite(layer, (int(x - (1 - a) * 40), int(y)))
