@@ -115,7 +115,7 @@
      "sub": "",
      "color": "green",
      "t": 2.6,
-     "lift": 80
+     "lift": 170
     }
    ]
   },
@@ -339,7 +339,7 @@
      "sub": "nggak sisa",
      "color": "green",
      "t": 1.4,
-     "lift": 60
+     "lift": 200
     }
    ],
    "panels": [
