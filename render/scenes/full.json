@@ -1,0 +1,495 @@
+{
+ "keywords": [
+  "50",
+  "juta",
+  "bisa",
+  "puluhan",
+  "mana",
+  "bareng",
+  "30",
+  "ribu",
+  "1.667",
+  "55",
+  "nunggu",
+  "berat",
+  "gandeng",
+  "laundry",
+  "males",
+  "sistem",
+  "khusus",
+  "selisih",
+  "tambahan",
+  "order",
+  "setiap",
+  "hari",
+  "masuk",
+  "akal",
+  "customer",
+  "terus",
+  "follow",
+  "nyata"
+ ],
+ "scenes": [
+  {
+   "id": "S01",
+   "bubble": "Omzet **50 juta**?",
+   "labels": [
+    {
+     "anchor": "TOKO_FRONT",
+     "title": "TOKO CUCI SEPATU",
+     "sub": "",
+     "color": "red",
+     "t": 0.6,
+     "lift": 70
+    }
+   ],
+   "hud": {
+    "title": "TARGET OMZET",
+    "prefix": "Rp ",
+    "unit": "juta / bulan",
+    "start": 0,
+    "to": 50,
+    "max": 50,
+    "t": 0.4,
+    "dur": 2.2,
+    "target_text": "per bulan",
+    "pos": [
+     56,
+     1430
+    ]
+   }
+  },
+  {
+   "id": "S02",
+   "bubble": "Datang dari **mana**?",
+   "labels": [
+    {
+     "anchor": "TOKO",
+     "title": "TOKO KAMU",
+     "sub": "",
+     "color": "red",
+     "t": 0.2,
+     "lift": 90
+    },
+    {
+     "anchor": "Q1",
+     "title": "?",
+     "sub": "",
+     "color": "orange",
+     "t": 1.5499999999999998,
+     "lift": 60
+    },
+    {
+     "anchor": "Q2",
+     "title": "?",
+     "sub": "",
+     "color": "orange",
+     "t": 1.9,
+     "lift": 60
+    },
+    {
+     "anchor": "Q3",
+     "title": "?",
+     "sub": "",
+     "color": "orange",
+     "t": 2.25,
+     "lift": 60
+    },
+    {
+     "anchor": "Q4",
+     "title": "?",
+     "sub": "",
+     "color": "orange",
+     "t": 2.5999999999999996,
+     "lift": 60
+    },
+    {
+     "anchor": "Q5",
+     "title": "?",
+     "sub": "",
+     "color": "orange",
+     "t": 2.95,
+     "lift": 60
+    },
+    {
+     "anchor": "Q6",
+     "title": "?",
+     "sub": "",
+     "color": "orange",
+     "t": 3.3,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "S03",
+   "bubble": "Hitung **bareng**",
+   "hud": {
+    "title": "HARGA CUCI",
+    "prefix": "Rp ",
+    "unit": "/ pasang",
+    "start": 0,
+    "to": 30000,
+    "max": 30000,
+    "t": 1.4,
+    "dur": 1.6,
+    "target_text": "1 pasang",
+    "pos": [
+     56,
+     1430
+    ]
+   }
+  },
+  {
+   "id": "S04",
+   "bubble": "**1.667** pasang",
+   "hud": {
+    "title": "50 JUTA ÷ 30 RIBU",
+    "unit": "pasang / bulan",
+    "start": 0,
+    "to": 1667,
+    "max": 1667,
+    "t": 0.2,
+    "dur": 5.2,
+    "target_text": "sebulan",
+    "pos": [
+     56,
+     680
+    ]
+   }
+  },
+  {
+   "id": "S05",
+   "bubble": "**55** sehari",
+   "hud": {
+    "title": "1.667 ÷ 30 HARI",
+    "unit": "pasang / hari",
+    "start": 0,
+    "to": 55,
+    "max": 55,
+    "t": 0.2,
+    "dur": 4.0,
+    "target_text": "sehari",
+    "green_when_full": true,
+    "pos": [
+     56,
+     1430
+    ]
+   }
+  },
+  {
+   "id": "S06",
+   "bubble": "Cuma **nunggu**?",
+   "labels": [
+    {
+     "anchor": "TOKO_FRONT",
+     "title": "TOKO CUCI SEPATU",
+     "sub": "NUNGGU PEMBELI",
+     "color": "red",
+     "t": 0.4,
+     "lift": 70
+    }
+   ],
+   "hud": {
+    "title": "SEPATU MASUK HARI INI",
+    "unit": "pasang",
+    "start": 0,
+    "to": 4,
+    "max": 55,
+    "t": 0.6,
+    "dur": 4.0,
+    "pos": [
+     56,
+     1430
+    ]
+   }
+  },
+  {
+   "id": "S07",
+   "bubble": "Gandeng **laundry**",
+   "labels": [
+    {
+     "anchor": "TOKO",
+     "title": "TOKO KAMU",
+     "sub": "",
+     "color": "red",
+     "t": 0.1,
+     "lift": 80
+    },
+    {
+     "anchor": "LAUNDRY",
+     "title": "LAUNDRY",
+     "sub": "CALON MITRA",
+     "color": "green",
+     "t": 0.5,
+     "lift": 80
+    },
+    {
+     "anchor": "SALAM",
+     "title": "KERJA SAMA",
+     "sub": "",
+     "color": "purple",
+     "t": 1.4,
+     "lift": 70
+    }
+   ]
+  },
+  {
+   "id": "S08",
+   "bubble": "Customer **sudah ada**",
+   "labels": [
+    {
+     "anchor": "LAUNDRY",
+     "title": "LAUNDRY",
+     "sub": "SUDAH PUNYA CUSTOMER",
+     "color": "green",
+     "t": 0.4,
+     "lift": 80
+    }
+   ]
+  },
+  {
+   "id": "S09",
+   "bubble": "Bikin **sistem**",
+   "labels": [
+    {
+     "anchor": "MITRA 3",
+     "title": "LAUNDRY",
+     "sub": "MITRA",
+     "color": "green",
+     "t": 0.2,
+     "lift": 90
+    },
+    {
+     "anchor": "TOKO",
+     "title": "TOKO KAMU",
+     "sub": "",
+     "color": "red",
+     "t": 0.5,
+     "lift": 90
+    },
+    {
+     "anchor": "SISTEM",
+     "title": "SISTEM KERJA SAMA",
+     "sub": "ANTAR-JEMPUT SEPATU",
+     "color": "purple",
+     "t": 1.4,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "S10",
+   "bubble": "Harga **mitra**",
+   "labels": [
+    {
+     "anchor": "HARGA_A",
+     "title": "HARGA MITRA",
+     "sub": "LEBIH MURAH",
+     "color": "orange",
+     "t": 0.6,
+     "lift": 40
+    },
+    {
+     "anchor": "HARGA_B",
+     "title": "HARGA KE CUSTOMER",
+     "sub": "HARGA NORMAL",
+     "color": "blue",
+     "t": 1.6,
+     "lift": 40
+    },
+    {
+     "anchor": "SELISIH",
+     "title": "SELISIH = UNTUNG MITRA",
+     "sub": "",
+     "color": "green",
+     "t": 3.0,
+     "lift": 80
+    }
+   ]
+  },
+  {
+   "id": "S11",
+   "bubble": "**Order** ngalir",
+   "labels": [
+    {
+     "anchor": "TOKO_FRONT",
+     "title": "TOKO KAMU",
+     "sub": "ORDER TAMBAHAN",
+     "color": "red",
+     "t": 0.6,
+     "lift": 70
+    }
+   ]
+  },
+  {
+   "id": "S12",
+   "bubble": "Mitra **tiap hari**",
+   "labels": [
+    {
+     "anchor": "TOKO",
+     "title": "TOKO CUCI SEPATU",
+     "sub": "TOKO KAMU",
+     "color": "red",
+     "t": 0.15,
+     "lift": 110
+    },
+    {
+     "anchor": "MITRA 1",
+     "title": "MITRA",
+     "sub": "LAUNDRY",
+     "color": "green",
+     "t": 0.44999999999999996,
+     "lift": 90
+    },
+    {
+     "anchor": "MITRA 2",
+     "title": "MITRA",
+     "sub": "LAUNDRY",
+     "color": "green",
+     "t": 0.6,
+     "lift": 90
+    },
+    {
+     "anchor": "MITRA 3",
+     "title": "MITRA",
+     "sub": "LAUNDRY",
+     "color": "green",
+     "t": 0.75,
+     "lift": 90
+    },
+    {
+     "anchor": "MITRA 4",
+     "title": "MITRA",
+     "sub": "LAUNDRY",
+     "color": "green",
+     "t": 0.8999999999999999,
+     "lift": 90
+    },
+    {
+     "anchor": "MITRA 5",
+     "title": "MITRA",
+     "sub": "LAUNDRY",
+     "color": "green",
+     "t": 1.05,
+     "lift": 90
+    }
+   ],
+   "hud": {
+    "title": "SEPATU MASUK HARI INI",
+    "unit": "pasang",
+    "start": 0,
+    "to": 38,
+    "max": 55,
+    "t": 0.6,
+    "dur": 4.2,
+    "pos": [
+     56,
+     1430
+    ]
+   }
+  },
+  {
+   "id": "S13",
+   "bubble": "Jadi **masuk akal**",
+   "labels": [
+    {
+     "anchor": "TOKO_FRONT",
+     "title": "TOKO KAMU",
+     "sub": "TARGET TERCAPAI",
+     "color": "red",
+     "t": 0.2,
+     "lift": 70
+    }
+   ],
+   "hud": {
+    "title": "SEPATU MASUK HARI INI",
+    "unit": "pasang",
+    "start": 38,
+    "to": 55,
+    "max": 55,
+    "t": 0.1,
+    "dur": 2.0,
+    "green_when_full": true,
+    "pos": [
+     56,
+     1430
+    ]
+   }
+  },
+  {
+   "id": "S14",
+   "bubble": "Bukan cuma **customer**",
+   "labels": [
+    {
+     "anchor": "TOKO_FRONT",
+     "title": "CARI CUSTOMER",
+     "sub": "SATU PER SATU",
+     "color": "red",
+     "t": 0.3,
+     "lift": 70
+    }
+   ]
+  },
+  {
+   "id": "S15",
+   "bubble": "Bangun **sistem**",
+   "labels": [
+    {
+     "anchor": "TOKO",
+     "title": "TOKO KAMU",
+     "sub": "",
+     "color": "red",
+     "t": 0.1,
+     "lift": 100
+    },
+    {
+     "anchor": "MITRA 1",
+     "title": "MITRA",
+     "sub": "LAUNDRY",
+     "color": "green",
+     "t": 0.2,
+     "lift": 90
+    },
+    {
+     "anchor": "MITRA 2",
+     "title": "MITRA",
+     "sub": "LAUNDRY",
+     "color": "green",
+     "t": 0.30000000000000004,
+     "lift": 90
+    },
+    {
+     "anchor": "MITRA 3",
+     "title": "MITRA",
+     "sub": "LAUNDRY",
+     "color": "green",
+     "t": 0.4,
+     "lift": 90
+    },
+    {
+     "anchor": "MITRA 4",
+     "title": "MITRA",
+     "sub": "LAUNDRY",
+     "color": "green",
+     "t": 0.5,
+     "lift": 90
+    },
+    {
+     "anchor": "MITRA 5",
+     "title": "MITRA",
+     "sub": "LAUNDRY",
+     "color": "green",
+     "t": 0.6000000000000001,
+     "lift": 90
+    }
+   ]
+  },
+  {
+   "id": "S16",
+   "bubble": "**Follow** ya!",
+   "cta": 1.0,
+   "labels": []
+  }
+ ]
+}

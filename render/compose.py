@@ -169,16 +169,17 @@ def draw_hud(img, hud, value, t_in, x, y):
     fc = font(F800, 22)
     d.text((26, 20), hud["title"], font=fc, fill=(220, 225, 230))
     fn = font(F800, 58)
-    num = f"{int(round(value))}"
+    num = hud.get("prefix", "") + f"{int(round(value)):,}".replace(",", ".")
     d.text((26, 52), num, font=fn, fill=YELLOW)
     fu = font(F700, 28)
     d.text((32 + fn.getlength(num), 78), hud.get("unit", ""), font=fu, fill=(220, 225, 230))
     frac = max(0.0, min(1.0, value / hud["max"]))
     d.rounded_rectangle([26, 124, w - 26, 136], 6, fill=(70, 76, 84))
     if frac > 0:
-        d.rounded_rectangle([26, 124, 26 + (w - 52) * frac, 136], 6, fill=YELLOW)
+        bar = (76, 196, 108) if (frac >= .999 and hud.get("green_when_full")) else YELLOW
+        d.rounded_rectangle([26, 124, 26 + (w - 52) * frac, 136], 6, fill=bar)
     fm = font(F700, 22)
-    tgt = f"target {hud['max']}"
+    tgt = hud.get("target_text", f"target {hud['max']:,}".replace(",", "."))
     d.text((w - 26 - fm.getlength(tgt), 84), tgt, font=fm, fill=(160, 168, 176))
     if a < 1:
         layer.putalpha(layer.getchannel("A").point(lambda v: int(v * a)))
