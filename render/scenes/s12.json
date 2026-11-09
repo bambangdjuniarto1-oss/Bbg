@@ -1,0 +1,85 @@
+{
+  "id": "S12",
+  "t_start": 53.4,
+  "t_end": 58.3,
+  "host_name": "Nama Host",
+  "bubble": "Mitra **tiap hari**",
+  "bubble_t": 0.05,
+  "keywords": [
+    "laundry",
+    "mitra",
+    "setiap",
+    "hari"
+  ],
+  "words_per_chunk": 3,
+  "hud": {
+    "title": "SEPATU MASUK HARI INI",
+    "unit": "pasang",
+    "start": 0,
+    "to": 38,
+    "max": 55,
+    "t": 0.6,
+    "dur": 4.2,
+    "pos": [
+      56,
+      1440
+    ]
+  },
+  "labels": [
+    {
+      "anchor": "TOKO CUCI SEPATU",
+      "title": "TOKO CUCI SEPATU",
+      "sub": "TOKO KAMU",
+      "color": "red",
+      "t": 0.15,
+      "lift": 120
+    },
+    {
+      "anchor": "MITRA 5",
+      "title": "MITRA",
+      "sub": "LAUNDRY",
+      "color": "green",
+      "t": 0.45,
+      "lift": 90
+    },
+    {
+      "anchor": "MITRA 3",
+      "title": "MITRA",
+      "sub": "LAUNDRY",
+      "color": "green",
+      "t": 0.65,
+      "lift": 70
+    },
+    {
+      "anchor": "MITRA 2",
+      "title": "MITRA",
+      "sub": "LAUNDRY",
+      "color": "green",
+      "t": 0.85,
+      "lift": 110
+    },
+    {
+      "anchor": "MITRA 1",
+      "title": "MITRA",
+      "sub": "LAUNDRY",
+      "color": "green",
+      "t": 1.0,
+      "lift": 110
+    },
+    {
+      "anchor": "MITRA 4",
+      "title": "MITRA",
+      "sub": "LAUNDRY",
+      "color": "green",
+      "t": 1.1,
+      "lift": 110
+    }
+  ],
+  "chunks": [
+    1,
+    3,
+    2,
+    3,
+    2
+  ]
+}
