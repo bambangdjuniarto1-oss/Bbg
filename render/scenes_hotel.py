@@ -306,6 +306,11 @@ def h11(n, info, A, cx=800, cy=0):
 
 def h12(n, info, A):
     """omzet bukan untung: gaji, listrik, air, laundry, komisi aplikasi, maintenance."""
+    # minimarket utama berada di antara kamera dan hotel: sembunyikan agar tidak menutupi
+    for o in [info["mm_main"]] + list(info["mm_sign"] if isinstance(info["mm_sign"], (list, tuple)) else [info["mm_sign"]]):
+        o.hide_render = True
+        for c in getattr(o, "children_recursive", []):
+            c.hide_render = True
     props = W.MB("ops")
     # troli laundry penuh linen
     lx, ly = HX + 6.0, HFRONT - 2.2
