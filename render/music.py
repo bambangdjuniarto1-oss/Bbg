@@ -144,7 +144,16 @@ CHORDS_B = [
 ]
 MOTIF_B = [(0, 76), (.5, 79), (1.5, 76), (2, 74), (3, 72),
            (4, 74), (4.5, 76), (5.5, 72), (6.5, 69), (7, 72)]
-VARIANTS = {"A": None, "B": (CHORDS_B, MOTIF_B)}
+# variasi C (video hotel): kunci F mayor, progresi F-C-Dm-Bb, motif lebih tenang
+CHORDS_C = [
+    (41, [57, 60, 65, 69]),   # F
+    (36, [55, 60, 64, 67]),   # C
+    (38, [57, 62, 65, 69]),   # Dm
+    (46, [58, 62, 65, 70]),   # Bb
+]
+MOTIF_C = [(0, 77), (1, 76), (1.5, 72), (2.5, 69), (3, 72),
+           (4, 74), (5, 72), (5.5, 70), (6.5, 69), (7, 65)]
+VARIANTS = {"A": None, "B": (CHORDS_B, MOTIF_B), "C": (CHORDS_C, MOTIF_C)}
 
 
 def render(dur, bpm=128.0, brk=(20.6, 24.4)):

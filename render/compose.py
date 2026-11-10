@@ -168,7 +168,10 @@ def draw_hud(img, hud, value, t_in, x, y):
 
     def fmt(v):
         if hud.get("decimals"):
-            return hud.get("prefix", "") + f"{v:.{hud['decimals']}f}".replace(".", ",")
+            txt = f"{v:.{hud['decimals']}f}".replace(".", ",")
+            if hud.get("trim_zero") and txt.endswith(",0"):
+                txt = txt[:-2]
+            return hud.get("prefix", "") + txt
         return hud.get("prefix", "") + f"{int(round(v)):,}".replace(",", ".")
     num = fmt(value)
     need = 32 + fn.getlength(fmt(max(hud.get("to", value), value))) + 8 + fu.getlength(hud.get("unit", "")) + 26
@@ -184,6 +187,8 @@ def draw_hud(img, hud, value, t_in, x, y):
     d.rounded_rectangle([26, 124, w - 26, 136], 6, fill=(70, 76, 84))
     if frac > 0:
         bar = (76, 196, 108) if (frac >= .999 and hud.get("green_when_full")) else YELLOW
+        if hud.get("bar") == "red":
+            bar = (226, 83, 74)
         d.rounded_rectangle([26, 124, 26 + (w - 52) * frac, 136], 6, fill=bar)
     fm = font(F700, 22)
     tgt = hud.get("target_text", f"target {hud['max']:,}".replace(",", "."))

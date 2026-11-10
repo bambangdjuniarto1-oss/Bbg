@@ -1,0 +1,657 @@
+{
+ "keywords": [
+  "40",
+  "miliar",
+  "hotel",
+  "untung",
+  "30",
+  "kamar",
+  "15",
+  "gedung",
+  "3,6",
+  "interior",
+  "350",
+  "ribu",
+  "okupansi",
+  "60%",
+  "18",
+  "omzetnya",
+  "189",
+  "juta",
+  "2,268",
+  "130",
+  "59",
+  "708",
+  "surplusnya",
+  "pajak",
+  "restoran",
+  "meeting",
+  "room",
+  "gathering",
+  "perusahaan",
+  "travel",
+  "agent",
+  "minimarket",
+  "cabang",
+  "properti",
+  "distribusi",
+  "komentar",
+  "bedah",
+  "midscale"
+ ],
+ "scenes": [
+  {
+   "id": "H01",
+   "bubble": "Punya **Rp40 miliar**?",
+   "hud": {
+    "title": "MODAL",
+    "start": 0,
+    "to": 40,
+    "max": 40,
+    "unit": "miliar",
+    "t": 0.3,
+    "dur": 1.2,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "target_text": "",
+    "green_when_full": true
+   }
+  },
+  {
+   "id": "H02",
+   "bubble": "Bangun **hotel**?"
+  },
+  {
+   "id": "H03",
+   "bubble": "Beneran **untung**?",
+   "labels": [
+    {
+     "anchor": "UNTUNG",
+     "title": "BEDAH HITUNGAN",
+     "sub": "",
+     "color": "orange",
+     "t": 2.2,
+     "lift": 90
+    }
+   ]
+  },
+  {
+   "id": "H04",
+   "bubble": "Hotel **30 kamar**",
+   "labels": [
+    {
+     "anchor": "MIDSCALE",
+     "title": "BUDGET-MIDSCALE",
+     "sub": "",
+     "color": "blue",
+     "t": 0.3,
+     "lift": 90
+    }
+   ],
+   "hud": {
+    "title": "JUMLAH KAMAR",
+    "start": 0,
+    "to": 30,
+    "max": 30,
+    "unit": "kamar",
+    "t": 0.8,
+    "dur": 2.0,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "",
+    "target_text": "5 lantai × 6 kamar"
+   }
+  },
+  {
+   "id": "H05",
+   "bubble": "Tanah + **gedung**",
+   "labels": [
+    {
+     "anchor": "TANAH",
+     "title": "TANAH",
+     "sub": "Rp15 miliar",
+     "color": "orange",
+     "t": 0.2,
+     "lift": 90
+    },
+    {
+     "anchor": "GEDUNG",
+     "title": "GEDUNG",
+     "sub": "Rp15 miliar",
+     "color": "blue",
+     "t": 1.2,
+     "lift": 70
+    }
+   ],
+   "hud": {
+    "title": "TOTAL INVESTASI",
+    "start": 0,
+    "to": 30,
+    "max": 40,
+    "unit": "miliar",
+    "t": 0.2,
+    "dur": 1.9,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "target_text": "estimasi"
+   }
+  },
+  {
+   "id": "H06",
+   "bubble": "Interior **Rp3,6 miliar**",
+   "labels": [
+    {
+     "anchor": "INTERIOR",
+     "title": "INTERIOR & FURNITUR",
+     "sub": "Rp3,6 miliar",
+     "color": "orange",
+     "t": 0.3,
+     "lift": 120
+    }
+   ],
+   "hud": {
+    "title": "TOTAL INVESTASI",
+    "start": 30,
+    "to": 33.6,
+    "max": 40,
+    "unit": "miliar",
+    "t": 0.2,
+    "dur": 1.0,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "target_text": "estimasi",
+    "decimals": 1,
+    "trim_zero": true
+   }
+  },
+  {
+   "id": "H07",
+   "bubble": "Plus biaya **lainnya**",
+   "panels": [
+    {
+     "type": "table",
+     "t": 0.0,
+     "step": 0.72,
+     "y": 490,
+     "title": "RINCIAN LAINNYA",
+     "cols": [
+      "POS BIAYA",
+      "NILAI"
+     ],
+     "widths": [
+      600,
+      240
+     ],
+     "rows": [
+      [
+       "Infrastruktur & area luar",
+       "Rp2 M"
+      ],
+      [
+       "Desain, konsultan, izin",
+       "Rp1,5 M"
+      ],
+      [
+       "Dana cadangan",
+       "Rp1,5 M"
+      ],
+      [
+       "Modal kerja awal",
+       "Rp1,4 M"
+      ]
+     ],
+     "red_col": 1
+    }
+   ],
+   "hud": {
+    "title": "TOTAL INVESTASI",
+    "start": 33.6,
+    "to": 40,
+    "max": 40,
+    "unit": "miliar",
+    "t": 0.5,
+    "dur": 3.0,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "target_text": "estimasi",
+    "decimals": 1,
+    "trim_zero": true,
+    "green_when_full": true
+   }
+  },
+  {
+   "id": "H08",
+   "bubble": "Total **±Rp40 miliar**",
+   "labels": [
+    {
+     "anchor": "HOTEL",
+     "title": "TOTAL INVESTASI",
+     "sub": "±Rp40 miliar",
+     "color": "green",
+     "t": 0.4,
+     "lift": 80
+    }
+   ],
+   "hud": {
+    "title": "TOTAL INVESTASI",
+    "start": 40,
+    "to": 40,
+    "max": 40,
+    "unit": "miliar",
+    "t": 0,
+    "dur": 0.1,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "target_text": "estimasi",
+    "green_when_full": true
+   }
+  },
+  {
+   "id": "H09",
+   "bubble": "Rp350 ribu/**malam**",
+   "labels": [
+    {
+     "anchor": "KAMAR",
+     "title": "30 KAMAR",
+     "sub": "",
+     "color": "blue",
+     "t": 0.9,
+     "lift": 120
+    }
+   ],
+   "hud": {
+    "title": "HARGA KAMAR",
+    "start": 0,
+    "to": 350000,
+    "max": 350000,
+    "unit": "/ malam",
+    "t": 2.1,
+    "dur": 1.0,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "target_text": "rata-rata"
+   }
+  },
+  {
+   "id": "H10",
+   "bubble": "Okupansi **60%**",
+   "labels": [
+    {
+     "anchor": "TERISI",
+     "title": "18 KAMAR TERISI",
+     "sub": "tiap malam",
+     "color": "green",
+     "t": 1.8,
+     "lift": 70
+    }
+   ],
+   "hud": {
+    "title": "OKUPANSI",
+    "start": 0,
+    "to": 60,
+    "max": 100,
+    "unit": "%",
+    "t": 0.3,
+    "dur": 1.6,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "",
+    "target_text": "18 dari 30 kamar"
+   }
+  },
+  {
+   "id": "H11",
+   "bubble": "Omzet **Rp189 juta**/bulan",
+   "labels": [
+    {
+     "anchor": "HARI",
+     "title": "× 30 HARI",
+     "sub": "",
+     "color": "orange",
+     "t": 0.5,
+     "lift": 110
+    },
+    {
+     "anchor": "TAHUN",
+     "title": "Rp2,268 M / TAHUN",
+     "sub": "",
+     "color": "green",
+     "t": 3.0,
+     "lift": 150
+    }
+   ],
+   "hud": {
+    "title": "OMZET KAMAR",
+    "start": 0,
+    "to": 189000000,
+    "max": 189000000,
+    "unit": "/ bulan",
+    "t": 0.3,
+    "dur": 2.4,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "target_text": "18 × Rp350rb × 30"
+   }
+  },
+  {
+   "id": "H12",
+   "bubble": "Omzet **bukan untung**",
+   "labels": [
+    {
+     "anchor": "GAJI",
+     "title": "GAJI KARYAWAN",
+     "sub": "",
+     "color": "red",
+     "t": 2.2,
+     "lift": 60
+    },
+    {
+     "anchor": "LISTRIK",
+     "title": "LISTRIK",
+     "sub": "",
+     "color": "orange",
+     "t": 2.8,
+     "lift": 230
+    },
+    {
+     "anchor": "AIR",
+     "title": "AIR",
+     "sub": "",
+     "color": "blue",
+     "t": 3.3,
+     "lift": 60
+    },
+    {
+     "anchor": "LAUNDRY",
+     "title": "LAUNDRY",
+     "sub": "",
+     "color": "purple",
+     "t": 3.6,
+     "lift": 150
+    },
+    {
+     "anchor": "KOMISI",
+     "title": "KOMISI APLIKASI",
+     "sub": "",
+     "color": "red",
+     "t": 3.9,
+     "lift": 300
+    },
+    {
+     "anchor": "MAINT",
+     "title": "MAINTENANCE",
+     "sub": "",
+     "color": "orange",
+     "t": 4.8,
+     "lift": 150
+    }
+   ],
+   "hud": {
+    "title": "BIAYA OPERASIONAL",
+    "start": 0,
+    "to": 130000000,
+    "max": 130000000,
+    "unit": "/ bulan",
+    "t": 5.4,
+    "dur": 1.5,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "target_text": "asumsi",
+    "bar": "red"
+   }
+  },
+  {
+   "id": "H13",
+   "bubble": "Surplus **Rp59 juta**/bulan",
+   "labels": [
+    {
+     "anchor": "BIAYA",
+     "title": "BIAYA OPERASIONAL",
+     "sub": "Rp130 juta",
+     "color": "red",
+     "t": 1.0,
+     "lift": 90
+    },
+    {
+     "anchor": "SURPLUS",
+     "title": "SURPLUS",
+     "sub": "Rp59 juta",
+     "color": "green",
+     "t": 2.0,
+     "lift": 130
+    }
+   ],
+   "hud": {
+    "title": "SURPLUS OPERASIONAL",
+    "start": 0,
+    "to": 59000000,
+    "max": 59000000,
+    "unit": "/ bulan",
+    "t": 0.3,
+    "dur": 2.0,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "target_text": "Rp708 jt / tahun",
+    "green_when_full": true
+   }
+  },
+  {
+   "id": "H14",
+   "bubble": "Belum **pajak** & bunga",
+   "labels": [
+    {
+     "anchor": "SURPLUS",
+     "title": "SURPLUS",
+     "sub": "Rp59 juta",
+     "color": "green",
+     "t": 0.1,
+     "lift": 100
+    },
+    {
+     "anchor": "PAJAK",
+     "title": "PAJAK",
+     "sub": "",
+     "color": "red",
+     "t": 1.3,
+     "lift": 110
+    },
+    {
+     "anchor": "BUNGA",
+     "title": "BUNGA PINJAMAN",
+     "sub": "",
+     "color": "orange",
+     "t": 1.9,
+     "lift": 60
+    },
+    {
+     "anchor": "SUSUT",
+     "title": "PENYUSUTAN",
+     "sub": "",
+     "color": "purple",
+     "t": 2.4,
+     "lift": 150
+    }
+   ]
+  },
+  {
+   "id": "H15",
+   "bubble": "Tambah **sumber pendapatan**",
+   "labels": [
+    {
+     "anchor": "RESTO",
+     "title": "RESTORAN",
+     "sub": "",
+     "color": "orange",
+     "t": 2.0,
+     "lift": 120
+    },
+    {
+     "anchor": "MEETING",
+     "title": "MEETING ROOM",
+     "sub": "",
+     "color": "blue",
+     "t": 2.6,
+     "lift": 120
+    },
+    {
+     "anchor": "GATHER",
+     "title": "PAKET GATHERING",
+     "sub": "",
+     "color": "green",
+     "t": 3.2,
+     "lift": 120
+    }
+   ]
+  },
+  {
+   "id": "H16",
+   "bubble": "Gandeng **perusahaan**",
+   "labels": [
+    {
+     "anchor": "INSTANSI",
+     "title": "INSTANSI",
+     "sub": "",
+     "color": "purple",
+     "t": 0.3,
+     "lift": 70
+    },
+    {
+     "anchor": "PERUSAHAAN",
+     "title": "PERUSAHAAN",
+     "sub": "",
+     "color": "blue",
+     "t": 0.8,
+     "lift": 70
+    },
+    {
+     "anchor": "TRAVEL",
+     "title": "TRAVEL AGENT",
+     "sub": "",
+     "color": "orange",
+     "t": 1.4,
+     "lift": 70
+    }
+   ]
+  },
+  {
+   "id": "H17",
+   "bubble": "Atau **minimarket**?",
+   "labels": [
+    {
+     "anchor": "HOTEL",
+     "title": "1 HOTEL",
+     "sub": "",
+     "color": "blue",
+     "t": 0.3,
+     "lift": 80
+    },
+    {
+     "anchor": "CAB6",
+     "title": "BANYAK CABANG",
+     "sub": "",
+     "color": "green",
+     "t": 2.6,
+     "lift": 70
+    }
+   ]
+  },
+  {
+   "id": "H18",
+   "bubble": "Beda **karakter** bisnis",
+   "labels": [
+    {
+     "anchor": "PROPERTI",
+     "title": "PROPERTI",
+     "sub": "",
+     "color": "blue",
+     "t": 0.2,
+     "lift": 80,
+     "until": 2.1
+    },
+    {
+     "anchor": "OKUPANSI",
+     "title": "OKUPANSI",
+     "sub": "",
+     "color": "blue",
+     "t": 0.8,
+     "lift": 110,
+     "until": 2.1
+    },
+    {
+     "anchor": "DISTRIBUSI",
+     "title": "DISTRIBUSI",
+     "sub": "",
+     "color": "orange",
+     "t": 2.9,
+     "lift": 80
+    },
+    {
+     "anchor": "BARANG",
+     "title": "PERPUTARAN BARANG",
+     "sub": "",
+     "color": "green",
+     "t": 3.6,
+     "lift": 80
+    }
+   ]
+  },
+  {
+   "id": "H19",
+   "bubble": "**Hotel** atau **minimarket**?",
+   "labels": [
+    {
+     "anchor": "HOTEL1",
+     "title": "1 HOTEL",
+     "sub": "",
+     "color": "blue",
+     "t": 0.4,
+     "lift": 80
+    },
+    {
+     "anchor": "CABANG",
+     "title": "BANYAK CABANG",
+     "sub": "",
+     "color": "green",
+     "t": 3.3,
+     "lift": 110
+    }
+   ]
+  },
+  {
+   "id": "H20",
+   "bubble": "Tulis di **komentar**!",
+   "cta": 1.0
+  }
+ ]
+}

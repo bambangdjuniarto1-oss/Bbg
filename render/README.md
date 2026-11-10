@@ -36,6 +36,12 @@ ffmpeg -i out/video_tahu_kuning_1080p_wm.mp4 -c:v libx264 -crf 24 -c:a aac -b:a 
 Waktu render (CPU): ~4–5 detik/frame di 720x1280 samples 4, jadi ~3 jam untuk video 80 detik.
 Hasil 720p di-upscale ke 1080x1920 saat compositing.
 
+Video hotel (Rp40 miliar) memakai alur yang sama dengan `world_hotel.py` + `scenes_hotel.py` +
+`render_hotel.sh` + `scenes/hotel.json` + `scenes/hotel_words.json`. VO-nya berisi 2 take, yang dipakai take
+pertama: `ffmpeg -i VO.wav -af "atrim=0:101.45,afade=t=out:st=101.38:d=0.07,apad=pad_dur=2.24" vo_take1.wav`,
+lalu `bash render/mix_audio.sh vo_take1.wav out/hotel_audio 1.4 47.0 50.6 C 120`.
+Cek aset: `python3 render/preview_hotel.py -- out/prev 540x960 6`.
+
 Video cuci sepatu memakai alur yang sama dengan `scenes.py` + `render_all.sh`
 + `scenes/full.json` + `scenes/words.json` (tempo 1.28, varian musik A).
 
@@ -47,6 +53,8 @@ Video cuci sepatu memakai alur yang sama dengan `scenes.py` + `render_all.sh`
 | `scenes.py` | adegan S01–S16 video cuci sepatu + helper kamera/studio |
 | `world_tahu.py` | aset video tahu: tahu, bungkus plastik, tampah, penjual, pelanggan, motor+boks, pabrik, perumahan, rute |
 | `scenes_tahu.py` | adegan T01–T20 video tahu (timeline mengikuti VO) |
+| `world_hotel.py` | aset video hotel: hotel 30 kamar (+versi potongan), kamar, lobi, restoran/meeting/ballroom, minimarket generik, kantor, uang, kalkulator |
+| `scenes_hotel.py` | adegan H01–H20 video hotel |
 | `render_all.sh`, `render_tahu.sh` | render semua adegan berurutan |
 | `compose.py` | layer 2D: header, bubble, label, HUD, subtitle |
 | `compose_full.py` | gabung semua adegan + panel (jadwal, tabel) + audio → mp4 |

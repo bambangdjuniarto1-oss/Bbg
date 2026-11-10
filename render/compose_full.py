@@ -153,7 +153,7 @@ def draw_table(img, p, t_in, t_local):
         if k % 2:
             d.rounded_rectangle([24, y - 4, w - 24, y + rh - 8], 12, fill=(248, 249, 250, int(255 * ra)))
         for j, (v, cwid) in enumerate(zip(row, cw)):
-            col = C.INK if j != 2 else C.RED
+            col = C.INK if j != p.get("red_col", 2) else C.RED
             d.text((x, y + 8), str(v), font=fr, fill=col + (int(255 * ra),) if len(col) == 3 else col)
             x += cwid
     _place(img, layer, _fade_in(layer, t_in, p.get("until"), t_local), (img.width - w) / 2, p.get("y", 640), t_in)
@@ -230,7 +230,7 @@ def main():
                     hud = sc["hud"]
                     C.draw_hud(img, hud, hud_value(hud, t), t - hud["t"], *hud.get("pos", [56, 680]))
                 for lb in sc.get("labels", []):
-                    if lb["anchor"] not in pos:
+                    if lb["anchor"] not in pos or t > lb.get("until", 1e9):
                         continue
                     ax, ay = pos[lb["anchor"]]
                     ax, ay = ax / sx, ay / sx

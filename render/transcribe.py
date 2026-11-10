@@ -8,6 +8,9 @@ Butuh: pip install faster-whisper
 """
 import argparse
 import json
+import subprocess
+
+import numpy as np
 
 from faster_whisper import WhisperModel
 
@@ -17,11 +20,14 @@ def main():
     ap.add_argument("vo")
     ap.add_argument("out")
     ap.add_argument("--speed", type=float, default=1.0, help="tempo VO di video (mis. 1.4)")
-    ap.add_argument("--model", default="small")
+    ap.add_argument("--model", default="medium")
     ap.add_argument("--lang", default="id")
     a = ap.parse_args()
     model = WhisperModel(a.model, device="cpu", compute_type="int8")
-    segs, _ = model.transcribe(a.vo, language=a.lang, word_timestamps=True, vad_filter=True)
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", a.vo, "-ac", "1", "-ar", "16000", "-f", "s16le", "-"],
+                         capture_output=True, check=True).stdout
+    audio = np.frombuffer(raw, np.int16).astype(np.float32) / 32768
+    segs, _ = model.transcribe(audio, language=a.lang, word_timestamps=True, vad_filter=True)
     words = []
     for s in segs:
         for w in s.words:
