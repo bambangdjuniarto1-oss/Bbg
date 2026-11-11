@@ -42,6 +42,12 @@ pertama: `ffmpeg -i VO.wav -af "atrim=0:101.45,afade=t=out:st=101.38:d=0.07,apad
 lalu `bash render/mix_audio.sh vo_take1.wav out/hotel_audio 1.4 47.0 50.6 C 120`.
 Cek aset: `python3 render/preview_hotel.py -- out/prev 540x960 6`.
 
+Video laundry koin memakai `world_laundry.py` + `scenes_laundry.py` + `render_laundry.sh` +
+`scenes/laundry.json` + `scenes/laundry_words.json` (tempo 1.35, musik varian D):
+`ffmpeg -i VO.wav -af apad=pad_dur=1.2 vo_pad.wav` lalu `bash render/mix_audio.sh vo_pad.wav out/laundry_audio 1.35 28.4 30.0 D 124`.
+Karakter generasi baru (`L.character`) punya lengan/kaki terpisah: `L.walk_to(...)` untuk berjalan, `L.pose(...)` untuk pose.
+Cek aset: `python3 render/preview_laundry.py -- out/prev 540x960 6`.
+
 Video cuci sepatu memakai alur yang sama dengan `scenes.py` + `render_all.sh`
 + `scenes/full.json` + `scenes/words.json` (tempo 1.28, varian musik A).
 
@@ -55,10 +61,12 @@ Video cuci sepatu memakai alur yang sama dengan `scenes.py` + `render_all.sh`
 | `scenes_tahu.py` | adegan T01–T20 video tahu (timeline mengikuti VO) |
 | `world_hotel.py` | aset video hotel: hotel 30 kamar (+versi potongan), kamar, lobi, restoran/meeting/ballroom, minimarket generik, kantor, uang, kalkulator |
 | `scenes_hotel.py` | adegan H01–H20 video hotel |
-| `render_all.sh`, `render_tahu.sh` | render semua adegan berurutan |
+| `world_laundry.py` | aset video laundry koin: karakter baru (bisa jalan/pose), mesin cuci + drum berputar, pengering, kios QRIS/koin, gedung laundry koin, interior, laundry konvensional, kos, apartemen, kampus |
+| `scenes_laundry.py` | adegan L01–L20 video laundry koin |
+| `render_*.sh` | render semua adegan berurutan |
 | `compose.py` | layer 2D: header, bubble, label, HUD, subtitle |
-| `compose_full.py` | gabung semua adegan + panel (jadwal, tabel) + audio → mp4 |
-| `music.py` | backsound orisinal disintesis (bebas hak cipta), varian A/B |
+| `compose_full.py` | gabung semua adegan + panel (jadwal, tabel, grafik batang) + audio → mp4 |
+| `music.py` | backsound orisinal disintesis (bebas hak cipta), varian A/B/C/D |
 | `mix_audio.sh` | percepat VO, buat musik, mix dengan ducking |
 | `transcribe.py` | timestamp kata dari VO (Whisper) |
 | `watermark.py` | watermark akun IG di bawah bubble |

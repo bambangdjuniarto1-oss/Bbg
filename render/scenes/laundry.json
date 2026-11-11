@@ -1,0 +1,623 @@
+{
+ "keywords": [
+  "laundry",
+  "uang",
+  "bersih",
+  "koin",
+  "bajunya",
+  "sederhana",
+  "mesin",
+  "pengering",
+  "QRIS",
+  "kasir",
+  "nota",
+  "otomatis",
+  "lokasi",
+  "kos",
+  "apartemen",
+  "kantor",
+  "jelas",
+  "ramainya",
+  "5",
+  "15",
+  "75",
+  "10",
+  "750",
+  "30",
+  "22,5",
+  "juta",
+  "kotor",
+  "listrik",
+  "air",
+  "sabun",
+  "sewa",
+  "unit",
+  "cabang",
+  "digital",
+  "terbuka",
+  "dipantau",
+  "belakang",
+  "komentar",
+  "follow",
+  "dilacak"
+ ],
+ "scenes": [
+  {
+   "id": "L01",
+   "bubble": "Laundry = **uang bersih**?",
+   "labels": [
+    {
+     "anchor": "BERITA",
+     "title": "RAMAI DIBAHAS",
+     "sub": "",
+     "color": "red",
+     "t": 0.74,
+     "lift": 90
+    },
+    {
+     "anchor": "UANG",
+     "title": "UANG DICUCI?",
+     "sub": "",
+     "color": "orange",
+     "t": 2.37,
+     "lift": 80
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "bubble": "Ini **laundry koin**",
+   "labels": [
+    {
+     "anchor": "MESIN",
+     "title": "MESIN SELF SERVICE",
+     "sub": "",
+     "color": "blue",
+     "t": 2.3,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "bubble": "Yang dicuci **cuma baju**",
+   "labels": [
+    {
+     "anchor": "BAJU",
+     "title": "CUMA BAJU",
+     "sub": "",
+     "color": "green",
+     "t": 0.1,
+     "lift": 90
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "bubble": "Model bisnis **sederhana**",
+   "labels": [
+    {
+     "anchor": "MESIN",
+     "title": "MESIN CUCI",
+     "sub": "",
+     "color": "blue",
+     "t": 1.41,
+     "lift": 90
+    },
+    {
+     "anchor": "PENGERING",
+     "title": "PENGERING",
+     "sub": "",
+     "color": "purple",
+     "t": 1.93,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "bubble": "Pelanggan **bayar sendiri**",
+   "labels": [
+    {
+     "anchor": "KOIN",
+     "title": "KOIN",
+     "sub": "",
+     "color": "orange",
+     "t": 1.19,
+     "lift": 70
+    },
+    {
+     "anchor": "QRIS",
+     "title": "QRIS",
+     "sub": "",
+     "color": "blue",
+     "t": 1.85,
+     "lift": 130
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "bubble": "**Tanpa kasir**, tanpa nota",
+   "labels": [
+    {
+     "anchor": "KASIR",
+     "title": "KASIR",
+     "sub": "",
+     "color": "red",
+     "t": 0.37,
+     "lift": 150
+    },
+    {
+     "anchor": "NOTA",
+     "title": "NOTA TULIS TANGAN",
+     "sub": "",
+     "color": "red",
+     "t": 1.33,
+     "lift": 70
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "bubble": "Tercatat **otomatis**",
+   "labels": [
+    {
+     "anchor": "TABLET",
+     "title": "LAPORAN REAL-TIME",
+     "sub": "",
+     "color": "green",
+     "t": 1.63,
+     "lift": 60
+    }
+   ],
+   "panels": [
+    {
+     "type": "table",
+     "title": "LOG MESIN OTOMATIS",
+     "cols": [
+      "MESIN",
+      "JAM",
+      "BAYAR"
+     ],
+     "widths": [
+      300,
+      250,
+      250
+     ],
+     "rows": [
+      [
+       "Mesin 03",
+       "07.42",
+       "QRIS"
+      ],
+      [
+       "Mesin 07",
+       "08.15",
+       "Koin"
+      ],
+      [
+       "Mesin 01",
+       "08.31",
+       "QRIS"
+      ],
+      [
+       "Mesin 05",
+       "09.04",
+       "QRIS"
+      ]
+     ],
+     "t": 0.3,
+     "step": 0.45,
+     "y": 680,
+     "red_col": -1
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "bubble": "Strategi #1: **lokasi**",
+   "labels": [
+    {
+     "anchor": "LOKASI",
+     "title": "LAUNDRY KOIN",
+     "sub": "",
+     "color": "green",
+     "t": 1.48,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "bubble": "Dekat **kos & kantor**",
+   "labels": [
+    {
+     "anchor": "KOS",
+     "title": "KOS",
+     "sub": "",
+     "color": "orange",
+     "t": 0.3,
+     "lift": 70
+    },
+    {
+     "anchor": "KOS2",
+     "title": "KOS",
+     "sub": "",
+     "color": "orange",
+     "t": 0.44,
+     "lift": 70
+    },
+    {
+     "anchor": "APARTEMEN",
+     "title": "APARTEMEN",
+     "sub": "",
+     "color": "blue",
+     "t": 0.67,
+     "lift": 70
+    },
+    {
+     "anchor": "KANTOR",
+     "title": "KANTOR",
+     "sub": "",
+     "color": "purple",
+     "t": 1.33,
+     "lift": 50
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "bubble": "Jam ramai **jelas**",
+   "labels": [
+    {
+     "anchor": "PELANGGAN",
+     "title": "ANAK KOS",
+     "sub": "",
+     "color": "orange",
+     "t": 0.15,
+     "lift": 60,
+     "until": 2.4
+    }
+   ],
+   "panels": [
+    {
+     "type": "bars",
+     "title": "JAM RAMAI",
+     "note": "ilustrasi",
+     "bars": [
+      [
+       "06",
+       0.75
+      ],
+      [
+       "09",
+       0.35
+      ],
+      [
+       "12",
+       0.3
+      ],
+      [
+       "15",
+       0.35
+      ],
+      [
+       "18",
+       0.85
+      ],
+      [
+       "21",
+       0.95
+      ]
+     ],
+     "highlight": [
+      0,
+      4,
+      5
+     ],
+     "tags": [
+      [
+       "PAGI",
+       0
+      ],
+      [
+       "MALAM",
+       5
+      ]
+     ],
+     "tag_t": 1.8099999999999998,
+     "t": 1.78,
+     "y": 680
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "bubble": "Hitung **1 mesin**",
+   "labels": [
+    {
+     "anchor": "PUTARAN",
+     "title": "5 PUTARAN / HARI",
+     "sub": "",
+     "color": "orange",
+     "t": 2.37,
+     "lift": 70
+    },
+    {
+     "anchor": "TARIF",
+     "title": "PER PUTARAN",
+     "sub": "",
+     "color": "green",
+     "t": 3.7,
+     "lift": 60
+    }
+   ],
+   "hud": {
+    "title": "TARIF CUCI",
+    "start": 0,
+    "to": 15000,
+    "max": 15000,
+    "unit": "/ putaran",
+    "t": 3.33,
+    "dur": 1.0,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "target_text": "1 mesin"
+   }
+  },
+  {
+   "id": "L12",
+   "bubble": "**Rp75 ribu**/hari",
+   "labels": [
+    {
+     "anchor": "HARI",
+     "title": "5 × Rp15rb",
+     "sub": "",
+     "color": "orange",
+     "t": 0.59,
+     "lift": 80
+    }
+   ],
+   "hud": {
+    "title": "OMZET 1 MESIN",
+    "start": 15000,
+    "to": 75000,
+    "max": 75000,
+    "unit": "/ hari",
+    "t": 0.89,
+    "dur": 1.2,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "target_text": "5 putaran × Rp15rb"
+   }
+  },
+  {
+   "id": "L13",
+   "bubble": "10 mesin = **Rp750 ribu**",
+   "labels": [
+    {
+     "anchor": "SEPULUH",
+     "title": "10 MESIN",
+     "sub": "",
+     "color": "blue",
+     "t": 0.22,
+     "lift": 150
+    }
+   ],
+   "hud": {
+    "title": "OMZET 10 MESIN",
+    "start": 75000,
+    "to": 750000,
+    "max": 750000,
+    "unit": "/ hari",
+    "t": 1.33,
+    "dur": 1.0,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "target_text": "10 × Rp75rb"
+   }
+  },
+  {
+   "id": "L14",
+   "bubble": "**Rp22,5 juta**/bulan",
+   "labels": [
+    {
+     "anchor": "BULAN",
+     "title": "× 30 HARI",
+     "sub": "",
+     "color": "orange",
+     "t": 0.22,
+     "lift": 60
+    }
+   ],
+   "hud": {
+    "title": "OMZET KOTOR",
+    "start": 750000,
+    "to": 22500000,
+    "max": 22500000,
+    "unit": "/ bulan",
+    "t": 1.19,
+    "dur": 1.5,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "target_text": "Rp750rb × 30 hari"
+   }
+  },
+  {
+   "id": "L15",
+   "bubble": "Masih **omzet kotor**",
+   "labels": [
+    {
+     "anchor": "LISTRIK",
+     "title": "LISTRIK",
+     "sub": "",
+     "color": "orange",
+     "t": 1.48,
+     "lift": 70
+    },
+    {
+     "anchor": "AIR",
+     "title": "AIR",
+     "sub": "",
+     "color": "blue",
+     "t": 2.3,
+     "lift": 80
+    },
+    {
+     "anchor": "SABUN",
+     "title": "SABUN",
+     "sub": "",
+     "color": "purple",
+     "t": 2.81,
+     "lift": 80
+    },
+    {
+     "anchor": "SEWA",
+     "title": "SEWA TEMPAT",
+     "sub": "",
+     "color": "red",
+     "t": 3.48,
+     "lift": 70
+    }
+   ],
+   "hud": {
+    "title": "OMZET KOTOR",
+    "start": 22500000,
+    "to": 22500000,
+    "max": 22500000,
+    "unit": "/ bulan",
+    "t": 0.1,
+    "dur": 0.5,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "target_text": "belum dipotong biaya",
+    "bar": "red"
+   }
+  },
+  {
+   "id": "L16",
+   "bubble": "Tambah unit & **cabang**",
+   "labels": [
+    {
+     "anchor": "UNIT",
+     "title": "TAMBAH UNIT",
+     "sub": "",
+     "color": "green",
+     "t": 1.33,
+     "lift": 60
+    },
+    {
+     "anchor": "CAB0",
+     "title": "CABANG",
+     "sub": "",
+     "color": "blue",
+     "t": 2.22,
+     "lift": 60
+    },
+    {
+     "anchor": "CAB1",
+     "title": "CABANG",
+     "sub": "",
+     "color": "blue",
+     "t": 2.37,
+     "lift": 60
+    },
+    {
+     "anchor": "CAB2",
+     "title": "CABANG",
+     "sub": "",
+     "color": "blue",
+     "t": 2.52,
+     "lift": 60
+    },
+    {
+     "anchor": "DIGITAL",
+     "title": "BAYAR DIGITAL",
+     "sub": "",
+     "color": "purple",
+     "t": 3.26,
+     "lift": 140
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "bubble": "Makin **terbuka**",
+   "labels": [
+    {
+     "anchor": "PANTAU",
+     "title": "MUDAH DIPANTAU",
+     "sub": "",
+     "color": "green",
+     "t": 1.26,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "bubble": "Masuk **lewat mesin**",
+   "labels": [
+    {
+     "anchor": "MESIN",
+     "title": "LEWAT MESIN",
+     "sub": "",
+     "color": "green",
+     "t": 1.48,
+     "lift": 60
+    },
+    {
+     "anchor": "PINTU",
+     "title": "PINTU BELAKANG",
+     "sub": "",
+     "color": "red",
+     "t": 2.52,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "bubble": "Cuci **baju**, bukan uang",
+   "labels": [
+    {
+     "anchor": "BAJU",
+     "title": "CUMA BAJU",
+     "sub": "",
+     "color": "green",
+     "t": 0.67,
+     "lift": 90
+    },
+    {
+     "anchor": "JELAS",
+     "title": "ASAL USUL JELAS",
+     "sub": "",
+     "color": "blue",
+     "t": 2.0,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "L20",
+   "bubble": "Tulis di **komentar**!",
+   "cta": 4.89
+  }
+ ]
+}

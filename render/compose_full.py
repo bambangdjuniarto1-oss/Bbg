@@ -159,6 +159,42 @@ def draw_table(img, p, t_in, t_local):
     _place(img, layer, _fade_in(layer, t_in, p.get("until"), t_local), (img.width - w) / 2, p.get("y", 640), t_in)
 
 
+def draw_bars(img, p, t_in, t_local):
+    """panel grafik batang (mis. jam ramai): batang tumbuh berurutan, puncak berwarna kuning."""
+    bars = p["bars"]                      # [[label, nilai 0..1], ...]
+    hi = set(p.get("highlight", []))
+    w, h = 900, 330
+    layer, d = _card(w, h)
+    f1, fl, fn = C.font(C.F800, 34), C.font(C.F800, 24), C.font(C.F700, 22)
+    d.text((36, 26), p.get("title", "GRAFIK"), font=f1, fill=C.INK)
+    if p.get("note"):
+        d.text((w - 36 - fn.getlength(p["note"]), 36), p["note"], font=fn, fill=(140, 148, 158))
+    n = len(bars)
+    gap = 18
+    bw = (w - 72 - gap * (n - 1)) / n
+    base, top = h - 62, 96
+    for i, (lab, v) in enumerate(bars):
+        g = C.ease_out((t_in - .25 - i * p.get("step", .08)) / .35)
+        x0 = 36 + i * (bw + gap)
+        d.rounded_rectangle([x0, top, x0 + bw, base], 12, fill=(241, 243, 246, 255))
+        hh = (base - top) * v * g
+        if hh > 2:
+            col = (255, 196, 40, 255) if i in hi else (167, 178, 192, 255)
+            d.rounded_rectangle([x0, base - hh, x0 + bw, base], 12, fill=col)
+        d.text((x0 + (bw - fl.getlength(lab)) / 2, base + 12), lab, font=fl,
+               fill=C.INK if i in hi else (120, 128, 138))
+    for txt, i in p.get("tags", []):
+        ta = C.ease_out((t_in - p.get("tag_t", 1.0)) / .3)
+        if ta <= 0:
+            continue
+        x0 = 36 + i * (bw + gap) + bw / 2
+        tw = fl.getlength(txt) + 28
+        y0 = base - (base - top) * bars[i][1] - 50
+        d.rounded_rectangle([x0 - tw / 2, y0, x0 + tw / 2, y0 + 40], 20, fill=C.RED + (int(255 * ta),))
+        d.text((x0 - tw / 2 + 14, y0 + 6), txt, font=fl, fill=(255, 255, 255, int(255 * ta)))
+    _place(img, layer, _fade_in(layer, t_in, p.get("until"), t_local), (img.width - w) / 2, p.get("y", 640), t_in)
+
+
 def draw_panel(img, p, t_local):
     t_in = t_local - p.get("t", 0)
     if t_in <= 0:
@@ -167,6 +203,8 @@ def draw_panel(img, p, t_local):
         draw_schedule(img, p, t_in, t_local)
     elif p["type"] == "table":
         draw_table(img, p, t_in, t_local)
+    elif p["type"] == "bars":
+        draw_bars(img, p, t_in, t_local)
 
 
 def hud_value(hud, t):

@@ -153,7 +153,16 @@ CHORDS_C = [
 ]
 MOTIF_C = [(0, 77), (1, 76), (1.5, 72), (2.5, 69), (3, 72),
            (4, 74), (5, 72), (5.5, 70), (6.5, 69), (7, 65)]
-VARIANTS = {"A": None, "B": (CHORDS_B, MOTIF_B), "C": (CHORDS_C, MOTIF_C)}
+# variasi D (video laundry koin): kunci D mayor, progresi D-Bm-G-A, motif lincah
+CHORDS_D = [
+    (38, [54, 57, 62, 66]),   # D
+    (47, [54, 59, 62, 66]),   # Bm
+    (43, [55, 59, 62, 67]),   # G
+    (45, [57, 61, 64, 69]),   # A
+]
+MOTIF_D = [(0, 78), (.5, 81), (1, 78), (1.5, 76), (2.5, 74), (3, 76),
+           (4, 74), (4.5, 76), (5, 74), (5.5, 71), (6.5, 73), (7, 69)]
+VARIANTS = {"A": None, "B": (CHORDS_B, MOTIF_B), "C": (CHORDS_C, MOTIF_C), "D": (CHORDS_D, MOTIF_D)}
 
 
 def render(dur, bpm=128.0, brk=(20.6, 24.4)):
