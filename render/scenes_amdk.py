@@ -28,11 +28,11 @@ from scenes import key, make_camera, cam_keys, orbit, route_ribbon  # noqa: E402
 from scenes_laundry import pop, grow_z, fly, emission_ramp, ring, _anchor_pos  # noqa: E402
 
 FPS = 30
-TIMELINE = [("A01", 0.0), ("A02", 3.40), ("A03", 7.00), ("A04", 8.65), ("A05", 10.52), ("A06", 15.35),
-            ("A07", 17.12), ("A08", 20.45), ("A09", 23.05), ("A10", 27.75), ("A11", 32.40), ("A12", 39.10),
-            ("A13", 40.80), ("A14", 45.75), ("A15", 51.45), ("A16", 55.90), ("A17", 58.10), ("A18", 62.65),
-            ("A19", 67.50), ("A20", 70.40), ("A21", 73.55), ("A22", 77.35)]
-END_T = 82.93
+TIMELINE = [("A01", 0.00), ("A02", 4.27), ("A03", 8.78), ("A04", 10.85), ("A05", 13.20), ("A06", 19.26),
+            ("A07", 21.48), ("A08", 25.65), ("A09", 28.84), ("A10", 34.61), ("A11", 40.31), ("A12", 48.52),
+            ("A13", 50.60), ("A14", 56.65), ("A15", 63.61), ("A16", 69.04), ("A17", 71.74), ("A18", 77.32),
+            ("A19", 83.27), ("A20", 86.89), ("A21", 90.83), ("A22", 95.58)]
+END_T = 102.24
 
 
 def scene_range(sid):
@@ -94,7 +94,7 @@ def a01(n, info, A):
     pop(big, 5, 1.0)
     spin_z(big, 1, n, .25)
     rnd = random.Random(4)
-    f_j = fr("A01", 2.0)
+    f_j = fr("A01", 2.51)
     k = 0
     for ring_i, (r, cnt) in enumerate(((4.4, 10), (6.4, 16), (8.6, 22))):
         for j in range(cnt):
@@ -132,7 +132,7 @@ def a02(n, info, A):
     jx, jy = M.map_xy(107.5, -6.9)
     for k in range(4):
         rg = ring(f"rg{k}", (jx, jy, 1.15), 2.0, .5, "br_aqua", em=1.5)
-        f0 = fr("A02", 4.9) + k * 12
+        f0 = fr("A02", 6.15) + k * 12
         key(rg, "scale", 1, (.01,) * 3)
         key(rg, "scale", f0, (.01,) * 3)
         key(rg, "scale", f0 + 40, (7,) * 3)
@@ -143,7 +143,7 @@ def a02(n, info, A):
             continue
         x, y = M.map_xy(lo, la)
         pn = M.pin(f"cp{k}", (x, y, 1.0), 1.0, "pin_o")
-        pop(pn, fr("A02", 5.8) + k, 1.0)
+        pop(pn, fr("A02", 7.28) + k, 1.0)
     A["NASIONAL"] = (M.map_xy(116, 1)[0], M.map_xy(116, 1)[1], 3.0)
     cam, tgt = make_camera(lens=24, shift_y=.16)
     cam_keys(cam, tgt, [(1, (jx - 30, jy - 26, 16), (jx + 6, jy + 4, 0)),
@@ -153,7 +153,7 @@ def a02(n, info, A):
 def a03(n, info, A):
     """'Kita bicara bisnis air minum dalam kemasan.' — terbang ke pabrik AMDK, papan merek menyala."""
     for ob in info.get("fsign", []):
-        emission_ramp(ob.data.materials[0], [(1, 0.0), (fr("A03", 7.6), 0.0), (fr("A03", 8.0), 2.0)])
+        emission_ramp(ob.data.materials[0], [(1, 0.0), (fr("A03", 9.53), 0.0), (fr("A03", 10.04), 2.0)])
     M.road_trucks(n)
     A["PABRIK"] = info["anchors"]["PABRIK"]
     cam, tgt = make_camera(lens=22, shift_y=.12)
@@ -164,11 +164,11 @@ def a04(n, info, A):
     """'Bayangkan kamu bangun perusahaan dengan pabrik dan brand sendiri.' — depan pabrik: manajer
     melambai, karyawan, forklift berjalan, tronton keluar gerbang."""
     for ob in info.get("fsign", []):
-        emission_ramp(ob.data.materials[0], [(1, 1.0), (fr("A04", 10.2), 1.0), (fr("A04", 10.5), 4.0),
-                                             (fr("A04", 10.5) + 8, 2.0)])
+        emission_ramp(ob.data.materials[0], [(1, 1.0), (fr("A04", 12.80), 1.0), (fr("A04", 13.17), 4.0),
+                                             (fr("A04", 13.17) + 8, 2.0)])
     mgr = info["workers"][5]
     L.pose(mgr, "stand", 1)
-    L.pose(mgr, "wave", fr("A04", 9.2))
+    L.pose(mgr, "wave", fr("A04", 11.54))
     fl = info["forklift"]
     key(fl, "location", 1, tuple(fl.location))
     key(fl, "location", n, (fl.location.x + 4.5, fl.location.y, fl.location.z))
@@ -185,8 +185,8 @@ def a04(n, info, A):
 def a05(n, info, A):
     """'Empat produk: air gelas, botol 600 ml, botol 1.500 ml, dan galon.' — 4 pedestal muncul berurutan."""
     M.studio_epoxy(0, 0, size=16)
-    items = (("cup", 11.16, 1.6, "GELAS"), ("b600", 11.65, 1.15, "B600"), ("b1500", 12.75, 1.15, "B1500"),
-             ("galon", 14.3, .95, "GALON"))
+    items = (("cup", 14.00, 1.6, "GELAS"), ("b600", 14.62, 1.15, "B600"), ("b1500", 16.00, 1.15, "B1500"),
+             ("galon", 17.94, .95, "GALON"))
     for k, (kind, t, s, nm) in enumerate(items):
         x = -5.4 + k * 3.6
         ped_product(f"p{k}", kind, (x, 0, 0), s, fr("A05", t) - 3)
@@ -214,7 +214,7 @@ def a06(n, info, A):
 
 def a07(n, info, A):
     """'...tapi membangun jaringan 1.000 distributor di seluruh Indonesia.' — pin distributor bermunculan."""
-    polys, pins = _map_base(n, A, 160, 3, fr("A07", 17.9), fr("A07", 19.9))
+    polys, pins = _map_base(n, A, 160, 3, fr("A07", 22.46), fr("A07", 24.97))
     A["JAWA"] = (M.map_xy(110.5, -7.4)[0], M.map_xy(110.5, -7.4)[1], 2.5)
     A["SUMATRA"] = (M.map_xy(101.5, -.5)[0], M.map_xy(101.5, -.5)[1], 2.5)
     A["SULAWESI"] = (M.map_xy(120.5, -2.5)[0], M.map_xy(120.5, -2.5)[1], 2.5)
@@ -253,12 +253,12 @@ def _order_stack(prefix, kind, loc, layers, f0, nx=2, ny=2, prod_s=1.0):
 def a09(n, info, A):
     """'500 karton air gelas isi 48, 300 karton botol 600 ml isi 24,' — karton menumpuk (gudang)."""
     M.studio_epoxy(0, 0, size=16, wall=True)
-    t1 = _order_stack("s0", "cup", (-3.0, 0, 0), 5, fr("A09", 23.22), prod_s=1.3)
-    t2 = _order_stack("s1", "b600", (3.0, 0, 0), 3, fr("A09", 25.22), prod_s=.85)
+    t1 = _order_stack("s0", "cup", (-3.0, 0, 0), 5, fr("A09", 29.05), prod_s=1.3)
+    t2 = _order_stack("s1", "b600", (3.0, 0, 0), 3, fr("A09", 31.50), prod_s=.85)
     A["GELAS"] = (-3.0, 0, t1 + 1.6)
     A["B600"] = (3.0, 0, t2 + 2.4)
     w = M.worker("op", "buruh", (0, -2.2, 0), .2)
-    L.pose(w, "point", fr("A09", 25.4))
+    L.pose(w, "point", fr("A09", 31.72))
     cam, tgt = make_camera(lens=26, shift_y=.24)
     tg = (0, 0, 2.2)
     cam_keys(cam, tgt, [(1, orbit(tg, -104, 14, 20), tg), (n, orbit(tg, -94, 16, 18.5), tg)])
@@ -267,12 +267,12 @@ def a09(n, info, A):
 def a10(n, info, A):
     """'200 karton botol 1.500 ml isi 12, dan 500 galon isi ulang.' — tumpukan karton & rak galon, forklift."""
     M.studio_epoxy(0, 0, size=16, wall=True)
-    t1 = _order_stack("s2", "b1500", (-3.4, 0, 0), 2, fr("A10", 27.96), prod_s=.8)
+    t1 = _order_stack("s2", "b1500", (-3.4, 0, 0), 2, fr("A10", 34.86), prod_s=.8)
     mb = W.MB("gr")
     for i in range(2):
         M.galon_rack(mb, 3.6 + (i - .5) * 0, -0.6 + i * 1.6, 0, 3, 2, .62)
     gr = mb.build()
-    grow_z(gr, fr("A10", 30.76), fr("A10", 30.76) + 14)
+    grow_z(gr, fr("A10", 38.30), fr("A10", 38.30) + 14)
     A["B1500"] = (-3.4, 0, t1 + 2.6)
     A["GALON"] = (3.6, 0, 4.9)
     fl = M.forklift("fl")
@@ -298,7 +298,7 @@ def a11(n, info, A):
     """'Harga jual ke distributor: 400/gelas, 1.800, 3.000, Rp15.000/galon' — label harga muncul."""
     M.studio_epoxy(0, 0, size=16)
     pos = _four("p", [2, 4, 6, 8])
-    for k, (txt, t) in enumerate((("Rp400", 33.87), ("Rp1.800", 35.18), ("Rp3.000", 36.78), ("Rp15.000", 37.75))):
+    for k, (txt, t) in enumerate((("Rp400", 42.11), ("Rp1.800", 43.72), ("Rp3.000", 45.68), ("Rp15.000", 46.87))):
         x, top = pos[k]
         tg = L.price_tag(f"tag{k}", txt, (x, -.6, top + .9), .55)
         pop(tg, fr("A11", t), 1.0)
@@ -352,7 +352,7 @@ def _towers(prefix, grow=None, gap=3.6):
 def a13(n, info, A):
     """'air gelas 9,6 miliar, botol 600 ml 12,96 miliar,' — menara uang tumbuh di belakang produk."""
     M.studio_epoxy(0, 0, size=18)
-    tops = _towers("t", {0: fr("A13", 41.5), 1: fr("A13", 43.9)})
+    tops = _towers("t", {0: fr("A13", 51.46), 1: fr("A13", 54.39)})
     A["O0"] = (tops[0][0], tops[0][1], tops[0][2] + .3)
     A["O1"] = (tops[1][0], tops[1][1], tops[1][2] + .3)
     cam, tgt = make_camera(lens=26, shift_y=.1)
@@ -369,9 +369,9 @@ def a14(n, info, A):
         lay = MONEY_LAYERS[kind]
         tw = tower(f"tw{k}", lay, (x, 2.6, 0), 2, 2, s=.95)
         if k == 2:
-            grow_z(tw, fr("A14", 47.3), fr("A14", 47.3) + 18)
+            grow_z(tw, fr("A14", 58.54), fr("A14", 58.54) + 18)
         if k == 3:
-            grow_z(tw, fr("A14", 49.45), fr("A14", 49.45) + 18)
+            grow_z(tw, fr("A14", 61.16), fr("A14", 61.16) + 18)
         tops.append((x, 2.6, lay * .29 * .95))
     A["O2"] = (tops[2][0], tops[2][1], tops[2][2] + .3)
     A["O3"] = (tops[3][0], tops[3][1], tops[3][2] + .3)
@@ -383,7 +383,7 @@ def a15(n, info, A):
     """'Totalnya 37,26 miliar rupiah per bulan.' — keempat menara + kilau, kamera mundur lebar."""
     M.studio_epoxy(0, 0, size=18)
     tops = _towers("t", None)
-    f0 = fr("A15", 52.3)
+    f0 = fr("A15", 64.64)
     for k, (x, y, z) in enumerate(tops):
         sparkles(f"sp{k}_", (x, y, z + .6), f0 + k * 4, 3, 1.3, .32, seed=k)
     A["TOTAL"] = (0, 2.6, 4.6)
@@ -399,15 +399,15 @@ def a16(n, info, A):
     tw = tower("om", 30, (-3.4, 0, .42), 2, 2, s=.95)
     pd2 = M.pedestal("pb", 2.0, "check").build((3.4, 0, 0))
     sm = tower("un", 3, (3.4, 0, .42), 2, 2, key_="money_g", s=.95)
-    pop(pd2, fr("A16", 56.7), 1.0)
-    pop(sm, fr("A16", 56.8), 1.0)
+    pop(pd2, fr("A16", 70.02), 1.0)
+    pop(sm, fr("A16", 70.14), 1.0)
     mb = W.MB("ne")                                       # tanda "tidak sama dengan"
     for dz in (-.32, .32):
         mb.box(-.9, -.15, dz - .13, .9, .15, dz + .13, "xred")
     mb.prism_y([(.25, 1.0), (.55, 1.0), (-.25, -1.0), (-.55, -1.0)], -.18, .18, "xred")
     ne = mb.build((0, -.3, 3.4))
     ne.data.materials[0] = lp.mat("xred", emission=.5)
-    pop(ne, fr("A16", 56.9), 1.0)
+    pop(ne, fr("A16", 70.27), 1.0)
     A["OMZET"] = (-3.4, 0, 9.2)
     A["UNTUNG"] = (3.4, 0, 1.9)
     cam, tgt = make_camera(lens=26, shift_y=.2)
@@ -425,7 +425,7 @@ def a17(n, info, A):
     lh = .29 * .95
     base = tower("mg", OPS_L + LABA_L, (-3.0, 0, .42), 2, 2, s=.95)
     hpp = tower("hpp", HPP_L, (-3.0, 0, .42 + (OPS_L + LABA_L) * lh), 2, 2, s=.95)
-    f0 = fr("A17", 58.75)
+    f0 = fr("A17", 72.54)
     p0 = tuple(hpp.location)
     key(hpp, "location", 1, p0)
     key(hpp, "location", f0, p0)
@@ -448,13 +448,13 @@ def a18(n, info, A):
     M.pedestal("pb", 2.4, "c_grey").build((6.2, 4.0, 0))
     tower("hpp", HPP_L, (6.2, 4.0, .42), 2, 2, s=.95)
     M.pedestal("pc", 2.0, "c_grey").build((-7.0, 2.6, 0))
-    f0 = fr("A18", 63.3)
+    f0 = fr("A18", 78.12)
     p0 = tuple(ops.location)
     key(ops, "location", 1, p0)
     key(ops, "location", f0, p0)
     key(ops, "location", f0 + 8, (p0[0], p0[1], p0[2] + .9))
     key(ops, "location", f0 + 24, (-7.0, 2.6, .42))
-    f1 = fr("A18", 65.6)
+    f1 = fr("A18", 80.94)
     for ob in (laba,):
         key(ob, "scale", f1, (1, 1, 1))
         key(ob, "scale", f1 + 5, (1.12, 1.12, 1.12))
@@ -494,7 +494,7 @@ def a20(n, info, A):
     polys, pins = _map_base(n, A, 110, 9)
     fx, fy = M.map_xy(107.0, -6.6)
     fac = M.product("fac", "galon", 1.2).build((fx, fy, 1.0))
-    t_l = fr("A20", 70.6)
+    t_l = fr("A20", 87.14)
     for k, nm in enumerate(("Medan", "Pontianak", "Balikpapan", "Makassar", "Manado", "Ambon", "Jayapura", "Kupang",
                             "Denpasar", "Palembang")):
         lo, la = M.CITIES[nm]
@@ -503,7 +503,7 @@ def a20(n, info, A):
         h = math.dist((fx, fy), (x, y)) * .18
         pts = [(fx + (x - fx) * u, fy + (y - fy) * u) for u in (0, .25, .5, .75, 1)]
         rb = route_ribbon(f"rt{k}", pts, t_l + k * 2, t_l + k * 2 + 22, z=1.25, width=.32)
-    f_p = fr("A20", 71.5)
+    f_p = fr("A20", 88.27)
     for k, pn in enumerate(pins):
         f = f_p + (k * 7) % 45
         key(pn, "scale", 1, (1, 1, 1))
