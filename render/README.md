@@ -48,6 +48,15 @@ Video laundry koin memakai `world_laundry.py` + `scenes_laundry.py` + `render_la
 Karakter generasi baru (`L.character`) punya lengan/kaki terpisah: `L.walk_to(...)` untuk berjalan, `L.pose(...)` untuk pose.
 Cek aset: `python3 render/preview_laundry.py -- out/prev 540x960 6`.
 
+Video AMDK memakai `world_amdk.py` + `scenes_amdk.py` + `render_amdk.sh` + `scenes/amdk.json` +
+`scenes/amdk_words.json` (musik varian E). VO TTS dibuat lebih natural dulu dengan `humanize_vo.py`
+(register nada antarkalimat diratakan, kalimat datar diberi rentang nada, jeda natural, tempo per bagian,
+warna suara lebih hangat), lalu musik di-mix tanpa percepatan tambahan:
+`python3 render/transcribe.py VO.wav words_raw.json --speed 1.0` →
+`python3 render/humanize_vo.py VO.wav words_raw.json out/amdk_vo --plan render/scenes/amdk_vo.json` →
+`bash render/mix_audio.sh out/amdk_vo/vo_human.wav out/amdk_audio 1.0 55.6 58.2 E 122`.
+Cek aset: `python3 render/preview_amdk.py -- out/prev 540x960 6`.
+
 Video cuci sepatu memakai alur yang sama dengan `scenes.py` + `render_all.sh`
 + `scenes/full.json` + `scenes/words.json` (tempo 1.28, varian musik A).
 
@@ -63,10 +72,13 @@ Video cuci sepatu memakai alur yang sama dengan `scenes.py` + `render_all.sh`
 | `scenes_hotel.py` | adegan H01–H20 video hotel |
 | `world_laundry.py` | aset video laundry koin: karakter baru (bisa jalan/pose), mesin cuci + drum berputar, pengering, kios QRIS/koin, gedung laundry koin, interior, laundry konvensional, kos, apartemen, kampus |
 | `scenes_laundry.py` | adegan L01–L20 video laundry koin |
+| `world_amdk.py` | aset video AMDK: air gelas/botol/galon (plastik bening + air), karton, palet, karyawan pabrik (helm, rompi, jas lab, masker), tronton, forklift, pabrik AMDK, lini produksi berjalan, gudang distributor, peta Indonesia + pin |
+| `scenes_amdk.py` | adegan A01–A22 video AMDK |
+| `humanize_vo.py` | olah VO TTS supaya kurang "suara AI": intonasi (Praat PSOLA), jeda, tempo per bagian, EQ |
 | `render_*.sh` | render semua adegan berurutan |
 | `compose.py` | layer 2D: header, bubble, label, HUD, subtitle |
 | `compose_full.py` | gabung semua adegan + panel (jadwal, tabel, grafik batang) + audio → mp4 |
-| `music.py` | backsound orisinal disintesis (bebas hak cipta), varian A/B/C/D |
+| `music.py` | backsound orisinal disintesis (bebas hak cipta), varian A/B/C/D/E |
 | `mix_audio.sh` | percepat VO, buat musik, mix dengan ducking |
 | `transcribe.py` | timestamp kata dari VO (Whisper) |
 | `watermark.py` | watermark akun IG di bawah bubble |

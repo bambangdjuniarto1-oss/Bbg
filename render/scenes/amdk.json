@@ -1,0 +1,676 @@
+{
+ "keywords": [
+  "produk",
+  "minum",
+  "murah",
+  "jutaan",
+  "peluang",
+  "nasional",
+  "air",
+  "kemasan",
+  "pabrik",
+  "brand",
+  "Empat",
+  "gelas",
+  "600",
+  "1.500",
+  "galon",
+  "minimarket",
+  "1.000",
+  "distributor",
+  "hitung",
+  "bulan",
+  "500",
+  "300",
+  "200",
+  "48",
+  "24",
+  "12",
+  "400",
+  "1.800",
+  "3.000",
+  "Rp15.000",
+  "9,6",
+  "12,96",
+  "7,2",
+  "7,5",
+  "37,26",
+  "miliar",
+  "omzet",
+  "keuntungan",
+  "HPP",
+  "30,98",
+  "margin",
+  "6,28",
+  "operasional",
+  "4",
+  "laba",
+  "2,28",
+  "besar",
+  "logistik",
+  "aktif",
+  "pasar",
+  "membeli",
+  "AMDK",
+  "tertarik"
+ ],
+ "scenes": [
+  {
+   "id": "A01",
+   "bubble": "Dibeli **jutaan kali**",
+   "labels": [
+    {
+     "anchor": "GELAS",
+     "title": "AIR GELAS",
+     "sub": "",
+     "color": "blue",
+     "t": 0.3,
+     "lift": 90
+    },
+    {
+     "anchor": "JUTAAN",
+     "title": "DIBELI JUTAAN KALI",
+     "sub": "",
+     "color": "orange",
+     "t": 2.0,
+     "lift": 70
+    }
+   ]
+  },
+  {
+   "id": "A02",
+   "bubble": "Peluang **skala nasional**",
+   "labels": [
+    {
+     "anchor": "NASIONAL",
+     "title": "SKALA NASIONAL",
+     "sub": "",
+     "color": "green",
+     "t": 2.6,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "A03",
+   "bubble": "Bisnis **AMDK**",
+   "labels": [
+    {
+     "anchor": "PABRIK",
+     "title": "AIR MINUM DALAM KEMASAN",
+     "sub": "",
+     "color": "blue",
+     "t": 0.7,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "A04",
+   "bubble": "Pabrik & **brand sendiri**",
+   "labels": [
+    {
+     "anchor": "PABRIK",
+     "title": "PABRIK SENDIRI",
+     "sub": "",
+     "color": "blue",
+     "t": 1.18,
+     "lift": 60
+    },
+    {
+     "anchor": "BRAND",
+     "title": "BRAND SENDIRI",
+     "sub": "",
+     "color": "purple",
+     "t": 1.58,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "A05",
+   "bubble": "**4 produk** utama",
+   "labels": [
+    {
+     "anchor": "GELAS",
+     "title": "AIR GELAS",
+     "sub": "",
+     "color": "blue",
+     "t": 0.64,
+     "lift": 70
+    },
+    {
+     "anchor": "B600",
+     "title": "BOTOL 600 ML",
+     "sub": "",
+     "color": "green",
+     "t": 1.13,
+     "lift": 190
+    },
+    {
+     "anchor": "B1500",
+     "title": "BOTOL 1.500 ML",
+     "sub": "",
+     "color": "purple",
+     "t": 2.23,
+     "lift": 70
+    },
+    {
+     "anchor": "GALON",
+     "title": "GALON",
+     "sub": "",
+     "color": "orange",
+     "t": 3.88,
+     "lift": 190
+    }
+   ]
+  },
+  {
+   "id": "A06",
+   "bubble": "Bukan cuma **minimarket**",
+   "labels": [
+    {
+     "anchor": "MINIMARKET",
+     "title": "MINIMARKET",
+     "sub": "",
+     "color": "red",
+     "t": 1.05,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "A07",
+   "bubble": "Target **1.000 distributor**",
+   "hud": {
+    "title": "JARINGAN DISTRIBUTOR",
+    "start": 0,
+    "to": 1000,
+    "max": 1000,
+    "unit": "distributor",
+    "t": 0.88,
+    "dur": 2.0,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "",
+    "target_text": "seluruh Indonesia",
+    "green_when_full": true
+   }
+  },
+  {
+   "id": "A08",
+   "bubble": "Sekarang **kita hitung**",
+   "labels": [
+    {
+     "anchor": "GUDANG",
+     "title": "1 DISTRIBUTOR",
+     "sub": "order per bulan",
+     "color": "blue",
+     "t": 1.53,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "A09",
+   "bubble": "Order **per distributor**",
+   "panels": [
+    {
+     "type": "table",
+     "title": "ORDER 1 DISTRIBUTOR / BULAN",
+     "cols": [
+      "PRODUK",
+      "ORDER",
+      "ISI"
+     ],
+     "widths": [
+      340,
+      260,
+      140
+     ],
+     "rows": [
+      [
+       "Air gelas",
+       "500 karton",
+       "48"
+      ],
+      [
+       "Botol 600 ml",
+       "300 karton",
+       "24"
+      ],
+      [
+       "Botol 1.500 ml",
+       "200 karton",
+       "12"
+      ],
+      [
+       "Galon",
+       "500 galon",
+       "19 L"
+      ]
+     ],
+     "row_t": [
+      0.17,
+      2.17,
+      99,
+      99
+     ],
+     "red_col": -1,
+     "y": 600
+    }
+   ]
+  },
+  {
+   "id": "A10",
+   "bubble": "Order **per bulan**",
+   "panels": [
+    {
+     "type": "table",
+     "title": "ORDER 1 DISTRIBUTOR / BULAN",
+     "cols": [
+      "PRODUK",
+      "ORDER",
+      "ISI"
+     ],
+     "widths": [
+      340,
+      260,
+      140
+     ],
+     "rows": [
+      [
+       "Air gelas",
+       "500 karton",
+       "48"
+      ],
+      [
+       "Botol 600 ml",
+       "300 karton",
+       "24"
+      ],
+      [
+       "Botol 1.500 ml",
+       "200 karton",
+       "12"
+      ],
+      [
+       "Galon",
+       "500 galon",
+       "19 L"
+      ]
+     ],
+     "row_t": [
+      -1,
+      -1,
+      0.21,
+      3.01
+     ],
+     "red_col": -1,
+     "y": 600,
+     "t": -1
+    }
+   ]
+  },
+  {
+   "id": "A11",
+   "bubble": "Harga **ke distributor**",
+   "panels": [
+    {
+     "type": "table",
+     "title": "HARGA JUAL KE DISTRIBUTOR",
+     "cols": [
+      "PRODUK",
+      "HARGA",
+      "SATUAN"
+     ],
+     "widths": [
+      340,
+      230,
+      170
+     ],
+     "rows": [
+      [
+       "Air gelas",
+       "Rp400",
+       "/gelas"
+      ],
+      [
+       "Botol 600 ml",
+       "Rp1.800",
+       "/botol"
+      ],
+      [
+       "Botol 1.500 ml",
+       "Rp3.000",
+       "/botol"
+      ],
+      [
+       "Galon",
+       "Rp15.000",
+       "/galon"
+      ]
+     ],
+     "row_t": [
+      1.47,
+      2.78,
+      4.38,
+      5.35
+     ],
+     "red_col": 1,
+     "y": 600
+    }
+   ]
+  },
+  {
+   "id": "A12",
+   "bubble": "Kali **1.000 distributor**",
+   "hud": {
+    "title": "JUMLAH DISTRIBUTOR",
+    "start": 1,
+    "to": 1000,
+    "max": 1000,
+    "unit": "distributor",
+    "t": 0.3,
+    "dur": 1.2,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "× ",
+    "target_text": "tiap bulan order sama",
+    "green_when_full": true
+   }
+  },
+  {
+   "id": "A13",
+   "bubble": "Omzet **per produk**",
+   "labels": [
+    {
+     "anchor": "O0",
+     "title": "AIR GELAS  Rp9,6 M",
+     "sub": "500 × 48 × Rp400 × 1.000",
+     "color": "blue",
+     "t": 0.81,
+     "lift": 70
+    },
+    {
+     "anchor": "O1",
+     "title": "BOTOL 600 ML  Rp12,96 M",
+     "sub": "300 × 24 × Rp1.800 × 1.000",
+     "color": "green",
+     "t": 3.26,
+     "lift": 200
+    }
+   ],
+   "hud": {
+    "title": "OMZET / BULAN",
+    "start": 0,
+    "to": 22.56,
+    "max": 37.26,
+    "unit": "miliar",
+    "t": 0.8,
+    "dur": 3.2,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "decimals": 2,
+    "target_text": "target Rp37,26 M"
+   }
+  },
+  {
+   "id": "A14",
+   "bubble": "Omzet **per produk**",
+   "labels": [
+    {
+     "anchor": "O2",
+     "title": "BOTOL 1.500 ML  Rp7,2 M",
+     "sub": "200 × 12 × Rp3.000 × 1.000",
+     "color": "purple",
+     "t": 1.67,
+     "lift": 70
+    },
+    {
+     "anchor": "O3",
+     "title": "GALON  Rp7,5 M",
+     "sub": "500 × Rp15.000 × 1.000",
+     "color": "orange",
+     "t": 3.81,
+     "lift": 200
+    }
+   ],
+   "hud": {
+    "title": "OMZET / BULAN",
+    "start": 22.56,
+    "to": 37.26,
+    "max": 37.26,
+    "unit": "miliar",
+    "t": 1.65,
+    "dur": 3.0,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "decimals": 2,
+    "target_text": "target Rp37,26 M",
+    "green_when_full": true
+   }
+  },
+  {
+   "id": "A15",
+   "bubble": "**Rp37,26 miliar**/bulan",
+   "labels": [
+    {
+     "anchor": "TOTAL",
+     "title": "TOTAL OMZET",
+     "sub": "Rp37,26 miliar / bulan",
+     "color": "green",
+     "t": 0.83,
+     "lift": 60
+    }
+   ],
+   "hud": {
+    "title": "OMZET / BULAN",
+    "start": 37.26,
+    "to": 37.26,
+    "max": 37.26,
+    "unit": "miliar",
+    "t": 0.0,
+    "dur": 0.1,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "decimals": 2,
+    "target_text": "4 produk × 1.000 distributor",
+    "green_when_full": true
+   }
+  },
+  {
+   "id": "A16",
+   "bubble": "Omzet **bukan untung**",
+   "labels": [
+    {
+     "anchor": "OMZET",
+     "title": "OMZET",
+     "sub": "",
+     "color": "orange",
+     "t": 0.76,
+     "lift": 60
+    },
+    {
+     "anchor": "UNTUNG",
+     "title": "KEUNTUNGAN",
+     "sub": "",
+     "color": "green",
+     "t": 1.4,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "A17",
+   "bubble": "Margin **Rp6,28 M**",
+   "labels": [
+    {
+     "anchor": "HPP",
+     "title": "HPP  Rp30,98 M",
+     "sub": "bahan, kemasan, produksi",
+     "color": "red",
+     "t": 0.65,
+     "lift": 60
+    },
+    {
+     "anchor": "MARGIN",
+     "title": "MARGIN KOTOR",
+     "sub": "±Rp6,28 M",
+     "color": "green",
+     "t": 3.24,
+     "lift": 60
+    }
+   ],
+   "hud": {
+    "title": "MARGIN KOTOR",
+    "start": 37.26,
+    "to": 6.28,
+    "max": 37.26,
+    "unit": "miliar",
+    "t": 0.96,
+    "dur": 2.2,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "decimals": 2,
+    "target_text": "omzet − HPP"
+   }
+  },
+  {
+   "id": "A18",
+   "bubble": "Laba **Rp2,28 M**/bulan",
+   "labels": [
+    {
+     "anchor": "OPS",
+     "title": "BIAYA OPERASIONAL",
+     "sub": "Rp4 M: gaji, distribusi, promosi",
+     "color": "red",
+     "t": 0.75,
+     "lift": 60
+    },
+    {
+     "anchor": "LABA",
+     "title": "LABA OPERASIONAL",
+     "sub": "±Rp2,28 M / bulan",
+     "color": "green",
+     "t": 2.98,
+     "lift": 60
+    }
+   ],
+   "hud": {
+    "title": "LABA OPERASIONAL",
+    "start": 6.28,
+    "to": 2.28,
+    "max": 6.28,
+    "unit": "miliar",
+    "t": 1.02,
+    "dur": 2.4,
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "decimals": 2,
+    "target_text": "margin − biaya operasional"
+   }
+  },
+  {
+   "id": "A19",
+   "bubble": "Butuh **pabrik besar**",
+   "labels": [
+    {
+     "anchor": "FILLING",
+     "title": "LINI PRODUKSI",
+     "sub": "",
+     "color": "blue",
+     "t": 0.3,
+     "lift": 60
+    },
+    {
+     "anchor": "KAPASITAS",
+     "title": "KAPASITAS BESAR",
+     "sub": "",
+     "color": "green",
+     "t": 1.9,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "A20",
+   "bubble": "Logistik & **distributor aktif**",
+   "labels": [
+    {
+     "anchor": "LOGISTIK",
+     "title": "LOGISTIK NASIONAL",
+     "sub": "",
+     "color": "blue",
+     "t": 0.2,
+     "lift": 60
+    },
+    {
+     "anchor": "DIST",
+     "title": "DISTRIBUTOR AKTIF",
+     "sub": "rutin memesan",
+     "color": "orange",
+     "t": 1.06,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "A21",
+   "bubble": "Kuncinya: **pasar terus beli**",
+   "labels": [
+    {
+     "anchor": "PASAR",
+     "title": "PASAR TERUS MEMBELI",
+     "sub": "",
+     "color": "green",
+     "t": 2.74,
+     "lift": 60
+    },
+    {
+     "anchor": "PEMBELI",
+     "title": "PEMBELI",
+     "sub": "",
+     "color": "orange",
+     "t": 0.75,
+     "lift": 60,
+     "until": 2.55
+    }
+   ]
+  },
+  {
+   "id": "A22",
+   "bubble": "Tertarik **bisnis AMDK**?",
+   "labels": [
+    {
+     "anchor": "PABRIK",
+     "title": "PABRIK AMDK",
+     "sub": "",
+     "color": "blue",
+     "t": 0.25,
+     "lift": 60
+    }
+   ],
+   "cta": 3.0
+  }
+ ]
+}

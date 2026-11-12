@@ -145,7 +145,10 @@ def draw_table(img, p, t_in, t_local):
         d.text((x, y + 9), c, font=fh, fill=(110, 118, 128))
         x += cwid
     for k, row in enumerate(rows):
-        ra = C.ease_out((t_in - .3 - k * p.get("step", .28)) / .25)
+        if p.get("row_t"):                   # waktu muncul per baris (detik lokal adegan)
+            ra = C.ease_out((t_local - p["row_t"][k]) / .25)
+        else:
+            ra = C.ease_out((t_in - .3 - k * p.get("step", .28)) / .25)
         if ra <= 0:
             continue
         y = 96 + 54 + k * rh
