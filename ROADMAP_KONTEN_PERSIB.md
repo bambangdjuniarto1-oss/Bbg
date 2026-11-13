@@ -1,6 +1,6 @@
 # Roadmap Konten Persib — Format Tampil Muka (Talking Head / Analisis)
 
-> Disusun 13 November 2026. Data terkini dirangkum dari pemberitaan media per pertengahan November 2026 — **selalu cek ulang skor, klasemen, dan angka sebelum rekam**, karena beberapa sumber saling beda.
+> Disusun 13 November 2026. **Naskah & kalender detail: lihat `KALENDER_KONTEN_PERSIB.md`.** Data terkini dirangkum dari pemberitaan media per pertengahan November 2026 — **selalu cek ulang skor, klasemen, dan angka sebelum rekam**, karena beberapa sumber saling beda.
 
 ---
 
@@ -26,12 +26,12 @@ Highlight dan berita bisa dibuat siapa saja (akun media resmi pasti lebih cepat)
 |---|---|---|
 | **Kepelatihan** | Igor Tolić (Kroasia) naik dari asisten jadi pelatih kepala (25 Mei 2026). Bojan Hodak mundur dari kursi pelatih & pindah ke peran penasihat teknis/eksekutif. | Era Tolić vs era Hodak, peran Hodak sekarang, gaya main baru |
 | **Liga** | BRI Super League 2026/27: kalah 1-2 di kandang Java United FC (8 Nov), Persib keluar dari 4 besar dengan 16 poin. | "Kenapa Persib inkonsisten?", target juara realistis atau tidak |
-| **ACL Two** | Grup E: FC Seoul, Melbourne Victory, The Cong-Viettel. Lolos lewat playoff vs Manila Digger (1-0). Menang 1-0 atas Viettel (penalti Mariano Peralta). Sisa: vs FC Seoul (25 Nov, kandang), vs Viettel (2 Des, tandang). | Skenario lolos grup, beda level Persib vs klub Korea/Australia |
+| **ACL Two** | Grup E: FC Seoul, Melbourne Victory, The Cong-Viettel. **Sudah lolos 16 besar sebagai juara grup**: 4 menang dari 4 laga (1-0 di Seoul, 1-0 vs Viettel, 2-0 & 2-1 vs Melbourne). Sisa: vs FC Seoul (25 Nov, kandang), vs Viettel (2 Des, tandang) | Kenapa sempurna di Asia tapi tersendat di liga, peluang di 16 besar |
 | **ASEAN Club Championship (Shopee Cup)** | vs Shan United, 19 Nov 2026 di GBLA. | Penting atau cuma beban jadwal? |
 | **Jadwal** | 7 laga dalam ~3 pekan di November (Shan United 19/11, Bali United 22/11, FC Seoul 25/11, Persita 29/11). | Rotasi, kelelahan, kedalaman skuad |
 | **Skuad** | 32 pemain, 12 asing. Asing baru: Gabriel Mutombo, Gakuto Notsuda, Balša Sekulić, Luka Menalo, Mariano Peralta, Danijel Lončar. Diperpanjang: Julio César, Uilliam Barros, Ramon Tanque, Patricio Matricardi. Dilepas: Kurzawa, Federico Barba, Sergio Castel, Adam Przybek. Tak ada tambahan asing saat bursa tutup 30 Sep. | Rapor pemain asing baru, siapa yang paling berdampak |
 | **Timnas** | Ragnar Oratmangoen satu-satunya pemain Persib yang dipanggil timnas (jeda FIFA 8–16 Nov). | Kenapa pemain Persib minim di timnas sekarang? |
-| **Bisnis** | 16 mitra sponsor musim 2026/27 (6 baru), a.l. Indofood, bank bjb (perpanjang), Kelme, Le Minerale, Greenfields, Teh Pucuk. Unilever (Rinso/Sunlight) masuk Jan 2026. Estimasi pengamat: pendapatan sponsor Rp55–75 M (estimasi luar, bukan data resmi). Tiket via PERSIB App. Kunjungan Ventforet Kofu (Jepang) bahas kolaborasi. | Cara Persib cari duit, ekosistem app, kerja sama klub Jepang |
+| **Bisnis** | 16 mitra sponsor musim 2026/27 (6 baru), a.l. Indofood, bank bjb (perpanjang), Kelme, Le Minerale, Greenfields, Teh Pucuk. Unilever (Rinso/Sunlight) masuk Jan 2026. Estimasi pengamat: pendapatan sponsor Rp55–75 M (estimasi luar, bukan data resmi). Tiket via PERSIB App. (Info kunjungan Ventforet Kofu belum terverifikasi.) | Cara Persib cari duit, ekosistem app, nilai brand |
 
 ---
 
@@ -59,7 +59,7 @@ Tujuan: kenalkan format baru tanpa kehilangan audiens lama. Momen padat jadwal =
 | 1 | "Persib keluar 4 besar — panik atau wajar?" (posisi + jadwal sisa) | Kompetisi |
 | 1 | Preview Shan United: "Shopee Cup penting nggak sih buat Persib?" | Kompetisi |
 | 2 | "7 laga dalam 3 minggu: siapa yang harus dirotasi?" | Pelatih |
-| 2 | Preview **Persib vs FC Seoul** — "Laga terbesar musim ini?" + skenario lolos grup ACL Two | Matchday |
+| 2 | Preview **Persib vs FC Seoul**: "Udah lolos, buat apa ngotot?" | Matchday |
 | 2 | Review Bali United & FC Seoul (format cepat 60 detik + versi panjang) | Matchday |
 
 ### FASE 2 — Bangun Otoritas (Minggu 3–6: 30 Nov – 27 Des)
@@ -67,7 +67,7 @@ Tujuan: konten "evergreen" yang bikin orang follow karena wawasan.
 
 | Minggu | Konten utama | Pilar |
 |---|---|---|
-| 3 | Laga terakhir grup ACL Two vs Viettel (2 Des) — "Lolos atau tidak, ini pelajarannya" | Kompetisi |
+| 3 | Laga terakhir grup ACL Two vs Viettel (2 Des) — rapor fase grup + target 16 besar | Kompetisi |
 | 3 | **Series "Era Tolić"** Ep.1: Apa bedanya sama Hodak? (formasi, pressing, build-up) | Pelatih |
 | 4 | Era Tolić Ep.2: "Hodak jadi penasihat — membantu atau bikin dua matahari?" | Manajemen |
 | 4 | **Series "Duit Maung"** Ep.1: "Persib dapat duit dari mana aja?" (sponsor, tiket, app, merch, hak siar) | Bisnis |
@@ -86,7 +86,7 @@ Tujuan: tunggangi trafik tinggi bursa transfer paruh musim.
 | 8 | **Bedah rumor transfer** (format "Fakta / Mungkin / Hoaks") | Manajemen |
 | 8 | "Kenapa pemain Persib jarang dipanggil timnas sekarang?" | Pemain |
 | 9 | Duit Maung Ep.3: "PERSIB App & tiket digital — strategi atau ribet?" | Bisnis |
-| 9 | "Kolaborasi dengan klub Jepang (Ventforet Kofu) — apa untungnya?" | Bisnis/Manajemen |
+| 9 | "Kolaborasi internasional Persib: apa untungnya?" (cek rilis resmi dulu) | Bisnis/Manajemen |
 | 10 | Profil mendalam 1 pemain lokal + 1 pemain akademi/U-21 | Pemain |
 
 ### FASE 4 — Ekspansi Format (Minggu 11–12: 25 Jan – 7 Feb)
