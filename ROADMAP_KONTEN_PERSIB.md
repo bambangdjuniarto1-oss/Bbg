@@ -11,6 +11,7 @@ Highlight dan berita bisa dibuat siapa saja (akun media resmi pasti lebih cepat)
 > **Berita = bahan baku. Konten lu = "kenapa ini terjadi" + "apa artinya buat Persib" + "pendapat gue".**
 
 **Tagline kanal (pilih / modifikasi):**
+
 - "Ngobrolin Persib di balik skor."
 - "Persib, dibedah dari lapangan sampai ruang rapat."
 - "Bukan sekadar hasil — gue jelasin kenapanya."
@@ -177,6 +178,7 @@ Target: **4–5 konten/minggu**. Jadwal padat (3 laga/minggu)? Gabung preview + 
 ```
 
 **Rumus hook yang terbukti jalan:**
+
 - "Ini alasan sebenarnya kenapa…"
 - "Nggak ada yang ngomongin ini, tapi…"
 - "Persib dapat Rp__ miliar dari…"
