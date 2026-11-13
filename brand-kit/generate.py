@@ -1,4 +1,4 @@
-"""Generator aset logo Ayam Goreng Mas Bambang.
+"""Generator aset logo Ayam Goreng Mas Bambang (v2, arah heritage tipografi).
 
 Semua teks dikonversi ke kurva (outline), jadi file SVG aman dibuka di
 Illustrator / Inkscape / CorelDRAW / percetakan tanpa perlu install font.
@@ -10,6 +10,7 @@ import math
 import os
 
 import uharfbuzz as hb
+from fontTools.pens.boundsPen import BoundsPen
 from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
 from fontTools.ttLib import TTFont
@@ -19,11 +20,11 @@ FONT_DIR = os.path.join(HERE, "fonts")
 OUT = os.path.join(HERE, "svg")
 
 # ---------------------------------------------------------------- warna brand
-TUA = "#7B1113"     # Merah Jengger (warna utama)
-CABAI = "#C1272D"   # Merah Cabai
-KUNING = "#E9A23B"  # Kuning Kremes
-KREM = "#F7EDE0"    # Krem Tepung
-ARANG = "#2A1715"   # Cokelat Arang
+TUA = "#7A1E1C"     # Merah Bata Tua (utama)
+KREM = "#F3EAD9"    # Krem Santan
+KUNYIT = "#C9973F"  # Kuning Kunyit
+DAUN = "#3F5A3A"    # Hijau Daun Pisang
+ARANG = "#2E1A17"   # Cokelat Arang
 
 
 class Font:
@@ -33,13 +34,9 @@ class Font:
         self.glyphs = self.tt.getGlyphSet()
         self.order = self.tt.getGlyphOrder()
         self.upem = self.tt["head"].unitsPerEm
-        cap = getattr(self.tt["OS/2"], "sCapHeight", 0)
-        if not cap:
-            from fontTools.pens.boundsPen import BoundsPen
-            bp = BoundsPen(self.glyphs)
-            self.glyphs[self.tt.getBestCmap()[ord("H")]].draw(bp)
-            cap = bp.bounds[3]
-        self.cap = cap / self.upem
+        bp = BoundsPen(self.glyphs)
+        self.glyphs[self.tt.getBestCmap()[ord("H")]].draw(bp)
+        self.cap = bp.bounds[3] / self.upem
         self.hb = hb.Font(hb.Face(hb.Blob.from_file_path(path)))
 
     def shape(self, text):
@@ -57,7 +54,6 @@ class Font:
         return sum(a for _, a, _, _ in g) * size / self.upem + tracking * (len(g) - 1)
 
     def path(self, text, size, x, y, tracking=0, anchor="start"):
-        """Teks lurus -> atribut d path SVG."""
         s = size / self.upem
         w = self.width(text, size, tracking)
         if anchor == "middle":
@@ -71,14 +67,20 @@ class Font:
             cx += adv * s + tracking
         return pen.getCommands()
 
-    def fit_tracking(self, text, size, target):
-        n = len(self.shape(text))
-        return (target - self.width(text, size)) / (n - 1)
+    def ink_bounds(self, text, size, x=0, y=0, tracking=0, anchor="start"):
+        """Batas tinta sebenarnya (berguna untuk huruf script yang ekornya keluar)."""
+        s = size / self.upem
+        w = self.width(text, size, tracking)
+        if anchor == "middle":
+            x -= w / 2
+        bp = BoundsPen(self.glyphs)
+        cx = x
+        for name, adv, xo, yo in self.shape(text):
+            self.glyphs[name].draw(TransformPen(bp, (s, 0, 0, -s, cx + xo * s, y - yo * s)))
+            cx += adv * s + tracking
+        return bp.bounds  # xmin, ymin, xmax, ymax (koordinat SVG, y ke bawah)
 
     def arc(self, text, size, cx, cy, r, center_deg, tracking=0, bottom=False):
-        """Teks melingkar. center_deg: 0 = atas, searah jarum jam.
-        Atas: baseline di radius r, huruf menghadap keluar.
-        Bawah: baseline di radius r, huruf menghadap ke pusat, terbaca kiri-ke-kanan."""
         s = size / self.upem
         w = self.width(text, size, tracking)
         pen = SVGPathPen(self.glyphs)
@@ -91,123 +93,16 @@ class Font:
             else:
                 theta = math.radians(center_deg) + (mid - w / 2) / r
                 phi = theta
-            px = cx + r * math.sin(theta)
-            py = cy - r * math.cos(theta)
+            px, py = cx + r * math.sin(theta), cy - r * math.cos(theta)
             du = -adv * s / 2 + xo * s
             c, sn = math.cos(phi), math.sin(phi)
-            t = (s * c, s * sn, s * sn, -s * c, du * c + px, du * sn + py)
-            self.glyphs[name].draw(TransformPen(pen, t))
+            self.glyphs[name].draw(TransformPen(pen, (s * c, s * sn, s * sn, -s * c, du * c + px, du * sn + py)))
             pos += adv * s + tracking
         return pen.getCommands()
 
 
-SLAB = Font("AlfaSlabOne-Regular.ttf")
-SCRIPT = Font("Yellowtail-Regular.ttf")
-SANS = Font("PlusJakartaSans-ExtraBold.ttf")
-SANS_SEMI = Font("PlusJakartaSans-SemiBold.ttf")
-
-
-# ---------------------------------------------------------------- simbol
-# Simbol = kepala ayam bulat: jengger 3 bulatan, paruh, pial, mata, alis
-# yang sedikit naik (kesan ramah & percaya diri). Kanvas 200 x 200.
-HEAD = (100, 112, 62)
-COMB = [(76, 58, 21), (102, 44, 25), (128, 58, 21)]
-BEAK = "M150 93 L192 110 L150 127 Z"
-WATTLE = (158, 142, 15)
-EYE = (122, 98, 12)
-PUPIL = (125.5, 98, 6)
-BROW = "M106 79 Q121 68 138 77"
-
-PALETTES = {
-    "warna": dict(head=TUA, comb=CABAI, beak=KUNING, wattle=CABAI, eye=KREM, pupil=ARANG, brow=KREM),
-    "terang": dict(head=KREM, comb=CABAI, beak=KUNING, wattle=CABAI, eye=TUA, pupil=KREM, brow=TUA),
-}
-
-
-def circle(c, fill, extra=""):
-    return f'<circle cx="{c[0]}" cy="{c[1]}" r="{c[2]}" fill="{fill}"{extra}/>'
-
-
-def symbol(palette="warna", mono=None, uid="s"):
-    """Kembalikan grup SVG simbol (kanvas 200x200)."""
-    if mono:
-        # Satu warna: detail mata/alis/garis kepala dibuat transparan lewat mask.
-        h = HEAD
-        # mask 1: celah tipis di sekeliling kepala supaya jengger/paruh/pial terpisah
-        gap = (
-            f'<mask id="ga-{uid}" maskUnits="userSpaceOnUse" x="0" y="0" width="200" height="200">'
-            f'<rect width="200" height="200" fill="#fff"/>'
-            f'<circle cx="{h[0]}" cy="{h[1]}" r="{h[2] + 4}" fill="#000"/></mask>'
-        )
-        # mask 2: mata & alis dilubangi dari kepala
-        face = (
-            f'<mask id="fa-{uid}" maskUnits="userSpaceOnUse" x="0" y="0" width="200" height="200">'
-            f'<rect width="200" height="200" fill="#fff"/>{circle(EYE, "#000")}{circle(PUPIL, "#fff")}'
-            f'<path d="{BROW}" fill="none" stroke="#000" stroke-width="6" stroke-linecap="round"/></mask>'
-        )
-        return (
-            gap + face
-            + f'<g mask="url(#ga-{uid})" fill="{mono}">'
-            + "".join(circle(c, mono) for c in COMB)
-            + f'<path d="{BEAK}" stroke="{mono}" stroke-width="8" stroke-linejoin="round"/>'
-            + circle(WATTLE, mono)
-            + "</g>"
-            + f'<circle cx="{h[0]}" cy="{h[1]}" r="{h[2]}" fill="{mono}" mask="url(#fa-{uid})"/>'
-        )
-    p = PALETTES[palette]
-    return (
-        "".join(circle(c, p["comb"]) for c in COMB)
-        + f'<path d="{BEAK}" fill="{p["beak"]}" stroke="{p["beak"]}" stroke-width="8" stroke-linejoin="round"/>'
-        + circle(WATTLE, p["wattle"])
-        + circle(HEAD, p["head"])
-        + circle(EYE, p["eye"])
-        + circle(PUPIL, p["pupil"])
-        + f'<path d="{BROW}" fill="none" stroke="{p["brow"]}" stroke-width="6" stroke-linecap="round"/>'
-    )
-
-
-# ---------------------------------------------------------------- wordmark
-def wordmark(x, y_top, colors, size=100):
-    """Susunan teks: AYAM GORENG / Mas BAMBANG / KRIUK · GURIH · JUJUR.
-    Kembalikan (svg, lebar, tinggi)."""
-    k = size / 100
-    mas_size, slab_size = 92 * k, 100 * k
-    gap = 14 * k
-    w_mas = SCRIPT.width("Mas", mas_size)
-    w_bam = SLAB.width("BAMBANG", slab_size)
-    total = w_mas + gap + w_bam
-
-    top_size = 34 * k
-    top_base = y_top + top_size * SANS.cap
-    top_tr = SANS.fit_tracking("AYAM GORENG", top_size, w_bam)
-
-    main_base = top_base + 18 * k + slab_size * SLAB.cap
-
-    tag_size = 19 * k
-    tag_text = "KRIUK · GURIH · JUJUR"
-    tag_tr = 6 * k
-    w_tag = SANS_SEMI.width(tag_text, tag_size, tag_tr)
-    tag_base = main_base + 22 * k + tag_size * SANS_SEMI.cap
-    line_y = tag_base - tag_size * SANS_SEMI.cap / 2
-    rule_w = (total - w_tag) / 2 - 16 * k
-
-    svg = (
-        f'<path fill="{colors["top"]}" d="{SANS.path("AYAM GORENG", top_size, x + w_mas + gap + 4 * k, top_base, top_tr)}"/>'
-        f'<path fill="{colors["mas"]}" d="{SCRIPT.path("Mas", mas_size, x, main_base + 4 * k)}"/>'
-        f'<path fill="{colors["main"]}" d="{SLAB.path("BAMBANG", slab_size, x + w_mas + gap, main_base)}"/>'
-        f'<rect x="{x:.2f}" y="{line_y - 1.5 * k:.2f}" width="{rule_w:.2f}" height="{3 * k:.2f}" fill="{colors["tag"]}"/>'
-        f'<rect x="{x + total - rule_w:.2f}" y="{line_y - 1.5 * k:.2f}" width="{rule_w:.2f}" height="{3 * k:.2f}" fill="{colors["tag"]}"/>'
-        f'<path fill="{colors["tag"]}" d="{SANS_SEMI.path(tag_text, tag_size, x + total / 2, tag_base, tag_tr, "middle")}"/>'
-    )
-    return svg, total, tag_base - y_top
-
-
-WM_WARNA = dict(top=CABAI, mas=CABAI, main=TUA, tag=ARANG)
-WM_TERANG = dict(top=KUNING, mas=KUNING, main=KREM, tag=KREM)
-
-
-def mono_wm(c):
-    return dict(top=c, mas=c, main=c, tag=c)
+SCRIPT = Font("MrDafoe-Regular.ttf")
+SERIF = Font("CormorantGaramond-Bold.ttf")
 
 
 def svg_doc(w, h, body, bg=None):
@@ -218,102 +113,169 @@ def svg_doc(w, h, body, bg=None):
     )
 
 
-# ---------------------------------------------------------------- layouts
-def horizontal(sym_kw, wm_colors, bg=None, pad=40):
-    wm, ww, wh = wordmark(0, 0, wm_colors)
-    sym_size = 230
-    s = sym_size / 200
-    text_x = pad + sym_size + 26
-    h = pad * 2 + sym_size
-    text_y = (h - wh) / 2 + 6
-    wm, ww, wh = wordmark(text_x, text_y, wm_colors)
-    w = text_x + ww + pad
-    body = f'<g transform="translate({pad} {pad}) scale({s})">{symbol(**sym_kw)}</g>{wm}'
-    return svg_doc(w, h, body, bg)
+def p(d, fill):
+    return f'<path fill="{fill}" d="{d}"/>'
 
 
-def stacked(sym_kw, wm_colors, bg=None, pad=40):
-    _, ww, wh = wordmark(0, 0, wm_colors)
-    w = ww + pad * 2
-    sym_size = 220
-    sx = (w - sym_size) / 2
-    wm, ww, wh = wordmark(pad, pad + sym_size + 16, wm_colors)
-    h = pad + sym_size + 16 + wh + pad
-    body = f'<g transform="translate({sx:.2f} {pad}) scale({sym_size / 200})">{symbol(**sym_kw)}</g>{wm}'
-    return svg_doc(w, h, body, bg)
+def script_fit(text, max_w, max_size, cx, baseline):
+    """Ukuran huruf script disesuaikan agar lebar tintanya pas max_w, dipusatkan ke cx."""
+    size = max_size
+    b = SCRIPT.ink_bounds(text, size)
+    if b[2] - b[0] > max_w:
+        size *= max_w / (b[2] - b[0])
+        b = SCRIPT.ink_bounds(text, size)
+    x = cx - (b[0] + b[2]) / 2
+    return SCRIPT.path(text, size, x, baseline), size
 
 
-def stamp(ring=TUA, ink=KREM, accent=KUNING, inner=KREM, sym_kw=None):
+# ---------------------------------------------------------------- 1. logo utama: lencana bulat
+def badge(bg=TUA, ink=KREM, accent=KUNYIT):
     c = 200
-    top = SANS.arc("AYAM GORENG MAS BAMBANG", 23, c, c, 152, 0, tracking=2.4)
-    bot_r = 152 + 23 * SANS.cap
-    bot = SANS.arc("KRIUK · GURIH · JUJUR", 22, c, c, bot_r, 180, tracking=3.2, bottom=True)
-    dots = "".join(
-        f'<circle cx="{c + 160 * math.sin(math.radians(a)):.2f}" cy="{c - 160 * math.cos(math.radians(a)):.2f}" r="5" fill="{accent}"/>'
-        for a in (112, 248)
-    )
-    sym_kw = sym_kw or {"palette": "warna", "uid": "stamp"}
-    s = 1.12
+    script, _ = script_fit("Mas Bambang", 316, 124, c, 238)
     body = (
-        f'<circle cx="{c}" cy="{c}" r="198" fill="{ring}"/>'
-        f'<circle cx="{c}" cy="{c}" r="187" fill="none" stroke="{ink}" stroke-width="3"/>'
-        f'<circle cx="{c}" cy="{c}" r="133" fill="{inner}"/>'
-        f'<circle cx="{c}" cy="{c}" r="133" fill="none" stroke="{ink}" stroke-width="3"/>'
-        f'<path fill="{ink}" d="{top}"/><path fill="{accent}" d="{bot}"/>{dots}'
-        f'<g transform="translate({c - 100 * s - 6:.2f} {c - 112 * s + 4:.2f}) scale({s})">{symbol(**sym_kw)}</g>'
+        f'<circle cx="{c}" cy="{c}" r="200" fill="{bg}"/>'
+        f'<circle cx="{c}" cy="{c}" r="184" fill="none" stroke="{ink}" stroke-width="1.6"/>'
+        + p(SERIF.path("AYAM GORENG", 25, c, 150, 7.5, "middle"), ink)
+        + p(script, ink)
+        + f'<rect x="{c - 46}" y="275" width="34" height="1.6" fill="{ink}"/>'
+        f'<circle cx="{c}" cy="276" r="4" fill="{accent}"/>'
+        f'<rect x="{c + 12}" y="275" width="34" height="1.6" fill="{ink}"/>'
+        + p(SERIF.path("RESEP RUMAHAN", 18, c, 312, 6, "middle"), ink)
     )
     return svg_doc(400, 400, body)
 
 
-def app_icon():
-    s = 0.86
+# ---------------------------------------------------------------- 2. wordmark
+def wordmark(ink=TUA, small=None, bg=None, tagline=False):
+    small = small or ink
+    size = 170
+    pad = 36
+    b = SCRIPT.ink_bounds("Mas Bambang", size)
+    ink_w, ink_h = b[2] - b[0], b[3] - b[1]
+    top_size, top_tr = 26, 7
+    top_w = SERIF.width("AYAM GORENG", top_size, top_tr)
+    top_gap = 14
+    top_h = top_size * SERIF.cap
+    w = ink_w + pad * 2
+    x0 = pad - b[0]
+    y_script_top = pad + top_h + top_gap
+    baseline = y_script_top - b[1]
+    # "AYAM GORENG" rata kanan di atas kata Bambang
+    top_x = pad + ink_w - top_w - 8
+    body = p(SERIF.path("AYAM GORENG", top_size, top_x, pad + top_h, top_tr), small) + p(
+        SCRIPT.path("Mas Bambang", size, x0, baseline), ink
+    )
+    h = y_script_top + ink_h + pad
+    if tagline:
+        tg = "KRIUKNYA KEDENGERAN SAMPAI TETANGGA"
+        ty = h + 4
+        body += p(SERIF.path(tg, 24, w / 2, ty + 10, 5, "middle"), small)
+        h = ty + 10 + pad
+    return svg_doc(w, h, body, bg)
+
+
+# ---------------------------------------------------------------- 3. monogram
+def monogram(bg=TUA, ink=KREM):
+    c = 100
+    script, _ = script_fit("Mb", 118, 150, c, 132)
     body = (
-        f'<rect width="512" height="512" rx="112" fill="{TUA}"/>'
-        f'<g transform="translate({256 - 100 * s * 2.2 - 12:.2f} {256 - 112 * s * 2.2 + 8:.2f}) scale({s * 2.2:.3f})">'
-        f'{symbol("terang", uid="icon")}</g>'
+        f'<circle cx="{c}" cy="{c}" r="100" fill="{bg}"/>'
+        f'<circle cx="{c}" cy="{c}" r="90" fill="none" stroke="{ink}" stroke-width="1.4"/>'
+        + p(script, ink)
     )
-    return svg_doc(512, 512, body)
+    return svg_doc(200, 200, body)
 
 
-def pattern():
-    tile = 240
-    s = 0.42
-    cells = []
-    for i, (x, y) in enumerate([(30, 24), (150, 144)]):
-        cells.append(
-            f'<g transform="translate({x} {y}) scale({s})">{symbol(mono=CABAI, uid=f"p{i}")}</g>'
-        )
-    crumbs = "".join(
-        f'<circle cx="{x}" cy="{y}" r="{r}" fill="{KUNING}"/>'
-        for x, y, r in [(170, 46, 5), (186, 62, 3.5), (160, 70, 3), (48, 168, 5), (66, 186, 3.5), (36, 196, 3)]
+# ---------------------------------------------------------------- 4. stempel satu warna
+def stamp(ink=TUA):
+    c = 200
+    top = SERIF.arc("AYAM GORENG MAS BAMBANG", 24, c, c, 152, 0, tracking=3.6)
+    bot = SERIF.arc("RESEP RUMAHAN", 24, c, c, 152 + 24 * SERIF.cap, 180, tracking=6, bottom=True)
+    script, _ = script_fit("Mb", 150, 190, c, 236)
+    dots = "".join(
+        f'<circle cx="{c + 160 * math.sin(math.radians(a)):.2f}" cy="{c - 160 * math.cos(math.radians(a)):.2f}" r="4.5" fill="{ink}"/>'
+        for a in (121, 239)
     )
-    return svg_doc(tile, tile, "".join(cells) + crumbs, bg=TUA)
+    body = (
+        f'<circle cx="{c}" cy="{c}" r="196" fill="none" stroke="{ink}" stroke-width="5"/>'
+        f'<circle cx="{c}" cy="{c}" r="186" fill="none" stroke="{ink}" stroke-width="1.5"/>'
+        f'<circle cx="{c}" cy="{c}" r="128" fill="none" stroke="{ink}" stroke-width="1.5"/>'
+        + p(top, ink) + p(bot, ink) + dots + p(script, ink)
+    )
+    return svg_doc(400, 400, body)
 
 
-def symbol_file(**kw):
-    return svg_doc(200, 200, f"<g>{symbol(**kw)}</g>")
+# ---------------------------------------------------------------- 5. sampul highlight IG
+def highlight(lines, bg=TUA, ink=KREM, accent=KUNYIT):
+    c = 150
+    size = 34 if max(len(l) for l in lines) <= 8 else 28
+    lh = size * 1.12
+    total = lh * (len(lines) - 1)
+    body = f'<circle cx="{c}" cy="{c}" r="150" fill="{bg}"/>'
+    body += f'<circle cx="{c}" cy="{c}" r="136" fill="none" stroke="{ink}" stroke-width="1.5"/>'
+    y0 = c - total / 2 + size * SERIF.cap / 2
+    for i, line in enumerate(lines):
+        body += p(SERIF.path(line, size, c, y0 + i * lh, 4, "middle"), ink)
+    body += f'<circle cx="{c}" cy="{y0 + total + 30:.1f}" r="4" fill="{accent}"/>'
+    return svg_doc(300, 300, body)
 
 
-def wordmark_file(colors, pad=30):
-    wm, ww, wh = wordmark(pad, pad, colors)
-    return svg_doc(ww + 2 * pad, wh + 2 * pad, wm)
+# ---------------------------------------------------------------- 6. pola tegel
+def tegel(bg=KREM, ink=TUA, accent=KUNYIT):
+    t = 200
+    r = 52
+    sw = 2.4
+    arcs = "".join(
+        f'<circle cx="{x}" cy="{y}" r="{r}" fill="none" stroke="{ink}" stroke-width="{sw}"/>'
+        f'<circle cx="{x}" cy="{y}" r="{r - 12}" fill="none" stroke="{ink}" stroke-width="1.2"/>'
+        for x in (0, t) for y in (0, t)
+    )
+    m = t / 2
+    d = 20
+    diamond = f'<path d="M{m} {m - d} L{m + d} {m} L{m} {m + d} L{m - d} {m} Z" fill="{bg}" stroke="{ink}" stroke-width="{sw}"/>'
+    petals = "".join(
+        f'<path d="M{m} {m} Q{m + dx * 34 + dy * 14} {m + dy * 34 - dx * 14} {m + dx * 50} {m + dy * 50} '
+        f'Q{m + dx * 34 - dy * 14} {m + dy * 34 + dx * 14} {m} {m} Z" fill="{ink}"/>'
+        for dx, dy in ((1, 1), (1, -1), (-1, 1), (-1, -1))
+    )
+    body = arcs + petals + diamond + f'<circle cx="{m}" cy="{m}" r="7" fill="{accent}"/>'
+    return svg_doc(t, t, body, bg=bg)
 
+
+def profile_pic():
+    """Foto profil IG: lencana memenuhi kanvas persegi krem."""
+    inner = badge()
+    inner = inner.split(">", 1)[1].rsplit("</svg>", 1)[0]
+    body = f'<rect width="440" height="440" fill="{KREM}"/><g transform="translate(20 20)">{inner}</g>'
+    return svg_doc(440, 440, body)
+
+
+HIGHLIGHTS = {
+    "menu": ["MENU"],
+    "jam-buka": ["JAM", "BUKA"],
+    "lokasi": ["LOKASI"],
+    "pesan-online": ["PESAN", "ONLINE"],
+    "kata-mereka": ["KATA", "MEREKA"],
+}
 
 FILES = {
-    "logo-horizontal-warna.svg": lambda: horizontal({"palette": "warna", "uid": "h1"}, WM_WARNA),
-    "logo-horizontal-terang.svg": lambda: horizontal({"palette": "terang", "uid": "h2"}, WM_TERANG, bg=TUA),
-    "logo-horizontal-hitam.svg": lambda: horizontal({"mono": ARANG, "uid": "h3"}, mono_wm(ARANG)),
-    "logo-horizontal-putih.svg": lambda: horizontal({"mono": "#FFFFFF", "uid": "h4"}, mono_wm("#FFFFFF")),
-    "logo-tegak-warna.svg": lambda: stacked({"palette": "warna", "uid": "v1"}, WM_WARNA),
-    "logo-tegak-terang.svg": lambda: stacked({"palette": "terang", "uid": "v2"}, WM_TERANG, bg=TUA),
-    "simbol-warna.svg": lambda: symbol_file(palette="warna", uid="sy1"),
-    "simbol-terang.svg": lambda: symbol_file(palette="terang", uid="sy2"),
-    "simbol-hitam.svg": lambda: symbol_file(mono=ARANG, uid="sy3"),
-    "wordmark-warna.svg": lambda: wordmark_file(WM_WARNA),
-    "stempel-bulat.svg": stamp,
-    "ikon-aplikasi.svg": app_icon,
-    "pola-kemasan.svg": pattern,
+    "logo-lencana-merah.svg": lambda: badge(),
+    "logo-lencana-krem.svg": lambda: badge(bg=KREM, ink=TUA, accent=KUNYIT),
+    "logo-lencana-hitam.svg": lambda: badge(bg=ARANG, ink=KREM, accent=KREM),
+    "wordmark-merah.svg": lambda: wordmark(),
+    "wordmark-krem.svg": lambda: wordmark(ink=KREM, small=KUNYIT),
+    "wordmark-hitam.svg": lambda: wordmark(ink=ARANG),
+    "wordmark-tagline-merah.svg": lambda: wordmark(tagline=True),
+    "monogram-merah.svg": lambda: monogram(),
+    "monogram-krem.svg": lambda: monogram(bg=KREM, ink=TUA),
+    "stempel-merah.svg": lambda: stamp(),
+    "stempel-hitam.svg": lambda: stamp(ARANG),
+    "foto-profil-ig.svg": profile_pic,
+    "pola-tegel.svg": tegel,
+    "pola-tegel-merah.svg": lambda: tegel(bg=TUA, ink=KREM, accent=KUNYIT),
 }
+for key, lines in HIGHLIGHTS.items():
+    FILES[f"highlight-{key}.svg"] = (lambda l: lambda: highlight(l))(lines)
 
 
 if __name__ == "__main__":
@@ -321,4 +283,4 @@ if __name__ == "__main__":
     for name, fn in FILES.items():
         with open(os.path.join(OUT, name), "w") as f:
             f.write(fn())
-        print("ok", name)
+    print(len(FILES), "file SVG dibuat di", OUT)
