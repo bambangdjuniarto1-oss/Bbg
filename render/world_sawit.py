@@ -27,7 +27,7 @@ lp.PAL.update({
     # tanah & kebun
     "kb_grass": "#7EB65A", "kb_grass2": "#5E9C44", "kb_far": "#5E9A45", "kb_soil": "#A8784E", "kb_soil2": "#8E6240",
     "kb_soil_dk": "#6A4630", "road_dirt": "#D2AE78", "road_dirt2": "#BF9963", "canal": "#4E95B8",
-    "burnt": "#3D3631", "ash": "#8B8279", "char": "#231E1B", "smoke": "#E4E1DC", "smoke2": "#C9C4BD",
+    "burnt": "#3D3631", "ash": "#8B8279", "char": "#231E1B", "smoke": "#F2F0EC", "smoke2": "#DAD6D0",
     "ember": "#FF7A1A",
     # orang
     "kb_shirt1": "#3C6E9E", "kb_shirt2": "#6B8E3A", "kb_shirt3": "#C8553D", "kb_shirt4": "#E0A33A",
@@ -495,7 +495,7 @@ def smoke(prefix, pts, n_frames, seed=5, rise=16.0, s=4.0, per=5):
     rnd = random.Random(seed)
     obs = []
     life = 70
-    for k_, a_ in (("smoke", .55), ("smoke2", .6)):
+    for k_, a_ in (("smoke", .42), ("smoke2", .48)):
         m = lp.mat(k_)
         b = m.node_tree.nodes["Principled BSDF"]
         b.inputs["Alpha"].default_value = a_
@@ -518,7 +518,7 @@ def smoke(prefix, pts, n_frames, seed=5, rise=16.0, s=4.0, per=5):
                     ob.scale = (sc,) * 3
                     ob.keyframe_insert("scale", frame=fr)
                 dx = rnd.uniform(-1.5, 1.5)
-                key(f_a, (x, y, z), .2 * s)
+                key(f_a, (x, y, z + 1.2), .12 * s)
                 key(f_a + int(life * .6), (x + dx * .6 + 1.2, y, z + rise * .6), s * .9)
                 key(f_b - 1, (x + dx + 2.4, y, z + rise), .05)
             obs.append(ob)

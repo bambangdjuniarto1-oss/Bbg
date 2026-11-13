@@ -303,27 +303,34 @@ def k07(n, info, A):
 
 def k08(n, info, A):
     """'Tapi ingat, sawit baru menghasilkan sekitar 2,5 sampai 3 tahun.' — bibit tumbuh jadi pohon berbuah
-    di sepanjang garis waktu."""
-    field((-16, -10, 16, 6), seed=8)
+    di sepanjang garis waktu (diagonal ke belakang)."""
+    field((-13, -10, 13, 13), seed=8)
+    P = [(-6.5, -5.0), (-2.2, -.4), (2.2, 4.2), (6.5, 8.8)]
     mb = W.MB("tl")
-    mb.box(-14, -3.4, 0, 14, -2.6, .1, "lw_yellow")
-    for k in range(4):
-        mb.box(-10.5 + k * 7 - .2, -3.6, 0, -10.5 + k * 7 + .2, -2.4, .25, "lw_navy")
-    mb.prism_x([(-3.9, .05), (-2.1, .05), (-3.0, .14)], 14, 15.2, "lw_yellow")
+    (x0, y0), (x1, y1) = P[0], P[-1]
+    dx, dy = x1 - x0, y1 - y0
+    ln = math.hypot(dx, dy)
+    px, py = -dy / ln * .45, dx / ln * .45
+    ex, ey = dx / ln * 2.0, dy / ln * 2.0
+    mb.poly([(x0 - ex + px, y0 - ey + py, .02), (x1 + ex + px, y1 + ey + py, .02), (x1 + ex - px, y1 + ey - py, .02),
+             (x0 - ex - px, y0 - ey - py, .02), (x0 - ex + px, y0 - ey + py, .12), (x1 + ex + px, y1 + ey + py, .12),
+             (x1 + ex - px, y1 + ey - py, .12), (x0 - ex - px, y0 - ey - py, .12)],
+            [(0, 3, 2, 1), (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7)], "lw_yellow")
+    for (x, y) in P:
+        mb.cyl(x, y, 0, .2, .75, "lw_navy", n=10)
     mb.build()
     tl_t = (33.5, 34.2, 34.9, 35.6)
     for k, st in enumerate(("bibit", "muda", "remaja", "dewasa")):
-        x = -10.5 + k * 7
-        p = K.palm_obj(f"st{k}", st, 1.0, seed=k).build((x, 0, 0))
+        x, y = P[k]
+        p = K.palm_obj(f"st{k}", st, 1.0 if k < 3 else .95, seed=k).build((x, y, .2))
         pop(p, fr("K08", tl_t[k]), 1.0)
-        c = K.calendar(f"cal{k}", ("0", "1", "2", "3")[k], (x, -5.2, 0), .55)
+        c = K.calendar(f"cal{k}", ("0", "1", "2", "3")[k], (x - 2.6, y - 1.2, 0), .6)
         pop(c, fr("K08", tl_t[k]) + 3, 1.0)
-    A["BIBIT"] = (-10.5, 0, 1.3)
-    A["PANEN"] = (10.5, 0, 6.2)
-    cam, tgt = make_camera(lens=22, shift_y=.1)
-    tg = (0, -1, 2.6)
-    cam.data.lens = 18
-    cam_keys(cam, tgt, [(1, orbit(tg, -95, 10, 33), tg), (n, orbit(tg, -89, 12, 30), tg)])
+    A["BIBIT"] = (P[0][0], P[0][1], 1.4)
+    A["PANEN"] = (P[3][0], P[3][1], 6.6)
+    cam, tgt = make_camera(lens=20, shift_y=.1)
+    tg = (0, 1.8, 2.4)
+    cam_keys(cam, tgt, [(1, orbit(tg, -104, 15, 27), tg), (n, orbit(tg, -96, 18, 25), tg)])
 
 
 def k09(n, info, A):
