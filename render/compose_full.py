@@ -211,6 +211,16 @@ def draw_panel(img, p, t_local):
 
 
 def hud_value(hud, t):
+    if hud.get("keys"):                      # angka bertahap: [[detik lokal, nilai], ...]
+        prev = hud["start"]
+        for tk, val in hud["keys"]:
+            if t <= tk:
+                return prev
+            p = min(1.0, (t - tk) / hud.get("dur", .8))
+            if p < 1:
+                return prev + (val - prev) * C.ease_out(p)
+            prev = val
+        return prev
     p = (t - hud["t"]) / max(.01, hud["dur"])
     return hud["start"] + (hud["to"] - hud["start"]) * C.ease_out(p)
 

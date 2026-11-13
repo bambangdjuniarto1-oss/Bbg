@@ -1,0 +1,8 @@
+{
+  "register_keep": 0.35,
+  "target_range": 9.5,
+  "question_end": true,
+  "section_starts": [17.1, 43.6, 58.6, 71.9, 90.4, 107.7],
+  "pause_section": 0.62, "pause_sentence": 0.42, "pause_comma": 0.22,
+  "tempo": [[0.0, 1.15]]
+}

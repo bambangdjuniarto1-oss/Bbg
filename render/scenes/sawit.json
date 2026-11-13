@@ -1,0 +1,651 @@
+{
+ "keywords": [
+  "dibakar",
+  "uang",
+  "hektare",
+  "sawit",
+  "panen",
+  "modalnya",
+  "lahan",
+  "bibit",
+  "unggul",
+  "tanam",
+  "jalan",
+  "perawatan",
+  "55",
+  "juta",
+  "tanah",
+  "275",
+  "550",
+  "2,5",
+  "3",
+  "tahun",
+  "produktif",
+  "ton",
+  "tandan",
+  "10",
+  "3.000",
+  "kilo",
+  "9",
+  "omzetnya",
+  "45",
+  "90",
+  "pekerja",
+  "150",
+  "ribu",
+  "900",
+  "pupuk",
+  "700",
+  "350",
+  "angkut",
+  "400",
+  "operasional",
+  "6,5",
+  "32,5",
+  "65",
+  "menarik",
+  "tunggu"
+ ],
+ "scenes": [
+  {
+   "id": "K01",
+   "bubble": "Katanya **lahan dibakar**",
+   "labels": [
+    {
+     "anchor": "BAKAR",
+     "title": "LAHAN DIBAKAR?",
+     "sub": "katanya demi uang",
+     "color": "red",
+     "t": 1.2,
+     "lift": 120
+    }
+   ]
+  },
+  {
+   "id": "K02",
+   "bubble": "Uang dari **1 hektare**?",
+   "labels": [
+    {
+     "anchor": "HEKTARE",
+     "title": "1 HEKTARE KEBUN SAWIT",
+     "sub": "berapa uangnya?",
+     "color": "green",
+     "t": 0.2,
+     "lift": 110
+    }
+   ]
+  },
+  {
+   "id": "K03",
+   "bubble": "Panen **tiap 10 hari**",
+   "labels": [
+    {
+     "anchor": "PANEN",
+     "title": "PANEN = DAPAT UANG",
+     "sub": "",
+     "color": "orange",
+     "t": 0.3,
+     "lift": 60
+    },
+    {
+     "anchor": "HARI",
+     "title": "TIAP 10 HARI",
+     "sub": "",
+     "color": "blue",
+     "t": 0.1,
+     "lift": 120
+    }
+   ]
+  },
+  {
+   "id": "K04",
+   "bubble": "Modalnya **berapa**?"
+  },
+  {
+   "id": "K05",
+   "bubble": "Modal **buka kebun**",
+   "panels": [
+    {
+     "type": "table",
+     "title": "MODAL KEBUN / HEKTARE",
+     "cols": [
+      "KEBUTUHAN",
+      "KAPAN"
+     ],
+     "widths": [
+      430,
+      310
+     ],
+     "rows": [
+      [
+       "Buka lahan",
+       "awal"
+      ],
+      [
+       "Bibit unggul",
+       "awal"
+      ],
+      [
+       "Tanam",
+       "tahun 0"
+      ],
+      [
+       "Jalan kebun",
+       "tahun 0"
+      ],
+      [
+       "Perawatan s/d panen",
+       "0 – 3 tahun"
+      ]
+     ],
+     "row_t": [
+      -2.82,
+      -1.88,
+      -1.1,
+      -0.58,
+      0.0
+     ],
+     "red_col": -1,
+     "y": 600
+    }
+   ]
+  },
+  {
+   "id": "K06",
+   "bubble": "Modal **Rp55 juta/ha**",
+   "labels": [
+    {
+     "anchor": "MODAL",
+     "title": "Rp55 JUTA / HA",
+     "sub": "buka lahan s/d siap panen",
+     "color": "red",
+     "t": 0.66,
+     "lift": 80
+    },
+    {
+     "anchor": "TANAH",
+     "title": "DI LUAR HARGA TANAH",
+     "sub": "",
+     "color": "orange",
+     "t": 2.2,
+     "lift": 60
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "MODAL / HEKTARE",
+    "start": 0,
+    "to": 55,
+    "max": 55,
+    "unit": "juta",
+    "t": 0.0,
+    "dur": 1.6,
+    "target_text": "tanpa tanah"
+   }
+  },
+  {
+   "id": "K07",
+   "bubble": "Modal **makin luas**",
+   "labels": [
+    {
+     "anchor": "G1",
+     "title": "1 HA · Rp55 JT",
+     "sub": "",
+     "color": "blue",
+     "t": -5.45,
+     "lift": 70
+    },
+    {
+     "anchor": "G5",
+     "title": "5 HA · Rp275 JT",
+     "sub": "",
+     "color": "orange",
+     "t": -3.19,
+     "lift": 90
+    },
+    {
+     "anchor": "G10",
+     "title": "10 HA · Rp550 JT",
+     "sub": "",
+     "color": "red",
+     "t": -0.88,
+     "lift": 110
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "MODAL KEBUN",
+    "start": 55,
+    "keys": [
+     [
+      -2.7,
+      275
+     ],
+     [
+      0.39,
+      550
+     ]
+    ],
+    "max": 550,
+    "unit": "juta",
+    "t": -5.8,
+    "dur": 0.8,
+    "target_text": "1 · 5 · 10 hektare"
+   }
+  },
+  {
+   "id": "K08",
+   "bubble": "Panen **2,5–3 tahun**",
+   "labels": [
+    {
+     "anchor": "BIBIT",
+     "title": "TAHUN 0: TANAM",
+     "sub": "",
+     "color": "blue",
+     "t": 0.94,
+     "lift": 60
+    },
+    {
+     "anchor": "PANEN",
+     "title": "PANEN PERDANA",
+     "sub": "2,5–3 tahun",
+     "color": "green",
+     "t": 2.4,
+     "lift": 70
+    }
+   ]
+  },
+  {
+   "id": "K09",
+   "bubble": "Hitung **panennya**",
+   "labels": [
+    {
+     "anchor": "TON",
+     "title": "1 TON TBS / HA",
+     "sub": "tandan buah segar",
+     "color": "orange",
+     "t": -1.71,
+     "lift": 90
+    },
+    {
+     "anchor": "HARI",
+     "title": "TIAP 10 HARI",
+     "sub": "",
+     "color": "blue",
+     "t": 0.19,
+     "lift": 70
+    }
+   ]
+  },
+  {
+   "id": "K10",
+   "bubble": "Rp3.000/kg **× 3 panen**",
+   "labels": [
+    {
+     "anchor": "HARGA",
+     "title": "Rp3.000 / KG",
+     "sub": "harga TBS",
+     "color": "orange",
+     "t": 0.1,
+     "lift": 60
+    },
+    {
+     "anchor": "PANEN3",
+     "title": "3× PANEN / BULAN",
+     "sub": "",
+     "color": "blue",
+     "t": 2.0,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "K11",
+   "bubble": "Omzet **Rp9 juta/bulan**",
+   "labels": [
+    {
+     "anchor": "OMZET",
+     "title": "Rp9 JUTA / BULAN",
+     "sub": "1.000 kg × Rp3.000 × 3",
+     "color": "green",
+     "t": 0.63,
+     "lift": 80
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "OMZET / HEKTARE",
+    "start": 0,
+    "to": 9,
+    "max": 9,
+    "unit": "juta / bulan",
+    "t": 0.63,
+    "dur": 1.6,
+    "target_text": "1 hektare"
+   }
+  },
+  {
+   "id": "K12",
+   "bubble": "Omzet **5 & 10 hektare**",
+   "labels": [
+    {
+     "anchor": "G5",
+     "title": "5 HA · Rp45 JT",
+     "sub": "per bulan",
+     "color": "orange",
+     "t": -1.63,
+     "lift": 90
+    },
+    {
+     "anchor": "G10",
+     "title": "10 HA · Rp90 JT",
+     "sub": "per bulan",
+     "color": "red",
+     "t": 0.47,
+     "lift": 110
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "OMZET / BULAN",
+    "start": 9,
+    "keys": [
+     [
+      -1.18,
+      45
+     ],
+     [
+      0.96,
+      90
+     ]
+    ],
+    "max": 90,
+    "unit": "juta",
+    "t": -1.9,
+    "dur": 0.8,
+    "target_text": "1 · 5 · 10 hektare"
+   }
+  },
+  {
+   "id": "K13",
+   "bubble": "Kebun **butuh pekerja**",
+   "labels": [
+    {
+     "anchor": "PEKERJA",
+     "title": "2 PEKERJA / HA",
+     "sub": "pemanen + pengangkut",
+     "color": "blue",
+     "t": 1.25,
+     "lift": 120
+    },
+    {
+     "anchor": "UPAH",
+     "title": "Rp150 RIBU",
+     "sub": "per orang, tiap panen",
+     "color": "orange",
+     "t": 2.73,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "K14",
+   "bubble": "Upah **Rp900 ribu/bulan**",
+   "labels": [
+    {
+     "anchor": "UPAH",
+     "title": "BIAYA PEKERJA",
+     "sub": "2 × Rp150rb × 3 panen",
+     "color": "orange",
+     "t": 0.07,
+     "lift": 80
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "BIAYA PEKERJA / HA",
+    "start": 0,
+    "to": 900,
+    "max": 900,
+    "unit": "ribu / bulan",
+    "t": 0.6,
+    "dur": 1.4,
+    "target_text": "per bulan"
+   }
+  },
+  {
+   "id": "K15",
+   "bubble": "Biaya **operasional**",
+   "panels": [
+    {
+     "type": "table",
+     "title": "BIAYA OPERASIONAL / HA / BULAN",
+     "cols": [
+      "BIAYA",
+      "PER BULAN"
+     ],
+     "widths": [
+      440,
+      300
+     ],
+     "rows": [
+      [
+       "Pekerja panen",
+       "Rp900rb"
+      ],
+      [
+       "Pupuk",
+       "Rp700rb"
+      ],
+      [
+       "Perawatan",
+       "Rp350rb"
+      ],
+      [
+       "Angkut panen",
+       "Rp400rb"
+      ],
+      [
+       "Lain-lain",
+       "Rp150rb"
+      ]
+     ],
+     "row_t": [
+      -4.35,
+      -3.82,
+      -2.45,
+      -0.03,
+      1.73
+     ],
+     "red_col": 1,
+     "y": 600
+    }
+   ]
+  },
+  {
+   "id": "K16",
+   "bubble": "Total **Rp2,5 juta/ha**",
+   "labels": [
+    {
+     "anchor": "TOTAL",
+     "title": "TOTAL Rp2,5 JUTA",
+     "sub": "operasional / ha / bulan",
+     "color": "red",
+     "t": 0.01,
+     "lift": 80
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "OPERASIONAL / HEKTARE",
+    "start": 0,
+    "to": 2.5,
+    "max": 2.5,
+    "unit": "juta / bulan",
+    "t": -1.5,
+    "dur": 1.6,
+    "decimals": 1,
+    "target_text": "per bulan",
+    "bar": "red",
+    "trim_zero": true
+   }
+  },
+  {
+   "id": "K17",
+   "bubble": "Sisa **Rp6,5 juta**",
+   "labels": [
+    {
+     "anchor": "OPS",
+     "title": "− Rp2,5 JT",
+     "sub": "operasional",
+     "color": "red",
+     "t": -1.1,
+     "lift": 60
+    },
+    {
+     "anchor": "LABA",
+     "title": "SISA Rp6,5 JUTA / HA",
+     "sub": "Rp9 jt − Rp2,5 jt",
+     "color": "green",
+     "t": 0.0,
+     "lift": 90
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "SISA / HEKTARE",
+    "start": 9,
+    "to": 6.5,
+    "max": 9,
+    "unit": "juta / bulan",
+    "t": -0.87,
+    "dur": 1.4,
+    "decimals": 1,
+    "target_text": "omzet − operasional",
+    "trim_zero": true
+   }
+  },
+  {
+   "id": "K18",
+   "bubble": "Sisa **tiap bulan**",
+   "labels": [
+    {
+     "anchor": "G1",
+     "title": "1 HA · Rp6,5 JT",
+     "sub": "",
+     "color": "blue",
+     "t": -2.3,
+     "lift": 70
+    },
+    {
+     "anchor": "G5",
+     "title": "5 HA · Rp32,5 JT",
+     "sub": "",
+     "color": "orange",
+     "t": -2.1,
+     "lift": 90
+    },
+    {
+     "anchor": "G10",
+     "title": "10 HA · Rp65 JT",
+     "sub": "",
+     "color": "green",
+     "t": 0.3,
+     "lift": 110
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "SISA / BULAN",
+    "start": 6.5,
+    "keys": [
+     [
+      -2.1,
+      32.5
+     ],
+     [
+      0.4,
+      65
+     ]
+    ],
+    "max": 65,
+    "unit": "juta",
+    "t": -2.4,
+    "dur": 0.8,
+    "decimals": 1,
+    "target_text": "1 · 5 · 10 hektare",
+    "green_when_full": true,
+    "trim_zero": true
+   }
+  },
+  {
+   "id": "K19",
+   "bubble": "Untuk kebun **produktif**",
+   "labels": [
+    {
+     "anchor": "PRODUKTIF",
+     "title": "SUDAH PRODUKTIF",
+     "sub": "angka di atas berlaku di sini",
+     "color": "green",
+     "t": -1.4,
+     "lift": 80
+    },
+    {
+     "anchor": "HARI1",
+     "title": "BARU TANAM",
+     "sub": "belum ada panen",
+     "color": "red",
+     "t": 0.0,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "K20",
+   "bubble": "Sawit **masih menarik**?",
+   "labels": [
+    {
+     "anchor": "KEBUN",
+     "title": "KEBUN SAWIT",
+     "sub": "tunggu 2,5–3 tahun",
+     "color": "green",
+     "t": 0.6,
+     "lift": 90
+    }
+   ],
+   "cta": 2.4
+  }
+ ]
+}

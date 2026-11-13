@@ -171,8 +171,17 @@ CHORDS_E = [
 ]
 MOTIF_E = [(0, 73), (.5, 76), (1, 78), (2, 76), (2.5, 73), (3, 71),
            (4, 69), (4.5, 71), (5, 73), (6, 76), (6.5, 73), (7, 71)]
+# variasi F (video sawit): kunci D minor, progresi Dm-Bb-F-C (i-VI-III-VII), hangat & sedikit reflektif
+CHORDS_F = [
+    (38, [57, 62, 65, 69]),   # Dm
+    (46, [58, 62, 65, 70]),   # Bb
+    (41, [57, 60, 65, 69]),   # F
+    (36, [55, 60, 64, 67]),   # C
+]
+MOTIF_F = [(0, 74), (.5, 77), (1, 81), (2, 79), (2.5, 77), (3, 76),
+           (4, 74), (4.5, 72), (5, 74), (6, 77), (6.5, 76), (7, 72)]
 VARIANTS = {"A": None, "B": (CHORDS_B, MOTIF_B), "C": (CHORDS_C, MOTIF_C), "D": (CHORDS_D, MOTIF_D),
-            "E": (CHORDS_E, MOTIF_E)}
+            "E": (CHORDS_E, MOTIF_E), "F": (CHORDS_F, MOTIF_F)}
 
 
 def render(dur, bpm=128.0, brk=(20.6, 24.4)):
