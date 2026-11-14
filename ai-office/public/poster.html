@@ -37,7 +37,7 @@
   .kicker i { width: 44px; height: 6px; border-radius: 3px; background: var(--merah); display: block; }
   h1 { font-size: 100px; line-height: .95; font-weight: 900; letter-spacing: -2px; margin-top: 18px; }
   h1 span { color: var(--merah); }
-  .sub { font-size: 30px; color: var(--redup); margin-top: 18px; max-width: 820px; line-height: 1.35; }
+  .sub { font-size: 30px; color: var(--redup); margin-top: 18px; max-width: 930px; line-height: 1.35; }
 
   .kartu { position: relative; z-index: 1; background: #ffffffd9; border-radius: 32px;
     box-shadow: 0 18px 50px var(--bayang), 0 2px 0 #fff inset; overflow: hidden; }
@@ -127,6 +127,21 @@ const DIVISI = {
       { id: "vina", nama: "Vina", jabatan: "Newsletter & CRM", desk: "Newsletter mingguan dan segmen pelanggan", rambut: "#7b4a2a", panjang: true },
       { id: "wulan", nama: "Wulan", jabatan: "Partnership & Syndication", desk: "Pitching ke playlist dan media", rambut: "#5a3825", panjang: true },
       { id: "yoga", nama: "Yoga", jabatan: "Paid Ads Analyst", desk: "Rencana iklan, A/B test, dan anggaran", rambut: "#3a2a20" },
+    ],
+  },
+  bisnis: {
+    nomor: "05", kicker: "Divisi 05 · Tim Bisnis", judul: ["Business &amp;", "Monetization"], lantai: "Lantai 1",
+    sub: "Tim AI yang mengubah audiens dan karya jadi pendapatan: sponsor, iklan, lisensi, event, dan membership.",
+    warna: "#b07800", latar: ["#fff6da", "#ffe8a3", "#f2cc66"], kartu2: "#fffaeb", bayang: "#7a5a0a33", footer: "#6b4e0a",
+    bajuKepala: "#f1c40f", bajuTim: "#f7dc6f", alasKepala: "#e0b100", alasTim: "#fbe7a5", cahayaBawah: "#f3e1a8",
+    kepala: { id: "hendra", nama: "Hendra", jabatan: "Chief Revenue Officer", rambut: "#111111",
+      desk: "Memimpin 5 spesialis: membuka sumber pendapatan baru tanpa mengorbankan kepercayaan audiens." },
+    tim: [
+      { id: "dina", nama: "Dina", jabatan: "Brand Partnership", desk: "Prospek brand dan proposal sponsorship", rambut: "#3a2a20", panjang: true },
+      { id: "eko", nama: "Eko", jabatan: "Ads Sales & Rate Card", desk: "Rate card, paket iklan, dan media kit", rambut: "#2b1b12" },
+      { id: "fani", nama: "Fani", jabatan: "Licensing & IP", desk: "Lisensi musik, film, dan sync", rambut: "#111111", panjang: true },
+      { id: "gilang", nama: "Gilang", jabatan: "Events & Merchandise", desk: "Konsep event, showcase, dan merchandise", rambut: "#5a3825" },
+      { id: "hesti", nama: "Hesti", jabatan: "Membership", desk: "Membership, konten eksklusif, dan kelas", rambut: "#7b4a2a", panjang: true },
     ],
   },
 };
@@ -352,6 +367,97 @@ const PROP = {
     k.lengan[1].rotation.x = -0.6;
     const koin = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.04, 20), mat("#f5c518", { metalness: 0.4, roughness: 0.3 }));
     koin.position.set(0, -0.66, 0.1); k.lengan[1].add(koin);
+  },
+
+  // ---- Business & Monetization ----
+  hendra(k) {
+    kotak(0.11, 0.4, 0.02, mat("#1f2633"), 0, 0.92, 0.18, k.g); // dasi
+    kotak(0.2, 0.08, 0.02, PUTIH, 0, 1.2, 0.175, k.g); // kerah
+    // koper di tangan kanan
+    k.lengan[1].rotation.x = -0.15; k.lengan[1].rotation.z = 0.08;
+    const koper = new THREE.Group(); koper.position.set(0.02, -0.82, 0.05);
+    kotak(0.5, 0.36, 0.14, mat("#5b3a1a"), 0, -0.12, 0, koper);
+    kotak(0.5, 0.04, 0.15, mat("#d4a017", { metalness: 0.5, roughness: 0.3 }), 0, -0.02, 0, koper);
+    kotak(0.16, 0.06, 0.05, HITAM, 0, 0.09, 0, koper);
+    k.lengan[1].add(koper);
+    // tumpukan koin melayang
+    const emas = mat("#f5c518", { metalness: 0.45, roughness: 0.3, emissive: "#f5c518", emissiveIntensity: 0.15 });
+    for (let i = 0; i < 4; i++) {
+      const c = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.05, 22), emas);
+      c.position.set(-0.78 + (i % 2) * 0.02, 1.45 + i * 0.06, 0.1); k.g.add(c);
+    }
+    const kn = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.05, 22), emas);
+    kn.position.set(0.66, 2.0, 0.1); kn.rotation.x = Math.PI / 2; kn.rotation.z = 0.4; k.g.add(kn);
+  },
+  dina(k) {
+    // map proposal sponsorship
+    k.lengan[1].rotation.x = -1.15; k.lengan[0].rotation.x = -1.0; k.lengan[0].rotation.z = 0.3;
+    const map = new THREE.Group(); map.position.set(-0.12, -0.62, 0.16); map.rotation.set(1.15, 0.25, 0);
+    kotak(0.44, 0.56, 0.04, mat("#1f3a6b"), 0, 0.1, 0, map);
+    kotak(0.44, 0.06, 0.045, ikon("#f1c40f"), 0, 0.3, 0.002, map);
+    kotak(0.18, 0.18, 0.02, ikon("#f1c40f"), 0, 0.05, 0.03, map);
+    k.lengan[1].add(map);
+    gelembung(k, 0.62, 2.25, "#ffffff", (x, y) => { // ikon jabat tangan sederhana
+      kotak(0.1, 0.06, 0.03, mat("#f0c8a4"), x - 0.05, y, 0.04, k.g); kotak(0.1, 0.06, 0.03, mat("#d9a87e"), x + 0.05, y, 0.045, k.g);
+    });
+  },
+  eko(k) {
+    // label harga (rate card)
+    k.lengan[1].rotation.x = -1.2; k.lengan[1].rotation.z = 0.15;
+    const tag = new THREE.Group(); tag.position.set(0, -0.62, 0.12); tag.rotation.set(1.2, 0, 0.35);
+    kotak(0.34, 0.24, 0.03, ikon("#f1c40f"), 0, 0.2, 0, tag);
+    const ujung = kotak(0.17, 0.17, 0.03, ikon("#f1c40f"), -0.17, 0.2, 0, tag); ujung.rotation.z = Math.PI / 4;
+    const lubang = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.04, 12), PUTIH); lubang.rotation.x = Math.PI / 2; lubang.position.set(-0.17, 0.2, 0.01); tag.add(lubang);
+    for (let i = 0; i < 2; i++) kotak(0.16 - i * 0.05, 0.03, 0.02, mat("#6b4e0a"), 0.04, 0.24 - i * 0.07, 0.02, tag);
+    k.lengan[1].add(tag);
+    gelembung(k, -0.6, 2.15, "#ffffff", (x, y) => { // grafik mini
+      [0.06, 0.1, 0.14].forEach((t, i) => kotak(0.05, t, 0.02, ikon("#b07800"), x - 0.08 + i * 0.08, y - 0.07 + t / 2, 0.04, k.g));
+    });
+  },
+  fani(k) {
+    // piringan hitam (lisensi musik) + roll film
+    k.lengan[1].rotation.x = -0.8; k.lengan[1].rotation.z = 0.35;
+    const vinyl = new THREE.Group(); vinyl.position.set(0.04, -0.66, 0.12); vinyl.rotation.set(0.8, 0, -0.35); vinyl.scale.setScalar(0.85);
+    const piring = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 0.02, 36), mat("#151515", { roughness: 0.35 }));
+    piring.rotation.x = Math.PI / 2; piring.position.y = 0.22; vinyl.add(piring);
+    const label = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.025, 24), ikon("#f1c40f"));
+    label.rotation.x = Math.PI / 2; label.position.y = 0.22; vinyl.add(label);
+    k.lengan[1].add(vinyl);
+    const reel = new THREE.Mesh(new THREE.TorusGeometry(0.13, 0.05, 8, 18), mat("#3d4350"));
+    reel.position.set(-0.62, 2.1, 0); k.g.add(reel);
+    for (let i = 0; i < 3; i++) kotak(0.05, 0.05, 0.03, PUTIH, -0.62 + Math.cos(i * 2.1) * 0.06, 2.1 + Math.sin(i * 2.1) * 0.06, 0.03, k.g);
+  },
+  gilang(k) {
+    // kaos merchandise + tiket event
+    for (const l of k.lengan) l.rotation.x = -1.05;
+    k.lengan[0].rotation.z = 0.28; k.lengan[1].rotation.z = -0.28;
+    const kaos = new THREE.Group(); kaos.position.set(0, 0.9, 0.44); kaos.rotation.x = -0.3; kaos.scale.setScalar(1.35);
+    const warnaKaos = mat("#1f3a6b");
+    kotak(0.34, 0.4, 0.03, warnaKaos, 0, 0, 0, kaos);
+    for (const sx of [-0.22, 0.22]) { const l = kotak(0.14, 0.12, 0.03, warnaKaos, sx, 0.13, 0, kaos); l.rotation.z = sx > 0 ? -0.5 : 0.5; }
+    kotak(0.14, 0.14, 0.02, ikon("#f1c40f"), 0, 0.02, 0.02, kaos);
+    k.g.add(kaos);
+    const tiket = new THREE.Group(); tiket.position.set(0.6, 2.2, 0.05); tiket.rotation.z = -0.3;
+    kotak(0.42, 0.2, 0.03, ikon("#f1c40f"), 0, 0, 0, tiket);
+    kotak(0.02, 0.2, 0.035, PUTIH, 0.1, 0, 0, tiket);
+    kotak(0.16, 0.03, 0.035, mat("#6b4e0a"), -0.06, 0.03, 0.002, tiket);
+    k.g.add(tiket);
+  },
+  hesti(k) {
+    // kartu member emas + bintang
+    k.lengan[1].rotation.x = -1.25; k.lengan[1].rotation.z = 0.1;
+    const kartu = new THREE.Group(); kartu.position.set(0, -0.62, 0.12); kartu.rotation.set(1.25, 0, 0.2);
+    kotak(0.42, 0.27, 0.03, mat("#e0b100", { metalness: 0.5, roughness: 0.25 }), 0, 0.18, 0, kartu);
+    kotak(0.42, 0.05, 0.035, HITAM, 0, 0.24, 0, kartu);
+    kotak(0.08, 0.06, 0.035, PUTIH, -0.12, 0.13, 0.002, kartu);
+    k.lengan[1].add(kartu);
+    const bintang = new THREE.Group(); bintang.position.set(-0.6, 2.15, 0.05);
+    for (let i = 0; i < 2; i++) { const b = kotak(0.2, 0.2, 0.05, ikon("#f5c518"), 0, 0, 0, bintang); b.rotation.z = Math.PI / 4 * i; }
+    k.g.add(bintang);
+    const mahkota = new THREE.Group(); mahkota.position.set(0.6, 2.25, 0.05);
+    kotak(0.3, 0.1, 0.05, ikon("#f5c518"), 0, 0, 0, mahkota);
+    for (const dx of [-0.11, 0, 0.11]) kotak(0.07, 0.1, 0.05, ikon("#f5c518"), dx, 0.09, 0, mahkota);
+    k.g.add(mahkota);
   },
 };
 
