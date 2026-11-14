@@ -195,9 +195,21 @@ function renderTim() {
 }
 $("#pilih-preset").addEventListener("change", () => ($("#info-preset").textContent = data.preset[$("#pilih-preset").value]?.deskripsi ?? ""));
 
+function pilihanAtasan(a) {
+  // atasan hanya boleh anggota yang melapor langsung ke bos (hierarki 2 tingkat)
+  const punyaAnak = a.id && draftTim.anggota.some((x) => x.atasan === a.id);
+  if (punyaAnak) return `<span class="bantu">Memimpin ${draftTim.anggota.filter((x) => x.atasan === a.id).length} spesialis</span>`;
+  const kandidat = draftTim.anggota.filter((x) => x.id && x.id !== a.id && !x.atasan);
+  return `<label class="atasan">Atasan
+    <select data-f="atasan">
+      <option value="">${esc(draftTim.orchestrator.nama || "Bos")} (langsung)</option>
+      ${kandidat.map((x) => `<option value="${esc(x.id)}" ${x.id === a.atasan ? "selected" : ""}>${esc(x.nama)} · ${esc(x.jabatan)}</option>`).join("")}
+    </select></label>`;
+}
+
 function kartuPersona(a, i) {
   const bos = i === -1;
-  return `<div class="persona" data-i="${i}">
+  return `<div class="persona${a.atasan ? " anak" : ""}" data-i="${i}">
     <div class="persona-head">
       <input type="color" data-f="warna" value="${esc(a.warna)}" title="Warna baju">
       <input data-f="nama" value="${esc(a.nama)}" placeholder="Nama" maxlength="30">
@@ -205,7 +217,7 @@ function kartuPersona(a, i) {
       ${bos ? '<span class="badge">Bos</span>' : `<button type="button" class="hapus" data-hapus="${i}" title="Hapus anggota">✕</button>`}
     </div>
     <textarea data-f="instruksi" rows="${bos ? 5 : 4}" placeholder="${bos ? "Gaya memimpin, urutan kerja, isi laporan akhir…" : "Peran, keahlian, apa yang harus dihasilkan, dan nama file output (contoh: output/riset.md)"}">${esc(a.instruksi)}</textarea>
-    ${bos ? "" : `<label class="cek"><input type="checkbox" data-f="webSearch" ${a.webSearch ? "checked" : ""}> Boleh mencari di internet</label>`}
+    ${bos ? "" : `<div class="persona-kaki"><label class="cek"><input type="checkbox" data-f="webSearch" ${a.webSearch ? "checked" : ""}> Boleh mencari di internet</label>${pilihanAtasan(a)}</div>`}
   </div>`;
 }
 
@@ -225,12 +237,17 @@ $("#panel-tim").addEventListener("input", (e) => {
   const target = i === -1 ? draftTim.orchestrator : draftTim.anggota[i];
   target[f] = e.target.type === "checkbox" ? e.target.checked : e.target.value;
 });
+$("#panel-tim").addEventListener("change", (e) => {
+  if (e.target.dataset.f === "atasan") gambarTim(); // perbarui tampilan hierarki
+});
 $("#panel-tim").addEventListener("click", (e) => {
   const i = e.target.dataset.hapus;
   if (i === undefined) return;
   const a = draftTim.anggota[Number(i)];
   if (!confirm(`Hapus ${a.nama || "anggota ini"} dari tim?`)) return;
-  draftTim.anggota.splice(Number(i), 1);
+  const [dihapus] = draftTim.anggota.splice(Number(i), 1);
+  // spesialis milik anggota yang dihapus pindah melapor langsung ke bos
+  for (const x of draftTim.anggota) if (x.atasan && x.atasan === dihapus.id) x.atasan = "";
   gambarTim();
 });
 const WARNA = ["#5dade2", "#c39bd3", "#58d68d", "#f1948a", "#f7dc6f", "#85c1e9", "#a3e4d7", "#f0b27a", "#bb8fce", "#76d7c4", "#f5b7b1", "#aed6f1"];

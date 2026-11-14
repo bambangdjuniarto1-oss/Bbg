@@ -31,7 +31,7 @@ Founder tetap jadi pengambil keputusan akhir untuk hal yang berisiko (lihat bagi
                        zation     Paid Ads   ship
 ```
 
-**Total:** 1 CEO + 8 Lead + 34 Specialist = 43 agent.
+**Total:** 1 CEO + 8 Lead + 38 Specialist = 47 agent.
 Jangan nyalakan semuanya sekaligus. Ikuti *Rencana Bertahap* di bagian 5.
 
 ---

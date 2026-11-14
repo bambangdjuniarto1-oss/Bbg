@@ -27,10 +27,22 @@ Aturan kerja (dari sistem):
 - Akhiri dengan laporan singkat (maks 6 poin) untuk atasanmu: apa yang dikerjakan dan file apa yang ditulis.
 - Bahasa Indonesia, kecuali diminta lain.`;
 
+const bawahan = (tim, id) => tim.anggota.filter((a) => (a.atasan || "") === id);
+const deskripsiAnggota = (tim, a) => {
+  const anak = bawahan(tim, a.id);
+  return `- ${a.id}: ${a.nama} (${a.jabatan}).${anak.length ? ` Memimpin ${anak.length} spesialis.` : ""} ${a.instruksi.split("\n")[0].slice(0, 220)}`;
+};
+const toolDelegasi = (daftar) => ({
+  name: "delegasikan",
+  description: "Berikan tugas ke satu anggota tim dan tunggu laporannya. Panggil beberapa kali dalam satu giliran untuk kerja paralel.",
+  parameters: objek({
+    agent: { type: "string", enum: daftar.map((a) => a.id), description: "ID anggota tim" },
+    tugas: { type: "string", description: "Instruksi lengkap: tujuan, file input, file output." },
+  }),
+});
+
 function systemBos(tim) {
-  const daftar = tim.anggota
-    .map((a) => `- ${a.id}: ${a.nama} (${a.jabatan}). ${a.instruksi.split("\n")[0].slice(0, 220)}`)
-    .join("\n");
+  const daftar = bawahan(tim, "").map((a) => deskripsiAnggota(tim, a)).join("\n");
   return `${tim.orchestrator.instruksi || `Kamu ${tim.orchestrator.nama}, pemimpin tim agent AI.`}
 
 Anggota tim kamu:
@@ -140,19 +152,44 @@ async function jalankanAnggota(agent, tugas, ctx) {
     const catatanWeb = agent.webSearch && !pakaiWeb
       ? "\n- Pencarian internet tidak tersedia di koneksi AI ini. Pakai pengetahuanmu dan tandai data yang perlu diverifikasi dengan [PERLU DICEK]."
       : "";
-    const sesi = buatSesi({ system: agent.instruksi + ATURAN_TIM + catatanWeb, tools: TOOLS_FILE, webSearch: pakaiWeb, peran: "tim", effort: "medium" });
+    const anak = bawahan(ctx.tim, agent.id);
+    const aturanTim = anak.length
+      ? `\n\nTim spesialismu:\n${anak.map((a) => deskripsiAnggota(ctx.tim, a)).join("\n")}
+- Delegasikan lewat tool "delegasikan" hanya ke spesialis yang relevan; yang saling lepas boleh paralel.
+- Beri instruksi spesifik (file input dan output), periksa laporannya, lalu gabungkan.`
+      : "";
+    const sesi = buatSesi({
+      system: agent.instruksi + aturanTim + ATURAN_TIM + catatanWeb,
+      tools: anak.length ? [...TOOLS_FILE, toolDelegasi(anak)] : TOOLS_FILE,
+      webSearch: pakaiWeb,
+      peran: "tim",
+      effort: "medium",
+    });
+    const atasan = ctx.tim.anggota.find((a) => a.id === agent.atasan) ?? ctx.tim.orchestrator;
     const laporan = await loopAgent({
       agent,
       sesi,
-      pesanAwal: `Klien: ${ctx.klien}\n\nTugas dari ${ctx.tim.orchestrator.nama}:\n${tugas}`,
+      pesanAwal: `Klien: ${ctx.klien}\n\nTugas dari ${atasan.nama}:\n${tugas}`,
       ctx,
-      jalankanTool: (nama, input) => jalankanToolFile(nama, input, ctx, agent),
+      jalankanTool: (nama, input) =>
+        nama === "delegasikan" ? delegasikan(agent, anak, input, ctx) : jalankanToolFile(nama, input, ctx, agent),
     });
     chat(agent, laporan || "(selesai tanpa laporan)");
     return laporan;
   } finally {
     status(agent, "idle");
   }
+}
+
+async function delegasikan(dari, daftar, input, ctx) {
+  const agent = daftar.find((a) => a.id === input.agent);
+  if (!agent) throw new Error(`anggota "${input.agent}" tidak ada. Pilihan: ${daftar.map((a) => a.id).join(", ")}`);
+  const tugas = String(input.tugas ?? "");
+  emit({ type: "delegasi", from: dari.id, to: agent.id, tugas });
+  status(dari, "review", `menunggu ${agent.nama}`);
+  const hasil = await jalankanAnggota(agent, tugas, ctx);
+  status(dari, "working", `memeriksa hasil ${agent.nama}`);
+  return hasil;
 }
 
 // ---------- Orchestrator ----------
@@ -167,14 +204,6 @@ export async function jalankanBrief({ klien, brief }) {
   const slug = slugify(klien);
   const ctx = { klien, slug, tim, root: path.join(CLIENTS_DIR, slug), usage: { input: 0, output: 0 } };
 
-  const toolDelegasi = {
-    name: "delegasikan",
-    description: "Berikan tugas ke satu anggota tim dan tunggu laporannya. Panggil beberapa kali dalam satu giliran untuk kerja paralel.",
-    parameters: objek({
-      agent: { type: "string", enum: tim.anggota.map((a) => a.id), description: "ID anggota tim" },
-      tugas: { type: "string", description: "Instruksi lengkap: tujuan, file input, file output." },
-    }),
-  };
 
   try {
     await fs.mkdir(ctx.root, { recursive: true });
@@ -184,19 +213,13 @@ export async function jalankanBrief({ klien, brief }) {
 
     const laporan = await loopAgent({
       agent: bos,
-      sesi: buatSesi({ system: systemBos(tim), tools: [toolDelegasi], peran: "bos", effort: "high" }),
+      sesi: buatSesi({ system: systemBos(tim), tools: [toolDelegasi(bawahan(tim, ""))], peran: "bos", effort: "high" }),
       pesanAwal: `Brief dari CEO untuk klien "${klien}" (sudah disimpan di brief.md di folder klien):\n\n${brief}`,
       ctx,
       tampilkanCatatan: true,
       jalankanTool: async (nama, input) => {
         if (nama !== "delegasikan") throw new Error(`tool tidak dikenal: ${nama}`);
-        const agent = tim.anggota.find((a) => a.id === input.agent);
-        if (!agent) throw new Error(`anggota "${input.agent}" tidak ada. Pilihan: ${tim.anggota.map((a) => a.id).join(", ")}`);
-        emit({ type: "delegasi", from: bos.id, to: agent.id, tugas: String(input.tugas ?? "") });
-        status(bos, "review", `menunggu ${agent.nama}`);
-        const hasil = await jalankanAnggota(agent, String(input.tugas ?? ""), ctx);
-        status(bos, "working", `memeriksa hasil ${agent.nama}`);
-        return hasil;
+        return delegasikan(bos, bawahan(tim, ""), input, ctx);
       },
     });
     chat(bos, laporan, { final: true, klien: slug });

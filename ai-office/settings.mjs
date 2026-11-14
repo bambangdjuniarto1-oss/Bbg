@@ -9,7 +9,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(here, "data");
 const FILE = path.join(DATA_DIR, "settings.json");
 
-export const MAKS_ANGGOTA = 12;
+export const MAKS_ANGGOTA = 50; // 3 lantai x 18 kubikel
 
 export const PROVIDER = {
   demo: { label: "Demo (simulasi, tanpa AI)" },
@@ -115,6 +115,7 @@ export function bersihkanTim(tim) {
     dipakai.add(id);
     return {
       id,
+      atasan: slug(a.atasan || ""),
       nama: teks(a.nama, 30) || `Agent ${i + 1}`,
       jabatan: teks(a.jabatan, 40) || "Spesialis",
       warna: WARNA_OK.test(a.warna) ? a.warna : "#5dade2",
@@ -123,5 +124,14 @@ export function bersihkanTim(tim) {
     };
   });
   if (anggota.length === 0) throw new Error("Tim minimal punya 1 anggota selain orchestrator.");
+  // Hierarki 2 tingkat: atasan harus anggota yang melapor langsung ke bos.
+  const kepala = new Set(anggota.filter((a) => !a.atasan || a.atasan === "agent").map((a) => a.id));
+  for (const a of anggota) {
+    if (a.atasan === "agent" || a.atasan === a.id || !kepala.has(a.atasan)) a.atasan = "";
+  }
+  for (const a of anggota) {
+    // anggota yang sudah jadi atasan orang lain tidak boleh punya atasan
+    if (a.atasan && anggota.some((x) => x.atasan === a.id)) a.atasan = "";
+  }
   return { orchestrator, anggota };
 }

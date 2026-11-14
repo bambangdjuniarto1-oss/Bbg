@@ -1,6 +1,6 @@
 # Kantor Virtual AI
 
-Tim agent AI berbasis Claude dengan tampilan kantor 3D. Kamu cukup kirim **satu brief**. Orchestrator (NOVA) membagi tugas ke tim, lalu setiap agent bekerja dan melapor. Tampilannya berupa kantor isometrik satu lantai (Ruang CEO, Ruang Rapat, Workspace kubikel, Lounge & Pantry). Karakter berjalan dari lounge ke kubikelnya saat bekerja dan kembali santai setelah selesai.
+Tim agent AI berbasis Claude dengan tampilan kantor 3D. Kamu cukup kirim **satu brief**. Orchestrator (NOVA) membagi tugas ke tim, lalu setiap agent bekerja dan melapor. Tampilannya berupa gedung isometrik 3 lantai (18 kubikel per lantai, total 54 kursi) dengan Ruang CEO, Studio Produksi, Ruang Server, ruang rapat, lounge, dan pantry. Setiap divisi duduk berdekatan. Karakter berjalan dari lounge ke kubikelnya saat bekerja dan kembali santai setelah selesai. Tombol di bawah layar memilih tampilan seluruh gedung atau satu lantai.
 
 | Agent | Peran | Hasil |
 |---|---|---|
@@ -75,8 +75,9 @@ Klik **⚙️ Pengaturan → Koneksi AI**, pilih salah satu, lalu klik **Simpan*
 
 Klik **⚙️ Pengaturan → Tim & Persona**:
 
-- **Pakai template:** *Agensi Digital Marketing* (5 agent) atau *Perusahaan Media Musik, Film, Lifestyle & Seni* (CEO ARKA + 8 kepala divisi).
-- Ubah nama, jabatan, warna baju, dan instruksi setiap agent. Tambah atau hapus anggota (maksimal 12).
+- **Pakai template:** *Agensi Digital Marketing* (5 agent), *Perusahaan Media* (CEO ARKA + 8 kepala divisi), atau *Perusahaan Media: struktur lengkap* (47 agent: CEO + 8 kepala divisi + 38 spesialis, 3 lantai).
+- Ubah nama, jabatan, warna baju, dan instruksi setiap agent. Tambah atau hapus anggota (maksimal 50).
+- Atur **Atasan** setiap anggota: kepala divisi melapor ke bos, spesialis melapor ke kepala divisinya. Bos mendelegasikan ke kepala divisi, lalu kepala divisi mendelegasikan ke spesialisnya.
 - Centang *Boleh mencari di internet* untuk agent riset.
 - Klik **Simpan tim**. Kantor dimuat ulang dengan tim baru.
 

@@ -173,3 +173,16 @@ code { background: #eef1f5; padding: 1px 5px; border-radius: 4px; font-size: 12p
 }
 .persona input[type="checkbox"], .cek input { width: auto; }
 .persona .cek { justify-self: start; }
+.persona.anak { margin-left: 22px; border-left: 3px solid var(--garis); }
+.persona-kaki { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; justify-content: space-between; }
+.atasan { display: flex; gap: 6px; align-items: center; font-size: 12.5px; }
+.atasan select { border: 1px solid var(--garis); border-radius: 6px; padding: 4px 6px; font: inherit; font-size: 12px; max-width: 260px; }
+.label-divisi { background: #ffffffe6; color: var(--teks); border-radius: 6px; padding: 1px 7px; font-size: 10.5px;
+  font-weight: 600; white-space: nowrap; pointer-events: none; box-shadow: 0 1px 4px #0002; }
+.label-gedung { background: var(--aksen); color: #fff; border-radius: 8px; padding: 4px 10px; font-size: 12.5px;
+  font-weight: 700; white-space: nowrap; pointer-events: none; box-shadow: 0 2px 8px #0003; }
+.label-gedung small { font-weight: 500; opacity: .85; }
+body.jauh .label3d .tag, body.jauh .label-divisi, body.jauh .label-lantai { display: none; }
+body.jauh .bubble { font-size: 10px; max-width: 140px; }
+.kartu.ringkas { grid-template-columns: 1fr; }
+.kartu.ringkas .nama { font-weight: 500; font-size: 12px; color: var(--redup); }
