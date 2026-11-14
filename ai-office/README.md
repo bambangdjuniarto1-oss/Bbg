@@ -12,6 +12,37 @@ Tim agent AI berbasis Claude dengan tampilan kantor 3D. Kamu cukup kirim **satu 
 
 Semua hasil tersimpan di `clients/<nama-klien>/` dan bisa dibuka langsung dari chat.
 
+## Cara clone dari GitHub
+
+Butuh **Git** dan **Node.js 20+** (unduh di git-scm.com dan nodejs.org).
+
+```bash
+# 1. Clone repo (publik, tidak perlu login)
+git clone https://github.com/bambangdjuniarto1-oss/Bbg.git
+cd Bbg
+
+# 2. Pindah ke branch yang berisi proyek ini
+git checkout claude/awesome-rubin-rxca7e
+
+# 3. Masuk ke folder proyek
+cd ai-office
+```
+
+Kalau ingin mengunduh **hanya branch ini** (lebih cepat):
+
+```bash
+git clone --branch claude/awesome-rubin-rxca7e --single-branch https://github.com/bambangdjuniarto1-oss/Bbg.git
+cd Bbg/ai-office
+```
+
+Tanpa Git: buka https://github.com/bambangdjuniarto1-oss/Bbg/tree/claude/awesome-rubin-rxca7e, klik **Code → Download ZIP**, lalu ekstrak.
+
+Untuk mengambil pembaruan terbaru di kemudian hari:
+
+```bash
+git pull
+```
+
 ## Cara menjalankan
 
 Butuh Node.js 20 atau lebih baru.
