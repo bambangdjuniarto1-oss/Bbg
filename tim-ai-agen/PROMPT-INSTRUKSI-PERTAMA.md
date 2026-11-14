@@ -20,7 +20,7 @@ Kirim di **Sesi** baru (agen: CEO, lingkungan: `media-hq`, memori: `brand-bible`
 Halo CEO. Ini instruksi pertama dari Founder. Hari ini kita resmi mulai menjalankan perusahaan dengan tim AI.
 
 PROFIL PERUSAHAAN
-- Nama: [NAMA PERUSAHAAN]
+- Nama: Konteks Journal
 - Bidang: media musik, film, lifestyle, seni & budaya (Indonesia)
 - Kondisi saat ini: [contoh: baru mulai / sudah punya akun IG 5.000 followers dan channel YouTube 1.000 subscriber]
 - Kanal aktif: [Instagram, TikTok, YouTube, Spotify, website, newsletter]
