@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kantor Virtual AI</title>
+  <link rel="stylesheet" href="/style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "/vendor/three/build/three.module.js",
+        "three/addons/": "/vendor/three/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <main id="kantor">
+    <div id="scene"></div>
+
+    <header class="topbar">
+      <div class="brand"><span class="logo">◆</span> Kantor Virtual AI</div>
+      <div class="meta">
+        <span id="mode" class="pill">…</span>
+        <span id="token" class="pill" title="Token terpakai pada brief ini">0 token</span>
+      </div>
+    </header>
+
+    <aside id="kartu-agent" aria-label="Status tim"></aside>
+
+    <nav class="kamera" aria-label="Pilih ruangan">
+      <button data-cam="semua" class="aktif">Semua</button>
+      <button data-cam="bos">Ruang Bos</button>
+      <button data-cam="workspace">Workspace</button>
+      <button data-cam="pantry">Pantry</button>
+    </nav>
+  </main>
+
+  <section id="panel" aria-label="Ruang tim">
+    <div class="panel-head">
+      <div>
+        <h1>Ruang Tim</h1>
+        <p id="subjudul">Orchestrator + 4 agent</p>
+      </div>
+    </div>
+    <ol id="chat"></ol>
+    <form id="form-brief">
+      <input id="klien" name="klien" placeholder="Nama klien, contoh: Toko Kue Manis" maxlength="80" required />
+      <textarea id="brief" name="brief" rows="3" required
+        placeholder="Brief untuk bos, contoh: Buatkan promo paket ulang tahun. Siapkan riset kompetitor, copy iklan, landing page, dan carousel IG."></textarea>
+      <button type="submit" id="kirim">Kirim ke Bos</button>
+    </form>
+  </section>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
