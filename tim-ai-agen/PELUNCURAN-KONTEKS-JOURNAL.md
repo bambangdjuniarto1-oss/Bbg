@@ -1,5 +1,7 @@
 # Peluncuran Konteks Journal — Menggerakkan 47 Agent
 
+> **Ingin cukup 1 prompt?** Pakai [SATU-PROMPT-47-AGENT.md](SATU-PROMPT-47-AGENT.md). File ini adalah versi bertahap (10 sesi).
+
 Prompt dan langkah untuk **peluncuran pertama brand Konteks Journal**: seluruh 47 agent bergerak untuk memprogram
 **pekan peluncuran 16–22 November 2026** dengan fokus **musik Indonesia dan para artisnya**.
 
