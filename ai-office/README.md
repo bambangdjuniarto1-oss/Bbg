@@ -1,6 +1,6 @@
 # Kantor Virtual AI
 
-Tim agent AI berbasis Claude dengan tampilan kantor 3D. Kamu cukup kirim **satu brief**. Orchestrator (NOVA) membagi tugas ke tim, lalu setiap agent bekerja dan melapor. Di layar, karakter berjalan dari pantry ke mejanya saat bekerja dan kembali santai setelah selesai.
+Tim agent AI berbasis Claude dengan tampilan kantor 3D. Kamu cukup kirim **satu brief**. Orchestrator (NOVA) membagi tugas ke tim, lalu setiap agent bekerja dan melapor. Tampilannya berupa kantor isometrik satu lantai (Ruang CEO, Ruang Rapat, Workspace kubikel, Lounge & Pantry). Karakter berjalan dari lounge ke kubikelnya saat bekerja dan kembali santai setelah selesai.
 
 | Agent | Peran | Hasil |
 |---|---|---|
@@ -70,7 +70,7 @@ Event status/chat/file ──WebSocket──► Kantor virtual 3D (Three.js)
 - `orchestrator.mjs`: loop agent Claude (Messages API + tool use). Akses file dikunci ke folder klien.
 - `server.mjs`: server web, WebSocket, dan API `/api/brief`.
 - `telegram.mjs`: jembatan ke Telegram.
-- `public/app.js`: gedung 3 lantai, karakter voxel, animasi, dan panel chat.
+- `public/app.js`: kantor isometrik, karakter voxel, animasi, dan panel chat.
 - `demo.mjs`: simulasi tanpa API.
 
 ## Hal yang perlu diperhatikan
