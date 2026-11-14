@@ -538,53 +538,96 @@ const tujuan = (id, status) =>
   id === "bos" ? (status === "idle" ? SPOT_CEO_SANTAI : SPOT_CEO_MEJA) : status === "idle" ? santaiAgent[id] : kursiAgent[id];
 const rute = (dari, ke) => (dari === ke ? [] : [...dari.keluar, ...[...ke.keluar].reverse(), ke.pos].map((p) => p.clone()));
 
-// Bagi agent ke kursi: divisi (kepala + spesialis) duduk berdekatan, lantai atas diisi lebih dulu.
+// Bagi agent ke kursi: satu divisi (kepala + spesialis) duduk berdekatan di lantai yang sama,
+// dan jumlah penghuni tiap lantai dibuat serata mungkin (CEO dihitung di lantai teratas).
+function bagiKeLantai(kelompok) {
+  const n = kelompok.length;
+  const ukuran = kelompok.map((g) => g.length);
+  const F = JUMLAH_LANTAI;
+  if (ukuran.some((u) => u > KURSI_PER_LANTAI)) return null;
+
+  // urutan "alami": divisi awal di lantai atas, divisi akhir di lantai bawah (dipakai sebagai
+  // pembanding supaya pembagian yang rata tetap mengikuti urutan divisi di Pengaturan)
+  const total = ukuran.reduce((s, u) => s + u, 0);
+  let jalan = 0;
+  const alami = ukuran.map((u) => {
+    const tengah = jalan + u / 2;
+    jalan += u;
+    return Math.min(F - 1, Math.floor((tengah / total) * F));
+  });
+  const nilai = (pilihan) => {
+    const muat = Array(F).fill(0);
+    pilihan.forEach((f, i) => (muat[f] += ukuran[i]));
+    if (muat.some((m) => m > KURSI_PER_LANTAI)) return Infinity;
+    const orang = muat.map((m, f) => m + (f === 0 ? 1 : 0)); // + CEO di lantai teratas
+    const geser = pilihan.reduce((s, f, i) => s + Math.abs(f - alami[i]), 0);
+    return (Math.max(...orang) - Math.min(...orang)) * 1000 + geser;
+  };
+
+  if (n <= 10) {
+    // cari semua kemungkinan (3^10 = 59.049 kombinasi, cepat)
+    let terbaik = null, skor = Infinity;
+    const pilihan = Array(n).fill(0);
+    const total = F ** n;
+    for (let kode = 0; kode < total; kode++) {
+      let k = kode;
+      for (let i = 0; i < n; i++) (pilihan[i] = k % F), (k = Math.floor(k / F));
+      const s = nilai(pilihan);
+      if (s < skor) (skor = s), (terbaik = [...pilihan]);
+    }
+    return terbaik;
+  }
+  // banyak kelompok: kelompok terbesar dulu ke lantai yang paling sepi
+  const muat = Array(F).fill(0);
+  muat[0] = 1; // CEO
+  const hasil = Array(n);
+  [...ukuran.keys()].sort((a, b) => ukuran[b] - ukuran[a] || a - b).forEach((i) => {
+    let f = -1;
+    for (let j = 0; j < F; j++) {
+      if (muat[j] - (j === 0 ? 1 : 0) + ukuran[i] > KURSI_PER_LANTAI) continue;
+      if (f < 0 || muat[j] < muat[f]) f = j;
+    }
+    if (f < 0) f = muat.indexOf(Math.min(...muat));
+    hasil[i] = f;
+    muat[f] += ukuran[i];
+  });
+  return hasil;
+}
+
 function aturTempatDuduk(agents) {
   const tim = agents.filter((a) => a.id !== "bos");
   const kelompok = tim.filter((a) => !a.atasan).map((k) => [k, ...tim.filter((x) => x.atasan === k.id)]);
   const yatim = tim.filter((a) => a.atasan && !tim.some((k) => k.id === a.atasan));
   if (yatim.length) kelompok.push(yatim);
-  const urutanLantai = Array.from({ length: JUMLAH_LANTAI }, (_, i) => ATAS - i);
+  const urutanLantai = Array.from({ length: JUMLAH_LANTAI }, (_, i) => ATAS - i); // 0 = lantai teratas
   const terisi = urutanLantai.map(() => 0);
-  const hasil = []; // { lantai, kursi, kelompok }
-  const mulaiDi = (fi, n) => {
-    const rataPod = Math.ceil(terisi[fi] / 6) * 6;
-    return rataPod + n <= KURSI_PER_LANTAI ? rataPod : terisi[fi] + n <= KURSI_PER_LANTAI ? terisi[fi] : -1;
-  };
-  // Tim kecil (muat di satu lantai): sebar merata ke semua lantai supaya setiap lantai terisi.
-  if (tim.length <= KURSI_PER_LANTAI) {
-    for (const grup of kelompok) {
-      // lantai dengan penghuni paling sedikit; bila sama, pilih yang lebih atas
-      const fi = terisi.reduce((best, n, i) => (n < terisi[best] ? i : best), 0);
-      const mulai = Math.max(0, mulaiDi(fi, grup.length));
-      grup.forEach((a, j) => hasil.push({ a, lantai: urutanLantai[fi], kursi: mulai + j, grup }));
-      terisi[fi] = mulai + grup.length;
-    }
-    kelompok.length && isiSpot(hasil, kelompok);
-    return;
-  }
-  // Tim besar: isi lantai dari atas, satu divisi tidak dipisah antar lantai.
-  let f = 0;
-  for (const grup of kelompok) {
-    let ditempatkan = false;
-    for (; f < urutanLantai.length && !ditempatkan; ) {
-      const mulai = mulaiDi(f, grup.length);
-      if (mulai < 0) {
-        f++;
+  const hasil = [];
+  const pembagian = bagiKeLantai(kelompok);
+
+  kelompok.forEach((grup, gi) => {
+    let f = pembagian ? pembagian[gi] : terisi.findIndex((n) => n + grup.length <= KURSI_PER_LANTAI);
+    if (f < 0) f = terisi.indexOf(Math.min(...terisi));
+    // mulai di awal pod (6 kursi) bila masih muat, supaya satu divisi berkumpul
+    const rataPod = Math.ceil(terisi[f] / 6) * 6;
+    let kursi = rataPod + grup.length <= KURSI_PER_LANTAI ? rataPod : terisi[f];
+    for (const a of grup) {
+      if (kursi >= KURSI_PER_LANTAI) {
+        // darurat: lantai penuh, pakai kursi kosong di lantai lain
+        const lain = terisi.findIndex((n) => n < KURSI_PER_LANTAI);
+        if (lain < 0) break;
+        hasil.push({ a, lantai: urutanLantai[lain], kursi: terisi[lain]++, grup });
         continue;
       }
-      grup.forEach((a, j) => hasil.push({ a, lantai: urutanLantai[f], kursi: mulai + j, grup }));
-      terisi[f] = mulai + grup.length;
-      ditempatkan = true;
+      hasil.push({ a, lantai: urutanLantai[f], kursi: kursi++, grup });
     }
-    if (!ditempatkan) {
-      // kelompok terlalu besar: isi kursi kosong mana saja
-      for (const a of grup) {
-        const fi = terisi.findIndex((n) => n < KURSI_PER_LANTAI);
-        if (fi < 0) break;
-        hasil.push({ a, lantai: urutanLantai[fi], kursi: terisi[fi]++, grup });
-      }
-    }
+    terisi[f] = Math.max(terisi[f], kursi);
+  });
+
+  // nama divisi per lantai untuk label lantai
+  for (const L of LANTAI) {
+    const kepala = kelompok.filter((g) => hasil.some((h) => h.grup === g && h.lantai === L.idx)).map((g) => g[0].jabatan);
+    if (L.idx === ATAS) kepala.unshift("CEO");
+    L.isi = kepala.length > 4 ? `${kepala.slice(0, 4).join(", ")} +${kepala.length - 4}` : kepala.join(", ");
   }
   isiSpot(hasil, kelompok);
 }
@@ -686,7 +729,8 @@ function renderKartu() {
   for (const L of LANTAI) {
     const diLantai = tim.filter((a) => kursiAgent[a.id]?.lantai === L.idx);
     const k = diLantai.filter((a) => statusAgent[a.id]?.status !== "idle").length;
-    L.elJudul.innerHTML = `${TEMA[L.idx].nama} <small>· ${diLantai.length} agent${diLantai.length ? ` · ${k} kerja` : ""}</small>`;
+    const jumlah = diLantai.length + (L.idx === ATAS ? 1 : 0);
+    L.elJudul.innerHTML = `Lantai ${L.idx + 1}${L.isi ? ` · ${esc(L.isi)}` : ""} <small>· ${jumlah} orang${k ? ` · ${k} kerja` : ""}</small>`;
   }
 }
 
