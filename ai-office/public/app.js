@@ -547,12 +547,28 @@ function aturTempatDuduk(agents) {
   const urutanLantai = Array.from({ length: JUMLAH_LANTAI }, (_, i) => ATAS - i);
   const terisi = urutanLantai.map(() => 0);
   const hasil = []; // { lantai, kursi, kelompok }
+  const mulaiDi = (fi, n) => {
+    const rataPod = Math.ceil(terisi[fi] / 6) * 6;
+    return rataPod + n <= KURSI_PER_LANTAI ? rataPod : terisi[fi] + n <= KURSI_PER_LANTAI ? terisi[fi] : -1;
+  };
+  // Tim kecil (muat di satu lantai): sebar merata ke semua lantai supaya setiap lantai terisi.
+  if (tim.length <= KURSI_PER_LANTAI) {
+    for (const grup of kelompok) {
+      // lantai dengan penghuni paling sedikit; bila sama, pilih yang lebih atas
+      const fi = terisi.reduce((best, n, i) => (n < terisi[best] ? i : best), 0);
+      const mulai = Math.max(0, mulaiDi(fi, grup.length));
+      grup.forEach((a, j) => hasil.push({ a, lantai: urutanLantai[fi], kursi: mulai + j, grup }));
+      terisi[fi] = mulai + grup.length;
+    }
+    kelompok.length && isiSpot(hasil, kelompok);
+    return;
+  }
+  // Tim besar: isi lantai dari atas, satu divisi tidak dipisah antar lantai.
   let f = 0;
   for (const grup of kelompok) {
     let ditempatkan = false;
     for (; f < urutanLantai.length && !ditempatkan; ) {
-      const rataPod = Math.ceil(terisi[f] / 6) * 6;
-      const mulai = rataPod + grup.length <= KURSI_PER_LANTAI ? rataPod : terisi[f] + grup.length <= KURSI_PER_LANTAI ? terisi[f] : -1;
+      const mulai = mulaiDi(f, grup.length);
       if (mulai < 0) {
         f++;
         continue;
@@ -570,6 +586,10 @@ function aturTempatDuduk(agents) {
       }
     }
   }
+  isiSpot(hasil, kelompok);
+}
+
+function isiSpot(hasil, kelompok) {
   const santaiTerpakai = {};
   for (const { a, lantai, kursi } of hasil) {
     const L = LANTAI[lantai];
@@ -942,8 +962,8 @@ document.getElementById("subjudul").textContent =
     ? `${AGENTS[0].nama} (bos) + ${AGENTS.length - 1} agent di ${new Set(Object.values(kursiAgent).map((s) => s.lantai)).size} lantai`
     : `${AGENTS[0].nama} (bos) + ${AGENTS.slice(1).map((a) => a.nama).join(", ")}`;
 for (const a of AGENTS) setStatus(a.id, "idle", "", true);
-// lantai awal: seluruh gedung bila timnya besar, lantai 3 bila kecil
-const awalGedung = AGENTS.length > 18;
+// tampilan awal: seluruh gedung bila agent tersebar di beberapa lantai
+const awalGedung = new Set(Object.values(kursiAgent).map((x) => x.lantai)).size > 1;
 tampilkanLantai(awalGedung ? null : ATAS);
 document.querySelectorAll(".kamera button").forEach((x) => x.classList.toggle("aktif", x.dataset.cam === (awalGedung ? "gedung" : String(ATAS))));
 controls.target.copy(awalGedung ? v(0, 0, yLantai(1) + 1) : v(2, 0, yLantai(ATAS)));
