@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8">
+<title>Tim Marketing Konteks Journal</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#121110;--paper:#F3EDE2;--muted:#A89F92;--line:#3A3632;--accent:#E8552B;--accent2:#F2B84B}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;background:var(--ink)}
+body{color:var(--paper);font-family:Inter,system-ui,sans-serif;position:relative;overflow:hidden}
+.grain{position:absolute;inset:0;background:radial-gradient(circle at 85% 12%,rgba(232,85,43,.28),transparent 42%),radial-gradient(circle at 10% 88%,rgba(242,184,75,.14),transparent 40%)}
+.wrap{position:relative;padding:72px 80px;height:100%;display:flex;flex-direction:column}
+.mast{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid var(--paper);padding-bottom:22px}
+.logo{font-family:Fraunces,serif;font-weight:900;font-size:58px;letter-spacing:-1px;line-height:1}
+.logo span{color:var(--accent)}
+.issue{font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--muted);text-align:right;line-height:1.5}
+.kicker{margin-top:48px;font-family:'JetBrains Mono',monospace;font-size:24px;color:var(--accent2);letter-spacing:3px}
+h1{font-family:Fraunces,serif;font-weight:900;font-size:156px;line-height:.9;letter-spacing:-5px;margin-top:18px}
+h1 em{font-style:italic;font-weight:400;color:var(--accent)}
+.sub{font-size:30px;color:var(--muted);margin-top:26px;font-weight:500}
+.quote{font-family:Fraunces,serif;font-style:italic;font-size:40px;line-height:1.25;margin-top:30px;padding-left:28px;border-left:6px solid var(--accent);max-width:860px}
+.head{margin-top:40px;background:var(--paper);color:var(--ink);border-radius:20px;padding:34px 38px;display:flex;gap:30px;align-items:center}
+.badge{width:118px;height:118px;border-radius:50%;background:var(--accent);color:var(--paper);display:flex;align-items:center;justify-content:center;font-family:Fraunces,serif;font-weight:900;font-size:50px;flex:none}
+.head .role{font-family:'JetBrains Mono',monospace;font-size:19px;letter-spacing:2px;color:#7A5A45}
+.head .name{font-family:Fraunces,serif;font-weight:700;font-size:48px;line-height:1.05;margin-top:4px}
+.head .desc{font-size:22px;margin-top:8px;color:#3B3632;line-height:1.35}
+.grid{margin-top:30px;display:flex;flex-direction:column;gap:0}
+.row{display:flex;align-items:center;gap:28px;padding:19px 4px;border-bottom:1px solid var(--line)}
+.num{font-family:Fraunces,serif;font-weight:900;font-size:54px;color:var(--accent);width:74px;flex:none}
+.row .t{flex:1}
+.row .n{font-size:32px;font-weight:700}
+.row .d{font-size:21px;color:var(--muted);margin-top:5px;line-height:1.35}
+.model{font-family:'JetBrains Mono',monospace;font-size:17px;border:1.5px solid var(--muted);color:var(--paper);border-radius:999px;padding:7px 16px;flex:none}
+.focus{margin-top:auto;display:flex;gap:20px}
+.box{flex:1;border:2px solid var(--paper);border-radius:18px;padding:22px 24px}
+.box .l{font-family:'JetBrains Mono',monospace;font-size:17px;letter-spacing:2px;color:var(--accent2)}
+.box .v{font-family:Fraunces,serif;font-weight:700;font-size:34px;margin-top:8px;line-height:1.1}
+.foot{margin-top:28px;display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:18px;color:var(--muted);border-top:2px solid var(--paper);padding-top:20px}
+</style></head><body>
+<div class="grain"></div>
+<div class="wrap">
+  <div class="mast">
+    <div class="logo">Konteks<span>.</span>Journal</div>
+    <div class="issue">VOL. 01 / PELUNCURAN<br>16–22 NOV 2026</div>
+  </div>
+
+  <div class="kicker">DIVISI 04 — DISTRIBUTION &amp; GROWTH</div>
+  <h1>Tim<br><em>Marketing</em></h1>
+  <div class="sub">6 AI agent yang membawa cerita ke telinga yang tepat.</div>
+  <div class="quote">“Konteks yang baik tidak berguna kalau tidak pernah sampai.”</div>
+
+  <div class="head">
+    <div class="badge">HG</div>
+    <div>
+      <div class="role">KEPALA DIVISI</div>
+      <div class="name">Head of Growth</div>
+      <div class="desc">Strategi distribusi, eksperimen pertumbuhan, dan target audiens di semua kanal.</div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="row"><div class="num">01</div><div class="t"><div class="n">Social Media Manager</div><div class="d">Caption, hook, dan jadwal posting harian.</div></div><div class="model">HAIKU</div></div>
+    <div class="row"><div class="num">02</div><div class="t"><div class="n">SEO &amp; Platform Optimizer</div><div class="d">Judul, deskripsi, dan kata kunci YouTube &amp; web.</div></div><div class="model">HAIKU</div></div>
+    <div class="row"><div class="num">03</div><div class="t"><div class="n">Repurposing Specialist</div><div class="d">Satu cerita jadi clip, carousel, thread, dan quote card.</div></div><div class="model">HAIKU</div></div>
+    <div class="row"><div class="num">04</div><div class="t"><div class="n">Paid Ads Specialist</div><div class="d">Usulan kampanye berbayar dan variasi copy iklan.</div></div><div class="model">SONNET</div></div>
+    <div class="row"><div class="num">05</div><div class="t"><div class="n">PR &amp; Media Relations</div><div class="d">Siaran pers, daftar media, dan pitch ke jurnalis.</div></div><div class="model">SONNET</div></div>
+  </div>
+
+  <div class="focus">
+    <div class="box"><div class="l">FOKUS PEKAN INI</div><div class="v">Musik Indonesia &amp; artisnya</div></div>
+    <div class="box"><div class="l">KANAL</div><div class="v">IG · TikTok · YouTube · Spotify · Web</div></div>
+  </div>
+
+  <div class="foot"><span>AI AGENT TEAM · 47 AGENT</span><span>KONTEKS JOURNAL</span></div>
+</div>
+</body></html>
