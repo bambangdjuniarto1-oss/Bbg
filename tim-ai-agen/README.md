@@ -14,18 +14,16 @@ Setiap agent dilengkapi misi, tugas, output, KPI, rekomendasi model, dan
 ## 1. Bagan Organisasi
 
 ```
-                              ┌─────────────────────────┐
-                              │     FOUNDER (Manusia)   │
-                              └────────────┬────────────┘
-                              ┌────────────▼────────────┐
-                              │ CEO / AI COMPANY DIRECTOR│
-                              └────────────┬────────────┘
-   ┌──────────┬──────────┬──────────┬──────┴─────┬──────────┬──────────┬──────────┐
-   ▼          ▼          ▼          ▼            ▼          ▼          ▼          ▼
-┌───────┐ ┌───────┐ ┌───────┐ ┌──────────┐ ┌─────────┐ ┌───────┐ ┌─────────┐ ┌─────────┐
-│1 RESEARCH│2 EDITORIAL│3 CREATIVE│4 DISTRIBUTION│5 BUSINESS│6 TECH &│7 FINANCE│8 COMMUNITY│
-│& INTEL │& STRATEGY│& PRODUC. │  & GROWTH  │& MONETIZ.│AUTOMAT.│& OPERAT.│& AUDIENCE│
-└───────┘ └───────┘ └───────┘ └──────────┘ └─────────┘ └───────┘ └─────────┘ └─────────┘
+FOUNDER (Manusia)
+└── CEO / AI COMPANY DIRECTOR
+    ├── 1. Research & Intelligence ── Head of Intelligence
+    ├── 2. Editorial & Strategy ───── Editor-in-Chief
+    ├── 3. Creative & Production ──── Creative Director
+    ├── 4. Distribution & Growth ──── Head of Growth
+    ├── 5. Business & Monetization ── Chief Revenue Officer
+    ├── 6. Technology & Automation ── CTO
+    ├── 7. Finance & Operation ────── COO / CFO
+    └── 8. Community & Audience ───── Head of Community
 ```
 
 | # | Divisi | Kepala Divisi (Agent) | Spesialis di bawahnya |
