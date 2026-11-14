@@ -1,0 +1,787 @@
+{
+ "keywords": [
+  "25",
+  "juta",
+  "subscriber",
+  "miliaran",
+  "views",
+  "pejabat",
+  "artis",
+  "biaya",
+  "uang",
+  "bulan",
+  "close",
+  "door",
+  "media",
+  "digital",
+  "produksi",
+  "kreator",
+  "distribusi",
+  "43",
+  "28",
+  "simulasikan",
+  "1.000",
+  "rp4.000",
+  "41",
+  "rp165",
+  "sponsor",
+  "rp100",
+  "3.000",
+  "membership",
+  "rp30.000",
+  "rp290",
+  "rp455",
+  "murah",
+  "18",
+  "host",
+  "tamu",
+  "transportasi",
+  "studio",
+  "peralatan",
+  "marketing",
+  "rp388",
+  "rp67",
+  "bukan",
+  "asli",
+  "audience",
+  "monetisasinya",
+  "perhatian",
+  "pendapatan",
+  "modal",
+  "bersaing",
+  "youtube",
+  "omzet",
+  "sisa"
+ ],
+ "scenes": [
+  {
+   "id": "C01",
+   "bubble": "**25 juta** subscriber",
+   "labels": [
+    {
+     "anchor": "SUBS",
+     "title": "25 JUTA SUBSCRIBER",
+     "sub": "satu channel YouTube",
+     "color": "red",
+     "t": -0.4,
+     "lift": 70
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "",
+    "title": "SUBSCRIBER",
+    "start": 0,
+    "to": 25,
+    "max": 25,
+    "unit": "juta",
+    "t": -1.2,
+    "dur": 1.7,
+    "target_text": "1 channel"
+   }
+  },
+  {
+   "id": "C02",
+   "bubble": "**Miliaran** views",
+   "labels": [
+    {
+     "anchor": "VIEWS",
+     "title": "MILIARAN VIEWS",
+     "sub": "total tayangan",
+     "color": "blue",
+     "t": 0.13,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "C03",
+   "bubble": "Tamu **pejabat & artis**",
+   "labels": [
+    {
+     "anchor": "PEJABAT",
+     "title": "PEJABAT",
+     "sub": "bintang tamu",
+     "color": "orange",
+     "t": -2.1,
+     "lift": 70
+    },
+    {
+     "anchor": "ARTIS",
+     "title": "ARTIS PAPAN ATAS",
+     "sub": "",
+     "color": "purple",
+     "t": -1.1,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "C04",
+   "bubble": "Biayanya **berapa**?",
+   "labels": [
+    {
+     "anchor": "BIAYA",
+     "title": "BIAYA MENJALANKAN?",
+     "sub": "kamera, lampu, studio, tim",
+     "color": "red",
+     "t": -1.2,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "C05",
+   "bubble": "Uangnya **tiap bulan**?",
+   "labels": [
+    {
+     "anchor": "UANG",
+     "title": "PENDAPATAN?",
+     "sub": "",
+     "color": "green",
+     "t": -1.8,
+     "lift": 60
+    },
+    {
+     "anchor": "BULAN",
+     "title": "TIAP BULAN",
+     "sub": "",
+     "color": "blue",
+     "t": 0.1,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "C06",
+   "bubble": "**Close The Door**",
+   "labels": [
+    {
+     "anchor": "DOOR",
+     "title": "CLOSE THE DOOR",
+     "sub": "milik Deddy Corbuzier",
+     "color": "red",
+     "t": -0.7,
+     "lift": 90
+    }
+   ]
+  },
+  {
+   "id": "C07",
+   "bubble": "Perusahaan **media digital**",
+   "labels": [
+    {
+     "anchor": "PRODUKSI",
+     "title": "TIM PRODUKSI",
+     "sub": "",
+     "color": "orange",
+     "t": -1.92,
+     "lift": 50
+    },
+    {
+     "anchor": "KREATOR",
+     "title": "JARINGAN KREATOR",
+     "sub": "",
+     "color": "blue",
+     "t": -0.92,
+     "lift": 50
+    },
+    {
+     "anchor": "DISTRIBUSI",
+     "title": "DISTRIBUSI KONTEN",
+     "sub": "",
+     "color": "purple",
+     "t": 0.03,
+     "lift": 50
+    }
+   ]
+  },
+  {
+   "id": "C08",
+   "bubble": "**43 juta views**/28 hari",
+   "labels": [
+    {
+     "anchor": "VIEWS",
+     "title": "43 JUTA+ VIEWS",
+     "sub": "1 periode pengamatan",
+     "color": "blue",
+     "t": 0.71,
+     "lift": 60
+    },
+    {
+     "anchor": "HARI",
+     "title": "28 HARI",
+     "sub": "",
+     "color": "orange",
+     "t": 2.21,
+     "lift": 60
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "",
+    "title": "VIEWS",
+    "start": 0,
+    "to": 43,
+    "max": 43,
+    "unit": "juta",
+    "t": 0.61,
+    "dur": 1.8,
+    "target_text": "dalam 28 hari"
+   }
+  },
+  {
+   "id": "C09",
+   "bubble": "Kita **simulasikan**",
+   "labels": [
+    {
+     "anchor": "SIM",
+     "title": "ANGKA SIMULASI",
+     "sub": "asumsi, bukan data resmi",
+     "color": "orange",
+     "t": 0.0,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "C10",
+   "bubble": "**Rp4.000** per 1.000 views",
+   "labels": [
+    {
+     "anchor": "VIEWS",
+     "title": "1.000 VIEWS",
+     "sub": "",
+     "color": "blue",
+     "t": -0.77,
+     "lift": 60
+    },
+    {
+     "anchor": "RP",
+     "title": "= Rp4.000",
+     "sub": "pendapatan iklan (RPM)",
+     "color": "green",
+     "t": 0.03,
+     "lift": 70
+    }
+   ]
+  },
+  {
+   "id": "C11",
+   "bubble": "Iklan **Rp165 juta**",
+   "labels": [
+    {
+     "anchor": "VIEWS",
+     "title": "41 JUTA VIEWS",
+     "sub": "video panjang",
+     "color": "blue",
+     "t": -4.5,
+     "lift": 60
+    },
+    {
+     "anchor": "IKLAN",
+     "title": "Rp165 JUTA",
+     "sub": "41 jt ÷ 1.000 × Rp4.000",
+     "color": "green",
+     "t": -1.2,
+     "lift": 70
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "IKLAN YOUTUBE / BULAN",
+    "start": 0,
+    "to": 165,
+    "max": 165,
+    "unit": "juta",
+    "t": -1.7,
+    "dur": 1.6,
+    "target_text": "simulasi"
+   }
+  },
+  {
+   "id": "C12",
+   "bubble": "Baru dari **YouTube**",
+   "labels": [
+    {
+     "anchor": "YT",
+     "title": "IKLAN YOUTUBE",
+     "sub": "Rp165 juta",
+     "color": "green",
+     "t": 0.48,
+     "lift": 70
+    },
+    {
+     "anchor": "SPONSOR",
+     "title": "SPONSOR?",
+     "sub": "",
+     "color": "orange",
+     "t": 1.38,
+     "lift": 50
+    },
+    {
+     "anchor": "LAIN",
+     "title": "LAINNYA?",
+     "sub": "",
+     "color": "purple",
+     "t": 2.08,
+     "lift": 50
+    }
+   ]
+  },
+  {
+   "id": "C13",
+   "bubble": "**2 sponsor** × Rp100 jt",
+   "labels": [
+    {
+     "anchor": "S0",
+     "title": "SPONSOR A",
+     "sub": "Rp100 juta",
+     "color": "red",
+     "t": 0.07,
+     "lift": 60
+    },
+    {
+     "anchor": "S1",
+     "title": "SPONSOR B",
+     "sub": "Rp100 juta",
+     "color": "red",
+     "t": 0.27,
+     "lift": 60
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "OMZET SIMULASI",
+    "start": 165,
+    "keys": [
+     [
+      0.0,
+      365
+     ]
+    ],
+    "max": 455,
+    "unit": "juta",
+    "t": -2.13,
+    "dur": 1.0,
+    "target_text": "iklan + sponsor"
+   }
+  },
+  {
+   "id": "C14",
+   "bubble": "**3.000 member**",
+   "labels": [
+    {
+     "anchor": "MEMBER",
+     "title": "3.000 ANGGOTA",
+     "sub": "membership berbayar",
+     "color": "purple",
+     "t": -2.34,
+     "lift": 70
+    },
+    {
+     "anchor": "KARTU",
+     "title": "Rp30.000 / BULAN",
+     "sub": "rata-rata per anggota",
+     "color": "orange",
+     "t": 0.06,
+     "lift": 60
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "",
+    "title": "ANGGOTA MEMBERSHIP",
+    "start": 0,
+    "to": 3000,
+    "max": 3000,
+    "unit": "anggota",
+    "t": -2.96,
+    "dur": 1.8,
+    "target_text": "× Rp30.000"
+   }
+  },
+  {
+   "id": "C15",
+   "bubble": "Tambahan **Rp290 juta**",
+   "labels": [
+    {
+     "anchor": "SP",
+     "title": "SPONSOR Rp200 JT",
+     "sub": "2 × Rp100 juta",
+     "color": "red",
+     "t": -0.79,
+     "lift": 60,
+     "until": 1.6
+    },
+    {
+     "anchor": "MB",
+     "title": "MEMBER Rp90 JT",
+     "sub": "3.000 × Rp30rb",
+     "color": "purple",
+     "t": -0.59,
+     "lift": 60,
+     "until": 1.6
+    },
+    {
+     "anchor": "TOTAL",
+     "title": "+ Rp290 JUTA",
+     "sub": "tambahan omzet",
+     "color": "green",
+     "t": 1.21,
+     "lift": 70
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "TAMBAHAN OMZET",
+    "start": 0,
+    "to": 290,
+    "max": 290,
+    "unit": "juta",
+    "t": 0.39,
+    "dur": 1.6,
+    "target_text": "sponsor + member"
+   }
+  },
+  {
+   "id": "C16",
+   "bubble": "Omzet **Rp455 juta**",
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "TOTAL OMZET / BULAN",
+    "start": 0,
+    "to": 455,
+    "max": 455,
+    "unit": "juta",
+    "t": -0.1,
+    "dur": 1.4,
+    "target_text": "simulasi"
+   },
+   "panels": [
+    {
+     "type": "table",
+     "title": "OMZET SIMULASI / BULAN",
+     "cols": [
+      "SUMBER",
+      "NILAI"
+     ],
+     "widths": [
+      440,
+      300
+     ],
+     "rows": [
+      [
+       "Iklan YouTube",
+       "Rp165 jt"
+      ],
+      [
+       "2 sponsor",
+       "Rp200 jt"
+      ],
+      [
+       "3.000 member",
+       "Rp90 jt"
+      ],
+      [
+       "TOTAL",
+       "Rp455 jt"
+      ]
+     ],
+     "row_t": [
+      -1.7,
+      -1.3,
+      -0.9,
+      -0.06
+     ],
+     "red_col": -1,
+     "y": 600
+    }
+   ]
+  },
+  {
+   "id": "C17",
+   "bubble": "Biayanya **nggak murah**",
+   "labels": [
+    {
+     "anchor": "BIAYA",
+     "title": "BIAYA OPERASIONAL",
+     "sub": "",
+     "color": "red",
+     "t": 0.17,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "C18",
+   "bubble": "**18 orang** tim",
+   "labels": [
+    {
+     "anchor": "TIM",
+     "title": "18 ORANG",
+     "sub": "tim produksi & operasional",
+     "color": "orange",
+     "t": 0.45,
+     "lift": 80
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "",
+    "title": "TIM",
+    "start": 0,
+    "to": 18,
+    "max": 18,
+    "unit": "orang",
+    "t": 0.0,
+    "dur": 1.2,
+    "target_text": "produksi & operasional"
+   }
+  },
+  {
+   "id": "C19",
+   "bubble": "Biaya **operasional**",
+   "labels": [
+    {
+     "anchor": "HOST",
+     "title": "HOST",
+     "sub": "",
+     "color": "red",
+     "t": 0.05,
+     "lift": 40
+    },
+    {
+     "anchor": "TAMU",
+     "title": "BINTANG TAMU",
+     "sub": "",
+     "color": "orange",
+     "t": 1.0,
+     "lift": 40
+    },
+    {
+     "anchor": "TRANSPORT",
+     "title": "TRANSPORT",
+     "sub": "",
+     "color": "red",
+     "t": 2.25,
+     "lift": 40
+    },
+    {
+     "anchor": "STUDIO",
+     "title": "STUDIO",
+     "sub": "",
+     "color": "orange",
+     "t": 3.0,
+     "lift": 40
+    },
+    {
+     "anchor": "ALAT",
+     "title": "PERALATAN",
+     "sub": "",
+     "color": "red",
+     "t": 3.65,
+     "lift": 40
+    },
+    {
+     "anchor": "MARKETING",
+     "title": "MARKETING",
+     "sub": "",
+     "color": "orange",
+     "t": 4.6,
+     "lift": 40
+    }
+   ]
+  },
+  {
+   "id": "C20",
+   "bubble": "Pengeluaran **Rp388 juta**",
+   "labels": [
+    {
+     "anchor": "OMZET",
+     "title": "OMZET Rp455 JT",
+     "sub": "",
+     "color": "green",
+     "t": -3.7,
+     "lift": 60
+    },
+    {
+     "anchor": "KELUAR",
+     "title": "PENGELUARAN Rp388 JT",
+     "sub": "",
+     "color": "red",
+     "t": -0.9,
+     "lift": 60
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "PENGELUARAN / BULAN",
+    "start": 0,
+    "to": 388,
+    "max": 455,
+    "unit": "juta",
+    "t": -2.3,
+    "dur": 2.0,
+    "target_text": "dari omzet 455",
+    "bar": "red"
+   }
+  },
+  {
+   "id": "C21",
+   "bubble": "Sisa **Rp67 juta**",
+   "labels": [
+    {
+     "anchor": "OPS",
+     "title": "− Rp388 JT",
+     "sub": "pengeluaran",
+     "color": "red",
+     "t": -0.9,
+     "lift": 60,
+     "until": 2.0
+    },
+    {
+     "anchor": "SISA",
+     "title": "SISA Rp67 JUTA",
+     "sub": "per bulan (Rp455 − Rp388)",
+     "color": "green",
+     "t": 1.4,
+     "lift": 80
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "SISA OPERASIONAL",
+    "start": 455,
+    "keys": [
+     [
+      0.0,
+      67
+     ]
+    ],
+    "max": 455,
+    "unit": "juta / bulan",
+    "t": -1.2,
+    "dur": 1.2,
+    "target_text": "omzet − pengeluaran"
+   }
+  },
+  {
+   "id": "C22",
+   "bubble": "Ini **simulasi**",
+   "labels": [
+    {
+     "anchor": "DOC",
+     "title": "BUKAN LAPORAN ASLI",
+     "sub": "angka ilustrasi / asumsi",
+     "color": "red",
+     "t": 0.4,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "C23",
+   "bubble": "Audience **= peluang**",
+   "labels": [
+    {
+     "anchor": "AUD",
+     "title": "AUDIENCE MAKIN BESAR",
+     "sub": "",
+     "color": "blue",
+     "t": -1.54,
+     "lift": 50
+    },
+    {
+     "anchor": "MON",
+     "title": "MONETISASI NAIK",
+     "sub": "",
+     "color": "green",
+     "t": 0.06,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "C24",
+   "bubble": "Perhatian **jadi uang**",
+   "labels": [
+    {
+     "anchor": "PERHATIAN",
+     "title": "PERHATIAN",
+     "sub": "views & waktu tonton",
+     "color": "blue",
+     "t": 1.37,
+     "lift": 60
+    },
+    {
+     "anchor": "MESIN",
+     "title": "MONETISASI",
+     "sub": "",
+     "color": "purple",
+     "t": 0.07,
+     "lift": 50
+    },
+    {
+     "anchor": "UANG",
+     "title": "PENDAPATAN",
+     "sub": "",
+     "color": "green",
+     "t": 2.52,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "C25",
+   "bubble": "Berani **bersaing**?",
+   "labels": [
+    {
+     "anchor": "HQ",
+     "title": "INDUSTRI MEDIA",
+     "sub": "persaingan ketat",
+     "color": "red",
+     "t": 1.08,
+     "lift": 80
+    }
+   ],
+   "cta": 1.4
+  }
+ ]
+}

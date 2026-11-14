@@ -180,7 +180,8 @@ CHORDS_F = [
 ]
 MOTIF_F = [(0, 74), (.5, 77), (1, 81), (2, 79), (2.5, 77), (3, 76),
            (4, 74), (4.5, 72), (5, 74), (6, 77), (6.5, 76), (7, 72)]
-VARIANTS = {"A": None, "B": (CHORDS_B, MOTIF_B), "C": (CHORDS_C, MOTIF_C), "D": (CHORDS_D, MOTIF_D),
+# variasi G (video bisnis media): gaya beda total, groove hip-hop/business ~94 BPM, lihat render_biz()
+VARIANTS = {"G": "biz", "A": None, "B": (CHORDS_B, MOTIF_B), "C": (CHORDS_C, MOTIF_C), "D": (CHORDS_D, MOTIF_D),
             "E": (CHORDS_E, MOTIF_E), "F": (CHORDS_F, MOTIF_F)}
 
 
@@ -265,6 +266,170 @@ def render(dur, bpm=128.0, brk=(20.6, 24.4)):
     return buf
 
 
+# ================================================================== gaya "biz" (varian G)
+# Groove hip-hop modern untuk konten bisnis/finansial: electric piano (FM) chord minor 9,
+# sub-bass 808 dengan glide, kick-snare tegas, hi-hat 16-an + roll, bell motif, riser & impact.
+# Progresi C minor: Cm9 - Abmaj7 - Fm9 - G7sus/G7 (i - VI - iv - V), terdengar percaya diri & serius.
+BIZ_CHORDS = [
+    (36, [51, 55, 58, 62]),        # Cm9  (Eb G Bb D)
+    (44, [51, 55, 60, 63]),        # Abmaj7 (Eb G C Eb)
+    (41, [51, 56, 60, 63]),        # Fm9-ish (Eb Ab C Eb) + G di atas
+    (43, [53, 55, 59, 62]),        # G7 (F G B D)
+]
+BIZ_BELL = [(0, 75), (.5, 74), (1, 72), (2, 67), (3, 70),
+            (4, 72), (4.5, 70), (5, 68), (6, 67), (7, 74)]
+KICK16 = [0, 7, 10]
+SNARE16 = [4, 12]
+
+
+def epiano(note, dur, vel=1.0):
+    f = midi(note)
+    t = np.arange(int(dur * SR)) / SR
+    idx = 1.8 * vel * np.exp(-t * 5) + .25
+    mod = np.sin(2 * np.pi * f * t) * idx
+    s = np.sin(2 * np.pi * f * t + mod)
+    s += .22 * np.sin(2 * np.pi * f * 2 * t + mod * .5) * np.exp(-t * 2.5)
+    s += .08 * np.sin(2 * np.pi * f * 14 * t) * np.exp(-t * 40) * vel       # "tine"
+    env = np.minimum(1, t / .004) * np.exp(-t * 1.1) * np.minimum(1, (dur - t) / .08)
+    return s * env * .22
+
+
+def bell(note, dur=1.6):
+    f = midi(note)
+    t = np.arange(int(dur * SR)) / SR
+    mod = np.sin(2 * np.pi * f * 3.5 * t) * 1.6 * np.exp(-t * 4)
+    s = np.sin(2 * np.pi * f * t + mod) * np.exp(-t * 2.6)
+    return s * np.minimum(1, t / .002) * .3
+
+
+def sub808(note, dur):
+    f = midi(note)
+    t = np.arange(int(dur * SR)) / SR
+    fr = f * (1 + .9 * np.exp(-t * 45))
+    ph = 2 * np.pi * np.cumsum(fr) / SR
+    s = np.sin(ph) + .18 * np.sin(2 * ph)
+    env = np.minimum(1, t / .003) * np.exp(-t * .9) * np.minimum(1, (dur - t) / .03)
+    return np.tanh(s * env * 1.6) * .55
+
+
+def snare():
+    t = np.arange(int(.3 * SR)) / SR
+    n = bp(RNG.standard_normal(len(t)), 1400, 7000) * np.exp(-t * 17)
+    body = np.sin(2 * np.pi * 185 * t) * np.exp(-t * 28)
+    return (n * .55 + body * .5) * .8
+
+
+def rim():
+    t = np.arange(int(.08 * SR)) / SR
+    return (np.sin(2 * np.pi * 1700 * t) * .6 + bp(RNG.standard_normal(len(t)), 2000, 6000) * .4) * np.exp(-t * 70) * .3
+
+
+def impact(dur=2.4):
+    t = np.arange(int(dur * SR)) / SR
+    boom = np.sin(2 * np.pi * (38 + 40 * np.exp(-t * 8)) * t) * np.exp(-t * 2.2)
+    n = lp(RNG.standard_normal(len(t)), 3000) * np.exp(-t * 3.5) * .35
+    return (boom + n) * .8
+
+
+def reverb(x, secs=1.8, mix=.22):
+    from scipy.signal import fftconvolve
+    t = np.arange(int(secs * SR)) / SR
+    out = np.zeros_like(x)
+    for ch in range(2):
+        ir = RNG.standard_normal(len(t)) * np.exp(-t * 3.2)
+        ir = lp(ir, 5200)
+        ir[: int(.02 * SR)] = 0
+        ir /= np.sqrt(np.sum(ir ** 2))
+        out[ch] = fftconvolve(x[ch], ir)[: x.shape[1]]
+    return x + out * mix
+
+
+def render_biz(dur, bpm=94.0, brk=(40.0, 45.0)):
+    beat = 60.0 / bpm
+    bar = 4 * beat
+    s16 = beat / 4
+    n_bars = int(np.ceil(dur / bar)) + 1
+    L = int((dur + 4) * SR)
+    dry = np.zeros((2, L))
+    keys = np.zeros((2, L))
+    end_bar = int((dur - 2.6) // bar)
+    b0, b1 = int(round(brk[0] / bar)), int(round(brk[1] / bar))
+    K, SN, CL, H, HO = kick(), snare(), clap(), hat(), hat(True)
+    for b in range(n_bars):
+        if b > end_bar:
+            break
+        t0 = b * bar
+        root, notes = BIZ_CHORDS[b % 4]
+        intro = b < 2
+        breakdown = b0 <= b < b1
+        # electric piano: chord ketukan 1, ulang sinkop di "&" ketukan 2
+        for k, (st_, vel, ln) in enumerate(((0, 1.0, 1.9), (1.5 * beat, .7, 1.2), (3.5 * beat, .55, .6))):
+            if (intro or breakdown) and k == 2:
+                continue
+            for i, nt in enumerate(notes):
+                add(keys, t0 + st_ + i * .012, epiano(nt, ln * beat + .3, vel), .9, -.35 + .23 * i)
+        if b % 4 == 2:
+            add(keys, t0, epiano(notes[-1] + 5, 2 * beat), .5, .3)
+        if intro or breakdown:
+            for bt, nt in BIZ_BELL:
+                off = 0 if b % 2 == 0 else 4
+                if off <= bt < off + 4 and breakdown:
+                    add(keys, t0 + (bt - off) * beat, bell(nt), .55, .25)
+            if b == 1 or b == b1 - 1:
+                add(dry, t0 + bar - 2 * beat, swell(2 * beat), 1.1)
+                for r in range(8):          # snare roll naik
+                    add(dry, t0 + bar - 2 * beat + r * beat / 4, SN, .12 + .05 * r, .05)
+            continue
+        if b == 2 or b == b1:
+            add(dry, t0, impact(), .9)
+        # drum
+        roll = b % 4 == 3
+        for i in range(16):
+            tt_ = t0 + i * s16
+            if i in KICK16 or (b % 2 and i == 13):
+                add(dry, tt_, K, 1.0)
+            if i in SNARE16:
+                add(dry, tt_, SN, .75, .05)
+                add(dry, tt_ + .008, CL, .35, -.1)
+            if roll and i >= 12:
+                for r in range(3):
+                    add(dry, tt_ + r * s16 / 3, H, .26, .3)
+            else:
+                add(dry, tt_, HO if i == 14 else H, (.42, .18, .3, .18)[i % 4] * (1.4 if i == 14 else 1), .3)
+            if i in (6, 11) and b % 2 == 0:
+                add(dry, tt_, rim(), .7, -.4)
+        # 808 mengikuti kick, nada ke-5 di langkah 10
+        for i, n_ in ((0, root - 12), (7, root - 12), (10, root - 5 if b % 2 else root - 12)):
+            ln = {0: 7, 7: 3, 10: 6}[i] * s16
+            add(dry, t0 + i * s16, sub808(n_, ln), .95)
+        # bell motif di bagian setelah intro/breakdown (2 dari 4 bar)
+        if (b - (b1 if b >= b1 else 2)) % 8 < 2:
+            off = 0 if b % 2 == 0 else 4
+            for bt, nt in BIZ_BELL:
+                if off <= bt < off + 4:
+                    add(keys, t0 + (bt - off) * beat, bell(nt), .42, .25)
+        if b % 8 == 7 and b + 1 <= end_bar:
+            add(dry, t0 + bar - beat, swell(beat), .9)
+    # intro: keys di-lowpass (efek "muffled") lalu terbuka saat drum masuk
+    ni = int(2 * bar * SR)
+    for ch in range(2):
+        keys[ch, :ni] = lp(keys[ch, :ni], 900)
+    buf = dry + reverb(keys, 2.0, .3)
+    tend = (end_bar + 1) * bar
+    root, notes = BIZ_CHORDS[0]
+    add(buf, tend, impact(3.0), .9)
+    add(buf, tend, sub808(root - 12, 2.8), .9)
+    for i, nt in enumerate(notes):
+        add(buf, tend + i * .03, epiano(nt, 3.0), .9, -.3 + .2 * i)
+        add(buf, tend + .4 + i * .09, bell(nt + 12, 2.4), .35, .3 - .2 * i)
+    buf = buf[:, : int(dur * SR)]
+    fade = int(.5 * SR)
+    buf[:, -fade:] *= np.linspace(1, 0, fade)
+    buf = np.tanh(buf * 1.1) / np.tanh(1.1)
+    buf /= np.abs(buf).max() / .89
+    return buf
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("out")
@@ -275,6 +440,10 @@ def main():
     a = ap.parse_args()
     import soundfile as sf
     global CHORDS, MOTIF
+    if VARIANTS[a.variant] == "biz":
+        sf.write(a.out, render_biz(a.dur, a.bpm, tuple(a.brk)).T, SR, subtype="PCM_16")
+        print("wrote", a.out)
+        return
     if VARIANTS[a.variant]:
         CHORDS, MOTIF = VARIANTS[a.variant]
     sf.write(a.out, render(a.dur, a.bpm, tuple(a.brk)).T, SR, subtype="PCM_16")
