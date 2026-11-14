@@ -305,6 +305,8 @@ for (const [i, [x, z]] of [[8.6, 1.2], [10.6, 1.2], [12.6, 1.2], [8.6, 5.8], [10
   sofaKecil(x, z, i < 3 ? Math.PI : 0); // sandaran membelakangi meja kopi
 }
 for (const [x, z] of [[8.6, 2.3], [10.6, 4.7], [12.6, 2.3], [8.6, 4.7], [10.6, 2.3], [12.6, 4.7]]) SANTAI.push({ x, z });
+// tempat santai tambahan di pantry (untuk tim lebih dari 6 orang)
+for (const [x, z] of [[8.2, -6.1], [10.8, -6.1], [11.6, -9.3], [12.6, -9.3], [9.5, -5.6], [6.8, -8.6]]) SANTAI.push({ x, z, pantry: true });
 kotak(5, 0.08, 1.1, M.kayuMeja, 10.6, 0.45, 3.5);
 for (const dx of [-2.2, 2.2]) kotak(0.1, 0.42, 0.9, M.putih, 10.6 + dx, 0.22, 3.5);
 rakBuku(14.6, 8.6, 3.2, -Math.PI / 2);
@@ -386,6 +388,7 @@ const SPOT_CEO_MEJA = { pos: v(-10.8, -7.4), hadap: Math.PI, keluar: [v(-9, -6),
 const SPOT_CEO_SANTAI = { pos: v(-12.8, -5.4), hadap: Math.PI / 2, keluar: [v(-9, -6), v(-5.6, -4.6), v(-5.6, KORIDOR_Z)] };
 const spotSantai = (i) => {
   const s = SANTAI[i % SANTAI.length];
+  if (s.pantry) return { pos: v(s.x, s.z), hadap: s.z < -8 ? Math.PI : 0, keluar: [v(s.x, KORIDOR_Z - 1.2), v(s.x, KORIDOR_Z)] };
   return { pos: v(s.x, s.z), hadap: s.z < 3.5 ? 0 : Math.PI, keluar: [v(s.x > 11 ? 14 : 7.2, s.z), v(s.x > 11 ? 14 : 7.2, KORIDOR_Z)] };
 };
 
@@ -543,14 +546,24 @@ function tanganiEvent(ev, replay = false) {
   }
 }
 
+async function perbaruiMode() {
+  const i = await fetch("/api/info").then((r) => r.json()).catch(() => null);
+  if (!i) return;
+  elMode.textContent = i.demo ? "Mode DEMO" : `LIVE · ${i.provider}`;
+  elMode.className = "pill " + (i.demo ? "demo" : "live");
+  document.getElementById("banner-demo").hidden = !i.demo;
+}
+document.getElementById("banner-hubungkan").addEventListener("click", () => document.getElementById("buka-pengaturan").click());
+
 function sambung() {
   const ws = new WebSocket(`${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/ws`);
   ws.onmessage = (m) => {
     const ev = JSON.parse(m.data);
+    if (ev.type === "tim-berubah") return location.reload();
+    if (ev.type === "pengaturan-berubah") return perbaruiMode();
     if (ev.type === "init") {
       elChat.innerHTML = "";
-      elMode.textContent = ev.demo ? "Mode DEMO" : "LIVE · Claude";
-      elMode.className = "pill " + (ev.demo ? "demo" : "live");
+      perbaruiMode();
       for (const r of ev.riwayat) tanganiEvent(r, true);
       for (const [id, s] of Object.entries(ev.statusAgent)) setStatus(id, s.status, s.aktivitas, true);
       elKirim.disabled = Object.values(ev.statusAgent).some((s) => s.status !== "idle");

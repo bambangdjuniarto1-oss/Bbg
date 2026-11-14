@@ -23,6 +23,7 @@
       <div class="meta">
         <span id="mode" class="pill">…</span>
         <span id="token" class="pill" title="Token terpakai pada brief ini">0 token</span>
+        <button id="buka-pengaturan" class="pill tombol-pengaturan" type="button">⚙️ Pengaturan</button>
       </div>
     </header>
 
@@ -40,8 +41,12 @@
     <div class="panel-head">
       <div>
         <h1>Ruang Tim</h1>
-        <p id="subjudul">Orchestrator + 4 agent</p>
+        <p id="subjudul">Memuat tim…</p>
       </div>
+    </div>
+    <div id="banner-demo" class="banner" hidden>
+      <span>Belum terhubung ke AI, jadi berjalan dalam <b>mode demo</b>.</span>
+      <button type="button" id="banner-hubungkan">Hubungkan AI</button>
     </div>
     <ol id="chat"></ol>
     <form id="form-brief">
@@ -52,6 +57,103 @@
     </form>
   </section>
 
+  <dialog id="pengaturan" aria-label="Pengaturan">
+    <div class="dlg-head">
+      <h2>Pengaturan</h2>
+      <button type="button" id="tutup-pengaturan" class="tutup" aria-label="Tutup">✕</button>
+    </div>
+    <div class="tabs" role="tablist">
+      <button type="button" data-tab="koneksi">Koneksi AI</button>
+      <button type="button" data-tab="tim">Tim &amp; Persona</button>
+      <button type="button" data-tab="telegram">Telegram</button>
+    </div>
+
+    <!-- Koneksi AI -->
+    <section data-panel="koneksi" class="dlg-body">
+      <p class="bantu">Pilih cara menghubungkan tim ke AI. API key disimpan di komputer ini saja dan tidak ditampilkan lagi.</p>
+      <div id="daftar-provider" class="daftar-provider"></div>
+      <p id="penjelasan-provider" class="penjelasan"></p>
+
+      <div id="blok-login-claude" class="blok-login" hidden>
+        <button type="button" id="login-claude" class="tombol utama">Login dengan akun Claude</button>
+        <span id="status-login-claude" class="status-msg"></span>
+        <div id="instal-ant" class="bantu" hidden>
+          Pasang Anthropic CLI dulu, lalu muat ulang halaman ini:<br>
+          • macOS: <code>brew install anthropics/tap/ant</code><br>
+          • Windows/Linux: unduh dari <a href="https://github.com/anthropics/anthropic-cli/releases" target="_blank" rel="noopener">github.com/anthropics/anthropic-cli/releases</a>
+        </div>
+      </div>
+      <div id="blok-login-openrouter" class="blok-login" hidden>
+        <button type="button" id="login-openrouter" class="tombol utama">Login dengan OpenRouter</button>
+        <span class="bantu">atau tempel API key di bawah</span>
+      </div>
+
+      <label id="baris-key" class="baris">API key
+        <span class="gabung">
+          <input id="f-api-key" type="password" autocomplete="off" spellcheck="false">
+          <button type="button" id="hapus-key" class="tombol kecil">Hapus</button>
+        </span>
+      </label>
+      <label id="baris-url" class="baris">Base URL <input id="f-base-url" spellcheck="false"></label>
+      <div id="baris-model">
+        <label class="baris">Model untuk bos
+          <span class="gabung">
+            <input id="f-model" list="daftar-model" spellcheck="false">
+            <button type="button" id="muat-model" class="tombol kecil">Muat daftar model</button>
+          </span>
+        </label>
+        <label class="baris">Model untuk anggota tim <small>(kosongkan = sama dengan bos; pilih model lebih murah untuk hemat biaya)</small>
+          <input id="f-model-tim" list="daftar-model" spellcheck="false" placeholder="Sama dengan model bos">
+        </label>
+        <datalist id="daftar-model"></datalist>
+      </div>
+      <div class="aksi">
+        <button type="button" id="tes-koneksi" class="tombol">Tes koneksi</button>
+        <button type="button" id="simpan-koneksi" class="tombol utama">Simpan</button>
+      </div>
+      <p id="status-koneksi" class="status-msg"></p>
+    </section>
+
+    <!-- Tim & Persona -->
+    <section data-panel="tim" id="panel-tim" class="dlg-body" hidden>
+      <div class="baris-preset">
+        <select id="pilih-preset"></select>
+        <button type="button" id="pakai-preset" class="tombol">Pakai template</button>
+      </div>
+      <p id="info-preset" class="bantu"></p>
+      <h3>Bos (orchestrator)</h3>
+      <div id="persona-bos"></div>
+      <h3>Anggota tim <small id="jumlah-anggota"></small></h3>
+      <p id="catatan-web" class="bantu" hidden>Pencarian internet hanya tersedia dengan koneksi Claude. Di koneksi lain, anggota memakai pengetahuannya dan menandai data yang perlu dicek.</p>
+      <div id="persona-anggota"></div>
+      <button type="button" id="tambah-anggota" class="tombol">+ Tambah anggota</button>
+      <p class="bantu">Aturan kerja (menyimpan file, melapor, tidak mengarang data) ditambahkan otomatis oleh aplikasi.</p>
+      <div class="aksi">
+        <button type="button" id="simpan-tim" class="tombol utama">Simpan tim</button>
+      </div>
+      <p id="status-tim" class="status-msg"></p>
+    </section>
+
+    <!-- Telegram -->
+    <section data-panel="telegram" class="dlg-body" hidden>
+      <p class="bantu">Kirim brief dari Telegram dengan format <code>Nama Klien: isi brief</code>. Laporan tim dikirim balik ke chat yang sama.</p>
+      <ol class="langkah">
+        <li>Buat bot di <b>@BotFather</b> (perintah <code>/newbot</code>) dan salin tokennya.</li>
+        <li>Masukkan bot ke grup. Di BotFather, matikan <i>Group Privacy</i> bot supaya bisa membaca pesan grup.</li>
+        <li>Cari ID chat: kirim pesan ke grup, lalu buka <code>https://api.telegram.org/bot&lt;TOKEN&gt;/getUpdates</code> dan lihat <code>chat.id</code>.</li>
+      </ol>
+      <label class="baris">Token bot <input id="tg-token" type="password" autocomplete="off" spellcheck="false"></label>
+      <label class="baris">Chat ID <input id="tg-chat" spellcheck="false" placeholder="contoh: -1001234567890"></label>
+      <label class="cek"><input type="checkbox" id="tg-aktif"> Aktifkan Telegram</label>
+      <div class="aksi">
+        <button type="button" id="tes-telegram" class="tombol">Kirim pesan tes</button>
+        <button type="button" id="simpan-telegram" class="tombol utama">Simpan</button>
+      </div>
+      <p id="status-telegram" class="status-msg"></p>
+    </section>
+  </dialog>
+
+  <script type="module" src="/pengaturan.js"></script>
   <script type="module" src="/app.js"></script>
 </body>
 </html>

@@ -45,45 +45,54 @@ git pull
 
 ## Cara menjalankan
 
-Butuh Node.js 20 atau lebih baru.
-
 ```bash
 cd ai-office
 npm install
-
-# 1) Coba tampilannya dulu tanpa API (simulasi)
-npm run demo
-
-# 2) Tim asli dengan Claude
-export ANTHROPIC_API_KEY=sk-ant-...      # buat di platform.claude.com
 npm start
 ```
 
-Buka http://localhost:3000, isi nama klien dan brief, lalu klik **Kirim ke Bos**.
+Buka **http://localhost:3000**. Tanpa pengaturan apa pun, aplikasi berjalan dalam **mode demo** supaya kamu bisa melihat cara kerjanya.
 
-Contoh brief:
-> Klien toko kue, minta promo Party Bundle (kue + 25 cakesicles). Siapkan riset kompetitor di Jakarta, copy iklan, landing page dengan tombol WhatsApp 62812xxxx, dan carousel IG 3 slide.
+## Menghubungkan AI (tanpa edit file)
 
-## Pengaturan (environment variable)
+Klik **⚙️ Pengaturan → Koneksi AI**, pilih salah satu, lalu klik **Simpan** dan **Tes koneksi**:
 
-| Variabel | Default | Fungsi |
-|---|---|---|
-| `ANTHROPIC_API_KEY` | – | Wajib untuk mode LIVE. Tanpa ini server otomatis masuk mode demo |
-| `MODEL` | `claude-opus-5-5` | Model untuk orchestrator |
-| `MODEL_TIM` | sama dengan `MODEL` | Model untuk 4 agent. Isi `claude-sonnet-5-5` atau `claude-haiku-5-5` untuk menekan biaya |
-| `PORT` | `3000` | Port web |
-| `TELEGRAM_BOT_TOKEN` | – | Token bot dari @BotFather (opsional) |
-| `TELEGRAM_CHAT_ID` | – | ID chat/grup yang boleh memberi perintah (opsional) |
+| Pilihan | Yang dibutuhkan |
+|---|---|
+| **Claude (API key)** | API key dari platform.claude.com → API Keys |
+| **Claude (login akun Claude Console)** | Tanpa API key. Klik *Login dengan akun Claude*, lalu login di browser. Butuh Anthropic CLI (`ant`) terpasang. Tagihan masuk ke akun Console, bukan langganan Claude Pro/Max |
+| **OpenRouter** | Klik *Login dengan OpenRouter* (tanpa menyalin key), atau tempel API key. Satu akun untuk Claude, GPT, Gemini, Llama, dll |
+| **OpenAI** | API key dari platform.openai.com |
+| **Google Gemini** | API key dari Google AI Studio |
+| **Ollama** | Gratis, berjalan di komputer sendiri, tanpa key. Pasang dari ollama.com lalu unduh model yang mendukung *tool calling* |
+| **Kustom** | Layanan lain berformat OpenAI (Groq, DeepSeek, LM Studio, dll): isi base URL dan key |
+
+- Klik **Muat daftar model** untuk memilih model. Model untuk anggota tim bisa dibuat lebih murah daripada model bos.
+- API key disimpan di komputer ini saja (`data/settings.json`, hanya bisa dibaca pemilik akun komputer) dan tidak pernah ditampilkan utuh lagi di layar.
+- Pencarian internet untuk agent hanya tersedia dengan koneksi Claude.
+
+## Mengatur tim & persona (tanpa edit file)
+
+Klik **⚙️ Pengaturan → Tim & Persona**:
+
+- **Pakai template:** *Agensi Digital Marketing* (5 agent) atau *Perusahaan Media Musik, Film, Lifestyle & Seni* (CEO ARKA + 8 kepala divisi).
+- Ubah nama, jabatan, warna baju, dan instruksi setiap agent. Tambah atau hapus anggota (maksimal 12).
+- Centang *Boleh mencari di internet* untuk agent riset.
+- Klik **Simpan tim**. Kantor dimuat ulang dengan tim baru.
+
+Aturan kerja dasar (menyimpan file, melapor, tidak mengarang data) ditambahkan otomatis, jadi instruksi cukup berisi peran dan hasil yang diharapkan.
 
 ## Perintah lewat Telegram (opsional)
 
-1. Buat bot di **@BotFather** dan simpan tokennya.
-2. Masukkan bot ke grup, lalu matikan *Group Privacy* bot di BotFather supaya bot bisa membaca pesan grup.
-3. Cari ID grup: kirim pesan ke grup, lalu buka `https://api.telegram.org/bot<TOKEN>/getUpdates` dan lihat `chat.id`.
-4. Jalankan dengan `TELEGRAM_BOT_TOKEN=... TELEGRAM_CHAT_ID=... npm start`.
-5. Kirim brief di grup dengan format `Nama Klien: isi brief`.
+Klik **⚙️ Pengaturan → Telegram**, ikuti 3 langkah di sana, isi token bot dan chat ID, centang *Aktifkan*, lalu klik **Kirim pesan tes**. Setelah itu kirim brief di grup dengan format `Nama Klien: isi brief`.
 
-Semua laporan agent akan muncul di grup itu, sekaligus di kantor virtual. Bot hanya melayani chat dengan ID yang kamu tentukan.
+## Pengaturan lanjutan (opsional)
+
+| Variabel | Default | Fungsi |
+|---|---|---|
+| `PORT` | `3000` | Port web |
+| `HOST` | `127.0.0.1` | Secara bawaan aplikasi hanya bisa dibuka dari komputer ini. Ubah hanya bila paham risikonya |
+| `ANTHROPIC_API_KEY` | – | Bila diisi, dipakai sebagai key Claude awal |
 
 ## Cara kerjanya
 
@@ -97,16 +106,19 @@ NOVA (orchestrator) ── tool "delegasikan" ──► Raka ─► Sasa ─► 
 Event status/chat/file ──WebSocket──► Kantor virtual 3D (Three.js)
 ```
 
-- `agents.mjs`: nama, warna, dan **system prompt** setiap agent. Ubah di sini untuk menambah peran atau mengganti gaya kerja.
+- `presets.mjs`: template tim bawaan.
+- `settings.mjs`: penyimpanan pengaturan dari halaman Pengaturan.
+- `providers.mjs`: koneksi ke Claude, OpenRouter, OpenAI, Gemini, Ollama, dan layanan kustom.
 - `orchestrator.mjs`: loop agent Claude (Messages API + tool use). Akses file dikunci ke folder klien.
 - `server.mjs`: server web, WebSocket, dan API `/api/brief`.
 - `telegram.mjs`: jembatan ke Telegram.
 - `public/app.js`: kantor isometrik, karakter voxel, animasi, dan panel chat.
+- `public/pengaturan.js`: halaman Pengaturan.
 - `demo.mjs`: simulasi tanpa API.
 
 ## Hal yang perlu diperhatikan
 
-- **Biaya:** satu brief memicu puluhan panggilan model. Angka token tampil di pojok kanan atas. Pakai `MODEL_TIM` yang lebih murah kalau perlu.
+- **Biaya:** satu brief memicu puluhan panggilan model. Angka token tampil di pojok kanan atas. Pilih model anggota tim yang lebih murah di Pengaturan kalau perlu.
 - **Periksa sebelum dikirim ke klien.** Agent diminta menulis `[PERLU DIISI]` untuk data yang tidak diketahui (harga, kontak, testimoni). Cari tanda itu sebelum hasil dipakai.
 - **Gambar** dibuat sebagai SVG (desain grafis berbasis teks dan bentuk). Untuk foto produk realistis, tambahkan API generator gambar terpisah ke agent Content.
 - **Deploy website** belum otomatis. Hasilnya berupa file HTML yang bisa kamu unggah ke Netlify, Vercel, atau Cloudflare Pages.

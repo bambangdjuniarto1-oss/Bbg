@@ -1,35 +1,55 @@
-// Mesin agent: orchestrator NOVA mendelegasikan tugas ke tim lewat tool "delegasikan".
-// Setiap agent adalah loop tool-use Claude dengan akses file terbatas pada folder klien.
-import Anthropic from "@anthropic-ai/sdk";
+// Mesin agent: orchestrator mendelegasikan tugas ke anggota tim lewat tool "delegasikan".
+// Tim, persona, dan provider AI dibaca dari Pengaturan (settings.mjs), jadi bisa diubah dari aplikasi.
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { EventEmitter } from "node:events";
-import { ORCHESTRATOR, TIM } from "./agents.mjs";
+import { ambil } from "./settings.mjs";
+import { buatSesi, dukungWebSearch } from "./providers.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 export const CLIENTS_DIR = path.join(here, "clients");
 export const bus = new EventEmitter();
-
-const MODEL = process.env.MODEL || "claude-opus-5-5";
-const MODEL_TIM = process.env.MODEL_TIM || MODEL;
 const MAKS_LANGKAH = 30;
-
-let client;
-const getClient = () => (client ??= new Anthropic());
 
 export const emit = (ev) => bus.emit("event", { ...ev, t: Date.now() });
 export const slugify = (s) =>
   s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40) || "klien";
 
-// ---------- Tool file (dibatasi ke folder klien) ----------
+// ---------- Aturan yang selalu ditambahkan (tidak bisa dihapus dari Pengaturan) ----------
+const ATURAN_TIM = `
 
+Aturan kerja (dari sistem):
+- Semua file ada di folder klien. Pakai path relatif seperti "output/hasil.md".
+- Baca file input yang disebut di tugas sebelum mulai (tool baca_file / daftar_file).
+- Simpan hasil kerja dengan tool tulis_file.
+- Jangan mengarang data, harga, testimoni, atau kontak. Kalau tidak tahu, tulis [PERLU DIISI].
+- Akhiri dengan laporan singkat (maks 6 poin) untuk atasanmu: apa yang dikerjakan dan file apa yang ditulis.
+- Bahasa Indonesia, kecuali diminta lain.`;
+
+function systemBos(tim) {
+  const daftar = tim.anggota
+    .map((a) => `- ${a.id}: ${a.nama} (${a.jabatan}). ${a.instruksi.split("\n")[0].slice(0, 220)}`)
+    .join("\n");
+  return `${tim.orchestrator.instruksi || `Kamu ${tim.orchestrator.nama}, pemimpin tim agent AI.`}
+
+Anggota tim kamu:
+${daftar}
+
+Cara kerja (dari sistem):
+1. Pecah brief jadi tugas untuk anggota tim yang relevan. Delegasikan lewat tool "delegasikan".
+2. Tugas yang bergantung pada hasil anggota lain dikerjakan berurutan. Tugas yang saling lepas boleh paralel: panggil "delegasikan" beberapa kali dalam satu giliran.
+3. Tulis instruksi yang spesifik: nama klien, tujuan, file input yang harus dibaca, dan file output yang harus ditulis.
+4. Periksa laporan setiap anggota. Kalau kurang, delegasikan revisi sekali ke anggota yang sama.
+5. Setelah semua beres, tulis laporan akhir untuk CEO: ringkasan, daftar file, dan hal yang perlu dicek manusia.
+Jangan mengerjakan sendiri pekerjaan anggota tim. Jangan mengarang hasil yang tidak dilaporkan.`;
+}
+
+// ---------- Tool file (dibatasi ke folder klien) ----------
 function amankanPath(root, p) {
-  const target = path.resolve(root, p);
+  const target = path.resolve(root, String(p));
   const rel = path.relative(root, target);
-  if (rel === "" || rel.startsWith("..") || path.isAbsolute(rel)) {
-    throw new Error(`path "${p}" keluar dari folder klien`);
-  }
+  if (rel === "" || rel.startsWith("..") || path.isAbsolute(rel)) throw new Error(`path "${p}" keluar dari folder klien`);
   return target;
 }
 
@@ -43,142 +63,92 @@ async function daftarFile(dir, root = dir) {
   return hasil;
 }
 
-const objek = (properties) => ({
-  type: "object",
-  properties,
-  required: Object.keys(properties),
-  additionalProperties: false,
-});
+const objek = (properties) => ({ type: "object", properties, required: Object.keys(properties), additionalProperties: false });
 
 const TOOLS_FILE = [
-  {
-    name: "daftar_file",
-    description: "Lihat semua file yang ada di folder klien.",
-    strict: true,
-    input_schema: objek({}),
-  },
+  { name: "daftar_file", description: "Lihat semua file yang ada di folder klien.", parameters: objek({}) },
   {
     name: "baca_file",
     description: "Baca isi file di folder klien. Path relatif, contoh: output/riset.md",
-    strict: true,
-    input_schema: objek({ path: { type: "string" } }),
+    parameters: objek({ path: { type: "string" } }),
   },
   {
     name: "tulis_file",
     description: "Tulis (atau timpa) file di folder klien. Path relatif, contoh: output/copy.md",
-    strict: true,
-    input_schema: objek({ path: { type: "string" }, isi: { type: "string" } }),
+    parameters: objek({ path: { type: "string" }, isi: { type: "string" } }),
   },
 ];
 
-const WEB_SEARCH = { type: "web_search_20260209", name: "web_search", max_uses: 6 };
-
 async function jalankanToolFile(nama, input, ctx, agent) {
-  const root = ctx.root;
+  if (input?.__rusak !== undefined) throw new Error("argumen tool bukan JSON yang valid, coba lagi");
   if (nama === "daftar_file") {
-    const files = await daftarFile(root);
+    const files = await daftarFile(ctx.root);
     return files.length ? files.join("\n") : "(folder kosong)";
   }
   if (nama === "baca_file") {
     status(agent, "working", `membaca ${input.path}`);
-    return await fs.readFile(amankanPath(root, input.path), "utf8");
+    return await fs.readFile(amankanPath(ctx.root, input.path), "utf8");
   }
   if (nama === "tulis_file") {
-    const target = amankanPath(root, input.path);
+    if (typeof input.isi !== "string") throw new Error("isi file wajib berupa teks");
+    const target = amankanPath(ctx.root, input.path);
     status(agent, "working", `menulis ${input.path}`);
     await fs.mkdir(path.dirname(target), { recursive: true });
     await fs.writeFile(target, input.isi, "utf8");
-    emit({ type: "file", agent: agent.id, klien: ctx.slug, path: input.path, url: `/files/${ctx.slug}/${input.path}` });
-    return `Tersimpan: ${input.path} (${input.isi.length} karakter)`;
+    const rel = path.relative(ctx.root, target).split(path.sep).join("/");
+    emit({ type: "file", agent: agent.id, klien: ctx.slug, path: rel, url: `/files/${ctx.slug}/${rel}` });
+    return `Tersimpan: ${rel} (${input.isi.length} karakter)`;
   }
   throw new Error(`tool tidak dikenal: ${nama}`);
 }
 
-function status(agent, s, aktivitas = "") {
-  emit({ type: "status", agent: agent.id, status: s, aktivitas });
-}
-
-function chat(agent, text, extra = {}) {
-  if (text?.trim()) emit({ type: "chat", from: agent.id, text: text.trim(), ...extra });
-}
+const status = (agent, s, aktivitas = "") => emit({ type: "status", agent: agent.id, status: s, aktivitas });
+const chat = (agent, text, extra = {}) => text?.trim() && emit({ type: "chat", from: agent.id, text: text.trim(), ...extra });
 
 // ---------- Loop agent generik ----------
-
-async function loopAgent({ agent, system, tools, messages, effort, model, ctx, jalankanTool }) {
+async function loopAgent({ agent, sesi, pesanAwal, ctx, jalankanTool, tampilkanCatatan = false }) {
+  let isi = pesanAwal;
   for (let langkah = 0; langkah < MAKS_LANGKAH; langkah++) {
-    const res = await getClient()
-      .beta.messages.stream({
-        model,
-        max_tokens: 32000,
-        system: [{ type: "text", text: system, cache_control: { type: "ephemeral" } }],
-        tools,
-        messages,
-        output_config: { effort },
-        betas: ["server-side-fallback-2026-07-01"],
-        fallbacks: "default",
-      })
-      .finalMessage();
-
-    ctx.usage.input += res.usage.input_tokens + (res.usage.cache_read_input_tokens ?? 0);
-    ctx.usage.output += res.usage.output_tokens;
+    const r = await sesi.kirim(isi);
+    ctx.usage.input += r.usage.input;
+    ctx.usage.output += r.usage.output;
     emit({ type: "usage", ...ctx.usage });
+    if (r.mencari) status(agent, "working", "mencari di internet");
+    if (r.toolCalls.length === 0) return r.teks;
+    if (tampilkanCatatan) chat(agent, r.teks); // catatan progres di sela pemanggilan tool
 
-    if (res.stop_reason === "refusal") {
-      throw new Error(`${agent.nama} menolak tugas ini (${res.stop_details?.category ?? "tanpa kategori"})`);
-    }
-    messages.push({ role: "assistant", content: res.content });
-
-    if (res.stop_reason === "pause_turn") continue;
-
-    const teks = res.content.filter((b) => b.type === "text").map((b) => b.text).join("\n");
-    const toolCalls = res.content.filter((b) => b.type === "tool_use");
-
-    if (res.content.some((b) => b.type === "server_tool_use")) {
-      status(agent, "working", "mencari di internet");
-    }
-
-    if (toolCalls.length === 0) {
-      if (res.stop_reason === "max_tokens") throw new Error(`${agent.nama} kehabisan token`);
-      return teks;
-    }
-    if (res.stop_reason === "max_tokens") throw new Error(`input tool ${agent.nama} terpotong (max_tokens)`);
-
-    // Teks di sela pemanggilan tool = catatan progres; tampilkan di chat.
-    if (teks.trim() && agent.id === ORCHESTRATOR.id) chat(agent, teks);
-
-    // Semua tool di satu giliran dijalankan paralel, hasilnya dikirim dalam satu pesan.
-    const hasil = await Promise.all(
-      toolCalls.map(async (tc) => {
+    // Semua tool di satu giliran dijalankan paralel
+    isi = await Promise.all(
+      r.toolCalls.map(async (tc) => {
         try {
-          const out = await jalankanTool(tc.name, tc.input);
-          return { type: "tool_result", tool_use_id: tc.id, content: String(out) };
+          return { id: tc.id, hasil: String(await jalankanTool(tc.name, tc.input)) };
         } catch (err) {
-          return { type: "tool_result", tool_use_id: tc.id, is_error: true, content: String(err.message ?? err) };
+          return { id: tc.id, hasil: String(err.message ?? err), error: true };
         }
       }),
     );
-    messages.push({ role: "user", content: hasil });
   }
   throw new Error(`${agent.nama} melewati batas ${MAKS_LANGKAH} langkah`);
 }
 
-// ---------- Agent spesialis ----------
-
-async function jalankanTim(agent, tugas, ctx) {
+// ---------- Anggota tim ----------
+async function jalankanAnggota(agent, tugas, ctx) {
   status(agent, "working", "menerima tugas");
-  chat(agent, `Siap bos, otw kerjain bagian ${agent.jabatan.toLowerCase()} untuk ${ctx.klien} 🚀`);
+  chat(agent, `Siap, otw kerjain bagian ${agent.jabatan} untuk ${ctx.klien} 🚀`);
   try {
+    const pakaiWeb = agent.webSearch && dukungWebSearch();
+    const catatanWeb = agent.webSearch && !pakaiWeb
+      ? "\n- Pencarian internet tidak tersedia di koneksi AI ini. Pakai pengetahuanmu dan tandai data yang perlu diverifikasi dengan [PERLU DICEK]."
+      : "";
+    const sesi = buatSesi({ system: agent.instruksi + ATURAN_TIM + catatanWeb, tools: TOOLS_FILE, webSearch: pakaiWeb, peran: "tim", effort: "medium" });
     const laporan = await loopAgent({
       agent,
-      system: agent.system,
-      tools: agent.pakaiWebSearch ? [...TOOLS_FILE, WEB_SEARCH] : TOOLS_FILE,
-      messages: [{ role: "user", content: `Klien: ${ctx.klien}\n\nTugas dari ${ORCHESTRATOR.nama}:\n${tugas}` }],
-      effort: "medium",
-      model: MODEL_TIM,
+      sesi,
+      pesanAwal: `Klien: ${ctx.klien}\n\nTugas dari ${ctx.tim.orchestrator.nama}:\n${tugas}`,
       ctx,
       jalankanTool: (nama, input) => jalankanToolFile(nama, input, ctx, agent),
     });
-    chat(agent, laporan);
+    chat(agent, laporan || "(selesai tanpa laporan)");
     return laporan;
   } finally {
     status(agent, "idle");
@@ -186,53 +156,45 @@ async function jalankanTim(agent, tugas, ctx) {
 }
 
 // ---------- Orchestrator ----------
-
-const TOOL_DELEGASI = {
-  name: "delegasikan",
-  description:
-    "Berikan tugas ke satu anggota tim dan tunggu laporannya. Panggil beberapa kali dalam satu giliran untuk kerja paralel.",
-  strict: true,
-  input_schema: objek({
-    agent: { type: "string", enum: TIM.map((a) => a.id), description: "riset | copywriter | builder | content" },
-    tugas: { type: "string", description: "Instruksi lengkap: tujuan, file input, file output." },
-  }),
-};
-
 let sibuk = false;
 export const sedangSibuk = () => sibuk;
 
 export async function jalankanBrief({ klien, brief }) {
   if (sibuk) throw new Error("Tim masih mengerjakan brief lain. Tunggu sampai selesai.");
   sibuk = true;
+  const tim = structuredClone(ambil().tim);
+  const bos = tim.orchestrator;
   const slug = slugify(klien);
-  const ctx = { klien, slug, root: path.join(CLIENTS_DIR, slug), usage: { input: 0, output: 0 } };
-  await fs.mkdir(ctx.root, { recursive: true });
-  await fs.writeFile(path.join(ctx.root, "brief.md"), `# Brief: ${klien}\n\n${brief}\n`, "utf8");
+  const ctx = { klien, slug, tim, root: path.join(CLIENTS_DIR, slug), usage: { input: 0, output: 0 } };
 
-  const bos = ORCHESTRATOR;
-  emit({ type: "brief", klien, slug, brief });
-  status(bos, "working", "menyusun rencana");
+  const toolDelegasi = {
+    name: "delegasikan",
+    description: "Berikan tugas ke satu anggota tim dan tunggu laporannya. Panggil beberapa kali dalam satu giliran untuk kerja paralel.",
+    parameters: objek({
+      agent: { type: "string", enum: tim.anggota.map((a) => a.id), description: "ID anggota tim" },
+      tugas: { type: "string", description: "Instruksi lengkap: tujuan, file input, file output." },
+    }),
+  };
+
   try {
+    await fs.mkdir(ctx.root, { recursive: true });
+    await fs.writeFile(path.join(ctx.root, "brief.md"), `# Brief: ${klien}\n\n${brief}\n`, "utf8");
+    emit({ type: "brief", klien, slug, brief });
+    status(bos, "working", "menyusun rencana");
+
     const laporan = await loopAgent({
       agent: bos,
-      system: bos.system,
-      tools: [TOOL_DELEGASI],
-      messages: [
-        {
-          role: "user",
-          content: `Brief dari CEO untuk klien "${klien}" (sudah disimpan di brief.md di folder klien):\n\n${brief}`,
-        },
-      ],
-      effort: "high",
-      model: MODEL,
+      sesi: buatSesi({ system: systemBos(tim), tools: [toolDelegasi], peran: "bos", effort: "high" }),
+      pesanAwal: `Brief dari CEO untuk klien "${klien}" (sudah disimpan di brief.md di folder klien):\n\n${brief}`,
       ctx,
+      tampilkanCatatan: true,
       jalankanTool: async (nama, input) => {
         if (nama !== "delegasikan") throw new Error(`tool tidak dikenal: ${nama}`);
-        const agent = TIM.find((a) => a.id === input.agent);
-        if (!agent) throw new Error(`agent "${input.agent}" tidak ada`);
-        emit({ type: "delegasi", from: bos.id, to: agent.id, tugas: input.tugas });
+        const agent = tim.anggota.find((a) => a.id === input.agent);
+        if (!agent) throw new Error(`anggota "${input.agent}" tidak ada. Pilihan: ${tim.anggota.map((a) => a.id).join(", ")}`);
+        emit({ type: "delegasi", from: bos.id, to: agent.id, tugas: String(input.tugas ?? "") });
         status(bos, "review", `menunggu ${agent.nama}`);
-        const hasil = await jalankanTim(agent, input.tugas, ctx);
+        const hasil = await jalankanAnggota(agent, String(input.tugas ?? ""), ctx);
         status(bos, "working", `memeriksa hasil ${agent.nama}`);
         return hasil;
       },
@@ -241,16 +203,11 @@ export async function jalankanBrief({ klien, brief }) {
     emit({ type: "selesai", klien: slug, usage: ctx.usage });
     return laporan;
   } catch (err) {
-    const pesan = err instanceof Anthropic.AuthenticationError
-      ? "API key Claude tidak valid. Cek ANTHROPIC_API_KEY."
-      : err instanceof Anthropic.RateLimitError
-        ? "Kena rate limit Claude API. Coba lagi sebentar lagi."
-        : `Gagal: ${err.message ?? err}`;
-    chat(bos, `⚠️ ${pesan}`, { error: true });
+    chat(bos, `⚠️ Gagal: ${err.message ?? err}\n\nCek Pengaturan → Koneksi AI, lalu klik "Tes koneksi".`, { error: true });
     emit({ type: "selesai", klien: slug, usage: ctx.usage, error: true });
     throw err;
   } finally {
-    for (const a of [bos, ...TIM]) status(a, "idle");
+    for (const a of [bos, ...tim.anggota]) status(a, "idle");
     sibuk = false;
   }
 }

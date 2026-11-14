@@ -1,3 +1,4 @@
+[hidden] { display: none !important; }
 :root {
   --bg: #9fb4c9;
   --panel: #ffffff;
@@ -112,3 +113,63 @@ body { display: grid; grid-template-columns: 1fr 380px; overflow: hidden; backgr
   #kartu-agent { display: none; }
   .kamera button { padding: 5px 9px; font-size: 12px; }
 }
+
+/* ---------- Pengaturan ---------- */
+.tombol-pengaturan { pointer-events: auto; cursor: pointer; color: var(--teks); font: inherit; font-size: 12px; }
+.banner { margin: 10px 12px 0; padding: 8px 10px; border-radius: 8px; background: #fff7e0; border: 1px solid #f3d27a;
+  font-size: 12.5px; display: flex; gap: 8px; align-items: center; justify-content: space-between; }
+.banner button { background: var(--aksen); color: #fff; border: 0; border-radius: 6px; padding: 5px 10px; font: inherit;
+  font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+#pengaturan { width: min(720px, calc(100vw - 24px)); max-height: calc(100vh - 32px); padding: 0; border: 0;
+  border-radius: 14px; box-shadow: 0 20px 60px #0004; color: var(--teks); }
+#pengaturan::backdrop { background: #1f263380; }
+.dlg-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px 4px; }
+.dlg-head h2 { margin: 0; font-size: 18px; }
+.tutup { background: none; border: 0; font-size: 18px; cursor: pointer; color: var(--redup); }
+.tabs { display: flex; gap: 4px; padding: 6px 14px 0; border-bottom: 1px solid var(--garis); }
+.tabs button { background: none; border: 0; border-bottom: 2px solid transparent; padding: 8px 10px; font: inherit;
+  color: var(--redup); cursor: pointer; }
+.tabs button.aktif { color: var(--aksen); border-bottom-color: var(--aksen); font-weight: 600; }
+.dlg-body { padding: 14px 18px 18px; display: grid; gap: 10px; }
+.dlg-body h3 { margin: 6px 0 0; font-size: 14px; }
+.dlg-body h3 small { color: var(--redup); font-weight: 400; }
+.bantu { margin: 0; color: var(--redup); font-size: 12.5px; }
+.penjelasan { margin: 0; font-size: 13px; background: var(--panel-2); border-radius: 8px; padding: 8px 10px; }
+.bantu a, .penjelasan a { color: var(--aksen); }
+code { background: #eef1f5; padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+.daftar-provider { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 6px; }
+.opsi-provider { display: flex; gap: 8px; align-items: center; border: 1px solid var(--garis); border-radius: 8px;
+  padding: 8px 10px; cursor: pointer; font-size: 13px; }
+.opsi-provider:has(input:checked) { border-color: var(--aksen); background: #eef4ff; }
+.baris { display: grid; gap: 4px; font-size: 12.5px; font-weight: 600; }
+.baris small { font-weight: 400; color: var(--redup); }
+.baris input, .baris-preset select, .persona input, .persona textarea {
+  width: 100%; background: #fff; color: var(--teks); border: 1px solid var(--garis); border-radius: 8px;
+  padding: 7px 9px; font: inherit; font-weight: 400; }
+.gabung { display: flex; gap: 6px; }
+.tombol { background: var(--panel-2); color: var(--teks); border: 1px solid var(--garis); border-radius: 8px;
+  padding: 8px 14px; font: inherit; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.tombol.utama { background: var(--aksen); border-color: var(--aksen); color: #fff; }
+.tombol.kecil { padding: 6px 10px; font-size: 12px; }
+.tombol:disabled { opacity: .5; cursor: not-allowed; }
+.aksi { display: flex; gap: 8px; justify-content: flex-end; }
+.blok-login { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.status-msg { margin: 0; font-size: 12.5px; color: var(--redup); }
+.status-msg.ok { color: var(--hijau); }
+.status-msg.error { color: var(--merah); }
+.baris-preset { display: flex; gap: 6px; }
+.persona { border: 1px solid var(--garis); border-radius: 10px; padding: 8px; display: grid; gap: 6px; margin-bottom: 8px; }
+.persona-head { display: grid; grid-template-columns: 34px 1fr 1.3fr auto; gap: 6px; align-items: center; }
+.persona-head input[type="color"] { padding: 2px; height: 34px; }
+.persona textarea { resize: vertical; font-size: 12.5px; }
+.badge { background: #fff1d6; color: #9a6400; border-radius: 6px; padding: 3px 8px; font-size: 11px; font-weight: 700; }
+.hapus { background: none; border: 1px solid var(--garis); border-radius: 6px; width: 30px; height: 30px; cursor: pointer;
+  color: var(--merah); }
+.cek { display: flex; gap: 6px; align-items: center; font-size: 12.5px; }
+.langkah { margin: 0; padding-left: 18px; font-size: 12.5px; color: var(--redup); display: grid; gap: 3px; }
+@media (max-width: 560px) {
+  .persona-head { grid-template-columns: 34px 1fr auto; }
+  .persona-head [data-f="jabatan"] { grid-column: 2 / 4; grid-row: 2; }
+}
+.persona input[type="checkbox"], .cek input { width: auto; }
+.persona .cek { justify-self: start; }
