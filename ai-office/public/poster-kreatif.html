@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Poster Tim Creative</title>
+<script type="importmap">
+  { "imports": { "three": "/vendor/three/build/three.module.js" } }
+</script>
+<style>
+  :root {
+    --merah: #e74c3c;
+    --koral: #f1948a;
+    --tinta: #1f2633;
+    --redup: #5b6475;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1080px; height: 1920px; background: #fff; }
+  body { font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--tinta); }
+  .poster {
+    position: relative; width: 1080px; height: 1920px; overflow: hidden; padding: 72px 64px 56px;
+    background:
+      linear-gradient(#ffffff59 2px, transparent 2px) 0 0 / 108px 108px,
+      linear-gradient(90deg, #ffffff59 2px, transparent 2px) 0 0 / 108px 108px,
+      radial-gradient(ellipse 120% 70% at 50% 18%, #ffe3dc 0%, #fbd0c6 35%, #e8a99c 100%);
+    display: flex; flex-direction: column; gap: 30px;
+  }
+  .poster::after { /* bentuk dekoratif */
+    content: ""; position: absolute; width: 760px; height: 760px; border-radius: 50%;
+    right: -300px; top: -260px; background: #ffffff38; pointer-events: none;
+  }
+  header, .kartu, .grid { flex-shrink: 0; }
+  header { position: relative; z-index: 1; }
+  .kicker { display: inline-flex; gap: 12px; align-items: center; font-size: 26px; font-weight: 700;
+    letter-spacing: 6px; text-transform: uppercase; color: var(--merah); }
+  .kicker i { width: 44px; height: 6px; border-radius: 3px; background: var(--merah); display: block; }
+  h1 { font-size: 100px; line-height: .95; font-weight: 900; letter-spacing: -2px; margin-top: 18px; }
+  h1 span { color: var(--merah); }
+  .sub { font-size: 30px; color: var(--redup); margin-top: 18px; max-width: 820px; line-height: 1.35; }
+
+  .kartu { position: relative; z-index: 1; background: #ffffffd9; border-radius: 32px;
+    box-shadow: 0 18px 50px #8a2b1f2e, 0 2px 0 #fff inset; overflow: hidden; }
+  .kartu canvas { display: block; }
+  .pita { display: inline-block; font-size: 19px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase;
+    color: #fff; background: var(--merah); border-radius: 999px; padding: 7px 16px; }
+
+  .utama { display: grid; grid-template-columns: 440px 1fr; align-items: center; height: 470px;
+    background: linear-gradient(135deg, #fff 0%, #fff4f1 100%); }
+  .utama .teks { padding: 0 44px 0 6px; }
+  .utama .nama { font-size: 80px; font-weight: 900; letter-spacing: -1.5px; margin-top: 22px; line-height: 1; }
+  .utama .jabatan { font-size: 40px; font-weight: 700; color: var(--merah); margin-top: 10px; }
+  .utama .desk { font-size: 24px; color: var(--redup); margin-top: 20px; line-height: 1.4; }
+
+  .grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(6, 1fr); gap: 26px; }
+  .grid .kartu { grid-column: span 2; height: 404px; display: flex; flex-direction: column; }
+  .grid .kartu:nth-child(4) { grid-column: 2 / span 2; }
+  .grid .kartu:nth-child(5) { grid-column: 4 / span 2; }
+  .grid .info { padding: 4px 22px 24px; text-align: center; }
+  .grid .nama { font-size: 40px; font-weight: 900; letter-spacing: -.5px; }
+  .grid .jabatan { font-size: 21px; font-weight: 800; color: var(--merah); margin-top: 4px; line-height: 1.2;
+    min-height: 26px; }
+  .grid .desk { font-size: 18px; color: var(--redup); margin-top: 8px; line-height: 1.35; }
+
+  footer { position: relative; z-index: 1; margin-top: auto; display: flex; justify-content: space-between;
+    align-items: center; font-size: 22px; color: #6b3a32; font-weight: 600; }
+  footer b { color: var(--tinta); }
+  .titik { display: inline-flex; gap: 8px; }
+  .titik i { width: 12px; height: 12px; border-radius: 50%; background: var(--merah); display: block; opacity: .35; }
+  .titik i:first-child { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="poster" id="poster">
+  <header>
+    <div class="kicker"><i></i>Divisi 03</div>
+    <h1>Creative &amp;<br><span>Production</span></h1>
+    <p class="sub">Tim AI yang mengubah brief editorial menjadi karya orisinal: tulisan, naskah, visual, video, dan audio.</p>
+  </header>
+
+  <section class="kartu utama">
+    <canvas data-agent="bayu" width="440" height="470"></canvas>
+    <div class="teks">
+      <span class="pita">Kepala Divisi</span>
+      <div class="nama">Bayu</div>
+      <div class="jabatan">Creative Director</div>
+      <p class="desk">Memimpin 5 spesialis kreatif: menyusun konsep, membagi tugas, dan memastikan karya siap diproduksi.</p>
+    </div>
+  </section>
+
+  <section class="grid" id="grid"></section>
+
+  <footer>
+    <span><b>Kantor Virtual AI</b> · Lantai 2</span>
+    <span class="titik"><i></i><i></i><i></i></span>
+  </footer>
+</div>
+
+<script type="module">
+import * as THREE from "three";
+
+const TIM = [
+  { id: "oscar", nama: "Oscar", jabatan: "Writer", desk: "Artikel, review, feature, dan caption panjang", rambut: "#2b1b12" },
+  { id: "putri", nama: "Putri", jabatan: "Script & Storyboard", desk: "Naskah video pendek, podcast, dan storyboard", rambut: "#111111", panjang: true },
+  { id: "qori", nama: "Qori", jabatan: "Visual Designer", desk: "Konsep visual, carousel, dan thumbnail", rambut: "#7b4a2a", panjang: true },
+  { id: "rio", nama: "Rio", jabatan: "Video & Audio Producer", desk: "Rencana produksi, subtitle, dan show notes", rambut: "#3a2a20" },
+  { id: "salsa", nama: "Salsa", jabatan: "Localization", desk: "Adaptasi ID ⇄ EN dan bahasa platform", rambut: "#5a3825", panjang: true },
+];
+document.getElementById("grid").innerHTML = TIM.map((a) => `
+  <section class="kartu">
+    <canvas data-agent="${a.id}" width="300" height="250"></canvas>
+    <div class="info"><div class="nama">${a.nama}</div><div class="jabatan">${a.jabatan}</div><p class="desk">${a.desk}</p></div>
+  </section>`).join("");
+
+// ---------- Karakter voxel (gaya sama dengan kantor virtual) ----------
+const mat = (c, extra = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: 0.7, ...extra });
+const kotak = (w, h, d, m, x, y, z, parent) => {
+  const o = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m);
+  o.position.set(x, y, z);
+  o.castShadow = o.receiveShadow = true;
+  parent.add(o);
+  return o;
+};
+const KULIT = mat("#f0c8a4"), MATA = mat("#1d1d1d"), CELANA = mat("#4a5568"), HITAM = mat("#22252b"), PUTIH = mat("#f5f5f2");
+
+function karakter(baju, rambutWarna, panjang) {
+  const g = new THREE.Group();
+  const b = mat(baju), r = mat(rambutWarna);
+  const kaki = [], lengan = [];
+  for (const sx of [-0.13, 0.13]) {
+    const p = new THREE.Group(); p.position.set(sx, 0.58, 0);
+    kotak(0.22, 0.58, 0.26, CELANA, 0, -0.29, 0, p);
+    kotak(0.24, 0.08, 0.32, HITAM, 0, -0.56, 0.03, p);
+    g.add(p); kaki.push(p);
+  }
+  kotak(0.56, 0.66, 0.34, b, 0, 0.91, 0, g);
+  for (const sx of [-0.37, 0.37]) {
+    const p = new THREE.Group(); p.position.set(sx, 1.18, 0);
+    kotak(0.17, 0.56, 0.2, b, 0, -0.25, 0, p);
+    kotak(0.15, 0.11, 0.18, KULIT, 0, -0.57, 0, p);
+    g.add(p); lengan.push(p);
+  }
+  kotak(0.5, 0.5, 0.46, KULIT, 0, 1.5, 0, g);
+  kotak(0.54, 0.15, 0.5, r, 0, 1.8, 0, g);
+  kotak(0.54, panjang ? 0.62 : 0.36, 0.1, r, 0, panjang ? 1.5 : 1.62, -0.21, g);
+  if (panjang) for (const sx of [-0.26, 0.26]) kotak(0.06, 0.5, 0.36, r, sx, 1.55, -0.04, g);
+  for (const sx of [-0.11, 0.11]) kotak(0.07, 0.09, 0.02, MATA, sx, 1.53, 0.24, g);
+  kotak(0.16, 0.04, 0.02, mat("#c0605a"), 0, 1.38, 0.24, g); // senyum
+  return { g, kaki, lengan };
+}
+
+// Properti sesuai jabatan, dipegang di tangan kanan (lengan[1]) atau dipakai
+const PROP = {
+  bayu(k) {
+    kotak(0.58, 0.08, 0.56, mat("#7a1f1f"), 0.04, 1.92, 0, k.g); // baret
+    kotak(0.14, 0.06, 0.14, mat("#7a1f1f"), 0.04, 1.98, 0, k.g);
+    k.lengan[1].rotation.x = -0.45; k.lengan[1].rotation.z = 0.12;
+    const papan = new THREE.Group(); papan.position.set(0.12, -0.7, 0.12); papan.rotation.set(0.45, -0.5, 0); papan.scale.setScalar(0.72);
+    kotak(0.56, 0.42, 0.05, HITAM, 0, 0.12, 0, papan); // clapperboard
+    for (let i = 0; i < 4; i++) kotak(0.1, 0.09, 0.06, PUTIH, -0.2 + i * 0.14, 0.36, 0, papan);
+    kotak(0.56, 0.02, 0.06, PUTIH, 0, 0.03, 0.001, papan);
+    k.lengan[1].add(papan);
+  },
+  oscar(k) {
+    for (const l of k.lengan) l.rotation.x = -1.0;
+    k.lengan[0].rotation.z = 0.25; k.lengan[1].rotation.z = -0.25;
+    const buku = new THREE.Group(); buku.position.set(0, 0.86, 0.42); buku.rotation.x = -0.5;
+    for (const sx of [-0.17, 0.17]) {
+      const h = kotak(0.32, 0.42, 0.03, mat("#2f6fed"), sx, 0, 0, buku); h.rotation.y = sx > 0 ? -0.25 : 0.25;
+      const p = kotak(0.28, 0.38, 0.02, PUTIH, sx, 0, 0.02, buku); p.rotation.y = h.rotation.y;
+    }
+    k.g.add(buku);
+    kotak(0.04, 0.04, 0.3, mat("#f5c518"), 0.27, 1.62, 0.02, k.g); // pensil di telinga
+  },
+  putri(k) {
+    k.lengan[1].rotation.x = -1.1;
+    const naskah = new THREE.Group(); naskah.position.set(0, -0.6, 0.18); naskah.rotation.x = 1.1;
+    kotak(0.4, 0.52, 0.03, mat("#8b5a2b"), 0, 0.1, 0, naskah);
+    kotak(0.36, 0.46, 0.02, PUTIH, 0, 0.08, 0.02, naskah);
+    for (let i = 0; i < 5; i++) kotak(0.26, 0.025, 0.02, mat("#9aa3b2"), -0.02, 0.24 - i * 0.07, 0.035, naskah);
+    kotak(0.16, 0.05, 0.04, mat("#c0c4cc"), 0, 0.34, 0.03, naskah);
+    k.lengan[1].add(naskah);
+  },
+  qori(k) {
+    k.lengan[0].rotation.x = -0.9; k.lengan[0].rotation.z = 0.2;
+    const palet = new THREE.Group(); palet.position.set(0, -0.62, 0.1); palet.rotation.x = 0.9;
+    const d = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 0.04, 24), mat("#c8935a")); d.rotation.x = Math.PI / 2; palet.add(d);
+    ["#e74c3c", "#f1c40f", "#2f6fed", "#27ae60", "#9b59b6"].forEach((c, i) => {
+      const a = (i / 5) * Math.PI * 1.6 + 0.4;
+      kotak(0.09, 0.09, 0.04, mat(c), Math.cos(a) * 0.18, Math.sin(a) * 0.18, 0.03, palet);
+    });
+    k.lengan[0].add(palet);
+    k.lengan[1].rotation.x = -1.3;
+    const kuas = new THREE.Group(); kuas.position.set(0, -0.62, 0.1); kuas.rotation.x = 1.0;
+    kotak(0.04, 0.42, 0.04, mat("#8b5a2b"), 0, 0.18, 0, kuas);
+    kotak(0.06, 0.1, 0.06, mat("#e74c3c"), 0, 0.42, 0, kuas);
+    k.lengan[1].add(kuas);
+  },
+  rio(k) {
+    const hp = mat("#2a2d33");
+    kotak(0.62, 0.06, 0.1, hp, 0, 1.94, 0, k.g); // headphone
+    for (const sx of [-0.3, 0.3]) { kotak(0.06, 0.32, 0.1, hp, sx, 1.8, 0, k.g); kotak(0.1, 0.22, 0.22, mat("#e74c3c"), sx * 1.08, 1.56, 0, k.g); }
+    k.lengan[1].rotation.x = -0.9; k.lengan[1].rotation.z = -0.1;
+    const kam = new THREE.Group(); kam.position.set(0, -0.66, 0.12); kam.rotation.x = 0.9;
+    kotak(0.34, 0.24, 0.3, HITAM, 0, 0.06, 0, kam);
+    const lensa = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.1, 0.18, 16), mat("#3d4350")); lensa.rotation.x = Math.PI / 2; lensa.position.set(0, 0.06, 0.22); kam.add(lensa);
+    kotak(0.05, 0.05, 0.02, mat("#ff3b3b", { emissive: "#ff3b3b", emissiveIntensity: 2 }), 0.12, 0.15, 0.16, kam);
+    k.lengan[1].add(kam);
+  },
+  salsa(k) {
+    k.lengan[1].rotation.x = -0.75;
+    const globe = new THREE.Group(); globe.position.set(0.05, -0.74, 0.14); globe.scale.setScalar(0.8);
+    const bola = new THREE.Mesh(new THREE.IcosahedronGeometry(0.24, 2), mat("#3b82f6", { flatShading: true }));
+    globe.add(bola);
+    for (const [x, y, z] of [[0.12, 0.08, 0.18], [-0.1, -0.06, 0.2], [0.02, 0.17, 0.12]]) kotak(0.12, 0.08, 0.06, mat("#27ae60"), x, y, z, globe);
+    k.lengan[1].add(globe);
+    // gelembung bicara
+    for (const [x, y, c] of [[-0.62, 2.15, "#ffffff"], [0.62, 2.3, "#ffe066"]]) {
+      kotak(0.42, 0.26, 0.06, mat(c), x, y, 0, k.g);
+      kotak(0.08, 0.08, 0.06, mat(c), x + (x < 0 ? 0.12 : -0.12), y - 0.16, 0, k.g);
+      for (let i = 0; i < 3; i++) kotak(0.05, 0.05, 0.02, mat("#5b6475"), x - 0.1 + i * 0.1, y, 0.04, k.g);
+    }
+  },
+};
+
+// ---------- Render tiap kartu ----------
+const WARNA = { bayu: "#e74c3c" };
+const RAMBUT = { bayu: "#2b1b12" };
+for (const cv of document.querySelectorAll("canvas[data-agent]")) {
+  const id = cv.dataset.agent;
+  const info = TIM.find((a) => a.id === id);
+  const [w, h] = [cv.width, cv.height]; // baca sebelum renderer mengubah ukuran kanvas
+  const renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: true, preserveDrawingBuffer: true });
+  renderer.setPixelRatio(2);
+  renderer.setSize(w, h, true);
+  renderer.toneMapping = THREE.NeutralToneMapping;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  const scene = new THREE.Scene();
+  scene.add(new THREE.HemisphereLight("#ffffff", "#f0c2b8", 1.7));
+  const sun = new THREE.DirectionalLight("#fff4ea", 2.4);
+  sun.position.set(2.5, 5, 4); sun.castShadow = true; sun.shadow.mapSize.set(1024, 1024);
+  Object.assign(sun.shadow.camera, { left: -2, right: 2, top: 3, bottom: -1 });
+  sun.shadow.radius = 6;
+  scene.add(sun);
+  const rim = new THREE.DirectionalLight("#ffd7cc", 1.2); rim.position.set(-3, 3, -2); scene.add(rim);
+
+  // alas bundar
+  const alas = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.92, 0.16, 48), mat(id === "bayu" ? "#e74c3c" : "#f6c1b6"));
+  alas.position.y = -0.08; alas.receiveShadow = true; scene.add(alas);
+  const cincin = new THREE.Mesh(new THREE.CylinderGeometry(0.95, 0.95, 0.04, 48), mat("#ffffff"));
+  cincin.position.y = -0.17; scene.add(cincin);
+
+  const k = karakter(WARNA[id] ?? "#f1948a", RAMBUT[id] ?? info.rambut, info?.panjang);
+  PROP[id]?.(k);
+  k.g.rotation.y = -0.38;
+  scene.add(k.g);
+
+  const besar = id === "bayu";
+  const cam = new THREE.PerspectiveCamera(besar ? 30 : 32, w / h, 0.1, 50);
+  cam.position.set(1.5, besar ? 1.7 : 1.85, besar ? 5.6 : 5.0);
+  cam.lookAt(0, besar ? 0.95 : 1.0, 0);
+  renderer.render(scene, cam);
+}
+document.body.dataset.siap = "1";
+</script>
+</body>
+</html>
