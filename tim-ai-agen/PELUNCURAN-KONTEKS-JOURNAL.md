@@ -1,6 +1,7 @@
 # Peluncuran Konteks Journal — Menggerakkan 47 Agent
 
-Prompt dan langkah untuk **peluncuran pertama brand Konteks Journal**, dengan seluruh 47 agent ikut bekerja:
+Prompt dan langkah untuk **peluncuran pertama brand Konteks Journal**: seluruh 47 agent bergerak untuk memprogram
+**pekan peluncuran 16–22 November 2026** dengan fokus **musik Indonesia dan para artisnya**.
 
 | Level | Jumlah |
 |---|---|
@@ -84,72 +85,91 @@ misalnya **US$5** untuk sesi divisi dan **US$10** untuk sesi CEO, dan pastikan k
 
 ---
 
-## C. SESI 1 — Prompt Peluncuran untuk CEO
+## C. SESI 1 — Prompt Peluncuran untuk CEO (Pekan Peluncuran 16–22 November 2026)
 
 Sesi baru → agen **CEO - AI Company Director** → lingkungan `media-hq` → memori `brand-bible`
-(read only) + `konteks-hq` (read & write). Ganti `[...]` lalu kirim:
+(read only) + `konteks-hq` (read & write). Ganti `[...]` lalu kirim.
+
+Jadwal yang diasumsikan: sesi 1–10 dijalankan **Sabtu–Minggu, 14–15 November 2026**, lalu
+**Konteks Journal diluncurkan Senin, 16 November 2026** dan program pekan pertama berjalan sampai
+**Minggu, 22 November 2026**. Ubah tanggalnya bila jadwal Anda berbeda.
 
 ```
 CEO, hari ini Konteks Journal lahir.
 
-Ini bukan tugas biasa. Ini peluncuran pertama brand kita, dan seluruh 47 anggota tim — kamu, 8 kepala divisi, dan 38 spesialis — akan bergerak bersama. Kamu memimpin operasinya.
+Ini peluncuran pertama brand kita. Seluruh 47 anggota tim — kamu, 8 kepala divisi, dan 38 spesialis — akan bergerak bersama, dan kamu memimpin operasinya. Misi pertama kita: memprogram dan menyiapkan PEKAN PELUNCURAN, Senin 16 November sampai Minggu 22 November 2026, dengan fokus utama MUSIK INDONESIA DAN PARA ARTISNYA.
 
 TENTANG KONTEKS JOURNAL
-- Konteks Journal adalah media Indonesia tentang musik, film, lifestyle, serta seni & budaya.
-- Janji kami: memberi KONTEKS. Bukan sekadar mengabarkan apa yang terjadi, tetapi menjelaskan kenapa sebuah karya, tren, atau momen budaya itu penting, dari mana asalnya, dan ke mana arahnya.
-- Audiens: [contoh: anak muda urban Indonesia 18–34 tahun yang ingin memahami budaya, bukan sekadar mengikuti tren].
+- Media Indonesia tentang musik, film, lifestyle, serta seni & budaya.
+- Janji kami: memberi KONTEKS. Kami tidak berhenti di "apa yang terjadi", tetapi menjelaskan kenapa sebuah lagu, album, artis, atau skena itu penting, dari mana asalnya, dan ke mana arahnya.
+- Audiens: [contoh: anak muda urban Indonesia 18–34 tahun yang ingin memahami musik dan budaya, bukan sekadar mengikuti tren].
 - Suara: [contoh: cerdas tapi tidak menggurui, kritis tapi hangat, rapi seperti jurnal, hidup seperti obrolan].
 - Kanal: [Instagram, TikTok, YouTube, Spotify/podcast, website, newsletter].
-- Kondisi saat ini: [contoh: brand baru, belum ada akun / sudah ada akun IG dengan ... followers].
+- Kondisi saat ini: [contoh: brand baru, akun media sosial baru dibuat].
 - Tim manusia: [contoh: Founder + 1 editor video freelance].
-- Anggaran bulanan: Rp[...]. Batas pengeluaran tanpa persetujuan Founder: Rp[...].
-- Tanggal peluncuran publik yang diinginkan: [tanggal], 30 hari dari sekarang.
-- Target 90 hari: [contoh: 10.000 pengikut gabungan, 3 seri tetap berjalan, 1.000 pelanggan newsletter, 1 sponsor pertama].
+- Anggaran pekan peluncuran: Rp[...]. Batas pengeluaran tanpa persetujuan Founder: Rp[...].
+- Target pekan pertama: [contoh: 1.000 pengikut gabungan, 14 konten terbit, 200 pelanggan newsletter, 3 percakapan dengan calon mitra].
+
+FOKUS TOPIK PEKAN PELUNCURAN: MUSIK INDONESIA
+Musik Indonesia menjadi pusat. Film, lifestyle, dan seni masuk lewat sudut musik, supaya semua divisi punya peran.
+Bank topik yang harus diverifikasi divisi Research sebelum dipakai (semuanya untuk wilayah Indonesia):
+1. Rilis album dan single musisi Indonesia di pertengahan November 2026.
+2. Lagu Indonesia yang sedang naik di Spotify, YouTube, dan TikTok Indonesia minggu ini, serta kenapa lagu itu meledak.
+3. Konser, tur, dan festival musik akhir tahun 2026 di Indonesia.
+4. Skena musik daerah: Bandung, Yogyakarta, Jakarta, Bali, Malang, Medan, Makassar, dan kota lain yang sedang bergeliat.
+5. Genre dan bahasa daerah yang naik ke arus utama: dangdut, koplo, pop Jawa, pop Minang, pop Batak, campursari, dan lainnya.
+6. Musisi Indonesia di panggung internasional.
+7. Isu industri: royalti dan hak cipta lagu, AI dalam musik, ekonomi musisi independen.
+8. Musik × Film: soundtrack dan film bertema musik yang tayang atau akan tayang.
+9. Musik × Lifestyle: fashion panggung, budaya nonton gigs, tongkrongan musik.
+10. Musik × Seni: artwork album, desain panggung, kolaborasi musisi dengan perupa.
+11. Arsip: album atau lagu Indonesia penting yang berulang tahun di minggu ini.
+
+KERANGKA PROGRAM 7 HARI (boleh kamu sempurnakan)
+- Senin 16 Nov — HARI PELUNCURAN: manifesto Konteks Journal + konten andalan (hero) tentang topik musik Indonesia terbesar minggu ini.
+- Selasa 17 Nov — RILIS & ULASAN: rilis penting pekan ini, dibaca dengan konteks.
+- Rabu 18 Nov — PROFIL ARTIS & SKENA: satu artis dan satu skena daerah.
+- Kamis 19 Nov — MUSIK × FILM.
+- Jumat 20 Nov — MUSIK × LIFESTYLE + newsletter edisi #1.
+- Sabtu 21 Nov — MUSIK × SENI + aktivitas komunitas (misalnya listening session daring).
+- Minggu 22 Nov — "KONTEKS PEKAN INI": rangkuman pekan + evaluasi internal.
 
 TUGASMU DI SESI INI
-Tulis semua dokumen berikut ke /mnt/memory/konteks-hq/launch/:
+Tulis dokumen berikut ke /mnt/memory/konteks-hq/launch/:
 
-1. manifesto.md — Manifesto Konteks Journal: siapa kami, kenapa kami ada, apa yang kami percaya, dan apa yang tidak akan kami lakukan. Maksimal 1 halaman. Ini draf untuk saya setujui.
+1. manifesto.md — Manifesto Konteks Journal (maks. 1 halaman): siapa kami, kenapa kami ada, apa yang kami percaya, apa yang tidak akan kami lakukan. Draf untuk saya setujui.
 
-2. rencana-induk.md — Rencana Induk Peluncuran 30 Hari:
-   - Tema dan narasi peluncuran ("kenapa Konteks Journal hadir sekarang").
-   - Tiga fase: Minggu 1–2 Persiapan, Minggu 3 Pemanasan (teaser), Minggu 4 Hari Peluncuran dan pekan pertama.
-   - Konten andalan peluncuran ("hero content") dan 3 seri tetap yang diusulkan.
-   - Target dan KPI per divisi.
-   - Ketergantungan antar-divisi dan urutan gelombang kerja:
+2. rencana-induk.md — Program Pekan Peluncuran 16–22 November 2026:
+   - Narasi peluncuran: kenapa Konteks Journal hadir sekarang, dan kenapa dimulai dari musik Indonesia.
+   - Tabel program harian: tanggal | tema | konten utama | format | kanal | jam tayang | divisi penanggung jawab.
+   - Target KPI pekan pertama per divisi.
+   - Urutan gelombang kerja persiapan:
      Gelombang 1: Research, Finance & Operation, Technology.
      Gelombang 2: Editorial, Business, Community.
      Gelombang 3: Creative, Distribution & Growth.
 
-3. Delapan brief divisi, satu file per divisi:
-   brief-research.md, brief-editorial.md, brief-creative.md, brief-growth.md,
-   brief-business.md, brief-tech.md, brief-finance-ops.md, brief-community.md.
-   Setiap brief berisi:
-   - Peran divisi dalam peluncuran.
-   - Tugas untuk SETIAP spesialis di divisi itu, satu per satu dan disebut namanya, supaya semua 38 spesialis punya pekerjaan yang jelas.
-   - Input yang harus dibaca (misalnya laporan divisi dari gelombang sebelumnya).
-   - Deliverable, format, dan tenggat.
-   - Kriteria "selesai".
+3. Delapan brief divisi: brief-research.md, brief-editorial.md, brief-creative.md, brief-growth.md, brief-business.md, brief-tech.md, brief-finance-ops.md, brief-community.md.
+   Setiap brief berisi peran divisi dalam pekan peluncuran, tugas untuk SETIAP spesialis (disebut namanya satu per satu), input yang harus dibaca, deliverable dan formatnya, tenggat, serta kriteria "selesai".
+   Minimal tugas berikut harus ada:
+   - Research & Intelligence — Trend Scout: verifikasi bank topik dan pilih 7 topik utama (satu per hari) beserta sumbernya. Audience Insight Analyst: persona pendengar musik Indonesia untuk audiens kita. Market & Competitor Analyst: bagaimana media musik lain di Indonesia membahas topik-topik ini dan celah sudut pandang kita. Performance Data Analyst: kerangka pengukuran pekan pertama.
+   - Editorial & Strategy — Content Strategist: kalender 7 hari final. Editor Musik: ulasan dan berita rilis. Editor Film: konten Musik × Film. Editor Lifestyle: konten Musik × Lifestyle. Editor Seni & Budaya: konten Musik × Seni. Feature & Interview Writer: artikel konteks panjang untuk Hari Peluncuran dan daftar pertanyaan wawancara artis. Copy Editor & Fact-Checker: periksa semua naskah dan fakta.
+   - Creative & Production — Scriptwriter & Storyboard: naskah video untuk 7 hari. Video Producer: shot list dan kebutuhan aset. Visual & Art Director: identitas visual peluncuran, template, thumbnail. Audio & Podcast Producer: episode podcast/audio perdana. Creative Copywriter: tagline peluncuran, hook, teks layar.
+   - Distribution & Growth — Social Media Manager: jadwal posting 7 hari dan caption. SEO & Platform Optimizer: judul, deskripsi, kata kunci. Repurposing Specialist: turunan dari setiap konten utama. Paid Ads Specialist: usulan iklan peluncuran (hanya usulan). PR & Media Relations: siaran pers peluncuran, daftar media musik Indonesia, draf pitch.
+   - Business & Monetization — Brand Partnership & Sponsorship: 10 calon mitra yang cocok dengan konten musik dan draf media kit. Talent & Artist Relations: daftar artis dan musisi untuk diajak wawancara atau kolaborasi, beserta draf undangan. Event & IP Development: konsep acara daring/luring pekan peluncuran dan ide program tetap. Licensing & Merchandise: ide merchandise peluncuran.
+   - Technology & Automation — Workflow Automation Engineer: otomasi jadwal posting dan laporan harian. AI Agent Ops: jadwal agent harian untuk pekan ini. Data & Integration Engineer: cara mengumpulkan data performa pekan pertama. Web & CMS Manager: struktur website/landing page peluncuran.
+   - Finance & Operation — Finance Analyst: anggaran pekan peluncuran. Project & Production Manager: timeline produksi harian dan papan tugas. Legal & Rights Compliance: aturan pemakaian lagu, cuplikan video klip, foto artis, dan lirik, lalu penilaian HIJAU/KUNING/MERAH untuk tiap konten. Asset & Library Manager: struktur pustaka aset. Talent & Freelancer Coordinator: kebutuhan freelancer dan brief-nya.
+   - Community & Audience — Community Manager: komunitas pendengar musik Indonesia dan agenda pekan pertama. Newsletter & Membership: newsletter edisi #1 (terbit Jumat). Fan Engagement & UGC: polling dan tantangan bertema musik Indonesia. Audience Support & Moderation: panduan komunitas dan template balasan.
 
-   Daftar spesialis per divisi:
-   - Research & Intelligence: Trend Scout, Audience Insight Analyst, Market & Competitor Analyst, Performance Data Analyst.
-   - Editorial & Strategy: Content Strategist, Editor Musik, Editor Film, Editor Lifestyle, Editor Seni & Budaya, Feature & Interview Writer, Copy Editor & Fact-Checker.
-   - Creative & Production: Scriptwriter & Storyboard, Video Producer, Visual & Art Director, Audio & Podcast Producer, Creative Copywriter.
-   - Distribution & Growth: Social Media Manager, SEO & Platform Optimizer, Repurposing Specialist, Paid Ads Specialist, PR & Media Relations.
-   - Business & Monetization: Brand Partnership & Sponsorship, Talent & Artist Relations, Event & IP Development, Licensing & Merchandise.
-   - Technology & Automation: Workflow Automation Engineer, AI Agent Ops, Data & Integration Engineer, Web & CMS Manager.
-   - Finance & Operation: Finance Analyst, Project & Production Manager, Legal & Rights Compliance, Asset & Library Manager, Talent & Freelancer Coordinator.
-   - Community & Audience: Community Manager, Newsletter & Membership, Fan Engagement & UGC, Audience Support & Moderation.
-
-4. status.md — papan status peluncuran: daftar divisi, gelombang, status (BELUM MULAI / BERJALAN / SELESAI), dan catatan. Kepala divisi akan memperbaruinya.
+4. status.md — papan status: divisi, gelombang, status (BELUM MULAI / BERJALAN / SELESAI), catatan.
 
 ATURAN
-- Tidak ada yang dipublikasikan, dibayar, atau dikirim ke pihak luar tanpa persetujuan saya.
+- Tentang artis dan orang nyata: hanya fakta yang terverifikasi dan bersumber. Tidak ada gosip, spekulasi kehidupan pribadi, atau klaim yang bisa mencemarkan nama baik.
+- Lagu, video klip, lirik, dan foto artis adalah karya berhak cipta: semua pemakaian harus lewat Legal & Rights Compliance.
+- Tidak ada yang dipublikasikan, dibayar, atau dikirim ke pihak luar (termasuk artis, media, dan calon mitra) tanpa persetujuan saya.
 - Jangan mengarang data. Tandai [PERLU VERIFIKASI] dan catat data yang kamu butuhkan dari saya.
-- Bahasa Indonesia yang lugas.
 
 DI AKHIR SESI, LAPORKAN KEPADA SAYA
-1. Ringkasan rencana peluncuran (maks. 10 poin).
+1. Ringkasan program pekan peluncuran (maks. 10 poin).
 2. Draf manifesto untuk saya setujui.
 3. Keputusan yang harus saya ambil sebelum gelombang 1 dimulai.
 4. Data atau akses yang kamu butuhkan dari saya.
@@ -167,16 +187,16 @@ Setiap sesi: agen = kepala divisi → lingkungan `media-hq` → memori `brand-bi
 nama file.
 
 ```
-Konteks Journal sedang menjalani peluncuran pertamanya, dan divisimu, [NAMA DIVISI], sekarang mulai bergerak.
+Konteks Journal sedang menyiapkan pekan peluncurannya (Senin 16 – Minggu 22 November 2026) dengan fokus musik Indonesia dan para artisnya. Divisimu, [NAMA DIVISI], sekarang mulai bergerak.
 
 1. Baca /mnt/memory/konteks-hq/launch/manifesto.md, rencana-induk.md, dan brief-[file].md.
 2. Baca juga laporan divisi lain yang disebut sebagai input di brief-mu (laporan-*.md di folder yang sama).
 3. Libatkan SEMUA spesialis di divisimu. Beri setiap spesialis tugas yang lengkap sesuai brief dan jalankan yang tidak saling bergantung secara paralel.
-4. Periksa hasil mereka, minta revisi bila belum memenuhi kriteria "selesai", lalu gabungkan.
-5. Tulis laporan divisi ke /mnt/memory/konteks-hq/launch/laporan-[file].md:
-   ringkasan, deliverable dan lokasinya, kontribusi tiap spesialis (satu baris per orang), risiko, dan keputusan yang dibutuhkan dari Founder.
-6. Perbarui baris divisimu di status.md menjadi SELESAI.
-Jangan memublikasikan, mengirim, atau membayar apa pun.
+4. Semua hasil harus siap dipakai per hari, Senin sampai Minggu, sesuai tabel program harian di rencana induk.
+5. Periksa hasil mereka, minta revisi bila belum memenuhi kriteria "selesai", lalu gabungkan.
+6. Tulis laporan divisi ke /mnt/memory/konteks-hq/launch/laporan-[file].md: ringkasan, deliverable per hari dan lokasinya, kontribusi tiap spesialis (satu baris per orang), risiko, dan keputusan yang dibutuhkan dari Founder.
+7. Perbarui baris divisimu di status.md menjadi SELESAI.
+Tentang artis: hanya fakta terverifikasi dan bersumber, tanpa gosip. Jangan memublikasikan, menghubungi artis/media/mitra, atau membayar apa pun.
 ```
 
 | Gelombang | Sesi | Agen | `[NAMA DIVISI]` | `[file]` |
@@ -190,32 +210,46 @@ Jangan memublikasikan, mengirim, atau membayar apa pun.
 | 3 | 8 | Creative & Production | Creative & Production | `creative` |
 | 3 | 9 | Distribution & Growth | Distribution & Growth | `growth` |
 
-Mulai gelombang berikutnya setelah semua sesi di gelombang sebelumnya selesai.
-Statusnya bisa dicek di `status.md`.
+Mulai gelombang berikutnya setelah semua sesi di gelombang sebelumnya selesai. Statusnya bisa
+dicek di `status.md`. Catatan: Finance & Operation (Legal) baru bisa menilai hak cipta konten
+setelah Creative selesai. Karena itu sesi penutup CEO meminta penilaian akhir dari Legal (lihat E).
 
 ---
 
-## E. SESI 10 — Penutup oleh CEO
+## E. SESI 10 — Penutup oleh CEO: Siap Meluncur Senin
 
 Sesi baru → agen CEO → memori yang sama:
 
 ```
-CEO, seluruh 8 divisi Konteks Journal sudah menyelesaikan tugas peluncuran.
+CEO, seluruh 8 divisi Konteks Journal sudah menyelesaikan persiapan pekan peluncuran 16–22 November 2026.
 
 1. Baca semua laporan di /mnt/memory/konteks-hq/launch/laporan-*.md dan status.md.
-2. Periksa konsistensi: apakah naskah, visual, rencana distribusi, komunitas, dan proposal sponsor sejalan dengan manifesto dan rencana induk? Catat yang bertabrakan.
-3. Tulis /mnt/memory/konteks-hq/launch/hari-peluncuran.md:
-   - Jadwal per jam di Hari Peluncuran (apa terbit di kanal mana, jam berapa).
-   - Jadwal 7 hari setelah peluncuran.
-   - Daftar konten siap terbit beserta status hak cipta (HIJAU/KUNING/MERAH).
-   - Daftar tugas yang harus dikerjakan manusia (rekaman, upload, kirim pitch, tanda tangan).
-4. Tulis rapor tim: kontribusi tiap divisi dan catatan perbaikan prompt untuk agent yang hasilnya kurang.
+2. Periksa konsistensi: apakah topik, naskah, visual, jadwal posting, newsletter, komunitas, dan proposal mitra sejalan dengan manifesto dan rencana induk? Catat yang bertabrakan.
+3. Periksa setiap konten yang menyebut artis atau memakai lagu, video klip, lirik, atau foto: apakah sudah ada penilaian HIJAU/KUNING/MERAH dari Legal & Rights Compliance? Daftarkan yang belum.
+4. Tulis /mnt/memory/konteks-hq/launch/program-pekan-1.md:
+   - Jadwal per hari dan per jam, Senin 16 sampai Minggu 22 November: apa terbit, di kanal mana, jam berapa, file mana yang dipakai, status hak cipta.
+   - Jadwal kerja agent per hari (riset harian, laporan harian, newsletter Jumat, rangkuman Minggu).
+   - Daftar tugas manusia per hari (rekam VO, upload, kirim pitch media, menghubungi artis, menyetujui iklan).
+5. Tulis rapor tim: kontribusi tiap divisi dan catatan perbaikan prompt untuk agent yang hasilnya kurang.
 
 Laporkan kepada saya:
-- Ringkasan kesiapan peluncuran dan rekomendasi: SIAP / SIAP DENGAN CATATAN / BELUM SIAP.
-- Keputusan yang harus saya ambil, masing-masing dengan opsi dan rekomendasimu.
-- Hal yang harus saya kerjakan sendiri sebelum Hari Peluncuran.
+- Status kesiapan: SIAP / SIAP DENGAN CATATAN / BELUM SIAP, beserta alasannya.
+- Keputusan yang harus saya ambil sebelum Senin pagi, masing-masing dengan opsi dan rekomendasimu.
+- Hal yang harus saya kerjakan sendiri sebelum dan selama pekan peluncuran.
 ```
+
+---
+
+## F. Selama Pekan Peluncuran (16–22 November)
+
+Pasang di menu **Penerapan**, atau kirim manual setiap hari:
+
+| Kapan | Agen | Prompt |
+|---|---|---|
+| Setiap hari 07.00 WIB | Research & Intelligence | `Cek kabar musik Indonesia 24 jam terakhir (rilis, chart, konser, isu artis yang terverifikasi). Apakah topik hari ini di program-pekan-1.md masih relevan? Usulkan penyesuaian bila perlu. Tulis ke /mnt/memory/konteks-hq/harian/<tanggal>-research.md.` |
+| Setiap hari 21.00 WIB | CEO | `Baca catatan hari ini di /mnt/memory/konteks-hq/harian/ dan data performa yang saya unggah. Laporkan: apa yang terbit, hasilnya, masalah, dan penyesuaian untuk besok.` |
+| Jumat 20 Nov 09.00 WIB | Community & Audience | `Finalkan newsletter edisi #1 berdasarkan konten Senin–Kamis. Kirim drafnya kepada saya untuk disetujui; jangan dikirim ke pelanggan.` |
+| Minggu 22 Nov 19.00 WIB | CEO | `Evaluasi pekan peluncuran: capaian vs target, konten terbaik dan terlemah beserta alasannya, pelajaran, dan usulan program pekan kedua.` |
 
 ---
 
