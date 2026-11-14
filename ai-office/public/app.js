@@ -20,6 +20,8 @@ const BARIS = [
 ];
 const KOLOM_KURSI = [-12.6, -10.3, -6.5, -4.2, -0.4, 1.9];
 const KURSI_PER_LANTAI = BARIS.length * KOLOM_KURSI.length; // 18
+// Tangga spiral di luar sisi kanan gedung, segaris dengan koridor utama
+const TANGGA = { x: X1 + 4.4, rDalam: 0.45, rLuar: 2.7, naik: 0.25, putaranPerLantai: 5 };
 const TEMA = [
   { nama: "Lantai 1 · Bisnis & Operasional", kiri: "rapat-bisnis", tengah: "server" },
   { nama: "Lantai 2 · Produksi & Audiens", kiri: "studio", tengah: "rapat-kreatif" },
@@ -333,11 +335,20 @@ function bangunLantai(idx) {
 
   // pagar kaca + bedeng tanaman
   pagarKaca(g, 0, Z1, X1 - X0, true);
-  pagarKaca(g, X1, 0, Z1 - Z0, false);
+  // sisi kanan: pagar & bedeng dibuka di ujung koridor untuk jembatan ke tangga
+  const [bukaA, bukaB] = [KORIDOR_Z - 1.1, KORIDOR_Z + 1.1];
+  pagarKaca(g, X1, (Z0 + bukaA) / 2, bukaA - Z0, false);
+  pagarKaca(g, X1, (bukaB + Z1) / 2, Z1 - bukaB, false);
   kotak(X1 - X0, 0.35, 1, M.putih, 0, 0.17, Z1 + 0.85, g);
-  kotak(1, 0.35, Z1 - Z0 + 2, M.putih, X1 + 0.85, 0.17, 0.5, g);
   kotak(X1 - X0 - 0.2, 0.05, 0.8, M.daunTua, 0, 0.37, Z1 + 0.85, g);
-  kotak(0.8, 0.05, Z1 - Z0 + 1.8, M.daunTua, X1 + 0.85, 0.37, 0.5, g);
+  for (const [za, zb] of [[Z0 - 0.5, bukaA], [bukaB, Z1 + 1.5]]) {
+    kotak(1, 0.35, zb - za, M.putih, X1 + 0.85, 0.17, (za + zb) / 2, g);
+    kotak(0.8, 0.05, zb - za - 0.2, M.daunTua, X1 + 0.85, 0.37, (za + zb) / 2, g);
+  }
+  // bordes & jembatan ke tangga spiral
+  kotak(TANGGA.x - X1, 0.22, 2.2, M.abuMuda, (X1 + TANGGA.x) / 2, -0.11, KORIDOR_Z, g);
+  for (const dz of [-1.1, 1.1]) pagarKaca(g, (X1 + 0.3 + TANGGA.x - TANGGA.rLuar) / 2, KORIDOR_Z + dz, TANGGA.x - TANGGA.rLuar - X1 - 0.3, true);
+  label("label-lantai", "Tangga", g, TANGGA.x, 2.8, KORIDOR_Z);
   for (const x of [-12, -4, 4, 12]) pohon(g, x, Z1 + 0.85, 0.9, 0.35);
   for (const z of [-7, 1, 8]) pohon(g, X1 + 0.85, z, 0.9, 0.35);
 
@@ -412,11 +423,50 @@ scene.add(struktur);
 for (const [x, z] of [[X0 - 0.2, Z0 - 0.2], [X1 + 0.2, Z0 - 0.2], [X0 - 0.2, Z1 + 0.2], [X1 + 0.2, Z1 + 0.2]]) {
   kotak(0.35, tinggiGedung, 0.35, M.putih, x, tinggiGedung / 2, z, struktur);
 }
-kotak(2.6, tinggiGedung + 1, 2.6, M.kaca, X1 + 3.2, (tinggiGedung + 1) / 2, Z0 + 2.2).castShadow = false;
+kotak(2.6, tinggiGedung + 1, 2.6, M.kaca, X1 + 3.2, (tinggiGedung + 1) / 2, Z0 + 2.2, struktur).castShadow = false;
 for (const [dx, dz] of [[-1.3, -1.3], [1.3, -1.3], [-1.3, 1.3], [1.3, 1.3]]) {
-  kotak(0.1, tinggiGedung + 1, 0.1, M.rangka, X1 + 3.2 + dx, (tinggiGedung + 1) / 2, Z0 + 2.2 + dz);
+  kotak(0.1, tinggiGedung + 1, 0.1, M.rangka, X1 + 3.2 + dx, (tinggiGedung + 1) / 2, Z0 + 2.2 + dz, struktur);
 }
-const lift = kotak(2.2, 2.6, 2.2, mat("#e8edf3"), X1 + 3.2, 1.3, Z0 + 2.2);
+const lift = kotak(2.2, 2.6, 2.2, mat("#e8edf3"), X1 + 3.2, 1.3, Z0 + 2.2, struktur);
+
+// ---------- Tangga spiral antar lantai ----------
+// Anak tangga di dekat tiap lantai (±3,5 m) ikut grup lantai itu, jadi tetap terlihat saat
+// melihat satu lantai; bagian tengahnya hanya tampil di tampilan seluruh gedung.
+{
+  const ANAK_PER_LANTAI = Math.round(JARAK_LANTAI / TANGGA.naik);
+  const sudutPerAnak = (TANGGA.putaranPerLantai * Math.PI * 2) / ANAK_PER_LANTAI;
+  const panjang = TANGGA.rLuar - TANGGA.rDalam;
+  const rTengah = (TANGGA.rLuar + TANGGA.rDalam) / 2;
+  const matAnak = mat("#c9ced6");
+  const matPegangan = M.rangka;
+  const STUB = 3.5;
+  const wadahUntuk = (y) => {
+    const i = Math.round(y / JARAK_LANTAI);
+    return Math.abs(y - yLantai(i)) <= STUB && LANTAI[i] ? [LANTAI[i].g, y - yLantai(i)] : [struktur, y];
+  };
+  for (let k = 1; k < ANAK_PER_LANTAI * ATAS; k++) {
+    if (k % ANAK_PER_LANTAI === 0) continue; // posisi bordes
+    const y = k * TANGGA.naik;
+    const sudut = Math.PI + k * sudutPerAnak; // di ketinggian lantai menghadap ke jembatan (arah -x)
+    const [induk, yLokal] = wadahUntuk(y);
+    const anak = new THREE.Group();
+    kotak(panjang, 0.08, 0.62, matAnak, rTengah, 0, 0, anak);
+    if (k % 2 === 0) kotak(0.05, 0.95, 0.05, matPegangan, TANGGA.rLuar - 0.05, 0.5, 0, anak);
+    anak.position.set(TANGGA.x, yLokal, KORIDOR_Z);
+    anak.rotation.y = -sudut;
+    induk.add(anak);
+  }
+  // tiang tengah: potongan pendek per lantai + potongan panjang antar lantai
+  for (let i = 0; i < JUMLAH_LANTAI; i++) {
+    const bawah = i > 0 ? -STUB : 0;
+    const atas = i < ATAS ? STUB : 1.2;
+    silinder(TANGGA.rDalam, atas - bawah, M.putih, TANGGA.x, (atas + bawah) / 2, KORIDOR_Z, LANTAI[i].g);
+    if (i < ATAS) {
+      const h = JARAK_LANTAI - 2 * STUB;
+      silinder(TANGGA.rDalam, h, M.putih, TANGGA.x, yLantai(i) + STUB + h / 2, KORIDOR_Z, struktur);
+    }
+  }
+}
 
 // ---------- Karakter voxel ----------
 const matKulit = mat("#f0c8a4");
@@ -775,7 +825,7 @@ document.querySelectorAll(".kamera button").forEach((b) =>
     } else {
       const i = Number(cam);
       tampilkanLantai(i);
-      terbangKe(v(-1, 0, yLantai(i)), 1);
+      terbangKe(v(2, 0, yLantai(i)), 0.9); // sedikit ke kanan supaya tangga ikut terlihat
     }
   }),
 );
@@ -896,9 +946,9 @@ for (const a of AGENTS) setStatus(a.id, "idle", "", true);
 const awalGedung = AGENTS.length > 18;
 tampilkanLantai(awalGedung ? null : ATAS);
 document.querySelectorAll(".kamera button").forEach((x) => x.classList.toggle("aktif", x.dataset.cam === (awalGedung ? "gedung" : String(ATAS))));
-controls.target.copy(awalGedung ? v(0, 0, yLantai(1) + 1) : v(-1, 0, yLantai(ATAS)));
+controls.target.copy(awalGedung ? v(0, 0, yLantai(1) + 1) : v(2, 0, yLantai(ATAS)));
 camera.position.copy(controls.target).addScaledVector(ISO_ARAH, 150);
-camera.zoom = awalGedung ? ZOOM_GEDUNG : 1;
+camera.zoom = awalGedung ? ZOOM_GEDUNG : 0.9;
 ukuran();
 animasi();
 sambung();
