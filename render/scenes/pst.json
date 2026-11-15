@@ -1,0 +1,680 @@
+{
+ "keywords": [
+  "16",
+  "3",
+  "pestapora",
+  "330",
+  "penampil",
+  "19",
+  "panggung",
+  "120",
+  "hitung",
+  "225",
+  "650",
+  "250",
+  "30",
+  "sponsor",
+  "simpati",
+  "bintang",
+  "vibe",
+  "15",
+  "tenant",
+  "merchandise",
+  "brand",
+  "48",
+  "artis",
+  "venue",
+  "keamanan",
+  "kru",
+  "operasional",
+  "32",
+  "sisa",
+  "simulasi",
+  "hiburan",
+  "perhatian",
+  "menarik",
+  "berisiko",
+  "komentar",
+  "follow",
+  "bukan"
+ ],
+ "scenes": [
+  {
+   "id": "P01",
+   "bubble": "Potensi **Rp16 miliar**",
+   "labels": [
+    {
+     "anchor": "TOWER",
+     "title": "POTENSI Rp16 MILIAR",
+     "sub": "dari festival 3 hari",
+     "color": "green",
+     "t": 0.2,
+     "lift": 70
+    }
+   ]
+  },
+  {
+   "id": "P02",
+   "bubble": "Cuma **3 hari**?",
+   "labels": [
+    {
+     "anchor": "CAL",
+     "title": "3 HARI",
+     "sub": "festival musik",
+     "color": "orange",
+     "t": 0.2,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "P03",
+   "bubble": "**Bukan** jualan tiket biasa",
+   "labels": [
+    {
+     "anchor": "TIKET",
+     "title": "TIKET KONSER BIASA?",
+     "sub": "",
+     "color": "red",
+     "t": -0.6,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "P04",
+   "bubble": "Bisnis **di balik** Pestapora",
+   "labels": [
+    {
+     "anchor": "BACK",
+     "title": "BELAKANG PANGGUNG",
+     "sub": "produksi & operasional",
+     "color": "purple",
+     "t": 0.5,
+     "lift": 70
+    }
+   ]
+  },
+  {
+   "id": "P05",
+   "bubble": "**330+** penampil",
+   "labels": [
+    {
+     "anchor": "BAND",
+     "title": "330+ PENAMPIL",
+     "sub": "Pestapora 2026",
+     "color": "orange",
+     "t": 0.2,
+     "lift": 70
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "",
+    "title": "PENAMPIL",
+    "start": 0,
+    "to": 330,
+    "max": 330,
+    "unit": "penampil",
+    "t": -0.5,
+    "dur": 1.4,
+    "target_text": "lebih dari"
+   }
+  },
+  {
+   "id": "P06",
+   "bubble": "**19** panggung",
+   "labels": [
+    {
+     "anchor": "MAIN",
+     "title": "PANGGUNG UTAMA",
+     "sub": "",
+     "color": "blue",
+     "t": 0.25,
+     "lift": 60
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "",
+    "title": "PANGGUNG",
+    "start": 0,
+    "to": 19,
+    "max": 19,
+    "unit": "panggung",
+    "t": 0.05,
+    "dur": 0.9,
+    "target_text": "di 1 venue"
+   }
+  },
+  {
+   "id": "P07",
+   "bubble": "**120 ribu+** pengunjung",
+   "labels": [
+    {
+     "anchor": "GATE",
+     "title": "GERBANG MASUK",
+     "sub": "",
+     "color": "purple",
+     "t": -0.2,
+     "lift": 60
+    },
+    {
+     "anchor": "FLOW",
+     "title": "120 RIBU+ PERGERAKAN",
+     "sub": "pengunjung selama 3 hari",
+     "color": "green",
+     "t": 0.8,
+     "lift": 60
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "",
+    "title": "PERGERAKAN PENGUNJUNG",
+    "start": 0,
+    "to": 120,
+    "max": 120,
+    "unit": "ribu",
+    "t": 0.1,
+    "dur": 1.6,
+    "target_text": "selama 3 hari"
+   }
+  },
+  {
+   "id": "P08",
+   "bubble": "Kita **hitung** uangnya",
+   "labels": [
+    {
+     "anchor": "CALC",
+     "title": "HITUNG UANGNYA",
+     "sub": "simulasi sederhana",
+     "color": "orange",
+     "t": -0.3,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "P09",
+   "bubble": "Tiket **Rp225–650 rb**",
+   "labels": [
+    {
+     "anchor": "T1",
+     "title": "Rp225 RIBU",
+     "sub": "harga mulai",
+     "color": "blue",
+     "t": -2.0,
+     "lift": 60
+    },
+    {
+     "anchor": "T2",
+     "title": "Rp650 RIBU",
+     "sub": "sampai",
+     "color": "orange",
+     "t": 0.6,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "P10",
+   "bubble": "Rata-rata **Rp250 rb**",
+   "labels": [
+    {
+     "anchor": "SCAN",
+     "title": "RATA-RATA Rp250 RB",
+     "sub": "per kunjungan (asumsi)",
+     "color": "blue",
+     "t": -2.6,
+     "lift": 70
+    },
+    {
+     "anchor": "COIN",
+     "title": "PENDAPATAN TIKET",
+     "sub": "",
+     "color": "green",
+     "t": -1.0,
+     "lift": 50
+    }
+   ]
+  },
+  {
+   "id": "P11",
+   "bubble": "Tiket **Rp30 miliar**",
+   "labels": [
+    {
+     "anchor": "TIKET",
+     "title": "Rp30 MILIAR",
+     "sub": "120 rb × Rp250 rb",
+     "color": "blue",
+     "t": 0.5,
+     "lift": 70
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "OMZET TIKET (SIMULASI)",
+    "start": 0,
+    "to": 30,
+    "max": 30,
+    "unit": "miliar",
+    "t": 0.0,
+    "dur": 1.4,
+    "target_text": "120 rb × Rp250 rb"
+   }
+  },
+  {
+   "id": "P12",
+   "bubble": "Plus **sponsor** besar",
+   "labels": [
+    {
+     "anchor": "B1",
+     "title": "SIMPATI",
+     "sub": "sponsor",
+     "color": "red",
+     "t": 1.3,
+     "lift": 60
+    },
+    {
+     "anchor": "B2",
+     "title": "BINTANG",
+     "sub": "sponsor",
+     "color": "green",
+     "t": 2.2,
+     "lift": 60
+    },
+    {
+     "anchor": "B3",
+     "title": "VIBE",
+     "sub": "sponsor",
+     "color": "purple",
+     "t": 3.1,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "P13",
+   "bubble": "Sponsor **Rp15 miliar**",
+   "labels": [
+    {
+     "anchor": "TIKET",
+     "title": "TIKET Rp30 M",
+     "sub": "",
+     "color": "blue",
+     "t": -0.9,
+     "lift": 50
+    },
+    {
+     "anchor": "SPONSOR",
+     "title": "SPONSOR Rp15 M",
+     "sub": "asumsi",
+     "color": "orange",
+     "t": 0.4,
+     "lift": 60
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "OMZET SIMULASI",
+    "start": 30,
+    "keys": [
+     [
+      0.1,
+      45
+     ]
+    ],
+    "max": 48,
+    "unit": "miliar",
+    "t": -1.1,
+    "dur": 1.0,
+    "target_text": "tiket + sponsor"
+   }
+  },
+  {
+   "id": "P14",
+   "bubble": "Tenant & merch **Rp3 miliar**",
+   "labels": [
+    {
+     "anchor": "TENANT",
+     "title": "TENANT",
+     "sub": "kuliner",
+     "color": "orange",
+     "t": -1.9,
+     "lift": 50
+    },
+    {
+     "anchor": "MERCH",
+     "title": "MERCHANDISE",
+     "sub": "",
+     "color": "purple",
+     "t": -1.3,
+     "lift": 50
+    },
+    {
+     "anchor": "BRAND",
+     "title": "AKTIVASI BRAND",
+     "sub": "",
+     "color": "red",
+     "t": -0.6,
+     "lift": 50
+    },
+    {
+     "anchor": "TOTAL3",
+     "title": "+ Rp3 MILIAR",
+     "sub": "",
+     "color": "green",
+     "t": 0.3,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "P15",
+   "bubble": "Total **Rp48 miliar**",
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "TOTAL POTENSI PENDAPATAN",
+    "start": 0,
+    "to": 48,
+    "max": 48,
+    "unit": "miliar",
+    "t": -0.1,
+    "dur": 1.4,
+    "target_text": "simulasi"
+   },
+   "panels": [
+    {
+     "type": "table",
+     "title": "POTENSI PENDAPATAN (SIMULASI)",
+     "cols": [
+      "SUMBER",
+      "NILAI"
+     ],
+     "widths": [
+      440,
+      300
+     ],
+     "rows": [
+      [
+       "Tiket",
+       "Rp30 M"
+      ],
+      [
+       "Sponsor",
+       "Rp15 M"
+      ],
+      [
+       "Tenant, merch, brand",
+       "Rp3 M"
+      ],
+      [
+       "TOTAL",
+       "Rp48 M"
+      ]
+     ],
+     "row_t": [
+      -1.2,
+      -0.8,
+      -0.4,
+      0.0
+     ],
+     "red_col": -1,
+     "y": 600
+    }
+   ]
+  },
+  {
+   "id": "P16",
+   "bubble": "Biaya **festival**",
+   "labels": [
+    {
+     "anchor": "ARTIS",
+     "title": "ARTIS",
+     "sub": "",
+     "color": "red",
+     "t": 0.85,
+     "lift": 40
+    },
+    {
+     "anchor": "PANGGUNG",
+     "title": "PRODUKSI PANGGUNG",
+     "sub": "",
+     "color": "orange",
+     "t": 1.65,
+     "lift": 40
+    },
+    {
+     "anchor": "VENUE",
+     "title": "VENUE",
+     "sub": "",
+     "color": "red",
+     "t": 2.65,
+     "lift": 40
+    },
+    {
+     "anchor": "KEAMANAN",
+     "title": "KEAMANAN",
+     "sub": "",
+     "color": "orange",
+     "t": 3.0,
+     "lift": 40
+    },
+    {
+     "anchor": "KRU",
+     "title": "KRU",
+     "sub": "",
+     "color": "red",
+     "t": 3.45,
+     "lift": 40
+    },
+    {
+     "anchor": "OPS",
+     "title": "OPERASIONAL",
+     "sub": "",
+     "color": "orange",
+     "t": 3.8,
+     "lift": 40
+    }
+   ]
+  },
+  {
+   "id": "P17",
+   "bubble": "Biaya **Rp32 miliar**",
+   "labels": [
+    {
+     "anchor": "PENDAPATAN",
+     "title": "PENDAPATAN Rp48 M",
+     "sub": "",
+     "color": "green",
+     "t": -0.8,
+     "lift": 60
+    },
+    {
+     "anchor": "BIAYA",
+     "title": "BIAYA Rp32 M",
+     "sub": "estimasi",
+     "color": "red",
+     "t": 0.4,
+     "lift": 60
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "BIAYA (ESTIMASI)",
+    "start": 0,
+    "to": 32,
+    "max": 48,
+    "unit": "miliar",
+    "t": 0.0,
+    "dur": 1.6,
+    "target_text": "dari Rp48 M",
+    "bar": "red"
+   }
+  },
+  {
+   "id": "P18",
+   "bubble": "Sisa **Rp16 miliar**",
+   "labels": [
+    {
+     "anchor": "OPS",
+     "title": "− Rp32 M",
+     "sub": "biaya",
+     "color": "red",
+     "t": -3.4,
+     "lift": 60,
+     "until": 1.8
+    },
+    {
+     "anchor": "SISA",
+     "title": "SISA Rp16 MILIAR",
+     "sub": "Rp48 M − Rp32 M",
+     "color": "green",
+     "t": 0.15,
+     "lift": 80
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "POTENSI SISA OPERASIONAL",
+    "start": 48,
+    "keys": [
+     [
+      -2.6,
+      16
+     ]
+    ],
+    "max": 48,
+    "unit": "miliar",
+    "t": -3.6,
+    "dur": 1.2,
+    "target_text": "pendapatan − biaya"
+   }
+  },
+  {
+   "id": "P19",
+   "bubble": "Ini **simulasi**",
+   "labels": [
+    {
+     "anchor": "DOC",
+     "title": "BUKAN LAPORAN RESMI",
+     "sub": "angka simulasi / asumsi",
+     "color": "red",
+     "t": 1.2,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "P20",
+   "bubble": "Bukan cuma **hiburan**",
+   "labels": [
+    {
+     "anchor": "SHOW",
+     "title": "HIBURAN",
+     "sub": "musik & pengalaman",
+     "color": "purple",
+     "t": 3.65,
+     "lift": 70
+    }
+   ]
+  },
+  {
+   "id": "P21",
+   "bubble": "Menjual **perhatian**",
+   "labels": [
+    {
+     "anchor": "CROWD",
+     "title": "PERHATIAN PULUHAN RIBU ORANG",
+     "sub": "",
+     "color": "blue",
+     "t": 0.2,
+     "lift": 60
+    },
+    {
+     "anchor": "B1",
+     "title": "BRAND",
+     "sub": "",
+     "color": "red",
+     "t": 2.2,
+     "lift": 50
+    },
+    {
+     "anchor": "B2",
+     "title": "BRAND",
+     "sub": "",
+     "color": "green",
+     "t": 2.4,
+     "lift": 50
+    }
+   ]
+  },
+  {
+   "id": "P22",
+   "bubble": "Menarik atau **berisiko**?",
+   "labels": [
+    {
+     "anchor": "MENARIK",
+     "title": "MENARIK?",
+     "sub": "",
+     "color": "green",
+     "t": -1.65,
+     "lift": 60
+    },
+    {
+     "anchor": "RISIKO",
+     "title": "TERLALU BERISIKO?",
+     "sub": "",
+     "color": "red",
+     "t": 0.1,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "P23",
+   "bubble": "Tulis di **komentar**",
+   "labels": [
+    {
+     "anchor": "FEST",
+     "title": "TULIS PENDAPATMU",
+     "sub": "di kolom komentar",
+     "color": "orange",
+     "t": 1.0,
+     "lift": 80
+    }
+   ],
+   "cta": 1.4
+  }
+ ]
+}

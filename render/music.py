@@ -181,7 +181,7 @@ CHORDS_F = [
 MOTIF_F = [(0, 74), (.5, 77), (1, 81), (2, 79), (2.5, 77), (3, 76),
            (4, 74), (4.5, 72), (5, 74), (6, 77), (6.5, 76), (7, 72)]
 # variasi G (video bisnis media): gaya beda total, groove hip-hop/business ~94 BPM, lihat render_biz()
-VARIANTS = {"G": "biz", "A": None, "B": (CHORDS_B, MOTIF_B), "C": (CHORDS_C, MOTIF_C), "D": (CHORDS_D, MOTIF_D),
+VARIANTS = {"H": "fest", "G": "biz", "A": None, "B": (CHORDS_B, MOTIF_B), "C": (CHORDS_C, MOTIF_C), "D": (CHORDS_D, MOTIF_D),
             "E": (CHORDS_E, MOTIF_E), "F": (CHORDS_F, MOTIF_F)}
 
 
@@ -430,6 +430,152 @@ def render_biz(dur, bpm=94.0, brk=(40.0, 45.0)):
     return buf
 
 
+# ------------------------------------------------------------------ varian H "fest": festival house 124 BPM
+# Am - F - C - G (anthem festival), supersaw stab dipompa sidechain, bass offbeat, pluck arp,
+# build-up snare + riser sebelum drop, sorak penonton tipis di tiap drop.
+FEST_CHORDS = [
+    (45, [57, 60, 64, 69]),
+    (41, [57, 60, 65, 69]),
+    (48, [55, 60, 64, 67]),
+    (43, [55, 59, 62, 67]),
+]
+FEST_ARP = [0, 2, 1, 3, 2, 1, 3, 2]
+FEST_LEAD = [(0, 76), (.75, 76), (1.5, 74), (2, 72), (3, 71), (3.5, 72),
+             (4, 72), (4.75, 72), (5.5, 71), (6, 69), (7, 67), (7.5, 69)]
+
+
+def supersaw(note, dur, n=7, spread=.18):
+    t = np.arange(int(dur * SR)) / SR
+    s = np.zeros_like(t)
+    for k in range(n):
+        f = midi(note + (k - (n - 1) / 2) * spread / ((n - 1) / 2))
+        ph = (f * t + RNG.uniform(0, 1)) % 1.0
+        s += 2 * ph - 1
+    env = np.minimum(1, t / .006) * np.exp(-t * 2.2) * np.minimum(1, (dur - t) / .03)
+    return lp(s / n, 3800) * env * .32
+
+
+def fest_bass(note, dur):
+    f = midi(note)
+    t = np.arange(int(dur * SR)) / SR
+    ph = (f * t) % 1.0
+    s = .6 * np.sin(2 * np.pi * f * t) + .4 * lp(2 * ph - 1, 600)
+    env = np.minimum(1, t / .004) * np.exp(-t * 6) * np.minimum(1, (dur - t) / .015)
+    return s * env * .55
+
+
+def crowd(dur):
+    """sorak penonton sintetis: banyak 'vokal' noise berformant acak + napas lebar."""
+    t = np.arange(int(dur * SR)) / SR
+    out = np.zeros_like(t)
+    for _ in range(60):
+        st_ = RNG.uniform(0, dur * .4)
+        ln = RNG.uniform(.6, dur - st_)
+        i0, n = int(st_ * SR), int(ln * SR)
+        fc = RNG.uniform(500, 1600)
+        v = bp(RNG.standard_normal(n), fc * .8, fc * 1.25)
+        tt = np.arange(n) / SR
+        v *= np.minimum(1, tt / .15) * np.minimum(1, (ln - tt) / .4) * (1 + .3 * np.sin(2 * np.pi * RNG.uniform(3, 7) * tt))
+        out[i0:i0 + n] += v * RNG.uniform(.3, 1)
+    out += bp(RNG.standard_normal(len(t)), 300, 5000) * .5
+    env = np.minimum(1, t / .3) * np.minimum(1, (dur - t) / (dur * .6))
+    return out * env * .05
+
+
+def render_fest(dur, bpm=124.0, brk=(46.4, 54.2)):
+    beat = 60.0 / bpm
+    bar = 4 * beat
+    s16 = beat / 4
+    n_bars = int(np.ceil(dur / bar)) + 1
+    L = int((dur + 4) * SR)
+    dry = np.zeros((2, L))
+    syn = np.zeros((2, L))
+    end_bar = int((dur - 2.6) // bar)
+    b0, b1 = int(round(brk[0] / bar)), int(round(brk[1] / bar))
+    K, SN, CL, H, HO = kick(), snare(), clap(), hat(), hat(True)
+    kick_times = []
+    for b in range(n_bars):
+        if b > end_bar:
+            break
+        t0 = b * bar
+        root, notes = FEST_CHORDS[b % 4]
+        intro = b < 2
+        breakdown = b0 <= b < b1
+        # pad (selalu), lebih tipis saat full
+        for i, nt in enumerate(notes):
+            add(syn, t0, saw_pad(nt, bar + .1), 1.0 if (intro or breakdown) else .55, -.4 + .27 * i)
+        # pluck arp 8-an
+        for k in range(8):
+            nt = notes[FEST_ARP[k]] + 12
+            add(syn, t0 + k * beat / 2, pluck(nt, .35), .55 if not intro else .4, .35 if k % 2 else -.35)
+        if intro or breakdown:
+            if b == 1 or b == b1 - 1:          # build-up: snare roll makin rapat + riser
+                add(dry, t0, swell(bar), 1.4)
+                for r in range(16):
+                    add(dry, t0 + r * s16, SN, .08 + .035 * r, .05)
+            if breakdown and b < b1 - 1:
+                add(dry, t0, K, .55)            # detak jantung pelan
+            continue
+        if b == 2 or b == b1:
+            add(dry, t0, impact(), .8)
+            add(dry, t0, crowd(3.5), 1.0)
+        # drum four-on-the-floor
+        for i in range(16):
+            tt_ = t0 + i * s16
+            if i % 4 == 0:
+                add(dry, tt_, K, 1.0)
+                kick_times.append(tt_)
+            if i in (4, 12):
+                add(dry, tt_, CL, .9, -.05)
+                add(dry, tt_, SN, .35, .05)
+            if i % 4 == 2:
+                add(dry, tt_, HO, .36, .25)
+            elif i % 2 == 1:
+                add(dry, tt_, H, .18, -.25)
+        # bass offbeat
+        for k in range(4):
+            add(dry, t0 + k * beat + beat / 2, fest_bass(root - 12 if k != 3 or b % 2 == 0 else root - 5, beat * .45), .9)
+        # supersaw stab offbeat (dipompa)
+        for k in range(4):
+            for i, nt in enumerate(notes):
+                add(syn, t0 + k * beat + beat / 2, supersaw(nt, beat * .48), .5, -.5 + .33 * i)
+        # lead hook: 2 bar setiap 4 bar, setelah drop
+        rel = b - (b1 if b >= b1 else 2)
+        if rel % 8 < 4:
+            off = 0 if rel % 2 == 0 else 4
+            for bt, nt in FEST_LEAD:
+                if off <= bt < off + 4:
+                    add(syn, t0 + (bt - off) * beat, pluck(nt, .5), .6, .15)
+                    add(syn, t0 + (bt - off) * beat, bell(nt + 12, .8), .14, -.2)
+        if b % 8 == 7 and b + 1 <= end_bar and b + 1 != b0:
+            add(dry, t0 + bar - beat, swell(beat), .9)
+    # sidechain pumping pada synth
+    pump = np.ones(L)
+    rel_n = int(beat * .8 * SR)
+    curve = 1 - .7 * np.exp(-np.arange(rel_n) / (rel_n * .25))
+    for kt in kick_times:
+        i = int(kt * SR)
+        n = min(rel_n, L - i)
+        pump[i:i + n] = np.minimum(pump[i:i + n], curve[:n])
+    syn *= pump
+    ni = int(2 * bar * SR)
+    for ch in range(2):
+        syn[ch, :ni] = lp(syn[ch, :ni], 1100)
+    buf = dry + reverb(syn, 1.6, .25)
+    tend = (end_bar + 1) * bar
+    root, notes = FEST_CHORDS[0]
+    add(buf, tend, impact(3.0), .9)
+    add(buf, tend, crowd(3.0), 1.0)
+    for i, nt in enumerate(notes):
+        add(buf, tend + i * .02, supersaw(nt, 3.0), .6, -.4 + .27 * i)
+    buf = buf[:, : int(dur * SR)]
+    fade = int(.5 * SR)
+    buf[:, -fade:] *= np.linspace(1, 0, fade)
+    buf = np.tanh(buf * 1.1) / np.tanh(1.1)
+    buf /= np.abs(buf).max() / .89
+    return buf
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("out")
@@ -440,6 +586,10 @@ def main():
     a = ap.parse_args()
     import soundfile as sf
     global CHORDS, MOTIF
+    if VARIANTS[a.variant] == "fest":
+        sf.write(a.out, render_fest(a.dur, a.bpm, tuple(a.brk)).T, SR, subtype="PCM_16")
+        print("wrote", a.out)
+        return
     if VARIANTS[a.variant] == "biz":
         sf.write(a.out, render_biz(a.dur, a.bpm, tuple(a.brk)).T, SR, subtype="PCM_16")
         print("wrote", a.out)
