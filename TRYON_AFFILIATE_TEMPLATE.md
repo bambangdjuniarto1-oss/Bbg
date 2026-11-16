@@ -112,7 +112,96 @@ Same location throughout. No text, no captions, no mirror, no other people.
 
 ---
 
-## 6. Log produksi
+## 6. Prompt gaya video referensi (kemeja putih, 1 take, kamera diam)
+
+Ciri video referensi: satu take tanpa cut, HP di tripod setinggi dada, framing kepala sampai
+paha dengan sedikit plafon terlihat, cahaya ruangan apa adanya, gerakan santai sesuai beat musik,
+lalu ditutup dengan tangan menyilang dan senyum.
+
+### 6a. Keyframe (GPT Image 2.6 / Nano Banana Pro)
+Referensi berurutan: Rizlan A, C, D, E, lalu foto produk.
+
+```
+Vertical 9:16 candid iPhone video frame, not a photoshoot. The man in reference images 1-4,
+exactly the same person: same face shape, eyes, nose, lips, warm tan skin, short black side-swept
+hair, thin moustache and light chin beard, same slim tall body, black smartwatch on his left
+wrist. He wears the shirt from the last reference image exactly: {DESKRIPSI_PRODUK}, untucked,
+slightly wrinkled like a real worn shirt. {CELANA}, {ALAS_KAKI}.
+Framing: phone on a tripod at chest height, about 2 meters away, slightly wide lens, framed from
+the top of his head to mid-thigh with a little ceiling visible above him. He stands relaxed facing
+the camera, arms loose at his sides, calm expression with a hint of a smile.
+SET: {SET}
+Lighting: existing room light only, soft and uneven, no studio light, no rim light. Slight sensor
+noise, mild phone sharpening, realistic skin texture with pores. No text, no watermark, no mirror.
+```
+
+SET A (lokasi Rizlan): `textured grey cement wall, two glowing caged industrial wall lamps, black conduit pipe along the wall, large philodendron plant on the right, cement floor.`
+SET B (seperti referensi): `small lived-in apartment bedroom: tall dark-wood wardrobe on the left, beige wall, recessed ceiling downlight, cluttered desk on the right with a tablet, small items and an orange bag hanging on the wall.`
+
+### 6b. Klip 1, detik 0-15 (meniru koreografi referensi)
+Seedance 2.5: `omni_reference`, start_image = keyframe, image_references = Rizlan A, C, D +
+produk, 9:16, 15 detik, `generate_audio: false`.
+
+```
+Vertical 9:16 TikTok outfit try-on, one continuous take, static phone on a tripod at chest
+height, no camera movement, no cuts. Real-time natural human motion at normal speed, no slow
+motion, no smooth gliding; small natural imperfections, weight shifts and breathing. The man from
+the start frame casually shows off his shirt, relaxed and slightly shy-confident, like a real
+creator who just pressed record.
+0-1.5s: he is leaning in close toward the camera looking into the lens, then straightens up and
+steps back into place.
+1.5-3s: lets his arms settle, loosely clasps his hands in front of his waist and rubs them once.
+3-5s: drops his hands, shifts his weight onto one leg, slides his left hand into his trouser
+pocket with a slight turn of the torso.
+5-7s: brings his right hand up and lightly touches the chest pocket and the button placket,
+glancing down at the shirt.
+7-9s: lifts both hands to the collar and adjusts it, then smooths the front of the shirt down.
+9-11s: turns slowly to his right into side profile, hands loosely together in front, and keeps
+turning until his back faces the camera, pausing so the back of the shirt is visible.
+11-13s: turns back around toward the camera through a 3/4 angle.
+13-15s: crosses his arms over his chest and gives a small confident smile, holding the pose.
+Identity lock: face, hair, beard, body proportions, smartwatch on left wrist, shirt color,
+pattern, collar and pocket identical to the references in every frame, including during the
+turn. Fabric creases, folds and sways realistically. Same location and lighting throughout.
+No text, no captions, no mirror, no other people, no morphing.
+```
+
+### 6c. Klip 2, detik 15-30 (lanjutan, gerakan berbeda)
+Start_image = frame terakhir klip 1 (tangan menyilang), supaya sambungannya mulus.
+
+```
+Vertical 9:16 TikTok outfit try-on, one continuous take, same static tripod framing, location
+and lighting as the start frame, no camera movement, no cuts. Real-time natural human motion at
+normal speed, no slow motion; natural pauses, weight shifts and breathing.
+0-3s: he uncrosses his arms, unbuttons his left cuff, glances at his smartwatch and buttons the
+cuff again.
+3-6s: takes one step closer to the camera, pinches the fabric at his chest and rubs it between
+his fingers to show the texture, looking down at it.
+6-9s: steps back to his spot, rolls his shoulders and tugs the hem of the shirt down to
+straighten it.
+9-12s: turns 3/4 to his left, puts his right hand in his trouser pocket and looks back at the
+camera over his shoulder.
+12-15s: turns to face the camera, both hands in his pockets, small nod and relaxed smile,
+holding the final pose.
+Identity lock: face, hair, beard, body proportions, smartwatch on left wrist, shirt color,
+pattern, collar and pocket identical to the references in every frame. Fabric moves
+realistically. No text, no captions, no mirror, no other people, no morphing.
+```
+
+### 6d. Negative prompt (untuk tools yang mendukung)
+```
+slow motion, robotic movement, stiff posture, floating or gliding, sudden jumps, morphing face,
+changing hairstyle, changing shirt pattern or color, extra fingers, warped hands, plastic skin,
+beauty filter, cinematic lighting, bokeh, camera movement, zoom, text, watermark, mirror
+```
+
+### 6e. Finishing agar mirip referensi
+Gabung klip 1 + 2 tanpa transisi, potong tepat di beat musik. Export 720×1280 30 fps, tambah
+grain tipis (sekitar 3%), tanpa color grading berlebihan. Sound trending ditambahkan di TikTok.
+
+---
+
+## 7. Log produksi
 
 | # | Tanggal | Produk | Gerakan klip 1 | Gerakan klip 2 | Status |
 |---|---|---|---|---|---|
