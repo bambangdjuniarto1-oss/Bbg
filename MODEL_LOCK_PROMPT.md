@@ -132,3 +132,20 @@ Pose: JALAN, BELAKANG
 ```
 Editor mengisi blok PRODUK dan STYLING secara otomatis, lalu mengirim prompt yang siap dipakai
 (satu prompt per pose).
+
+---
+
+## Motion Control (gerakan sama persis dengan video referensi)
+
+Upload: video referensi (sumber gerakan) + foto model yang sudah memakai produk (hasil prompt di atas).
+Orientasi Karakter: **Video**. Batas prompt 500 karakter; prompt di bawah 435 karakter dan bisa
+dipakai untuk produk apa pun.
+
+```
+Copy the reference video's body motion, gestures, hand positions, head turns, timing and camera movement exactly, frame by frame. Only the person, outfit and background change. Use the man from the image: same face, hair and body; never take the face or hair from the video. Outfit exactly as in the image. Background from the image. Real-time natural motion, realistic fabric folds, stable face, no morphing, no extra people, no text.
+```
+
+Agar hasil presisi, framing dan pose awal foto model harus mirip frame pertama video referensi
+(jarak kamera, bagian badan yang terlihat, posisi tangan). Untuk itu, buat foto model dengan
+tambahan baris POSE berikut di master prompt:
+`framed exactly like the first frame of the reference video: {FRAMING}, {POSE_AWAL}`
