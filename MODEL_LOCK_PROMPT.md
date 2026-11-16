@@ -14,7 +14,7 @@ Hasilnya akan jauh lebih akurat.
 ```
 REFERENCES: Image 1 is the model, the only source for the person's identity and body. Ignore Image 1's clothing, background and lighting. Image 2 is the product, the only source for the garment. Ignore any text, logos, watermarks, other people, props and background in Image 2.
 
-MODEL LOCK (must stay identical to Image 1, do not beautify or alter): Southeast Asian man in his late 20s, warm medium-tan skin with natural texture and pores, oval face with a defined jawline, straight thick dark eyebrows, dark brown almond-shaped eyes, straight nose, medium full lips, clean-shaven. Black hair: short faded sides with a voluminous slicked-back pompadour on top. Athletic slim build, broad shoulders, about 178 cm tall, same body proportions and hand shape as Image 1. Black analog watch with a black leather strap on his left wrist. Same face in every angle; no age, weight, skin tone or hairstyle change.
+MODEL LOCK (must stay identical to Image 1, do not beautify or alter): Southeast Asian man in his late 20s, warm medium-tan skin with natural texture and visible pores, oval face with a defined jawline and slightly prominent cheekbones, thick straight dark eyebrows, dark brown almond-shaped eyes with a calm gaze, slightly rounded nose, medium lips, very light stubble on the upper lip and chin. Short black hair: tapered short sides, longer top neatly combed back and swept to the side with a side part and a soft wave. Athletic build, broad shoulders, defined arms and forearms, about 175 cm tall, same body proportions and hand shape as Image 1. No jewelry unless stated in STYLING. Same face in every angle; no age, weight, skin tone or hairstyle change.
 
 PRODUCT (reproduce exactly from Image 2): {PRODUK}. Keep the exact color, fabric, thickness, fit, length, neckline, sleeve length, seams and details; true-to-life drape on his body with natural folds; no added logos, prints or text.
 
@@ -24,7 +24,7 @@ STYLE: {GAYA}
 
 PHOTO QUALITY: photorealistic, real camera photo, natural skin texture, accurate fabric texture, correct hands with five fingers, realistic shadows that match the light source, sharp focus on the outfit, no text, no watermark, no frame, no collage.
 
-AVOID: different face, different hairstyle, beard, plastic or airbrushed skin, cartoon or CGI look, distorted hands or fingers, extra limbs, wrong garment color, changed garment design, logos or text on clothes, oversaturated colors, warped background.
+AVOID: different face, different hairstyle, full beard, plastic or airbrushed skin, cartoon or CGI look, distorted hands or fingers, extra limbs, wrong garment color, changed garment design, logos or text on clothes, oversaturated colors, warped background.
 ```
 
 ---
@@ -53,7 +53,12 @@ Keyword gaya boleh mengubah styling (lihat catatan di setiap blok GAYA).
 
 ## Keyword GAYA
 
-**STUDIO** (seperti foto model)
+**COKLAT** (seperti foto model)
+```
+warm terracotta-brown studio wall with classic wainscoting panel molding, fluffy white shag rug on the floor, soft bright frontal studio lighting with gentle shadows, clean commercial fashion catalog, framed from head to mid-thigh, standing slightly angled to the camera with hands loosely clasped in front of his waist, calm confident expression, 85mm lens, vertical 9:16
+```
+
+**STUDIO** (gelap, spotlight)
 ```
 dark charcoal seamless studio backdrop with a soft warm circular spotlight glow behind him, moody editorial fashion catalog, full body from head to shoes, standing relaxed with hands in pockets and one leg crossed in front, low-key lighting with soft key light from the front-left, 85mm lens, vertical 9:16
 ```
