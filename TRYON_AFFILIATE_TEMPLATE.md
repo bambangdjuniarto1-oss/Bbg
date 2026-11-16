@@ -201,7 +201,30 @@ grain tipis (sekitar 3%), tanpa color grading berlebihan. Sound trending ditamba
 
 ---
 
-## 7. Log produksi
+## 7. Collart Fashion (AI Fashion Video, motion transfer)
+
+Alur: Step 1 Reference Video (sumber gerakan) → Step 2 Model (foto Rizlan) → Step 3 Clothing
+(foto produk) → Step 4 Output Settings. Gerakan diambil dari video referensi, jadi prompt hanya
+untuk fine-tuning: identitas, styling, kain, dan look kamera. Jangan menulis dialog atau ucapan.
+Biaya sekitar 140 kredit per generate.
+
+Prompt (Step 4):
+```
+Follow the reference video's body motion and timing exactly, real-time natural human movement, no slow motion, no stiff or robotic poses. Keep the model identical to the uploaded photo: same face, warm tan skin, short black side-swept hair, thin moustache and light chin beard, slim tall build, black smartwatch on his left wrist. He wears the uploaded garment exactly: {DESKRIPSI_PRODUK}, untucked. Styled with {CELANA} and {ALAS_KAKI}. Garment color, pattern and collar stay consistent in every frame, including the back view during the turn; fabric wrinkles and moves naturally. Static phone on a tripod at chest height, casual TikTok try-on look, natural indoor lighting, slight phone grain. No text, no mirror, no extra people, no distorted face or hands.
+```
+
+Custom Scene: upload foto lokasi kosong (tanpa orang) atau tulis:
+```
+Textured grey cement wall with two glowing caged industrial wall lamps, black conduit pipe along the wall, large philodendron plant on the right, cement floor, warm evening light from the lamps.
+```
+
+Settings: Background Music OFF (sound trending ditambahkan di TikTok), resolusi tertinggi.
+Durasi mengikuti video referensi, jadi untuk 30 detik buat 2 generate dengan 2 video referensi
+berbeda (≥15 detik), lalu gabung di CapCut.
+
+---
+
+## 8. Log produksi
 
 | # | Tanggal | Produk | Gerakan klip 1 | Gerakan klip 2 | Status |
 |---|---|---|---|---|---|
