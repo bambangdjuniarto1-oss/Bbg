@@ -1,0 +1,572 @@
+{
+ "keywords": [
+  "rompi",
+  "peluit",
+  "12",
+  "cuan",
+  "karyawannya",
+  "hitung",
+  "150",
+  "20",
+  "rp2.000",
+  "rp5.000",
+  "400",
+  "setoran",
+  "pengelola",
+  "4,5",
+  "7,5",
+  "pagi",
+  "malam",
+  "panas",
+  "hujan",
+  "bpjs",
+  "kepastian",
+  "lokasinya",
+  "titik",
+  "uangnya",
+  "simulasi",
+  "beda",
+  "jauh",
+  "parkirnya",
+  "layarnya",
+  "komentar",
+  "follow",
+  "bukan",
+  "nggak"
+ ],
+ "scenes": [
+  {
+   "id": "Q01",
+   "bubble": "Modal **rompi & peluit**",
+   "labels": [
+    {
+     "anchor": "ROMPI",
+     "title": "ROMPI",
+     "sub": "",
+     "color": "orange",
+     "t": 0.45,
+     "lift": 120
+    },
+    {
+     "anchor": "PELUIT",
+     "title": "PELUIT",
+     "sub": "",
+     "color": "blue",
+     "t": 0.95,
+     "lift": 40
+    }
+   ]
+  },
+  {
+   "id": "Q02",
+   "bubble": "Sebulan **Rp12 juta**?",
+   "labels": [
+    {
+     "anchor": "STACK",
+     "title": "Rp12 JUTA / BULAN?",
+     "sub": "",
+     "color": "green",
+     "t": -0.25,
+     "lift": 70
+    }
+   ]
+  },
+  {
+   "id": "Q03",
+   "bubble": "Lebih **cuan** dari karyawan?",
+   "labels": [
+    {
+     "anchor": "JUKIR",
+     "title": "JURU PARKIR",
+     "sub": "",
+     "color": "orange",
+     "t": -2.05,
+     "lift": 60
+    },
+    {
+     "anchor": "KASIR",
+     "title": "KARYAWAN MINIMARKET",
+     "sub": "",
+     "color": "blue",
+     "t": -0.2,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "Q04",
+   "bubble": "Kita **hitung**",
+   "labels": [
+    {
+     "anchor": "CALC",
+     "title": "HITUNG",
+     "sub": "simulasi sederhana",
+     "color": "orange",
+     "t": 0.3,
+     "lift": 60
+    },
+    {
+     "anchor": "STORE",
+     "title": "1 MINIMARKET RAMAI",
+     "sub": "",
+     "color": "green",
+     "t": 1.4,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "Q05",
+   "bubble": "**150 motor** + **20 mobil**",
+   "labels": [
+    {
+     "anchor": "MOTOR",
+     "title": "150 MOTOR / HARI",
+     "sub": "",
+     "color": "blue",
+     "t": -0.9,
+     "lift": 70
+    },
+    {
+     "anchor": "MOBIL",
+     "title": "20 MOBIL / HARI",
+     "sub": "",
+     "color": "orange",
+     "t": 1.2,
+     "lift": 70
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "",
+    "title": "KENDARAAN PER HARI",
+    "start": 0,
+    "keys": [
+     [
+      -0.95,
+      150
+     ],
+     [
+      1.2,
+      170
+     ]
+    ],
+    "max": 170,
+    "unit": "kendaraan",
+    "t": -1.1,
+    "dur": 1.0,
+    "target_text": "motor + mobil"
+   }
+  },
+  {
+   "id": "Q06",
+   "bubble": "Motor **Rp2.000**, mobil **Rp5.000**",
+   "labels": [
+    {
+     "anchor": "MOTOR",
+     "title": "MOTOR Rp2.000",
+     "sub": "",
+     "color": "blue",
+     "t": -0.95,
+     "lift": 60
+    },
+    {
+     "anchor": "MOBIL",
+     "title": "MOBIL Rp5.000",
+     "sub": "",
+     "color": "orange",
+     "t": 0.05,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "Q07",
+   "bubble": "Sebulan **Rp12 juta**",
+   "labels": [
+    {
+     "anchor": "DAY",
+     "title": "Rp400 RB / HARI",
+     "sub": "",
+     "color": "blue",
+     "t": -2.75,
+     "lift": 50
+    },
+    {
+     "anchor": "CAL",
+     "title": "× 30 HARI",
+     "sub": "",
+     "color": "orange",
+     "t": -1.35,
+     "lift": 50
+    },
+    {
+     "anchor": "STACK",
+     "title": "Rp12 JUTA / BULAN",
+     "sub": "",
+     "color": "green",
+     "t": -0.1,
+     "lift": 60
+    }
+   ],
+   "panels": [
+    {
+     "type": "table",
+     "title": "PEMASUKAN PARKIR (SIMULASI)",
+     "cols": [
+      "HITUNGAN",
+      "NILAI"
+     ],
+     "widths": [
+      460,
+      280
+     ],
+     "rows": [
+      [
+       "150 motor × Rp2.000",
+       "Rp300 rb"
+      ],
+      [
+       "20 mobil × Rp5.000",
+       "Rp100 rb"
+      ],
+      [
+       "Sehari",
+       "Rp400 rb"
+      ],
+      [
+       "Sebulan (30 hari)",
+       "Rp12 jt"
+      ]
+     ],
+     "row_t": [
+      -3.2,
+      -3.0,
+      -2.7,
+      -0.7
+     ],
+     "red_col": -1,
+     "y": 600
+    }
+   ]
+  },
+  {
+   "id": "Q08",
+   "bubble": "Tapi **nggak semua** masuk kantong",
+   "labels": [
+    {
+     "anchor": "POUCH",
+     "title": "KANTONG JUKIR",
+     "sub": "",
+     "color": "orange",
+     "t": -0.2,
+     "lift": 50
+    },
+    {
+     "anchor": "TOP",
+     "title": "BUKAN MILIK JUKIR",
+     "sub": "",
+     "color": "red",
+     "t": 0.35,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "Q09",
+   "bubble": "Ada **setoran** ke pengelola",
+   "labels": [
+    {
+     "anchor": "PIN",
+     "title": "BANYAK TITIK PARKIR",
+     "sub": "",
+     "color": "green",
+     "t": -2.9,
+     "lift": 60
+    },
+    {
+     "anchor": "HQ",
+     "title": "PENGELOLA",
+     "sub": "",
+     "color": "purple",
+     "t": -0.6,
+     "lift": 60
+    },
+    {
+     "anchor": "SETOR",
+     "title": "SETORAN Rp150 RB / HARI",
+     "sub": "contoh",
+     "color": "red",
+     "t": 0.8,
+     "lift": 50
+    }
+   ]
+  },
+  {
+   "id": "Q10",
+   "bubble": "Setoran **Rp4,5 juta**/bulan",
+   "labels": [
+    {
+     "anchor": "SETOR",
+     "title": "SETORAN Rp4,5 JT",
+     "sub": "Rp150 rb × 30 hari",
+     "color": "red",
+     "t": -1.2,
+     "lift": 60
+    },
+    {
+     "anchor": "LAYAR",
+     "title": "PENGELOLA",
+     "sub": "",
+     "color": "purple",
+     "t": 0.6,
+     "lift": 60
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "SETORAN SEBULAN",
+    "start": 0,
+    "to": 4.5,
+    "max": 12,
+    "unit": "juta",
+    "t": -1.4,
+    "dur": 1.0,
+    "decimals": 1,
+    "trim_zero": true,
+    "target_text": "Rp150 rb × 30 hari",
+    "bar": "red"
+   }
+  },
+  {
+   "id": "Q11",
+   "bubble": "Sisa **±Rp7,5 juta**",
+   "labels": [
+    {
+     "anchor": "SISA",
+     "title": "SISA ±Rp7,5 JUTA",
+     "sub": "Rp12 jt − Rp4,5 jt",
+     "color": "green",
+     "t": 0.35,
+     "lift": 60
+    }
+   ],
+   "hud": {
+    "pos": [
+     56,
+     1430
+    ],
+    "prefix": "Rp ",
+    "title": "DIPEGANG JUKIR (SIMULASI)",
+    "start": 12,
+    "keys": [
+     [
+      0.15,
+      7.5
+     ]
+    ],
+    "max": 12,
+    "unit": "juta",
+    "t": 0.05,
+    "dur": 0.8,
+    "decimals": 1,
+    "trim_zero": true,
+    "target_text": "Rp12 jt − Rp4,5 jt"
+   }
+  },
+  {
+   "id": "Q12",
+   "bubble": "Kerja **pagi** sampai **malam**",
+   "labels": [
+    {
+     "anchor": "JUKIR",
+     "title": "DARI PAGI",
+     "sub": "",
+     "color": "orange",
+     "t": -0.75,
+     "lift": 60,
+     "until": 1.3
+    },
+    {
+     "anchor": "JUKIR",
+     "title": "SAMPAI MALAM",
+     "sub": "",
+     "color": "purple",
+     "t": -0.2,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "Q13",
+   "bubble": "Panas, hujan, **tanpa BPJS**",
+   "labels": [
+    {
+     "anchor": "PANAS",
+     "title": "PANAS",
+     "sub": "",
+     "color": "orange",
+     "t": -1.7,
+     "lift": 40
+    },
+    {
+     "anchor": "HUJAN",
+     "title": "HUJAN",
+     "sub": "",
+     "color": "blue",
+     "t": -1.4,
+     "lift": 40
+    },
+    {
+     "anchor": "BPJS",
+     "title": "TANPA BPJS",
+     "sub": "",
+     "color": "red",
+     "t": -0.8,
+     "lift": 50
+    },
+    {
+     "anchor": "Q",
+     "title": "TANPA KEPASTIAN",
+     "sub": "",
+     "color": "red",
+     "t": 0.05,
+     "lift": 50
+    }
+   ]
+  },
+  {
+   "id": "Q14",
+   "bubble": "Yang mahal: **lokasinya**",
+   "labels": [
+    {
+     "anchor": "JASA",
+     "title": "BUKAN JASANYA",
+     "sub": "",
+     "color": "red",
+     "t": -0.65,
+     "lift": 60,
+     "until": 2.7
+    },
+    {
+     "anchor": "LOKASI",
+     "title": "LOKASINYA",
+     "sub": "titik ramai",
+     "color": "green",
+     "t": 0.7,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "Q15",
+   "bubble": "Kuasai **titik ramai**",
+   "labels": [
+    {
+     "anchor": "RAMAI",
+     "title": "TITIK RAMAI",
+     "sub": "",
+     "color": "orange",
+     "t": -0.7,
+     "lift": 60
+    },
+    {
+     "anchor": "UANG",
+     "title": "KUASAI UANGNYA",
+     "sub": "",
+     "color": "green",
+     "t": 1.1,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "Q16",
+   "bubble": "Ini **simulasi**",
+   "labels": [
+    {
+     "anchor": "DOC",
+     "title": "ANGKA SIMULASI",
+     "sub": "bukan data resmi",
+     "color": "red",
+     "t": 0.1,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "Q17",
+   "bubble": "Tiap lokasi **beda jauh**",
+   "labels": [
+    {
+     "anchor": "RAMAI",
+     "title": "RAMAI",
+     "sub": "",
+     "color": "green",
+     "t": -0.5,
+     "lift": 50
+    },
+    {
+     "anchor": "SEDANG",
+     "title": "SEDANG",
+     "sub": "",
+     "color": "orange",
+     "t": -0.1,
+     "lift": 50
+    },
+    {
+     "anchor": "SEPI",
+     "title": "SEPI",
+     "sub": "",
+     "color": "red",
+     "t": 0.3,
+     "lift": 50
+    }
+   ]
+  },
+  {
+   "id": "Q18",
+   "bubble": "Siapa **paling untung**?",
+   "labels": [
+    {
+     "anchor": "JUKIR",
+     "title": "JURU PARKIR?",
+     "sub": "",
+     "color": "orange",
+     "t": -2.05,
+     "lift": 60
+    },
+    {
+     "anchor": "LAYAR",
+     "title": "ORANG DI BALIK LAYAR?",
+     "sub": "",
+     "color": "purple",
+     "t": -0.35,
+     "lift": 60
+    }
+   ]
+  },
+  {
+   "id": "Q19",
+   "bubble": "Tulis di **komentar**",
+   "labels": [
+    {
+     "anchor": "STORE",
+     "title": "TULIS PENDAPATMU",
+     "sub": "di kolom komentar",
+     "color": "orange",
+     "t": 0.2,
+     "lift": 80
+    }
+   ],
+   "cta": 0.2
+  }
+ ]
+}

@@ -181,7 +181,7 @@ CHORDS_F = [
 MOTIF_F = [(0, 74), (.5, 77), (1, 81), (2, 79), (2.5, 77), (3, 76),
            (4, 74), (4.5, 72), (5, 74), (6, 77), (6.5, 76), (7, 72)]
 # variasi G (video bisnis media): gaya beda total, groove hip-hop/business ~94 BPM, lihat render_biz()
-VARIANTS = {"H": "fest", "G": "biz", "A": None, "B": (CHORDS_B, MOTIF_B), "C": (CHORDS_C, MOTIF_C), "D": (CHORDS_D, MOTIF_D),
+VARIANTS = {"I": "street", "H": "fest", "G": "biz", "A": None, "B": (CHORDS_B, MOTIF_B), "C": (CHORDS_C, MOTIF_C), "D": (CHORDS_D, MOTIF_D),
             "E": (CHORDS_E, MOTIF_E), "F": (CHORDS_F, MOTIF_F)}
 
 
@@ -575,6 +575,171 @@ def render_fest(dur, bpm=124.0, brk=(46.4, 54.2)):
     buf /= np.abs(buf).max() / .89
     return buf
 
+# ------------------------------------------------------------------ varian I "street": funk jalanan ~96 BPM
+# Groove boom-bap swing yang jenaka untuk cerita "jalanan": clavinet stab, bass jari bergerak,
+# shaker, motif PELUIT (suara siulan sintetis), peluit parkir "prit-prit-priiit" di awal.
+# Progresi F mayor jazzy: Dm9 - G13 - Cmaj9 - A7(b9) (ii - V - I - VI).
+# Breakdown (bagian "uangnya ke mana"): drum setengah-tempo & teredam, keys minor, lalu drop
+# saat "Pelajarannya".
+STREET_CHORDS = [
+    (38, [53, 57, 60, 64]),        # Dm9  (F A C E)
+    (43, [53, 59, 64, 65]),        # G13  (F B E F)
+    (36, [52, 55, 59, 62]),        # Cmaj9 (E G B D)
+    (33, [55, 58, 61, 64]),        # A7b9 (G Bb C# E)
+]
+STREET_DARK = [
+    (38, [53, 57, 60, 65]),        # Dm
+    (34, [53, 58, 62, 65]),        # Bb
+    (36, [52, 55, 60, 64]),        # C
+    (33, [52, 57, 61, 64]),        # A
+]
+STREET_WHISTLE = [(0, 81), (.5, 84), (1, 86), (1.75, 84), (2.5, 81), (3, 79),
+                  (4, 81), (4.5, 84), (5, 88), (5.75, 86), (6.5, 84), (7, 81)]
+STREET_BASS = [(0, 0, .7), (.75, 0, .2), (1.5, 7, .4), (2, 12, .3), (2.5, 10, .3), (3, 7, .4), (3.5, 5, .4)]
+
+
+def whistle(note, dur, vib=6.0):
+    f = midi(note)
+    t = np.arange(int(dur * SR)) / SR
+    fr = f * (1 + .012 * np.sin(2 * np.pi * vib * t) * np.minimum(1, t / .12)) * (1 - .03 * np.exp(-t * 40))
+    ph = 2 * np.pi * np.cumsum(fr) / SR
+    s = np.sin(ph) + .06 * np.sin(2 * ph)
+    breath = bp(RNG.standard_normal(len(t)), f * .9, f * 1.15) * .25
+    env = np.minimum(1, t / .025) * np.minimum(1, (dur - t) / .05) * (.85 + .15 * np.exp(-t * 3))
+    return (s + breath) * env * .22
+
+
+def parking_whistle():
+    """peluit parkir: prit - prit - priiit (bola di dalam peluit = getaran frekuensi cepat)."""
+    out = []
+    for ln, gap in ((.12, .08), (.12, .1), (.55, 0)):
+        t = np.arange(int(ln * SR)) / SR
+        f = 2900 * (1 + .04 * np.sign(np.sin(2 * np.pi * 38 * t)))
+        ph = 2 * np.pi * np.cumsum(f) / SR
+        s = np.sin(ph) + .3 * bp(RNG.standard_normal(len(t)), 2500, 3400)
+        env = np.minimum(1, t / .008) * np.minimum(1, (ln - t) / .03)
+        out += [s * env * .3, np.zeros(int(gap * SR))]
+    return np.concatenate(out)
+
+
+def clav(note, dur, vel=1.0):
+    f = midi(note)
+    t = np.arange(int(dur * SR)) / SR
+    ph = (f * t) % 1.0
+    s = np.where(ph < .25, 1.0, -.33) + .4 * np.sin(2 * np.pi * f * t)
+    s = bp(s, 300, 3200 * (.6 + .4 * vel))
+    env = np.minimum(1, t / .002) * np.exp(-t * 9) * np.minimum(1, (dur - t) / .01)
+    return s * env * .14 * vel
+
+
+def finger_bass(note, dur):
+    f = midi(note)
+    t = np.arange(int(dur * SR)) / SR
+    s = np.sin(2 * np.pi * f * t) + .35 * np.sin(4 * np.pi * f * t) * np.exp(-t * 8) + .12 * np.sin(6 * np.pi * f * t) * np.exp(-t * 14)
+    env = np.minimum(1, t / .004) * np.exp(-t * 3) * np.minimum(1, (dur - t) / .02)
+    return np.tanh(s * env * 1.3) * .5
+
+
+def shaker():
+    t = np.arange(int(.09 * SR)) / SR
+    return hp(RNG.standard_normal(len(t)), 5500) * np.minimum(1, t / .012) * np.exp(-t * 45) * .25
+
+
+def render_street(dur, bpm=96.0, brk=(21.8, 41.3)):
+    beat = 60.0 / bpm
+    bar = 4 * beat
+    sw = beat / 4 * 1.18                       # 16-an swing: ketukan genap mundur sedikit
+    def s16(i):
+        return (i // 2) * beat / 2 + (i % 2) * sw
+    n_bars = int(np.ceil(dur / bar)) + 1
+    L = int((dur + 4) * SR)
+    dry = np.zeros((2, L))
+    keys = np.zeros((2, L))
+    end_bar = int((dur - 2.6) // bar)
+    b0, b1 = int(round(brk[0] / bar)), int(round(brk[1] / bar))
+    K, SN, H, HO = kick(), snare(), hat(), hat(True)
+    add(dry, .05, parking_whistle(), .55, .15)
+    for b in range(n_bars):
+        if b > end_bar:
+            break
+        t0 = b * bar
+        intro = b < 1
+        breakdown = b0 <= b < b1
+        root, notes = (STREET_DARK if breakdown else STREET_CHORDS)[b % 4]
+        # clavinet: stab sinkop funky
+        stabs = ((0, 1.0), (6, .7), (10, .8), (14, .6)) if not breakdown else ((0, .8), (10, .5))
+        for i, vel in stabs:
+            for j, nt in enumerate(notes):
+                add(keys, t0 + s16(i) + j * .006, clav(nt, beat * .45, vel), 1.0, -.3 + .2 * j)
+        add(keys, t0, epiano(notes[0] - 12, bar * .9, .5), .5, 0)
+        if breakdown:
+            for k in (0, 2):
+                add(keys, t0 + k * beat, bell(notes[(k + 2) % 4] + 12, 1.4), .3, .3)
+        if intro:
+            for k in range(8):
+                add(dry, t0 + k * beat / 2, shaker(), .8, .3)
+            add(dry, t0 + bar - beat, swell(beat), .8)
+            continue
+        if b == 1 or b == b1:
+            add(dry, t0, impact(), .75)
+        if breakdown:
+            # setengah tempo, teredam
+            add(dry, t0, K, .7)
+            add(dry, t0 + 2 * beat, SN, .35, .05)
+            for k in range(4):
+                add(dry, t0 + k * beat, H, .12, .3)
+            add(dry, t0, finger_bass(root - 12, bar * .9), .55)
+            if b == b1 - 1:
+                add(dry, t0 + bar - 2 * beat, swell(2 * beat), 1.0)
+                for r in range(8):
+                    add(dry, t0 + bar - 2 * beat + r * beat / 4, SN, .1 + .05 * r, .05)
+            continue
+        # drum boom-bap swing
+        for i in range(16):
+            tt_ = t0 + s16(i)
+            if i in (0, 7, 10) or (b % 2 and i == 15):
+                add(dry, tt_, K, .95)
+            if i in (4, 12):
+                add(dry, tt_, SN, .8, .05)
+            if i % 2 == 0:
+                add(dry, tt_, HO if i == 14 and b % 2 else H, .34 if i % 4 == 0 else .22, .3)
+            add(dry, tt_, shaker(), .36 if i % 2 else .22, -.35)
+            if i in (3, 13) and b % 2 == 0:
+                add(dry, tt_, rim(), .5, -.4)
+        # bass jari bergerak
+        for bt, iv, ln in STREET_BASS:
+            add(dry, t0 + bt * beat, finger_bass(root + iv - 12 + (0 if iv < 12 else 0), ln * beat + .05), .8)
+        # motif peluit: 2 dari tiap 4 bar (setelah intro & setelah drop)
+        ref = b1 if b >= b1 else 1
+        if (b - ref) % 4 < 2:
+            off = 0 if (b - ref) % 2 == 0 else 4
+            for bt, nt in STREET_WHISTLE:
+                if off <= bt < off + 4:
+                    nxt = [x for x, _ in STREET_WHISTLE if x > bt]
+                    ln = min(((nxt[0] if nxt else 8) - bt) * beat * .9, .6)
+                    add(keys, t0 + (bt - off) * beat, whistle(nt, ln), .55, .2)
+        if b % 8 == 7 and b + 1 <= end_bar:
+            add(dry, t0 + bar - beat, swell(beat), .8)
+    # breakdown: keys sedikit teredam
+    i0, i1 = int(b0 * bar * SR), int(b1 * bar * SR)
+    for ch in range(2):
+        keys[ch, i0:i1] = lp(keys[ch, i0:i1], 1400)
+        dry[ch, i0:i1] = lp(dry[ch, i0:i1], 2500)
+    buf = dry + reverb(keys, 1.6, .25)
+    tend = (end_bar + 1) * bar
+    root, notes = STREET_CHORDS[2]
+    add(buf, tend, impact(2.6), .7)
+    add(buf, tend, finger_bass(root - 12, 2.6), .9)
+    for i, nt in enumerate(notes):
+        add(buf, tend + i * .02, epiano(nt, 2.8), .9, -.3 + .2 * i)
+    add(buf, tend + .3, parking_whistle(), .45, .15)
+    buf = buf[:, : int(dur * SR)]
+    fade = int(.5 * SR)
+    buf[:, -fade:] *= np.linspace(1, 0, fade)
+    buf = np.tanh(buf * 1.1) / np.tanh(1.1)
+    buf /= np.abs(buf).max() / .89
+    return buf
+
 
 def main():
     ap = argparse.ArgumentParser()
@@ -586,6 +751,10 @@ def main():
     a = ap.parse_args()
     import soundfile as sf
     global CHORDS, MOTIF
+    if VARIANTS[a.variant] == "street":
+        sf.write(a.out, render_street(a.dur, a.bpm, tuple(a.brk)).T, SR, subtype="PCM_16")
+        print("wrote", a.out)
+        return
     if VARIANTS[a.variant] == "fest":
         sf.write(a.out, render_fest(a.dur, a.bpm, tuple(a.brk)).T, SR, subtype="PCM_16")
         print("wrote", a.out)
