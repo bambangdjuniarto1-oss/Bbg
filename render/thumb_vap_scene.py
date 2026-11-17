@@ -46,11 +46,33 @@ def build():
     fl.visible_camera = False
 
 
+def build_diorama():
+    """kota diorama melayang di dunia neon: botol raksasa 3 lapis jadi monumen di plaza,
+    dikelilingi toko vape (toko), pabrik liquid (brand), KAS NEGARA (negara)."""
+    import scenes_vap as SV
+    SV.city(1, focus=None, center_clear=48, traffic=True, people=True)
+    V.vape_store_day("shop", (-26, 4, .24))
+    V.factory_day("fac", (28, 16, .24))
+    V.gov_day("gov", (0, 22, .24))
+    V.disc_ped("pd", 9.2, "n_cyan", (0, -6, .24), em=4.0, h=.8)
+    b = V.bottle("hero", 5.6, PORSI, label=False, pita=True, liquid_em=1.5, loc=(0, -6, 1.04))
+    b["root"].rotation_euler = (0, 0, math.radians(-14))
+    return b
+
+
+CAMS = {
+    # (posisi, target, lens, shift_y)
+    "diorama": ((-70, -104, 84), (-12, -8, 6), 27, .20),
+}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
     ap.add_argument("--res", default="1080x1920")
     ap.add_argument("--samples", type=int, default=64)
+    ap.add_argument("--mode", default="poster", choices=["poster", "diorama"])
+    ap.add_argument("--cam", default=None, help="x,y,z,tx,ty,tz,lens,shift")
     a = ap.parse_args(sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else sys.argv[1:])
     lp.reset()
     W.PLACED.clear()
@@ -58,14 +80,24 @@ def main():
     lp.setup_render(rx, ry, a.samples)
     W.setup_world_light()
     M.glass_setup()
-    V.setup_neon_light()
-    build()
-    cam, tgt = make_camera(lens=24, shift_y=-.115)
-    cam.location = (0, -21.0, 2.6)
-    tgt.location = (0, 2.0, 5.2)
-    cam.data.dof.use_dof = True
-    cam.data.dof.focus_distance = 21.0
-    cam.data.dof.aperture_fstop = 4.0
+    if a.mode == "poster":
+        V.setup_neon_light()
+        build()
+        cam, tgt = make_camera(lens=24, shift_y=-.115)
+        cam.location = (0, -21.0, 2.6)
+        tgt.location = (0, 2.0, 5.2)
+        cam.data.dof.use_dof = True
+        cam.data.dof.focus_distance = 21.0
+        cam.data.dof.aperture_fstop = 4.0
+    else:
+        build_diorama()
+        pos, tg, lens, sh = CAMS["diorama"]
+        if a.cam:
+            v = [float(x) for x in a.cam.split(",")]
+            pos, tg, lens, sh = tuple(v[:3]), tuple(v[3:6]), v[6], v[7]
+        cam, tgt = make_camera(lens=lens, shift_y=sh)
+        cam.location = pos
+        tgt.location = tg
     sc = bpy.context.scene
     sc.frame_set(1)
     sc.render.filepath = a.out
