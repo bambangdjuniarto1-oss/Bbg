@@ -28,6 +28,7 @@ import world_ctd as C  # noqa: E402
 import world_hotel as H  # noqa: E402
 import world_pst as P  # noqa: E402
 import world_vap as V  # noqa: E402
+import world_prk as R  # noqa: E402
 from scenes import key, make_camera, orbit  # noqa: E402
 from scenes_laundry import pop, grow_z, fly, emission_ramp, _anchor_pos  # noqa: E402
 
@@ -205,50 +206,6 @@ def chip(name, key_, s, loc, em=3.0):
 
 
 # ------------------------------------------------------------------ adegan
-def v01(n, A):
-    """HOOK: botol liquid di atas podium, sorot dari atas; kamera sudut rendah mendorong masuk."""
-    sid = "V01"
-    base(grid="vp_grid", rig_c=(0, 0, 2.5))
-    V.disc_ped("pd", 2.4, "n_pink", (0, 0, 0))
-    b = V.bottle("b", 1.25, (("lq_pink", 1),), loc=(0, 0, .5))
-    spin(b["root"], 1, n, 50)
-    bg_bottles(8, (14, 24))
-    P.light_beam("beam", (0, 0, 18), 18, 3.2, "beam_w" if "beam_w" in lp.PAL else "n_pink", .35)
-    tg = (0, 0, 2.6)
-    camera(sid, [(0.0, (tg, -100, -2, 6.4)), (3.83, ((0, 0, 2.3), -72, 14, 9.5))], lens=30, dof=True, fstop=2.4)
-    A["BOTOL"] = (b["root"], (0, 0, .5 + 1.25 * CAP_Z))
-
-
-def v02(n, A):
-    """Siapa dapat bagian terbesar? Toko kiri, pabrik kanan, botol tengah. Kamera atas berputar."""
-    sid = "V02"
-    base(grid="vp_grid", em=1.8, rig_c=(0, 0, 2), rig_s=2.0, key_e=900, rim=1200, fade=(14, 60))
-    V.base_plate("plL", 13, 10, "n_cyan", (-13, 5, 0))
-    V.base_plate("plR", 17, 12, "n_purple", (14, 7, 0))
-    shop = V.vape_shop("shop", (-13, 5, .12))
-    fac = V.brand_factory("fac", (12.5, 7, .12))
-    V.disc_ped("pd", 3.2, "n_pink", (0, -4, 0))
-    b = V.bottle("b", 1.8, (("lq_pink", 1),), loc=(0, -4, .5))
-    spin(b["root"], 1, n, 60)
-    sL = P.spot("sL", (-13, -7, 20), (-13, 5, 2), 0, 40, (.4, .9, 1.0))
-    sR = P.spot("sR", (13, -5, 22), (13, 7, 2), 0, 40, (.8, .5, 1.0))
-    fL, fR, fX = fr(sid, 6.35), fr(sid, 7.22), fr(sid, 8.03)
-    spot_keys(sL, [(1, 0), (fL - 2, 0), (fL + 3, 9000), (fX - 1, 9000), (fX + 3, 1500)])
-    spot_keys(sR, [(1, 0), (fR - 2, 0), (fR + 3, 9000), (fX - 1, 9000), (fX + 3, 1500)])
-    xL = V.xmark("xL", (-13, -1.5, 9.5), 2.2)
-    xR = V.xmark("xR", (13, .5, 11), 2.2)
-    appear(xL, fX, 2.2)
-    appear(xR, fX + 3, 2.2)
-    q = V.qmark("q", (0, -4.5, 8.4), 1.4, "n_gold")
-    appear(q, fr(sid, 4.3), 1.0)
-    bob(q, fr(sid, 4.6), n, .4, 40)
-    tg0, tg1 = (0, 2, 2), (0, 1, 3)
-    camera(sid, [(3.83, (tg0, -124, 56, 40)), (6.6, ((-2, 2, 2), -100, 40, 36)), (8.85, (tg1, -74, 30, 37))], lens=22)
-    A["SHOP"] = (shop["sign"], (0, 0, 1.0))
-    A["FAC"] = (fac["sign"], (0, 0, 1.3))
-    A["BOTOL"] = (b["root"], (0, 0, .5 + 1.8 * CAP_Z))
-
-
 def v03(n, A):
     """Bedah 1 botol 60 ml: cincin pemindai turun, isi terbelah jadi 3 porsi. Kamera crane atas -> depan."""
     sid = "V03"
@@ -286,56 +243,6 @@ def v03(n, A):
         zs.append(zs[-1] + h * s * p / tot)
     for i, nm in enumerate(("TOKO", "BRAND", "TOP")):
         A[nm] = ((0, -1.9, (zs[i] + zs[i + 1]) / 2))
-
-
-def v04(n, A):
-    """Toko vape ambil margin Rp30 rb: kubus cyan terbang dari botol ke toko. Kamera dari kiri menyapu."""
-    sid = "V04"
-    base(grid="vp_grid", em=2.0, rig_c=(0, 0, 2), rig_s=1.6, key_e=1200)
-    shop = V.vape_shop("shop", (-4, 6, 0))
-    V.disc_ped("pd", 2.0, "n_pink", (6, -3, 0))
-    b = V.bottle("b", 1.2, PORSI, label=False, loc=(6, -3, .5))
-    lq = unique_mat(b["layers"][0])
-    fo = fr(sid, 13.0)
-    em_keys(lq, "lq_toko", [(1, 1.3), (fo, 1.3), (fo + 8, .15)])
-    blk = chip("blk", "lq_toko", 1.4, (6, -3, 1.0))
-    p0, p1 = (6, -4.5, 1.0), (-4, 1.6, 0)
-    fly(blk, fo, fr(sid, 13.6), p0, p1, arc=4.0)
-    pop(blk, fo, 1.0)
-    hide_until(blk, fo)
-    rg = V.ring_obj("rg", (-4, 1.6, .05), 2.0, .12, "n_cyan", 6)
-    appear(rg, fr(sid, 13.6), 1.0)
-    camera(sid, [(11.95, ((-1, 2, 2.4), -158, 9, 21)), (13.4, ((0, 1, 2.6), -120, 13, 19)),
-                 (14.53, ((-2, 2, 2.4), -96, 16, 18.5))], lens=24)
-    A["SHOP"] = (shop["sign"], (0, 0, 1.0))
-    A["BLK"] = (blk, (0, 0, 1.6))
-
-
-def v05(n, A):
-    """Brand Rp48 rb lalu dipotong 5 biaya: pilar ungu menyusut tiap ikon muncul. Kamera sudut rendah ke atas."""
-    sid = "V05"
-    base(grid="vp_grid", em=2.0, rig_c=(0, 0, 3), rig_s=1.5, key_e=1300)
-    V.brand_factory("fac", (0, 16, 0))
-    H0 = 7.6
-    pl = V.pillar("pl", H0, 2.8, 2.8, "n_purple", 1.4, 6.0, (0, 0, 0))
-    grow_z(pl, fr(sid, 14.9), fr(sid, 15.7), 1.0)
-    words = [("bahan", 17.23), ("botol", 17.93), ("produksi", 18.19), ("distribusi", 18.64), ("marketing", 19.19)]
-    sc_steps = [.8, .63, .47, .32, .18]
-    pos = [(-4.2, -3.0), (-2.4, -5.6), (0, -6.6), (2.4, -5.6), (4.2, -3.0)]
-    for i, ((kind, t), (x, y)) in enumerate(zip(words, pos)):
-        f = fr(sid, t)
-        ic = V.icon("ic%d" % i, kind, 1.25, (x, y, 0))
-        appear(ic, f, 1.25)
-        key(pl, "scale", f, (1, 1, 1 if i == 0 else sc_steps[i - 1]))
-        key(pl, "scale", f + 5, (1, 1, sc_steps[i]))
-        ch = chip("ch%d" % i, "n_purple", .7, (0, 0, 0))
-        fly(ch, f - 3, f + 4, (0, 0, H0 * (sc_steps[i - 1] if i else 1) - .5), (x, y, 3.4), arc=1.5)
-        hide_until(ch, f - 3)
-        hide_after(ch, f + 5)
-        A["IC%d" % i] = (ic, (0, 0, 3.2))
-    camera(sid, [(14.53, ((0, 0, 5.4), -92, -3, 13)), (16.6, ((0, -2, 3.2), -80, 10, 19)),
-                 (19.77, ((0, -3, 1.8), -100, 28, 23))], lens=[(14.53, 20), (16.6, 20), (19.77, 22)])
-    A["PL"] = (pl, (0, 0, H0))
 
 
 def v06(n, A):
@@ -447,27 +354,6 @@ def v10(n, A):
     A["SMALL"] = (small, (0, 0, .5))
 
 
-def v11(n, A):
-    """Total Rp42 rb terbang masuk gedung negara. Kamera mundur & naik (zoom out)."""
-    sid = "V11"
-    base(grid="vp_grid", em=2.0, rig_c=(0, 6, 3), rig_s=2.0, key_e=1500)
-    gov = V.gov_building("gov", (0, 14, 0), "NEGARA", 1.0)
-    V.base_plate("gp", 18, 11, "n_gold", (0, 14.5, 0))
-    pl = V.pillar("pl", 4.25, 2.6, 2.6, "n_gold", 1.7, 6.0, (0, -2, 0))
-    f0, f1 = fr(sid, 42.6), fr(sid, 43.6)
-    fly(pl, f0, f1, (0, -2, 0), (0, 10.6, 1.0), arc=5.0)
-    key(pl, "scale", f0, (1, 1, 1))
-    key(pl, "scale", f1, (.25, .25, .25))
-    hide_after(pl, f1 + 1)
-    em_keys(unique_mat(gov["trim"]), "n_gold", [(1, 5.0), (f1, 5.0), (f1 + 4, 14.0), (f1 + 16, 6.0)])
-    rg = V.ring_obj("rg", (0, 10.0, .05), 3.5, .14, "n_gold", 8)
-    appear(rg, f1, 1.0)
-    camera(sid, [(41.62, ((0, 0, 2.6), -96, 6, 11)), (42.9, ((0, 4, 3.0), -94, 12, 17)),
-                 (44.27, ((0, 10, 3.6), -82, 22, 34))], lens=24)
-    A["PL"] = (pl, (0, 0, 4.4))
-    A["GOV"] = (gov["sign"], (0, 0, 1.2))
-
-
 def v12(n, A):
     """Tiga pilar: toko, brand (sebagian besar biaya), negara bermahkota. Kamera rendah kiri -> kanan."""
     sid = "V12"
@@ -489,23 +375,6 @@ def v12(n, A):
     A["TOKO"] = (t0, (0, 0, 30 * k))
     A["BRAND"] = (b1, (0, 0, 8 * k))
     A["NEGARA"] = (cr, (0, 0, 1.6))
-
-
-def v13(n, A):
-    """Pasar liquid jadi 'aneh': lorong rak berpendar, kamera dolly menyusuri lorong."""
-    sid = "V13"
-    base(grid="vp_grid", em=1.4, rig_c=(0, 3, 3), rig_s=2.0, key_e=900, rim=1000)
-    V.market_shelves("mk", (0, 0, 0), rows=3, length=34, gap=5.6)
-    odd = W.MB("odd")
-    for x in (-6, 3.5, 10):
-        V.bottle_mb(odd, x, 5.6 - .1, 1.58, .27, "lq_cheap")
-    oo = odd.build()
-    V.glow(oo, {"lq_cheap": 2.0})
-    em_keys(unique_mat(oo), "lq_cheap", [(1, 2.0), (fr(sid, 49.6), 2.0), (fr(sid, 49.8), 9.0), (fr(sid, 50.0), 1.0),
-                                          (fr(sid, 50.2), 9.0), (fr(sid, 50.5), 3.0)])
-    camera(sid, [(46.70, (-14, 2.8, 1.8), (-4, 5.6, 1.8)), (49.0, (-4, 2.6, 2.2), (4, 5.6, 1.6)),
-                 (51.26, (5, 2.2, 3.0), (12, 6, 1.4))], lens=[(46.70, 20), (51.26, 26)])
-    A["ODD"] = ((3.5, 5.0, 2.6))
 
 
 def v14(n, A):
@@ -531,59 +400,6 @@ def v14(n, A):
     A["R"] = (bR["root"], (0, 0, 1.3 * CAP_Z + .6))
 
 
-def v15(n, A):
-    """Bukan efisien: botol tanpa pita memutari gerbang CUKAI (kewajiban dilewati) -> ILEGAL, sirine merah."""
-    sid = "V15"
-    base(grid="vp_grid", em=1.6, rig_c=(0, 0, 2), rig_s=2.0, key_e=1100)
-    V.conveyor("cv", -16, 16, 0, 0, 2.2, "n_cyan")
-    g = V.gate("gt", (0, 0, 0), 4.4, "CUKAI")
-    # botol resmi lewat gerbang
-    f_go = fr(sid, 54.9)
-    for i in range(3):
-        bb = V.bottle("ok%d" % i, .55, (("lq_pink", 1),), label=False, pita=True, loc=(-14 + i * 4.5, 0, .55))
-        fly(bb["root"], f_go, n, (-14 + i * 4.5, 0, .55), (-14 + i * 4.5 + 13, 0, .55))
-    # jalur pintas merah + botol murah
-    path = W.MB("path")
-    pts = [(-12, -2.2), (-5, -2.2), (-3, -6.5), (3, -6.5), (5, -2.2), (12, -2.2)]
-    for (x0, y0), (x1, y1) in zip(pts[:-1], pts[1:]):
-        L_ = math.hypot(x1 - x0, y1 - y0)
-        for k in range(int(L_ / 1.2)):
-            u0, u1 = k * 1.2 / L_, (k * 1.2 + .7) / L_
-            ax, ay = x0 + (x1 - x0) * u0, y0 + (y1 - y0) * u0
-            bx, by = x0 + (x1 - x0) * u1, y0 + (y1 - y0) * u1
-            nx, ny = -(by - ay), (bx - ax)
-            nl = math.hypot(nx, ny) or 1
-            nx, ny = nx / nl * .12, ny / nl * .12
-            path.poly([(ax - nx, ay - ny, .03), (bx - nx, by - ny, .03), (bx + nx, by + ny, .03),
-                       (ax + nx, ay + ny, .03)], [(0, 1, 2, 3)], "n_red")
-    po = path.build()
-    V.glow(po, {"n_red": 6})
-    fpath = fr(sid, 56.4)
-    hide_until(po, fpath)
-    cb = V.bottle("cheap", .65, (("lq_cheap", 1),), label=False, loc=(-12, -2.2, 0))
-    t_pts = [56.4, 56.8, 57.2, 57.6, 58.0, 58.4]
-    for (x, y), t in zip(pts, t_pts):
-        key(cb["root"], "location", fr(sid, t), (x, y, 0))
-    ic = V.icon("gear", "produksi", 1.0, (-8, 5, 0))
-    appear(ic, fr(sid, 55.2), 1.0)
-    xg = V.xmark("xg", (-8, 4.6, 1.2), .9)
-    appear(xg, fr(sid, 55.7), .9)
-    sr, li = V.siren("sr", (5, -6.5, 0), 1.2)
-    flash_f = fr(sid, 58.4)
-    V.flash_siren(sr, li, flash_f, n, 8)
-    stp = C.stamp("ilegal", "ILEGAL", 1.4, "x_red")
-    for ob in [stp] + list(stp.children):
-        V.glow(ob, {"x_red": 6.0})
-    stp.location = (2, -4.0, 5.2)
-    stp.rotation_euler = (math.radians(55), 0, math.radians(-8))
-    appear(stp, flash_f, 1.0)
-    camera(sid, [(54.68, ((0, -1, 0), -62, 58, 30)), (57.0, ((0, -2.5, 0), -84, 62, 25)),
-                 (59.28, ((1, -3.5, 1), -104, 52, 21))], lens=24)
-    A["GEAR"] = (ic, (0, 0, 2.4))
-    A["CHEAP"] = (cb["root"], (0, 0, 2.2))
-    A["GATE"] = (g["sign"], (0, 0, .8))
-
-
 def v16(n, A):
     """Pelajaran: pai harga jual Rp120 rb terbelah ke 3 pihak. Kamera atas berputar lalu turun."""
     sid = "V16"
@@ -598,21 +414,6 @@ def v16(n, A):
         A[["TOKO", "BRAND", "NEGARA"][i]] = (ob, (mx * 2.6, my * 2.6, 1.3))
     camera(sid, [(59.28, ((0, 0, 0), -90, 80, 30)), (61.5, ((0, 0, .5), -130, 62, 31)),
                  (64.40, ((0, 0, .8), -165, 42, 30))], lens=24)
-
-
-def v17(n, A):
-    """'Kamu tahu nggak Rp42 rb itu buat negara?' Balok emas di podium, gedung negara di belakang; orbit cepat."""
-    sid = "V17"
-    base(grid="vp_grid", em=1.8, rig_c=(0, 0, 2), rig_s=1.6, key_e=1500)
-    V.gov_building("gov", (0, 16, 0), "NEGARA", .9)
-    V.disc_ped("pd", 2.6, "n_gold", (0, 0, 0))
-    pl = V.pillar("pl", 3.0, 2.4, 2.4, "n_gold", 1.8, 7.0, (0, 0, .5))
-    q = V.qmark("q", (0, -.3, 5.4), 1.0, "n_pink")
-    appear(q, fr(sid, 67.3), 1.0)
-    bob(q, fr(sid, 67.6), n, .25, 30)
-    camera(sid, [(64.40, ((0, 2, 2.6), -150, 10, 15)), (66.5, ((0, 2, 2.8), -95, 14, 14)),
-                 (68.71, ((0, 3, 3.0), -40, 18, 16))], lens=24, dof=True, fstop=6.0)
-    A["PL"] = (pl, (0, 0, 3.2))
 
 
 def v18(n, A):
@@ -631,51 +432,253 @@ def v18(n, A):
     A["S2"] = (t2, (0, 0, 2.4))
 
 
+
+# ================================================================== adegan KOTA SIANG (template seri)
+CITY = {"V01", "V02", "V04", "V05", "V11", "V13", "V15", "V17", "V19", "V20"}
+
+
+def city(n, **kw):
+    V.setup_day_light()
+    return V.town(n_frames=n, **kw)
+
+
+def v01(n, A):
+    """HOOK (kota): kamera menukik dari udara ke botol raksasa di plaza depan toko vape."""
+    sid = "V01"
+    city(n, focus="vape")
+    V.disc_ped("pd", 2.6, "n_pink", (0, -7, .24), em=3.0)
+    b = V.bottle("b", 1.5, (("lq_pink", 1),), loc=(0, -7, .74))
+    spin(b["root"], 1, n, 50)
+    camera(sid, [(0.0, ((0, -2, 2), -104, 50, 85)), (2.2, ((0, -5, 3), -92, 22, 26)),
+                 (3.83, ((0, -6, 3.4), -76, 10, 15))], lens=24)
+    A["BOTOL"] = (b["root"], (0, 0, .74 + 1.5 * CAP_Z))
+
+
+def v02(n, A):
+    """Siapa dapat bagian terbesar? (kota) Toko vape kiri, pabrik kanan, botol di tengah. Kamera udara."""
+    sid = "V02"
+    info = city(n, focus=None, center_clear=48)
+    shop = V.vape_store_day("shop", (-24, 4, .24))
+    fac = V.factory_day("fac", (26, 18, .24))
+    V.disc_ped("pd", 2.8, "n_pink", (0, -8, .24), em=3.0)
+    b = V.bottle("b", 1.6, (("lq_pink", 1),), loc=(0, -8, .74))
+    spin(b["root"], 1, n, 60)
+    q = V.qmark("q", (0, -8.5, 7.6), 1.4, "n_gold")
+    appear(q, fr(sid, 4.3), 1.0)
+    bob(q, fr(sid, 4.6), n, .4, 40)
+    for nm, loc, t, k in (("pinL", (-24, 2, 12), 6.35, "n_cyan"), ("pinR", (22, 2, 16), 7.22, "n_purple")):
+        rg = V.ring_obj(nm, (loc[0], loc[1] - 4, .3), 9.0, .35, k, 4.0)
+        appear(rg, fr(sid, t), 1.0)
+    xL = V.xmark("xL", (-24, -1.5, 12), 3.0)
+    xR = V.xmark("xR", (22, 1, 16), 3.0)
+    appear(xL, fr(sid, 8.03), 3.0)
+    appear(xR, fr(sid, 8.03) + 3, 3.0)
+    camera(sid, [(3.83, ((0, -6, 3), -100, 30, 34)), (5.6, ((-6, -3, 3), -104, 34, 44)),
+                 (6.5, ((-22, 2, 4), -100, 30, 40)), (7.0, ((-20, 2, 4), -96, 30, 40)),
+                 (7.4, ((20, 6, 5), -88, 32, 52)), (7.9, ((20, 6, 5), -84, 32, 54)),
+                 (8.85, ((0, 2, 4), -90, 42, 84))], lens=24)
+    A["SHOP"] = (shop["sign"], (0, 0, 1.4))
+    A["FAC"] = (fac["sign"], (6, 0, 1.6))
+    A["BOTOL"] = (b["root"], (0, 0, .74 + 1.6 * CAP_Z))
+
+
+def v04(n, A):
+    """Toko ambil margin Rp30 rb (kota): kubus cyan terbang dari botol ke kasir toko. Kamera dari kiri."""
+    sid = "V04"
+    city(n, focus="vape")
+    V.disc_ped("pd", 2.2, "n_pink", (9, -8, .24), em=3.0)
+    b = V.bottle("b", 1.3, PORSI, label=False, loc=(9, -8, .74))
+    lq = unique_mat(b["layers"][0])
+    fo = fr(sid, 13.0)
+    em_keys(lq, "lq_toko", [(1, 1.3), (fo, 1.3), (fo + 8, .15)])
+    blk = chip("blk", "lq_toko", 1.6, (9, -8, 1.0))
+    fly(blk, fo, fr(sid, 13.6), (9, -9.5, 1.2), (0, 3.6, 1.2), arc=6.0)
+    pop(blk, fo, 1.0)
+    hide_until(blk, fo)
+    rg = V.ring_obj("rg", (0, 2.6, .3), 2.6, .16, "n_cyan", 5)
+    appear(rg, fr(sid, 13.6), 1.0)
+    camera(sid, [(11.95, ((0, -2, 3), -150, 12, 34)), (13.4, ((2, -3, 3), -118, 15, 29)),
+                 (14.53, ((1, -3, 3), -96, 18, 27))], lens=24)
+    A["SHOP"] = ((0, 3.8, 5.0))
+    A["BLK"] = (blk, (0, 0, 1.8))
+
+
+def v05(n, A):
+    """Brand Rp48 rb dipotong 5 biaya (kota): pilar ungu di depan pabrik menyusut tiap ikon muncul."""
+    sid = "V05"
+    city(n, focus="factory")
+    H0 = 7.6
+    pl = V.pillar("pl", H0, 2.8, 2.8, "n_purple", 1.4, 6.0, (0, -7, .24))
+    grow_z(pl, fr(sid, 14.9), fr(sid, 15.7), 1.0)
+    words = [("bahan", 17.23), ("botol", 17.93), ("produksi", 18.19), ("distribusi", 18.64), ("marketing", 19.19)]
+    sc_steps = [.8, .63, .47, .32, .18]
+    pos = [(-4.6, -9.5), (-2.6, -12.4), (0, -13.4), (2.6, -12.4), (4.6, -9.5)]
+    for i, ((kind, t), (x, y)) in enumerate(zip(words, pos)):
+        f = fr(sid, t)
+        ic = V.icon("ic%d" % i, kind, 1.25, (x, y, .24))
+        appear(ic, f, 1.25)
+        key(pl, "scale", f, (1, 1, 1 if i == 0 else sc_steps[i - 1]))
+        key(pl, "scale", f + 5, (1, 1, sc_steps[i]))
+        ch = chip("ch%d" % i, "n_purple", .7, (0, 0, 0))
+        fly(ch, f - 3, f + 4, (0, -7, H0 * (sc_steps[i - 1] if i else 1) - .5), (x, y, 3.4), arc=1.5)
+        hide_until(ch, f - 3)
+        hide_after(ch, f + 5)
+        A["IC%d" % i] = (ic, (0, 0, 3.2))
+    camera(sid, [(14.53, ((0, -6, 5.6), -92, -2, 15)), (16.6, ((0, -8, 3.4), -82, 10, 21)),
+                 (19.77, ((0, -6, 3.0), -100, 26, 32))], lens=[(14.53, 20), (16.6, 20), (19.77, 22)])
+    A["PL"] = (pl, (0, 0, H0))
+
+
+def v11(n, A):
+    """Total Rp42 rb masuk ke negara (kota): pilar emas terbang masuk gedung KAS NEGARA. Kamera mundur & naik."""
+    sid = "V11"
+    info = city(n, focus="gov")
+    pl = V.pillar("pl", 4.25, 2.6, 2.6, "n_gold", 1.7, 6.0, (0, -9, .24))
+    f0, f1 = fr(sid, 42.6), fr(sid, 43.6)
+    fly(pl, f0, f1, (0, -9, .24), (0, 2.5, 1.0), arc=6.0)
+    key(pl, "scale", f0, (1, 1, 1))
+    key(pl, "scale", f1, (.25, .25, .25))
+    hide_after(pl, f1 + 1)
+    rg = V.ring_obj("rg", (0, 1.0, .35), 4.0, .2, "n_gold", 6)
+    appear(rg, f1, 1.0)
+    camera(sid, [(41.62, ((0, -8, 2.8), -96, 6, 13)), (42.9, ((0, -3, 3.4), -94, 14, 24)),
+                 (44.27, ((0, 2, 4.0), -80, 24, 46))], lens=24)
+    A["PL"] = (pl, (0, 0, 4.4))
+    A["GOV"] = (info["focus"]["sign"], (0, 0, 1.2))
+
+
+def v13(n, A):
+    """Pasar liquid jadi 'aneh' (kota): deretan toko vape + lapak gelap tanpa pita; kamera dolly sepanjang jalan."""
+    sid = "V13"
+    city(n, focus="market", center_clear=52)
+    st = V.shady_stall("stall", (10, -7, .24))
+    em_keys(unique_mat(st), "lq_cheap", [(1, 2.0), (fr(sid, 49.6), 2.0), (fr(sid, 49.8), 9.0), (fr(sid, 50.0), 1.0),
+                                          (fr(sid, 50.2), 9.0), (fr(sid, 50.5), 3.0)])
+    camera(sid, [(46.70, (-48, -16, 5), (-32, 2, 3)), (49.0, (-14, -17, 5.5), (2, 0, 2.6)),
+                 (51.26, (16, -18, 6.5), (30, 2, 2.4))], lens=[(46.70, 20), (51.26, 24)])
+    A["ODD"] = (st, (0, 0, 3.6))
+
+
+def v15(n, A):
+    """Bukan efisien, kewajiban dilewati -> ILEGAL (kota): gerbang CUKAI melintang jalan, mobil boks resmi lewat
+    gerbang; van gelap memutar lewat plaza (jalur merah), sirine & cap ILEGAL."""
+    sid = "V15"
+    city(n, focus=None, people=False)
+    emp = bpy.data.objects.new("gate_root", None)
+    lp._link(emp)
+    emp.location = (0, -27, 0)
+    emp.rotation_euler.z = math.radians(90)
+    g = V.gate("gt", (0, 0, 0), 15.0, "CUKAI")
+    for ob in (g["body"], g["arm"], g["trim"], g["sign"]):
+        ob.parent = emp
+    ok = V.box_van("ok", (-40, -23.2, 0))
+    for t, x in ((54.68, -40), (56.0, -6), (56.8, -6), (58.0, 16), (59.28, 30)):
+        key(ok, "location", fr(sid, t), (x, -23.2, 0))
+    smooth(ok)
+    path = W.MB("path")
+    pts = [(-30, -30.8), (-12, -30.8), (-8, -12), (8, -12), (12, -23.2), (30, -23.2)]
+    for (x0, y0), (x1, y1) in zip(pts[:-1], pts[1:]):
+        L_ = math.hypot(x1 - x0, y1 - y0)
+        for k in range(int(L_ / 1.6)):
+            u0, u1 = k * 1.6 / L_, (k * 1.6 + 1.0) / L_
+            ax, ay = x0 + (x1 - x0) * u0, y0 + (y1 - y0) * u0
+            bx, by = x0 + (x1 - x0) * u1, y0 + (y1 - y0) * u1
+            nx, ny = -(by - ay), (bx - ax)
+            nl = math.hypot(nx, ny) or 1
+            nx, ny = nx / nl * .2, ny / nl * .2
+            path.poly([(ax - nx, ay - ny, .35), (bx - nx, by - ny, .35), (bx + nx, by + ny, .35),
+                       (ax + nx, ay + ny, .35)], [(0, 1, 2, 3)], "n_red")
+    po = path.build()
+    V.glow(po, {"n_red": 4})
+    hide_until(po, fr(sid, 56.4))
+    bad = V.box_van("bad", (-30, -30.8, 0))
+    bad.data.materials[0] = lp.mat("stall")
+    crates = W.MB("crates")
+    for k in range(4):
+        V.bottle_mb(crates, -1.8 + k * .9, 0, 3.0, .3, "lq_cheap")
+    co = crates.build(parent=bad)
+    V.glow(co, {"lq_cheap": 2.5})
+    t_pts = [56.4, 56.9, 57.4, 57.8, 58.1, 58.6]
+    for (x, y), t in zip(pts, t_pts):
+        key(bad, "location", fr(sid, t), (x, y, .24 if -16 < y < 3 else 0))
+    ic = V.icon("gear", "produksi", 1.6, (-14, -6, .24))
+    appear(ic, fr(sid, 55.2), 1.6)
+    xg = V.xmark("xg", (-14, -6.6, 2.2), 1.3)
+    appear(xg, fr(sid, 55.7), 1.3)
+    sr, li = V.siren("sr", (0, -19.6, 4.6), 1.3)
+    flash_f = fr(sid, 58.4)
+    V.flash_siren(sr, li, flash_f, n, 8)
+    stp = C.stamp("ilegal", "ILEGAL", 2.4, "x_red")
+    for ob in [stp] + list(stp.children):
+        V.glow(ob, {"x_red": 3.0})
+    stp.location = (8, -14, 9)
+    stp.rotation_euler = (math.radians(40), 0, math.radians(-6))
+    appear(stp, flash_f, 1.0)
+    camera(sid, [(54.68, ((-4, -18, 0), -70, 46, 60)), (57.0, ((0, -20, 0), -88, 50, 54)),
+                 (59.28, ((4, -18, 2), -104, 42, 46))], lens=24)
+    A["GEAR"] = (ic, (0, 0, 3.4))
+    A["CHEAP"] = (bad, (0, 0, 4.0))
+    A["GATE"] = ((0, -20, 6))
+
+
+def v17(n, A):
+    """'Kamu tahu nggak Rp42 rb itu buat negara?' (kota): balok emas di plaza depan gedung negara; orbit."""
+    sid = "V17"
+    city(n, focus="gov")
+    V.disc_ped("pd", 2.8, "n_gold", (0, -8, .24), em=3.0)
+    pl = V.pillar("pl", 3.0, 2.4, 2.4, "n_gold", 1.8, 7.0, (0, -8, .74))
+    q = V.qmark("q", (0, -8.3, 5.8), 1.0, "n_pink")
+    appear(q, fr(sid, 67.3), 1.0)
+    bob(q, fr(sid, 67.6), n, .25, 30)
+    camera(sid, [(64.40, ((0, -5, 3.2), -150, 12, 22)), (66.5, ((0, -4, 3.4), -96, 16, 21)),
+                 (68.71, ((0, -3, 3.6), -40, 20, 23))], lens=24)
+    A["PL"] = (pl, (0, 0, 3.4))
+
+
 def v19(n, A):
-    """Kirim ke teman: pesawat kertas terbang dari ponsel ke ponsel teman yang ngeluh 'MAHAL!'."""
+    """Kirim ke teman (kota): dua orang di trotoar, pesawat kertas terbang dari ponsel ke ponsel teman."""
     sid = "V19"
-    base(grid="vp_grid", em=1.8, rig_c=(0, 0, 2.5), rig_s=1.8, key_e=1300)
-    p1 = V.phone("p1", (-6.5, 0, .5), 1.3)
-    p2 = V.phone("p2", (6.5, 2, .5), 1.3, bubbles=(("ph_bub", .6), ("x_red", .7), ("ph_bub", .5)))
+    info = city(n, focus="vape", people=False)
+    a = R.shopper("pa", 1, (-7, -10, .24), 0.4, "phone")
+    b_ = R.shopper("pb", 4, (7, -9, .24), -0.4, "phone")
+    p1 = V.phone("p1", (-8.6, -10.4, .24), .65)
+    p2 = V.phone("p2", (8.6, -9.4, .24), .65, bubbles=(("ph_bub", .6), ("x_red", .7), ("ph_bub", .5)))
     p1.rotation_euler.z = math.radians(15)
     p2.rotation_euler.z = math.radians(-15)
-    V.disc_ped("d1", 2.0, "n_cyan", (-6.5, 0, 0))
-    V.disc_ped("d2", 2.0, "n_pink", (6.5, 2, 0))
-    pl = V.paper_plane("pl", (-6.5, -1, 4.5), 1.0)
+    pl = V.paper_plane("pl", (-8.6, -11, 4.0), .9)
     f0, f1 = fr(sid, 72.6), fr(sid, 73.7)
-    pl.rotation_euler = (0, 0, math.radians(-70))
-    fly(pl, f0, f1, (-6.5, -1, 4.5), (6.0, 1.2, 4.0), arc=3.0)
+    pl.rotation_euler = (0, 0, math.radians(-75))
+    fly(pl, f0, f1, (-8.6, -11, 4.0), (8.2, -10, 3.6), arc=4.0)
     smooth(pl)
     hide_until(pl, f0)
     hide_after(pl, f1 + 2)
-    t, fo = V.neon_sign("mahal", "MAHAL!", (6.5, 2.4, 7.4), 1.1, "n_red", 9)
+    t, fo = V.neon_sign("mahal", "MAHAL!", (7.5, -9.2, 4.6), .9, "n_red", 6)
     appear(t, fr(sid, 74.2), 1.0)
     appear(fo, fr(sid, 74.2), 1.0)
-    camera(sid, [(72.43, ((-5, 0, 3.8), -125, 10, 12)), (73.6, ((0, 1, 4.2), -98, 10, 17)),
-                 (75.45, ((4, 2, 4.4), -72, 10, 13))], lens=24)
-    A["P1"] = (p1, (0, 0, 5.6))
-    A["P2"] = (p2, (0, 0, 5.6))
+    camera(sid, [(72.43, ((-5, -10, 2.4), -122, 10, 15)), (73.6, ((0, -9, 2.8), -98, 12, 20)),
+                 (75.45, ((5, -9, 3.0), -74, 12, 15))], lens=24)
+    A["P1"] = (a["body"] if isinstance(a, dict) and "body" in a else p1, (0, 0, 2.4))
+    A["P2"] = (b_["body"] if isinstance(b_, dict) and "body" in b_ else p2, (0, 0, 2.4))
 
 
 def v20(n, A):
-    """Part 2: modal bikin brand liquid. Benda tertutup kain di podium + papan PART 2; kamera mundur & naik."""
+    """Part 2 (kota): benda tertutup kain di plaza + baliho PART 2; kamera mundur & naik ke udara."""
     sid = "V20"
-    base(grid="vp_grid", em=1.6, rig_c=(0, 0, 3), rig_s=1.4, key_e=1500, rim=1200)
-    V.disc_ped("pd", 3.4, "n_pink", (0, 0, 0))
+    city(n, focus=None, center_clear=22)
+    V.disc_ped("pd", 3.4, "n_pink", (0, -7, .24), em=3.0)
     cl = W.MB("cloth")
     import world_laundry as L
-    L.rbox(cl, -2.2, -1.6, .5, 2.2, 1.6, 3.6, "bd_trim", c=.5)
-    co = cl.build()
-    q = V.qmark("q", (0, -1.7, 1.2), .8, "n_gold", 7)
-    V.neon_sign("p2", "PART 2", (0, 4, 7.2), 1.6, "n_pink", 9)
+    L.rbox(cl, -2.2, -1.6, .5, 2.2, 1.6, 3.6, "vs_awn", c=.5)
+    co = cl.build((0, -7, .24))
+    V.qmark("q", (0, -8.7, 1.4), .8, "n_gold", 4)
+    bb, bt = V.billboard_day("p2", "PART 2", (0, 8, .24), 16, 6, "vs_pink", 1.0)
     for i, (x, kind) in enumerate(((-7, "bahan"), (-4.5, "botol"), (4.5, "produksi"), (7, "marketing"))):
-        ic = V.icon("ic%d" % i, kind, .9, (x, -1, 0), em=2.0)
+        ic = V.icon("ic%d" % i, kind, .9, (x, -8, .24), em=2.0)
         appear(ic, fr(sid, 77.6) + i * 3, .9)
-    bg_bottles(10, (16, 26), seed=8)
-    camera(sid, [(75.45, ((0, 0, 2.4), -92, 6, 9)), (78.0, ((0, 1, 3.6), -86, 12, 17)),
-                 (81.07, ((0, 1.5, 4.0), -96, 20, 25))], lens=24)
-    A["BOX"] = (co, (0, 0, 3.8))
-    A["P2"] = ((0, 4, 9.2))
+    camera(sid, [(75.45, ((0, -7, 2.6), -92, 6, 12)), (78.0, ((0, -3, 5.0), -88, 16, 30)),
+                 (81.07, ((0, 0, 6.0), -96, 30, 58))], lens=24)
+    A["BOX"] = (co, (0, 0, 4.0))
+    A["P2"] = (bt, (0, 0, 4.0))
 
 
 SCENES = {f"V{i:02d}": globals()[f"v{i:02d}"] for i in range(1, 21)}
@@ -700,7 +703,8 @@ def main():
     bpy.context.scene.cycles.denoising_quality = "FAST"
     W.setup_world_light()
     M.glass_setup()
-    V.setup_neon_light()
+    if args.scene not in CITY:
+        V.setup_neon_light()
     sc = bpy.context.scene
     sc.frame_start, sc.frame_end = 1, n
     A = {}

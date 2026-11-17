@@ -7,6 +7,7 @@ src = open("render/scenes_vap.py").read()
 TL = [(a, float(b)) for a, b in re.findall(r'\("(V\d\d)", ([\d.]+)\)', src)]
 END = float(re.search(r"END_T = ([\d.]+)", src).group(1))
 T0 = dict(TL)
+CITY = set(re.search(r"CITY = \{([^}]*)\}", src).group(1).replace('"', "").replace(" ", "").split(","))
 
 
 def lb(anchor, title, t, color="purple", sub="", lift=90, until=None):
@@ -108,7 +109,7 @@ for i, (sid, bub, labels, hud, ts) in enumerate(S):
         l_["t"] = round(l_["t"] - t0, 3)
         if "until" in l_:
             l_["until"] = round(l_["until"], 3)
-    d = dict(id=sid, bubble=bub, labels=labels, tilt=ts)
+    d = dict(id=sid, bubble=bub, labels=labels, tilt=ts, theme="city" if sid in CITY else "neon")
     if hud:
         hud = dict(hud)
         hud["t"] = round(hud["t"] - t0, 3)

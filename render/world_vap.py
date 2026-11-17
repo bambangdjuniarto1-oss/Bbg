@@ -818,3 +818,200 @@ def drop(name, loc, s=1.0, key_="n_gold", em=4.0):
     ob.scale = (s, s, s)
     glow(ob, {key_: em})
     return ob
+
+
+# =================================================================== KOTA SIANG (template seri)
+import world_prk as R  # noqa: E402
+
+lp.PAL.update({
+    "vs_wall": "#FBF7FB", "vs_wall2": "#EADCF5", "vs_pink": "#E8418F", "vs_purple": "#7B4FD6", "vs_glass": "#B9D6E6",
+    "vs_floor": "#E9E3EC", "vs_shelf": "#F4F0F6", "vs_awn": "#8E5BE0", "vs_awn2": "#F06AAA",
+    "tw_plaza": "#D8D1C6", "tw_plaza2": "#CBC3B6", "stall": "#3B3346", "stall_t": "#2E2838", "van": "#F2F3F5",
+    "van2": "#3E6FB0", "bb_frame": "#2F2F38", "bb_face": "#FFFFFF",
+})
+
+
+def vape_store_day(name, loc=(0, 0, 0), w=14.0, d=11.0, accent="vs_pink", sign="TOKO VAPE", seed=3):
+    """toko vape siang: fasad putih-lila, kaca lebar berisi rak botol warna-warni, papan nama, kanopi.
+    Asal = tengah muka toko di tanah, menghadap -Y."""
+    rnd = random.Random(seed)
+    x, y, z = loc
+    h = 7.6
+    mb = W.MB(name)
+    mb.box(-w / 2, 0, 0, w / 2, d, .2, "vs_floor")
+    mb.box(-w / 2, d - .3, 0, w / 2, d, h, "vs_wall")
+    mb.box(-w / 2, 0, 0, -w / 2 + .4, d, h, "vs_wall")
+    mb.box(w / 2 - .4, 0, 0, w / 2, d, h, "vs_wall")
+    mb.box(-w / 2, 0, 3.9, w / 2, d, h, "vs_wall")                  # lantai 2 (masif)
+    mb.box(-w / 2 - .15, -.15, h, w / 2 + .15, d + .15, h + .35, "vs_wall2")
+    for cx in (-w / 4, w / 4):
+        mb.box(cx - 1.6, -.06, 4.9, cx + 1.6, .02, 6.6, "vs_glass")
+    mb.box(-w / 2, -.2, 3.9, w / 2, .05, 4.9, accent)              # papan nama
+    for xx in (-w / 2 + .2, -w / 6, w / 6, w / 2 - .2):
+        mb.box(xx - .1, -.05, 0, xx + .1, .2, 3.9, "vs_wall2")
+    mb.prism_x([(-1.8, 3.6), (0, 3.6), (0, 3.85)], -w / 2, w / 2, "vs_awn")
+    body = mb.build(loc)
+    sh = W.MB(name + "_sh")
+    cols = ["lq_pink", "lq_toko", "lq_brand", "lq_negara", "lq_cheap", "lq_amber"]
+    for zz in (.6, 1.6, 2.6):
+        sh.box(-w / 2 + .8, d - 1.4, zz - .06, w / 2 - .8, d - .4, zz, "vs_shelf")
+        xx = -w / 2 + 1.1
+        while xx < w / 2 - 1:
+            bottle_mb(sh, xx, d - .9, zz, .17, rnd.choice(cols))
+            xx += .52
+    sh.box(-3, 3.2, 0, 3, 4.2, 1.1, "vs_wall2")                    # meja kasir
+    so = sh.build(loc)
+    glow(so, {c: 1.2 for c in cols})
+    gl = W.MB(name + "_gl")
+    gl.box(-w / 2 + .4, -.02, .2, w / 2 - .4, .04, 3.9, "vs_glass")
+    go = gl.build(loc)
+    set_mat(go, glass_tint("vs_glass", .22))
+    sg = H.text(name + "_sign", sign, .78, "c_white", depth=.08, loc=(x, y - .25, z + 4.03), emission=.6)
+    li = P.point(name + "_li", (x, y + d / 2, z + 3.2), 500, (1, .9, .95), 2.5)
+    return {"body": body, "shelf": so, "glass": go, "sign": sg, "light": li}
+
+
+def factory_day(name, loc=(0, 0, 0), sign="PABRIK LIQUID"):
+    mb, top = M.factory(name)
+    ob = mb.build(loc)
+    t = H.text(name + "_sign", sign, 1.2, "vs_purple", depth=.25, loc=(loc[0] - 8.25, loc[1] - 10.2, loc[2] + 7.75 + M.Z),
+               emission=.4)
+    return {"body": ob, "sign": t, "top": top}
+
+
+def gov_day(name, loc=(0, 0, 0), sign="KAS NEGARA", w=20.0, d=12.0):
+    mb, top = H.gov_office(name, w, d)
+    ob = mb.build(loc)
+    t = H.text(name + "_sign", sign, .8, "c_white", depth=.1,
+               loc=(loc[0], loc[1] - d / 2 - 2.62, loc[2] + H.Z + 5.25), emission=.4)
+    return {"body": ob, "sign": t, "top": top}
+
+
+def shady_stall(name, loc=(0, 0, 0)):
+    """lapak gelap pinggir jalan (liquid tanpa pita), tenda hitam + meja botol hijau."""
+    mb = W.MB(name)
+    for sx in (-2, 2):
+        for sy in (-1.4, 1.4):
+            mb.box(sx - .06, sy - .06, 0, sx + .06, sy + .06, 2.6, "stall")
+    mb.prism_x([(-1.8, 2.6), (1.8, 2.6), (0, 3.4)], -2.4, 2.4, "stall_t")
+    mb.box(-1.8, -1.0, 0, 1.8, -.2, .9, "stall")
+    for k in range(8):
+        bottle_mb(mb, -1.5 + k * .42, -.6, .9, .14, "lq_cheap")
+    ob = mb.build(loc)
+    glow(ob, {"lq_cheap": 2.0})
+    return ob
+
+
+def box_van(name, loc=(0, 0, 0), rot=0.0):
+    mb = W.MB(name)
+    L.rbox(mb, -2.6, -1.0, .5, 1.2, 1.0, 3.0, "van", c=.12)
+    L.rbox(mb, 1.2, -1.0, .5, 2.6, 1.0, 2.3, "van2", c=.15)
+    mb.box(2.0, -1.02, 1.4, 2.62, 1.02, 2.1, "cr_glass")
+    for wx in (-1.6, 1.8):
+        for wy in (-1.0, 1.0):
+            mb.disc_y(wx, wy + (.15 if wy > 0 else 0), .45, .45, .3, "tire2", n=12)
+    ob = mb.build(loc, rot)
+    return ob
+
+
+def billboard_day(name, body, loc, w=16.0, h=6.0, key_="vs_pink", em=1.5):
+    mb = W.MB(name)
+    for sx in (-w / 3, w / 3):
+        mb.box(sx - .25, -.25, 0, sx + .25, .25, 8, "bb_frame")
+    mb.box(-w / 2 - .3, -.3, 8, w / 2 + .3, .3, 8 + h + .6, "bb_frame")
+    mb.box(-w / 2, -.36, 8.3, w / 2, -.3, 8 + h + .3, key_)
+    ob = mb.build(loc)
+    glow(ob, {key_: em})
+    t = H.text(name + "_t", body, h * .55, "c_white", depth=.1, loc=(loc[0], loc[1] - .42, loc[2] + 8.3 + h * .2),
+               emission=1.5)
+    return ob, t
+
+
+def town(seed=3, focus="vape", people=True, bikes=True, traffic=True, n_frames=200, ext=150.0, center_clear=22.0,
+         shops=None):
+    """template kota siang (jalan + trotoar + ruko + tiang listrik + pohon + kota jauh). Bangunan fokus di tengah
+    (y=4..): 'vape' | 'gov' | 'factory' | 'market' | None. Return info dict."""
+    rnd = random.Random(seed)
+    g = W.MB("ground")
+    g.box(-ext, -ext, -.3, ext, ext, 0, "pk_ground")
+    g.box(-ext, R.ROAD_Y0, -.02, ext, R.ROAD_Y1, .02, "pk_asph")
+    for xx in range(int(-ext), int(ext), 8):
+        g.box(xx, -27.15, .02, xx + 4, -26.85, .035, "pk_line")
+    for yy in (R.ROAD_Y0 + .5, R.ROAD_Y1 - .5):
+        g.box(-ext, yy - .1, .02, ext, yy + .1, .035, "pk_line")
+    g.box(-ext, R.ROAD_Y1, 0, ext, 2.5, .22, "pk_walk")
+    g.box(-ext, R.ROAD_Y1, 0, ext, R.ROAD_Y1 + .35, .3, "pk_curb")
+    g.box(-center_clear, -16, 0, center_clear, 2.5, .24, "tw_plaza")
+    for k in range(-int(center_clear), int(center_clear), 3):
+        g.box(k, -16, .24, k + .08, 2.5, .245, "tw_plaza2")
+    g.box(-ext, R.ROAD_Y0 - 3.2, 0, ext, R.ROAD_Y0, .26, "pk_walk")
+    g.box(-ext, R.ROAD_Y0 - .35, 0, ext, R.ROAD_Y0, .3, "pk_curb")
+    g.build()
+    b = W.MB("bldg")
+    cc = center_clear
+    R.ruko(b, -60, -cc - 1, 2.5, 14, rnd)
+    R.ruko(b, cc + 1, 60, 2.5, 14, rnd)
+    R.ruko(b, -116, -62, 2.5, 14, rnd, floors=3)
+    R.ruko(b, 62, 116, 2.5, 14, rnd, floors=3)
+    b.box(-ext, -ext, 0, ext, R.ROAD_Y0 - 3.2, .1, "pk_grass")
+    for side in (-1, 1):                         # tiang listrik hanya jauh dari pusat (tidak menutup kamera)
+        xs = [side * x for x in range(66, 111, 22)]
+        for xx in xs:
+            R.power_pole(b, xx, -18.6)
+        R.wires(b, sorted(xs), -18.6, 11.0)
+    for xx in range(-96, 97, 12):
+        if abs(xx) > 10:
+            C.street_tree(b, xx + 5, -36.2, 1.1, rnd)
+    for xx in (-cc + 2, cc - 2):
+        C.street_tree(b, xx, -14.5, 1.0, rnd)
+    b.build()
+    f = W.MB("far")
+    for k in range(46):
+        xx = -150 + k * 6.7 + rnd.uniform(-1, 1)
+        yy = 80 + rnd.uniform(0, 40)
+        w, h = rnd.uniform(5, 9), rnd.uniform(8, 34)
+        f.box(xx, yy, 0, xx + w, yy + w, h, rnd.choice(("ct_glass", "ct_glass2", "ct_con", "ct_white", "ct_glass3")))
+    f.box(-150, 22, 0, 150, 78, .05, "pk_grass")
+    for k in range(60):
+        C.street_tree(f, rnd.uniform(-140, 140), rnd.uniform(26, 76), rnd.uniform(1.0, 1.6), rnd)
+    f.build()
+    info = {"focus": None, "people": [], "cars": []}
+    if focus == "vape":
+        info["focus"] = vape_store_day("shop", (0, 4, .24))
+    elif focus == "gov":
+        info["focus"] = gov_day("gov", (0, 10, .24))
+    elif focus == "factory":
+        info["focus"] = factory_day("fac", (0, 16, .24))
+    elif focus == "market":
+        cols = ["vs_pink", "vs_purple", "vs_awn2", "vs_awn", "vs_pink"]
+        info["focus"] = [vape_store_day(f"shop{i}", (-40 + i * 20, 4, .22), 15, 10, cols[i], seed=i + 2)
+                         for i in range(5)]
+    if bikes:
+        k = 0
+        for i in range(36):
+            xx = rnd.choice((-1, 1)) * rnd.uniform(cc + 2, 58)
+            R.motor(f"bk{k}", (xx, rnd.uniform(-3, 0), .22), math.pi / 2 + rnd.uniform(-.1, .1), rnd.choice(R.BIKE_COLS),
+                    .78)
+            k += 1
+    if people:
+        for k in range(7):
+            xx = rnd.uniform(-cc + 3, cc - 3)
+            p = R.shopper(f"sh{k}", k, (xx, rnd.uniform(-12, -4), .24), rnd.uniform(-.8, .8))
+            info["people"].append(p)
+    if traffic:
+        for k in range(4):
+            lane = -23.2 if k % 2 == 0 else -30.8
+            dirn = 1 if lane > -27 else -1
+            cr = R.car(f"tc{k}", (0, lane, 0), 0 if dirn > 0 else math.pi, R.CAR_COLS[k % len(R.CAR_COLS)], .9)
+            x0 = rnd.uniform(-90, 60) * dirn
+            sp = 9.0
+            for fk in (1, n_frames):
+                cr.location.x = x0 + dirn * sp * (fk - 1) / 30
+                cr.keyframe_insert("location", frame=fk)
+            info["cars"].append(cr)
+    return info
+
+
+def setup_day_light():
+    """cahaya siang template seri (matahari hangat + langit terang)."""
+    R.setup_prk_light()

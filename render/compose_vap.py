@@ -163,7 +163,7 @@ def dotted(v):
     return f"{int(round(v)):,}".replace(",", ".")
 
 
-def draw_hero(img, h, tg):
+def draw_hero(img, h, tg, city=False):
     t_in, t_out = tg - h["t0"], h["t1"] - tg
     if t_in < 0 or t_out < -.15:
         return
@@ -199,11 +199,13 @@ def draw_hero(img, h, tg):
     d, dg = ImageDraw.Draw(layer), ImageDraw.Draw(glow_l)
     x = (lw - tw) / 2
     for t, hl in parts:
-        d.text((x, 0), t, font=f, fill=col + (255,) if hl else (255, 255, 255, 255))
+        d.text((x, 0), t, font=f, fill=col + (255,) if hl else (255, 255, 255, 255),
+               stroke_width=7 if city else 0, stroke_fill=(24, 14, 36, 255))
         dg.text((x, 0), t, font=f, fill=col + (255,) if hl else (255, 255, 255, 120))
         x += f.getlength(t)
     if sub:
-        d.text(((lw - fs.getlength(sub)) / 2, lh + 10), sub, font=fs, fill=(240, 232, 255, 225))
+        d.text(((lw - fs.getlength(sub)) / 2, lh + 10), sub, font=fs, fill=(240, 232, 255, 235),
+               stroke_width=4 if city else 0, stroke_fill=(24, 14, 36, 255))
     glow_l = glow_l.filter(ImageFilter.GaussianBlur(16))
     shadow = Image.new("RGBA", layer.size, (0, 0, 0, 0))
     shadow.putalpha(layer.getchannel("A").filter(ImageFilter.GaussianBlur(10)).point(lambda v: int(v * .7)))
@@ -303,12 +305,16 @@ def do_scene(job):
                         st["rot"])
         img = tilt_shift(img, sc.get("tilt", 0))
         arr = np.asarray(img, np.float32)
-        arr = bloom(arr) * VIGNETTE
+        city = sc.get("theme") == "city"
+        arr = bloom(arr, .12 if city else .55) * (VIGNETTE * .35 + .65 if city else VIGNETTE)
         if st["flash"]:
             v, col = st["flash"]
             arr = arr * (1 - v) + np.array(col, np.float32) * v
         img = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8)).convert("RGBA")
-        draw_dark_header(img)
+        if city:
+            C.draw_header(img, 470, 640)
+        else:
+            draw_dark_header(img)
         pos = anch["frames"][str(k)]
         if sc.get("hud"):
             hud = sc["hud"]
@@ -328,7 +334,7 @@ def do_scene(job):
                          lb.get("lift", 110))
         for h in cfg["hero"]:
             if h["t0"] - .01 <= tg <= h["t1"] + .2:
-                draw_hero(img, h, tg)
+                draw_hero(img, h, tg, city)
         for c in cfg.get("comments", []):
             if anch["t0"] <= c["t"] <= anch["t1"] + 5 and tg >= c["t"] and sc["id"] == "V18":
                 draw_comment(img, c, tg)

@@ -13,7 +13,8 @@
      "lift": 70
     }
    ],
-   "tilt": 0
+   "tilt": 0,
+   "theme": "city"
   },
   {
    "id": "V02",
@@ -36,7 +37,8 @@
      "lift": 70
     }
    ],
-   "tilt": 0.5
+   "tilt": 0.5,
+   "theme": "city"
   },
   {
    "id": "V03",
@@ -67,7 +69,8 @@
      "lift": 60
     }
    ],
-   "tilt": 0
+   "tilt": 0,
+   "theme": "neon"
   },
   {
    "id": "V04",
@@ -82,7 +85,8 @@
      "lift": 70
     }
    ],
-   "tilt": 0
+   "tilt": 0,
+   "theme": "city"
   },
   {
    "id": "V05",
@@ -129,7 +133,8 @@
      "lift": 40
     }
    ],
-   "tilt": 0
+   "tilt": 0,
+   "theme": "city"
   },
   {
    "id": "V06",
@@ -152,7 +157,8 @@
      "lift": 50
     }
    ],
-   "tilt": 0.45
+   "tilt": 0.45,
+   "theme": "neon"
   },
   {
    "id": "V07",
@@ -167,7 +173,8 @@
      "lift": 70
     }
    ],
-   "tilt": 0
+   "tilt": 0,
+   "theme": "neon"
   },
   {
    "id": "V08",
@@ -190,7 +197,8 @@
      "lift": 50
     }
    ],
-   "tilt": 0
+   "tilt": 0,
+   "theme": "neon"
   },
   {
    "id": "V09",
@@ -206,6 +214,7 @@
     }
    ],
    "tilt": 0.5,
+   "theme": "neon",
    "hud": {
     "title": "CUKAI 1 BOTOL",
     "start": 0,
@@ -252,7 +261,8 @@
      "lift": 60
     }
    ],
-   "tilt": 0
+   "tilt": 0,
+   "theme": "neon"
   },
   {
    "id": "V11",
@@ -267,7 +277,8 @@
      "lift": 60
     }
    ],
-   "tilt": 0
+   "tilt": 0,
+   "theme": "city"
   },
   {
    "id": "V12",
@@ -298,7 +309,8 @@
      "lift": 50
     }
    ],
-   "tilt": 0
+   "tilt": 0,
+   "theme": "neon"
   },
   {
    "id": "V13",
@@ -313,7 +325,8 @@
      "lift": 60
     }
    ],
-   "tilt": 0.35
+   "tilt": 0.35,
+   "theme": "city"
   },
   {
    "id": "V14",
@@ -336,7 +349,8 @@
      "lift": 60
     }
    ],
-   "tilt": 0
+   "tilt": 0,
+   "theme": "neon"
   },
   {
    "id": "V15",
@@ -360,7 +374,8 @@
      "lift": 60
     }
    ],
-   "tilt": 0.45
+   "tilt": 0.45,
+   "theme": "city"
   },
   {
    "id": "V16",
@@ -391,7 +406,8 @@
      "lift": 60
     }
    ],
-   "tilt": 0.4
+   "tilt": 0.4,
+   "theme": "neon"
   },
   {
    "id": "V17",
@@ -406,13 +422,15 @@
      "lift": 70
     }
    ],
-   "tilt": 0
+   "tilt": 0,
+   "theme": "city"
   },
   {
    "id": "V18",
    "bubble": "Ketik **TAHU** / **BARU TAHU**",
    "labels": [],
-   "tilt": 0
+   "tilt": 0,
+   "theme": "neon"
   },
   {
    "id": "V19",
@@ -435,7 +453,8 @@
      "lift": 50
     }
    ],
-   "tilt": 0
+   "tilt": 0,
+   "theme": "city"
   },
   {
    "id": "V20",
@@ -451,6 +470,7 @@
     }
    ],
    "tilt": 0,
+   "theme": "city",
    "cta": 2.0
   }
  ],
