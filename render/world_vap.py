@@ -207,7 +207,7 @@ def setup_neon_light(world_str=.35):
 
 
 def stage(name="stg", center=(0, 0), size=70.0, sp=2.0, grid_key="vp_grid", grid_em=2.2, fade=(8.0, 40.0),
-          dome=True, dome_r=180.0):
+          dome=True, dome_r=180.0, dome_h=70.0):
     """lantai gelap mengilap + grid neon memudar + kubah cakrawala."""
     cx, cy = center
     fl = W.MB(name + "_floor")
@@ -226,7 +226,7 @@ def stage(name="stg", center=(0, 0), size=70.0, sp=2.0, grid_key="vp_grid", grid
     out = {"floor": f, "grid": go}
     if dome:
         d = W.MB(name + "_dome")
-        d.cyl(cx, cy, -2, 70, dome_r, "vp_dome", n=48)
+        d.cyl(cx, cy, -2, dome_h, dome_r, "vp_dome", n=48)
         do = d.build()
         set_mat(do, dome_mat())
         P.no_light(do)
@@ -928,10 +928,12 @@ def billboard_day(name, body, loc, w=16.0, h=6.0, key_="vs_pink", em=1.5):
 
 
 def town(seed=3, focus="vape", people=True, bikes=True, traffic=True, n_frames=200, ext=150.0, center_clear=22.0,
-         shops=None):
+         shops=None, diorama=False):
     """template kota siang (jalan + trotoar + ruko + tiang listrik + pohon + kota jauh). Bangunan fokus di tengah
     (y=4..): 'vape' | 'gov' | 'factory' | 'market' | None. Return info dict."""
     rnd = random.Random(seed)
+    if diorama:
+        return diorama_town(seed, focus, people, bikes, traffic, n_frames, center_clear)
     g = W.MB("ground")
     g.box(-ext, -ext, -.3, ext, ext, 0, "pk_ground")
     g.box(-ext, R.ROAD_Y0, -.02, ext, R.ROAD_Y1, .02, "pk_asph")
@@ -1015,3 +1017,100 @@ def town(seed=3, focus="vape", people=True, bikes=True, traffic=True, n_frames=2
 def setup_day_light():
     """cahaya siang template seri (matahari hangat + langit terang)."""
     R.setup_prk_light()
+
+
+lp.PAL.update({"dio_soil": "#7A5A44", "dio_soil2": "#946C50", "dio_rock": "#5E4A3E", "dio_base": "#1A1026"})
+DIO = (-46.0, -42.0, 46.0, 34.0)      # batas blok diorama (x0, y0, x1, y1)
+
+
+def diorama_town(seed=3, focus="vape", people=True, bikes=True, traffic=True, n_frames=200, center_clear=22.0):
+    """kota diorama: satu blok kota terpotong (sisi tanah berlapis) melayang di atas panggung neon."""
+    rnd = random.Random(seed)
+    x0, y0, x1, y1 = DIO
+    g = W.MB("ground")
+    g.box(x0, y0, -.3, x1, y1, 0, "pk_ground")
+    # sisi tanah berlapis + alas gelap
+    g.box(x0, y0, -3.2, x1, y1, -.3, "dio_soil")
+    for z in (-1.1, -2.2):
+        g.box(x0 - .02, y0 - .02, z - .18, x1 + .02, y1 + .02, z, "dio_soil2")
+    g.box(x0 + .4, y0 + .4, -4.2, x1 - .4, y1 - .4, -3.2, "dio_base")
+    g.box(x0, R.ROAD_Y0, -.02, x1, R.ROAD_Y1, .02, "pk_asph")
+    for xx in range(int(x0), int(x1), 8):
+        g.box(xx, -27.15, .02, xx + 4, -26.85, .035, "pk_line")
+    for yy in (R.ROAD_Y0 + .5, R.ROAD_Y1 - .5):
+        g.box(x0, yy - .1, .02, x1, yy + .1, .035, "pk_line")
+    g.box(x0, R.ROAD_Y1, 0, x1, 2.5, .22, "pk_walk")
+    g.box(x0, R.ROAD_Y1, 0, x1, R.ROAD_Y1 + .35, .3, "pk_curb")
+    cc = center_clear
+    g.box(-cc, -16, 0, cc, 2.5, .24, "tw_plaza")
+    for k in range(-int(cc), int(cc), 3):
+        g.box(k, -16, .24, k + .08, 2.5, .245, "tw_plaza2")
+    g.box(x0, R.ROAD_Y0 - 3.2, 0, x1, R.ROAD_Y0, .26, "pk_walk")
+    g.box(x0, R.ROAD_Y0 - .35, 0, x1, R.ROAD_Y0, .3, "pk_curb")
+    g.box(x0, y0, 0, x1, R.ROAD_Y0 - 3.2, .1, "pk_grass")
+    g.build()
+    b = W.MB("bldg")
+    if cc < 40:
+        R.ruko(b, x0 + 1, -cc - 1, 2.5, 14, rnd)
+        R.ruko(b, cc + 1, x1 - 1, 2.5, 14, rnd)
+    for xx in range(int(x0) + 4, int(x1) - 2, 12):
+        if abs(xx + 5) > 10:
+            C.street_tree(b, xx + 5, -38.5, 1.1, rnd)
+    for xx in (-cc + 2, cc - 2):
+        C.street_tree(b, xx, -14.5, 1.0, rnd)
+    # gedung tinggi di tepi belakang blok
+    for k in range(9):
+        xx = x0 + 2 + k * 10 + rnd.uniform(-1, 1)
+        w, h = rnd.uniform(6, 8.5), rnd.uniform(7, 16)
+        b.box(xx, y1 - 10, 0, xx + w, y1 - 10 + w, h, rnd.choice(("ct_glass", "ct_glass2", "ct_con", "ct_white",
+                                                                  "ct_glass3")))
+    b.build()
+    # garis neon di kaki diorama
+    rim = W.MB("dio_rim")
+    t = .12
+    for (ax, ay, bx, by) in ((x0, y0, x1, y0), (x0, y1, x1, y1), (x0, y0, x0, y1), (x1, y0, x1, y1)):
+        rim.box(min(ax, bx) - t, min(ay, by) - t, -3.3, max(ax, bx) + t, max(ay, by) + t, -3.15, "n_pink")
+    ro = rim.build()
+    glow(ro, {"n_pink": 6.0})
+    st = stage(center=(0, -4), size=200, sp=4.0, grid_em=2.2, fade=(60, 190), dome_r=320, dome_h=420)
+    for ob in st.values():
+        ob.location.z = -12.0
+    for k, (bx, by) in enumerate(((x0, y0), (x1, y0), (x0, y1), (x1, y1))):
+        mb_ = W.MB(f"dio_beam{k}")
+        mb_.box(bx - .15, by - .15, -12, bx + .15, by + .15, -4.2, "n_cyan")
+        glow(mb_.build(), {"n_cyan": 5.0})
+    info = {"focus": None, "people": [], "cars": []}
+    if focus == "vape":
+        info["focus"] = vape_store_day("shop", (0, 4, .24))
+    elif focus == "gov":
+        info["focus"] = gov_day("gov", (0, 10, .24))
+    elif focus == "factory":
+        info["focus"] = factory_day("fac", (0, 16, .24))
+    elif focus == "market":
+        cols = ["vs_pink", "vs_purple", "vs_awn2", "vs_awn"]
+        info["focus"] = [vape_store_day(f"shop{i}", (-33 + i * 22, 4, .22), 15, 10, cols[i], seed=i + 2)
+                         for i in range(4)]
+    if bikes:
+        for k in range(18):
+            xx = rnd.choice((-1, 1)) * rnd.uniform(cc + 2, 44)
+            R.motor(f"bk{k}", (xx, rnd.uniform(-3, 0), .22), math.pi / 2 + rnd.uniform(-.1, .1), rnd.choice(R.BIKE_COLS),
+                    .78)
+    if people:
+        for k in range(7):
+            p = R.shopper(f"sh{k}", k, (rnd.uniform(-cc + 3, cc - 3), rnd.uniform(-12, -4), .24), rnd.uniform(-.8, .8))
+            info["people"].append(p)
+    if traffic:
+        for k in range(3):
+            lane = -23.2 if k % 2 == 0 else -30.8
+            dirn = 1 if lane > -27 else -1
+            cr = R.car(f"tc{k}", (0, lane, 0), 0 if dirn > 0 else math.pi, R.CAR_COLS[k % len(R.CAR_COLS)], .9)
+            xs = rnd.uniform(-38, 10) * dirn
+            for fk in (1, n_frames):
+                cr.location.x = max(-42, min(42, xs + dirn * 6.0 * (fk - 1) / 30))
+                cr.keyframe_insert("location", frame=fk)
+            info["cars"].append(cr)
+    sc = bpy.context.scene
+    bg = sc.world.node_tree.nodes["Background"]
+    bg.inputs["Color"].default_value = lp.hex_rgba("#2A1840")
+    bg.inputs["Strength"].default_value = .8
+    return info

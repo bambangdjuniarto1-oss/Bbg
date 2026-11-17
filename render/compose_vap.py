@@ -306,15 +306,12 @@ def do_scene(job):
         img = tilt_shift(img, sc.get("tilt", 0))
         arr = np.asarray(img, np.float32)
         city = sc.get("theme") == "city"
-        arr = bloom(arr, .12 if city else .55) * (VIGNETTE * .35 + .65 if city else VIGNETTE)
+        arr = bloom(arr, .2 if city else .55) * (VIGNETTE * .6 + .4 if city else VIGNETTE)
         if st["flash"]:
             v, col = st["flash"]
             arr = arr * (1 - v) + np.array(col, np.float32) * v
         img = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8)).convert("RGBA")
-        if city:
-            C.draw_header(img, 470, 640)
-        else:
-            draw_dark_header(img)
+        draw_dark_header(img)            # kota diorama juga melayang di dunia neon -> header gelap
         pos = anch["frames"][str(k)]
         if sc.get("hud"):
             hud = sc["hud"]
