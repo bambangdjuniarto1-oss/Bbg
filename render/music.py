@@ -7,6 +7,7 @@ Ada breakdown (drum hilang) saat adegan "cuma nunggu" dan chord penutup di akhir
   python3 render/music.py OUT.wav DURASI_DETIK [--bpm 128] [--break 20.6 24.4]
 """
 import argparse
+import os
 
 import numpy as np
 from scipy.signal import butter, sosfilt
@@ -181,7 +182,7 @@ CHORDS_F = [
 MOTIF_F = [(0, 74), (.5, 77), (1, 81), (2, 79), (2.5, 77), (3, 76),
            (4, 74), (4.5, 72), (5, 74), (6, 77), (6.5, 76), (7, 72)]
 # variasi G (video bisnis media): gaya beda total, groove hip-hop/business ~94 BPM, lihat render_biz()
-VARIANTS = {"I": "street", "H": "fest", "G": "biz", "A": None, "B": (CHORDS_B, MOTIF_B), "C": (CHORDS_C, MOTIF_C), "D": (CHORDS_D, MOTIF_D),
+VARIANTS = {"J": "neon", "I": "street", "H": "fest", "G": "biz", "A": None, "B": (CHORDS_B, MOTIF_B), "C": (CHORDS_C, MOTIF_C), "D": (CHORDS_D, MOTIF_D),
             "E": (CHORDS_E, MOTIF_E), "F": (CHORDS_F, MOTIF_F)}
 
 
@@ -741,6 +742,128 @@ def render_street(dur, bpm=96.0, brk=(21.8, 41.3)):
     return buf
 
 
+NEON_CHORDS = [  # F minor: Fm - Db - Ab - Eb (root bass, nada pad)
+    (41, [65, 68, 72, 75]), (37, [61, 65, 68, 72]), (44, [63, 68, 72, 75]), (39, [62, 67, 70, 75])]
+NEON_ARP = [0, 2, 1, 3, 2, 1, 3, 2]
+NEON_LEAD = [(0, 77), (.75, 80), (1.5, 79), (2, 75), (3, 77), (4, 72), (4.75, 75), (5.5, 77), (6, 80), (7, 79)]
+
+
+def gated_snare():
+    """snare 80-an: badan + derau panjang yang dipotong (gated reverb)."""
+    t = np.arange(int(.42 * SR)) / SR
+    n = bp(RNG.standard_normal(len(t)), 900, 8000)
+    gate = np.where(t < .26, 1.0, np.exp(-(t - .26) * 60))
+    body = np.sin(2 * np.pi * 190 * t) * np.exp(-t * 26)
+    return (n * .5 * np.exp(-t * 4) * gate + body * .55) * .75
+
+
+def pulse_bass(note, dur, cutoff=1100):
+    f = midi(note)
+    t = np.arange(int(dur * SR)) / SR
+    s = np.zeros_like(t)
+    for d in (-.06, .06):
+        ph = (f * (2 ** (d / 12)) * t) % 1.0
+        s += 2 * ph - 1
+    env = np.minimum(1, t / .004) * np.exp(-t * 5) * np.minimum(1, (dur - t) / .01)
+    return lp(s * .5, cutoff) * env * .55
+
+
+def tick_clock():
+    t = np.arange(int(.03 * SR)) / SR
+    return hp(RNG.standard_normal(len(t)), 4000) * np.exp(-t * 220) * .5
+
+
+def render_neon(dur, bpm=100.0, marks=(8.85, 24.47, 29.38, 46.70, 51.26, 64.40)):
+    """synthwave gelap. marks = drop1, break1, drop2, break2, drop3, outro(CTA).
+    Ketukan dijangkar ulang di tiap awal bagian, jadi drop jatuh pas di kata kuncinya."""
+    beat = 60.0 / bpm
+    L = int((dur + 4) * SR)
+    dry = np.zeros((2, L))
+    syn = np.zeros((2, L))
+    d1, b1, d2, b2, d3, oc = marks
+    end = dur
+    secs = [(0.0, d1, "intro"), (d1, b1, "main"), (b1, d2, "break"), (d2, b2, "main2"), (b2, d3, "break2"),
+            (d3, oc, "main3"), (oc, end, "outro")]
+    K, SN, H, HO = kick(), gated_snare(), hat(), hat(True)
+    for s0, s1, kind in secs:
+        nb = int(np.ceil((s1 - s0) / beat))
+        for bt in range(nb):
+            t0 = s0 + bt * beat
+            if t0 >= s1 - .02:
+                break
+            ci = (bt // 4) % 4
+            root, notes = NEON_CHORDS[ci]
+            if bt % 4 == 0:
+                bar_len = min(4 * beat, s1 - t0)
+                pad = sum(saw_pad(n_, bar_len + .3) for n_ in notes)
+                add(syn, t0, pad, .9 if kind not in ("break", "break2") else 1.1, 0)
+            if kind == "intro":
+                for k in range(2):
+                    add(dry, t0 + k * beat / 2, pulse_bass(root, beat / 2 * .9, 500 + 1400 * (t0 / s1)), .7)
+                for k in range(4):
+                    add(dry, t0 + k * beat / 4, tick_clock(), .5 if k == 0 else .25, .4)
+                if bt % 2 == 0:
+                    add(dry, t0, K, .45)
+                continue
+            if kind in ("break", "break2"):
+                if bt == 0:
+                    add(dry, t0, impact(2.8), .9)
+                    add(dry, t0, sub808(root - 12, 2.5), .8)
+                for k in range(2):
+                    add(dry, t0 + k * beat / 2, tick_clock(), .35, -.3)
+                arp = notes[NEON_ARP[bt % 8]] + 12
+                add(syn, t0, bell(arp, 1.2), .25, .3)
+                continue
+            outro = kind == "outro"
+            # drum
+            add(dry, t0, K, .95 if not outro else .7)
+            if bt % 2 == 1:
+                add(dry, t0, SN, .8 if not outro else .55, .05)
+            for k in range(4):
+                add(dry, t0 + k * beat / 4, HO if k == 2 else H, .28 if k == 2 else .2, .3)
+            # bass oktaf 8-an
+            for k in range(2):
+                add(dry, t0 + k * beat / 2, pulse_bass(root + (12 if k else 0), beat / 2 * .85), .85)
+            # arpeggio 16-an
+            if not outro or bt % 2 == 0:
+                for k in range(4):
+                    nt = notes[NEON_ARP[(bt * 4 + k) % 8] % 4] + 12
+                    add(syn, t0 + k * beat / 4, pluck(nt, beat * .5), .32, -.35 + .7 * (k % 2))
+            # lead di main2 & main3 (2 bar dari tiap 4)
+            if kind in ("main2", "main3") and (bt // 8) % 2 == 0:
+                for lt, ln in NEON_LEAD:
+                    if bt % 8 <= lt < bt % 8 + 1:
+                        nxt = [x for x, _ in NEON_LEAD if x > lt]
+                        L_ = ((nxt[0] if nxt else 8) - lt) * beat * .95
+                        add(syn, t0 + (lt - bt % 8) * beat, supersaw(ln, L_), .55, .1)
+        # transisi: riser + snare roll menjelang drop
+        if kind in ("intro", "break", "break2"):
+            rl = min(2.0, s1 - s0 - .2)
+            add(dry, s1 - rl, swell(rl), 1.1)
+            if kind != "intro":
+                for r in range(8):
+                    add(dry, s1 - 2 * beat + r * beat / 4, SN, .12 + .06 * r, .05)
+        if kind in ("main", "main2", "main3"):
+            add(dry, s0, impact(2.4), .8)
+            add(dry, s0, sub808(NEON_CHORDS[0][0] - 12, 1.6), .7)
+    # bagian break & intro: synth diredam
+    for s0, s1, kind in secs:
+        if kind in ("intro", "break", "break2"):
+            i0, i1 = int(s0 * SR), int(s1 * SR)
+            for ch in range(2):
+                syn[ch, i0:i1] = lp(syn[ch, i0:i1], 900 if kind != "intro" else 1400)
+    buf = dry + reverb(syn, 2.2, .3)
+    root, notes = NEON_CHORDS[0]
+    tend = end - 2.2
+    add(buf, tend, impact(2.4), .6)
+    buf = buf[:, : int(dur * SR)]
+    fade = int(1.2 * SR)
+    buf[:, -fade:] *= np.linspace(1, 0, fade)
+    buf = np.tanh(buf * 1.1) / np.tanh(1.1)
+    buf /= np.abs(buf).max() / .89
+    return buf
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("out")
@@ -751,6 +874,11 @@ def main():
     a = ap.parse_args()
     import soundfile as sf
     global CHORDS, MOTIF
+    if VARIANTS[a.variant] == "neon":
+        mk = tuple(float(x) for x in os.environ.get("NEON_MARKS", "8.85,24.47,29.38,46.70,51.26,64.40").split(","))
+        sf.write(a.out, render_neon(a.dur, a.bpm, mk).T, SR, subtype="PCM_16")
+        print("wrote", a.out)
+        return
     if VARIANTS[a.variant] == "street":
         sf.write(a.out, render_street(a.dur, a.bpm, tuple(a.brk)).T, SR, subtype="PCM_16")
         print("wrote", a.out)

@@ -1,0 +1,880 @@
+{
+ "scenes": [
+  {
+   "id": "V01",
+   "bubble": "1 botol liquid **Rp120 ribu**",
+   "labels": [
+    {
+     "anchor": "BOTOL",
+     "title": "LIQUID 60 ML",
+     "sub": "",
+     "color": "pink",
+     "t": 0.9,
+     "lift": 70
+    }
+   ],
+   "tilt": 0
+  },
+  {
+   "id": "V02",
+   "bubble": "Siapa dapat **bagian terbesar**?",
+   "labels": [
+    {
+     "anchor": "SHOP",
+     "title": "PENJUAL?",
+     "sub": "",
+     "color": "cyan",
+     "t": 2.47,
+     "lift": 70
+    },
+    {
+     "anchor": "FAC",
+     "title": "PABRIK?",
+     "sub": "",
+     "color": "purple",
+     "t": 3.32,
+     "lift": 70
+    }
+   ],
+   "tilt": 0.5
+  },
+  {
+   "id": "V03",
+   "bubble": "Kita **bedah** 1 botol 60 ml",
+   "labels": [
+    {
+     "anchor": "TOP",
+     "title": "???",
+     "sub": "",
+     "color": "gold",
+     "t": 1.15,
+     "lift": 60
+    },
+    {
+     "anchor": "BRAND",
+     "title": "BRAND",
+     "sub": "",
+     "color": "purple",
+     "t": 1.65,
+     "lift": 60
+    },
+    {
+     "anchor": "TOKO",
+     "title": "TOKO",
+     "sub": "",
+     "color": "cyan",
+     "t": 2.05,
+     "lift": 60
+    }
+   ],
+   "tilt": 0
+  },
+  {
+   "id": "V04",
+   "bubble": "Toko ambil **margin**",
+   "labels": [
+    {
+     "anchor": "SHOP",
+     "title": "TOKO VAPE",
+     "sub": "",
+     "color": "cyan",
+     "t": 0.25,
+     "lift": 70
+    }
+   ],
+   "tilt": 0
+  },
+  {
+   "id": "V05",
+   "bubble": "Brand dapat **Rp48 ribu**… tapi",
+   "labels": [
+    {
+     "anchor": "IC0",
+     "title": "BAHAN BAKU",
+     "sub": "",
+     "color": "green",
+     "t": 2.7,
+     "lift": 40
+    },
+    {
+     "anchor": "IC1",
+     "title": "BOTOL",
+     "sub": "",
+     "color": "cyan",
+     "t": 3.4,
+     "lift": 70
+    },
+    {
+     "anchor": "IC2",
+     "title": "PRODUKSI",
+     "sub": "",
+     "color": "orange",
+     "t": 3.66,
+     "lift": 40
+    },
+    {
+     "anchor": "IC3",
+     "title": "DISTRIBUSI",
+     "sub": "",
+     "color": "gold",
+     "t": 4.11,
+     "lift": 70
+    },
+    {
+     "anchor": "IC4",
+     "title": "MARKETING",
+     "sub": "",
+     "color": "pink",
+     "t": 4.66,
+     "lift": 40
+    }
+   ],
+   "tilt": 0
+  },
+  {
+   "id": "V06",
+   "bubble": "Untung bersih **jauh lebih kecil**",
+   "labels": [
+    {
+     "anchor": "GHOST",
+     "title": "Rp48 RB (KOTOR)",
+     "sub": "",
+     "color": "purple",
+     "t": 0.23,
+     "lift": 40
+    },
+    {
+     "anchor": "SMALL",
+     "title": "UNTUNG BERSIH",
+     "sub": "",
+     "color": "green",
+     "t": 0.83,
+     "lift": 50
+    }
+   ],
+   "tilt": 0.45
+  },
+  {
+   "id": "V07",
+   "bubble": "**Rp42 ribu** sisanya ke mana?",
+   "labels": [
+    {
+     "anchor": "TOP",
+     "title": "???",
+     "sub": "",
+     "color": "gold",
+     "t": 0.83,
+     "lift": 70
+    }
+   ],
+   "tilt": 0
+  },
+  {
+   "id": "V08",
+   "bubble": "Wajib pakai **pita cukai**",
+   "labels": [
+    {
+     "anchor": "PITA",
+     "title": "PITA CUKAI",
+     "sub": "",
+     "color": "cyan",
+     "t": 1.37,
+     "lift": 60
+    },
+    {
+     "anchor": "DROP",
+     "title": "1 ML",
+     "sub": "",
+     "color": "gold",
+     "t": 2.52,
+     "lift": 50
+    }
+   ],
+   "tilt": 0
+  },
+  {
+   "id": "V09",
+   "bubble": "60 ml × **Rp636**",
+   "labels": [
+    {
+     "anchor": "GRID",
+     "title": "60 ML = 60 × Rp636",
+     "sub": "",
+     "color": "gold",
+     "t": 1.11,
+     "lift": 60
+    }
+   ],
+   "tilt": 0.5,
+   "hud": {
+    "title": "CUKAI 1 BOTOL",
+    "start": 0,
+    "keys": [
+     [
+      1.11,
+      0
+     ],
+     [
+      2.76,
+      38160
+     ]
+    ],
+    "max": 42000,
+    "unit": "",
+    "t": 0.61,
+    "dur": 1.6,
+    "prefix": "Rp ",
+    "target_text": "60 ml × Rp636",
+    "pos": [
+     56,
+     1430
+    ]
+   }
+  },
+  {
+   "id": "V10",
+   "bubble": "Ditambah **pajak rokok**",
+   "labels": [
+    {
+     "anchor": "BIG",
+     "title": "CUKAI ±Rp38 RB",
+     "sub": "",
+     "color": "gold",
+     "t": 0.13,
+     "lift": 60
+    },
+    {
+     "anchor": "SMALL",
+     "title": "PAJAK ROKOK ±Rp4 RB",
+     "sub": "±10% dari cukai",
+     "color": "orange",
+     "t": 0.83,
+     "lift": 60
+    }
+   ],
+   "tilt": 0
+  },
+  {
+   "id": "V11",
+   "bubble": "**Rp42 ribu** masuk ke negara",
+   "labels": [
+    {
+     "anchor": "GOV",
+     "title": "NEGARA",
+     "sub": "",
+     "color": "gold",
+     "t": 1.78,
+     "lift": 60
+    }
+   ],
+   "tilt": 0
+  },
+  {
+   "id": "V12",
+   "bubble": "Bagian **paling besar**",
+   "labels": [
+    {
+     "anchor": "TOKO",
+     "title": "TOKO Rp30 RB",
+     "sub": "",
+     "color": "cyan",
+     "t": 0.23,
+     "lift": 50
+    },
+    {
+     "anchor": "BRAND",
+     "title": "BRAND Rp48 RB",
+     "sub": "sebagian besar biaya",
+     "color": "purple",
+     "t": 0.63,
+     "lift": 70
+    },
+    {
+     "anchor": "NEGARA",
+     "title": "NEGARA Rp42 RB",
+     "sub": "utuh",
+     "color": "gold",
+     "t": 1.08,
+     "lift": 50
+    }
+   ],
+   "tilt": 0
+  },
+  {
+   "id": "V13",
+   "bubble": "Pasar liquid jadi **\"aneh\"**",
+   "labels": [
+    {
+     "anchor": "ODD",
+     "title": "TANPA PITA CUKAI?",
+     "sub": "",
+     "color": "red",
+     "t": 1.3,
+     "lift": 60
+    }
+   ],
+   "tilt": 0.35
+  },
+  {
+   "id": "V14",
+   "bubble": "Tanpa pita cukai = **lebih murah**",
+   "labels": [
+    {
+     "anchor": "L",
+     "title": "RESMI",
+     "sub": "ada pita cukai",
+     "color": "green",
+     "t": 0.19,
+     "lift": 60
+    },
+    {
+     "anchor": "R",
+     "title": "TANPA PITA CUKAI",
+     "sub": "jauh lebih murah",
+     "color": "red",
+     "t": 0.64,
+     "lift": 60
+    }
+   ],
+   "tilt": 0
+  },
+  {
+   "id": "V15",
+   "bubble": "Bukan efisien, tapi **ilegal**",
+   "labels": [
+    {
+     "anchor": "GEAR",
+     "title": "LEBIH EFISIEN?",
+     "sub": "bukan",
+     "color": "orange",
+     "t": 0.52,
+     "lift": 50,
+     "until": 4.0
+    },
+    {
+     "anchor": "CHEAP",
+     "title": "KEWAJIBAN DILEWATI",
+     "sub": "",
+     "color": "red",
+     "t": 1.92,
+     "lift": 60
+    }
+   ],
+   "tilt": 0.45
+  },
+  {
+   "id": "V16",
+   "bubble": "**Pelajarannya**",
+   "labels": [
+    {
+     "anchor": "TOKO",
+     "title": "TOKO Rp30 RB",
+     "sub": "",
+     "color": "cyan",
+     "t": 2.62,
+     "lift": 60
+    },
+    {
+     "anchor": "BRAND",
+     "title": "BRAND Rp48 RB",
+     "sub": "",
+     "color": "purple",
+     "t": 3.02,
+     "lift": 60
+    },
+    {
+     "anchor": "NEGARA",
+     "title": "NEGARA Rp42 RB",
+     "sub": "",
+     "color": "gold",
+     "t": 3.42,
+     "lift": 60
+    }
+   ],
+   "tilt": 0.4
+  },
+  {
+   "id": "V17",
+   "bubble": "Kamu **tahu nggak**?",
+   "labels": [
+    {
+     "anchor": "PL",
+     "title": "CUKAI + PAJAK",
+     "sub": "",
+     "color": "gold",
+     "t": 0.6,
+     "lift": 70
+    }
+   ],
+   "tilt": 0
+  },
+  {
+   "id": "V18",
+   "bubble": "Ketik **TAHU** / **BARU TAHU**",
+   "labels": [],
+   "tilt": 0
+  },
+  {
+   "id": "V19",
+   "bubble": "Kirim ke temen yang **ngeluh mahal**",
+   "labels": [
+    {
+     "anchor": "P1",
+     "title": "KAMU",
+     "sub": "",
+     "color": "cyan",
+     "t": 0.17,
+     "lift": 50
+    },
+    {
+     "anchor": "P2",
+     "title": "TEMEN YANG NGELUH",
+     "sub": "\"liquid mahal!\"",
+     "color": "red",
+     "t": 1.47,
+     "lift": 50
+    }
+   ],
+   "tilt": 0
+  },
+  {
+   "id": "V20",
+   "bubble": "Part 2: **modal bikin brand**",
+   "labels": [
+    {
+     "anchor": "BOX",
+     "title": "MODAL BIKIN BRAND?",
+     "sub": "",
+     "color": "pink",
+     "t": 2.45,
+     "lift": 60
+    }
+   ],
+   "tilt": 0,
+   "cta": 2.0
+  }
+ ],
+ "hero": [
+  {
+   "t0": 1.55,
+   "t1": 3.75,
+   "text": "**Rp120.000**",
+   "sub": "1 botol liquid 60 ml",
+   "style": "pink",
+   "size": 124,
+   "count": {
+    "t0": 1.55,
+    "t1": 2.25,
+    "frm": 0,
+    "to": 120000,
+    "fmt": "Rp{}"
+   }
+  },
+  {
+   "t0": 8.0,
+   "t1": 8.85,
+   "text": "BUKAN **DUA-DUANYA**",
+   "sub": "",
+   "style": "red",
+   "size": 92
+  },
+  {
+   "t0": 10.3,
+   "t1": 11.9,
+   "text": "**60 ml**",
+   "sub": "dibedah jadi 3 bagian",
+   "style": "pink",
+   "size": 124
+  },
+  {
+   "t0": 13.35,
+   "t1": 14.5,
+   "text": "**Rp30.000**",
+   "sub": "margin toko (contoh)",
+   "style": "cyan",
+   "size": 124,
+   "count": {
+    "t0": 13.35,
+    "t1": 13.85,
+    "frm": 0,
+    "to": 30000,
+    "fmt": "Rp{}"
+   }
+  },
+  {
+   "t0": 15.2,
+   "t1": 17.1,
+   "text": "**Rp48.000**",
+   "sub": "bagian brand (kotor)",
+   "style": "purple",
+   "size": 124,
+   "count": {
+    "t0": 15.2,
+    "t1": 15.75,
+    "frm": 0,
+    "to": 48000,
+    "fmt": "Rp{}"
+   }
+  },
+  {
+   "t0": 20.0,
+   "t1": 24.3,
+   "text": "Untung bersih: **kecil**",
+   "sub": "setelah semua biaya",
+   "style": "green",
+   "size": 96
+  },
+  {
+   "t0": 25.1,
+   "t1": 29.2,
+   "text": "**Rp42.000** ?",
+   "sub": "sisanya ke mana?",
+   "style": "gold",
+   "size": 124,
+   "count": {
+    "t0": 25.1,
+    "t1": 25.6,
+    "frm": 0,
+    "to": 42000,
+    "fmt": "Rp{}"
+   }
+  },
+  {
+   "t0": 31.75,
+   "t1": 34.3,
+   "text": "**Rp636**/ml",
+   "sub": "tarif cukai liquid",
+   "style": "gold",
+   "size": 124
+  },
+  {
+   "t0": 40.35,
+   "t1": 41.55,
+   "text": "+ **Rp4.000**",
+   "sub": "pajak rokok",
+   "style": "orange",
+   "size": 124
+  },
+  {
+   "t0": 41.85,
+   "t1": 44.2,
+   "text": "Total **Rp42.000**",
+   "sub": "masuk ke negara",
+   "style": "gold",
+   "size": 110,
+   "count": {
+    "t0": 41.85,
+    "t1": 42.5,
+    "frm": 38000,
+    "to": 42000,
+    "fmt": "Rp{}"
+   }
+  },
+  {
+   "t0": 49.8,
+   "t1": 51.15,
+   "text": "**\"ANEH\"**",
+   "sub": "",
+   "style": "pink",
+   "size": 150
+  },
+  {
+   "t0": 58.4,
+   "t1": 59.25,
+   "text": "**ILEGAL**",
+   "sub": "",
+   "style": "red",
+   "size": 170
+  },
+  {
+   "t0": 59.5,
+   "t1": 61.2,
+   "text": "**Rp120.000**",
+   "sub": "harga jual, dibagi ke siapa saja?",
+   "style": "pink",
+   "size": 110
+  },
+  {
+   "t0": 66.5,
+   "t1": 68.6,
+   "text": "**Rp42.000**",
+   "sub": "buat negara. Kamu tahu?",
+   "style": "gold",
+   "size": 124
+  }
+ ],
+ "comments": [
+  {
+   "t": 69.38,
+   "text": "TAHU",
+   "y": 1395
+  },
+  {
+   "t": 70.24,
+   "text": "BARU TAHU",
+   "y": 1545
+  }
+ ],
+ "fx": {
+  "impact": [
+   [
+    1.68,
+    0.7
+   ],
+   [
+    8.03,
+    0.8
+   ],
+   [
+    8.85,
+    1.0
+   ],
+   [
+    13.43,
+    0.6
+   ],
+   [
+    15.27,
+    0.6
+   ],
+   [
+    24.47,
+    0.9
+   ],
+   [
+    25.13,
+    0.6
+   ],
+   [
+    29.38,
+    1.0
+   ],
+   [
+    30.67,
+    0.5
+   ],
+   [
+    31.77,
+    0.6
+   ],
+   [
+    37.13,
+    0.7
+   ],
+   [
+    40.39,
+    0.6
+   ],
+   [
+    41.88,
+    0.7
+   ],
+   [
+    43.6,
+    0.8
+   ],
+   [
+    45.35,
+    0.6
+   ],
+   [
+    51.26,
+    1.0
+   ],
+   [
+    58.43,
+    1.4
+   ],
+   [
+    61.4,
+    0.6
+   ],
+   [
+    66.6,
+    0.6
+   ],
+   [
+    69.41,
+    0.6
+   ],
+   [
+    70.26,
+    0.6
+   ],
+   [
+    77.03,
+    0.8
+   ]
+  ],
+  "glitch": [
+   [
+    24.47,
+    0.3
+   ],
+   [
+    25.1,
+    0.25
+   ],
+   [
+    46.7,
+    0.2
+   ],
+   [
+    49.85,
+    0.55
+   ],
+   [
+    58.43,
+    0.5
+   ],
+   [
+    58.95,
+    0.2
+   ]
+  ],
+  "flash": [
+   [
+    8.85,
+    0.6,
+    "w"
+   ],
+   [
+    29.38,
+    0.6,
+    "w"
+   ],
+   [
+    51.26,
+    0.6,
+    "w"
+   ],
+   [
+    58.43,
+    0.8,
+    "r"
+   ],
+   [
+    24.47,
+    0.4,
+    "w"
+   ]
+  ],
+  "trans": [
+   {
+    "t": 3.83,
+    "kind": "zoom"
+   },
+   {
+    "t": 8.85,
+    "kind": "whip"
+   },
+   {
+    "t": 11.95,
+    "kind": "whip_l"
+   },
+   {
+    "t": 14.53,
+    "kind": "zoom_out"
+   },
+   {
+    "t": 19.77,
+    "kind": "whip"
+   },
+   {
+    "t": 24.47,
+    "kind": "zoom"
+   },
+   {
+    "t": 29.38,
+    "kind": "whip_l"
+   },
+   {
+    "t": 34.39,
+    "kind": "zoom"
+   },
+   {
+    "t": 38.82,
+    "kind": "whip"
+   },
+   {
+    "t": 41.62,
+    "kind": "zoom_out"
+   },
+   {
+    "t": 44.27,
+    "kind": "whip_l"
+   },
+   {
+    "t": 46.7,
+    "kind": "zoom"
+   },
+   {
+    "t": 51.26,
+    "kind": "whip"
+   },
+   {
+    "t": 54.68,
+    "kind": "zoom"
+   },
+   {
+    "t": 59.28,
+    "kind": "whip_l"
+   },
+   {
+    "t": 64.4,
+    "kind": "zoom_out"
+   },
+   {
+    "t": 68.71,
+    "kind": "whip"
+   },
+   {
+    "t": 72.43,
+    "kind": "zoom"
+   },
+   {
+    "t": 75.45,
+    "kind": "whip_l"
+   }
+  ]
+ },
+ "keywords": [
+  "Rp120.000",
+  "bagian",
+  "besar",
+  "bedah",
+  "60",
+  "ml",
+  "margin",
+  "Rp30.000",
+  "Rp48.000",
+  "bersihnya",
+  "kecil",
+  "Rp42.000",
+  "pita",
+  "cukai",
+  "Rp636",
+  "Rp38.000",
+  "pajak",
+  "rokok",
+  "Rp4.000",
+  "negara",
+  "aneh",
+  "murah",
+  "efisien",
+  "dilewati",
+  "ilegal",
+  "Pelajarannya",
+  "untung",
+  "jualmu",
+  "TAHU",
+  "BARU",
+  "komentar",
+  "temen",
+  "mahal",
+  "follow",
+  "part",
+  "modal",
+  "brand"
+ ]
+}
