@@ -88,6 +88,15 @@ def load_raw(path):
     return img
 
 
+def grade(img, sc, st):
+    city = sc.get("theme") == "city"
+    img = CV.zoom_crop(img, st["scale"])
+    img = CV.tilt_shift(img, sc.get("tilt", 0))
+    arr = np.asarray(img, np.float32)
+    arr = CV.bloom(arr, .18 if city else .5) * (CV.VIGNETTE * .6 + .4 if city else CV.VIGNETTE)
+    return pale(arr, st["pale"])
+
+
 def do_scene(job):
     sc, prev, a = job
     cfg = json.load(open(a.config))
@@ -102,6 +111,7 @@ def do_scene(job):
     if prev:
         pa = json.load(open(os.path.join(a.render, prev, "anchors.json")))
         tail_prev = (os.path.join(a.render, prev, "frames"), pa["n"], pa.get("tail", 0))
+        prev_sc = next(x for x in cfg["scenes"] if x["id"] == prev)
     city = sc.get("theme") == "city"
     done = 0
     for k in range(1, n_out + 1):
@@ -112,19 +122,16 @@ def do_scene(job):
         t = (k - 1) / FPS
         tg = anch["t0"] + t
         img = load_raw(src)
-        # crossfade dari ekor adegan sebelumnya
+        st = fx_state(tg, sc["id"], fx)
+        arr = grade(img, sc, st)
+        # crossfade dari ekor adegan sebelumnya: ekor diproses dengan gaya adegannya SENDIRI (bloom/tilt/vignette)
+        # supaya tidak ada lonjakan terang/gelap di frame sambungan
         if tail_prev and k <= tail_prev[2]:
             pp = os.path.join(tail_prev[0], f"{tail_prev[1] + k:04d}.png")
             if os.path.exists(pp):
                 u = k / (tail_prev[2] + 1)
                 w = u * u * (3 - 2 * u)
-                img = Image.blend(load_raw(pp), img, w)
-        st = fx_state(tg, sc["id"], fx)
-        img = CV.zoom_crop(img, st["scale"])
-        img = CV.tilt_shift(img, sc.get("tilt", 0))
-        arr = np.asarray(img, np.float32)
-        arr = CV.bloom(arr, .18 if city else .5) * (CV.VIGNETTE * .6 + .4 if city else CV.VIGNETTE)
-        arr = pale(arr, st["pale"])
+                arr = grade(load_raw(pp), prev_sc, fx_state(tg, prev_sc["id"], fx)) * (1 - w) + arr * w
         if st["flash"]:
             v, col = st["flash"]
             arr = arr * (1 - v) + np.array(col, np.float32) * v
@@ -156,6 +163,15 @@ def do_scene(job):
             for c in cfg.get("comments", []):
                 if tg >= c["t"]:
                     CV.draw_comment(img, c, tg)
+        elif tail_prev and prev_sc["id"] == cfg.get("comment_scene") and k <= tail_prev[2]:
+            # kartu komentar memudar bersama crossfade (tidak hilang mendadak)
+            lay = Image.new("RGBA", img.size, (0, 0, 0, 0))
+            for c in cfg.get("comments", []):
+                CV.draw_comment(lay, c, tg)
+            u = k / (tail_prev[2] + 1)
+            al = lay.getchannel("A").point(lambda v: int(v * (1 - u * u * (3 - 2 * u))))
+            lay.putalpha(al)
+            img.alpha_composite(lay)
         CF.draw_bubble_center(img, sc["bubble"], t - .05)
         cur = None
         for s0, s1, parts in subs:
