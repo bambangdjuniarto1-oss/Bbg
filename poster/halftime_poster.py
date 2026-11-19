@@ -1,32 +1,32 @@
 #!/usr/bin/env python3
-"""Poster HALF TIME - PRDN Blue.
+"""Poster HALF TIME - PRDN Blue (tanpa foto pemain).
 
-Background grid PRDN Blue, tulisan HALF TIME, foto pemain, papan skor, watermark.
+Background grid PRDN Blue, tulisan HALF TIME, papan skor, pencetak gol, watermark.
 
 Pemakaian:
-  python3 poster/halftime_poster.py OUTPUT.png --score 1-0 \
+  python3 poster/halftime_poster.py OUTPUT.png --score 2-0 \
       [--home PERSIB] [--away "SHAN UNITED"] [--event "SHOPEE CUP"] \
-      [--players poster/foto/sekulic.png poster/foto/peralta.png] [--size 1080x1350]
+      [--home-goals "SEKULIĆ 12'" "PERALTA 17' (P)"] [--away-goals ...] [--size 1080x1350]
 """
 import argparse
 import os
 
-from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-from goal_poster import HERE, grid_background, load_cutout, watermark_mask
+from goal_poster import grid_background, watermark_mask
 
 BLACK = "/usr/share/fonts/opentype/inter/InterDisplay-Black.otf"
 BOLD = "/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf"
+SEMI = "/usr/share/fonts/opentype/inter/InterDisplay-SemiBold.otf"
 NAVY = (8, 30, 78)
+SHADOW = (2, 16, 45, 255)
 
 
 def font_for_width(path, text, target_w, max_size=None):
     f = ImageFont.truetype(path, 100)
     l, _, r, _ = f.getbbox(text)
     size = int(100 * target_w / (r - l))
-    if max_size:
-        size = min(size, max_size)
-    return ImageFont.truetype(path, size)
+    return ImageFont.truetype(path, min(size, max_size) if max_size else size)
 
 
 def draw_centered(draw, cx, cy, text, font, fill):
@@ -34,79 +34,82 @@ def draw_centered(draw, cx, cy, text, font, fill):
     draw.text((cx - (l + r) / 2, cy - (t + b) / 2), text, font=font, fill=fill)
 
 
-def make_poster(out, score, home, away, event, players, size=(1080, 1350), scales=None):
+def soft_shadow(canvas, mask, blur, offset, strength=0.5):
+    sh = mask.filter(ImageFilter.GaussianBlur(blur)).point(lambda v: round(v * strength))
+    canvas.paste(SHADOW, offset, sh)
+
+
+def make_poster(out, score, home, away, event, home_goals=(), away_goals=(), size=(1080, 1350)):
     W, H = size
     canvas = grid_background(W, H).convert("RGBA")
-    margin = round(W * 0.055)
+    margin = round(W * 0.07)
 
-    # 1) Tulisan HALF TIME raksasa di belakang pemain
-    text = "HALF TIME"
-    font = font_for_width(BLACK, text, W - 2 * margin)
-    l, t, r, b = font.getbbox(text)
-    tx, ty = (W - (r - l)) // 2 - l, round(H * 0.14) - t
+    # 1) HALF / TIME bertumpuk, besar memenuhi lebar
+    font = font_for_width(BLACK, "HALF", W - 2 * margin)
+    hb = font.getbbox("H")
+    cap_h = hb[3] - hb[1]
+    gap = round(cap_h * 0.12)
+    top = round(H * 0.17)
     txt = Image.new("L", (W, H), 0)
-    ImageDraw.Draw(txt).text((tx, ty), text, font=font, fill=255)
-    shadow = txt.filter(ImageFilter.GaussianBlur(W * 0.01)).point(lambda v: v * 0.45)
-    canvas.paste((2, 20, 55, 255), (round(W * 0.006), round(W * 0.01)), shadow)
+    td = ImageDraw.Draw(txt)
+    for i, line in enumerate(["HALF", "TIME"]):
+        f = font_for_width(BLACK, line, W - 2 * margin)
+        l, t, r, b = f.getbbox(line)
+        td.text(((W - (r - l)) / 2 - l, top + i * (cap_h + gap) - t), line, font=f, fill=255)
+    soft_shadow(canvas, txt, W * 0.01, (round(W * 0.006), round(W * 0.01)), 0.45)
     canvas.paste((255, 255, 255, 255), (0, 0), txt)
+    text_bottom = top + 2 * cap_h + gap
 
-    # 2) Pemain (1 atau 2), berdiri di atas papan skor
-    bar_top = round(H * 0.80)
-    cutouts = [load_cutout(p) for p in players]
-    ph = round(H * 0.66)
-    slot = W / len(cutouts)
-    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    scales = scales or [1.0] * len(cutouts)
-    for i, c in enumerate(cutouts):
-        h = round(ph * scales[i])
-        w = round(c.width * h / c.height)
-        if w > slot * 1.25:
-            w = round(slot * 1.25)
-            h = round(c.height * w / c.width)
-        c = c.resize((w, h), Image.LANCZOS)
-        # sedikit merapat ke tengah bila 2 pemain
-        cx = slot * (i + 0.5) + (slot * 0.12 if i == 0 else -slot * 0.12) * (len(cutouts) > 1)
-        layer.alpha_composite(c, (round(cx - w / 2), bar_top + round(H * 0.02) - h))
-    pshadow = layer.getchannel("A").filter(ImageFilter.GaussianBlur(W * 0.018)).point(lambda v: v * 0.6)
-    canvas.paste((2, 16, 45, 255), (round(W * 0.012), round(W * 0.01)), pshadow)
-    canvas.alpha_composite(layer)
-
-    # Garis tepi HALF TIME di depan pemain, agar huruf yang tertutup tetap terbaca
-    stroke = Image.new("L", (W, H), 0)
-    ImageDraw.Draw(stroke).text((tx, ty), text, font=font, fill=0,
-                                stroke_width=max(2, round(W * 0.003)), stroke_fill=255)
-    stroke = ImageChops.subtract(stroke, txt).point(lambda v: round(v * 0.85))
-    canvas.paste((255, 255, 255, 255), (0, 0), stroke)
-
-    # 3) Papan skor
+    # 2) Papan skor
     d = ImageDraw.Draw(canvas)
-    bar_h = round(H * 0.115)
+    bar_h = round(H * 0.11)
+    bar_top = text_bottom + round(H * 0.09)
     bar = (margin, bar_top, W - margin, bar_top + bar_h)
-    sh = Image.new("L", (W, H), 0)
-    ImageDraw.Draw(sh).rounded_rectangle(bar, radius=round(bar_h * 0.18), fill=200)
-    canvas.paste((2, 16, 45, 255), (0, round(W * 0.01)), sh.filter(ImageFilter.GaussianBlur(W * 0.015)))
-    d.rounded_rectangle(bar, radius=round(bar_h * 0.18), fill=(255, 255, 255))
+    radius = round(bar_h * 0.2)
+    m = Image.new("L", (W, H), 0)
+    ImageDraw.Draw(m).rounded_rectangle(bar, radius=radius, fill=220)
+    soft_shadow(canvas, m, W * 0.015, (0, round(W * 0.012)), 0.9)
+    d.rounded_rectangle(bar, radius=radius, fill=(255, 255, 255))
 
-    box_w = round(W * 0.26)
-    box = (W // 2 - box_w // 2, bar_top - round(bar_h * 0.12), W // 2 + box_w // 2, bar_top + bar_h + round(bar_h * 0.12))
-    d.rounded_rectangle(box, radius=round(bar_h * 0.18), fill=NAVY)
-    sfont = font_for_width(BLACK, "0 - 0", box_w * 0.78, max_size=round(bar_h * 0.95))
-    draw_centered(d, W / 2, bar_top + bar_h / 2, score.replace("-", " - "), sfont, (255, 255, 255))
+    box_w = round(W * 0.27)
+    ext = round(bar_h * 0.14)
+    box = (W // 2 - box_w // 2, bar_top - ext, W // 2 + box_w // 2, bar_top + bar_h + ext)
+    d.rounded_rectangle(box, radius=radius, fill=NAVY)
+    sfont = font_for_width(BLACK, "0 - 0", box_w * 0.76, max_size=round(bar_h * 0.95))
+    cy = bar_top + bar_h / 2
+    draw_centered(d, W / 2, cy, score.replace("-", " - "), sfont, (255, 255, 255))
 
     side_w = (box[0] - bar[0]) - round(W * 0.05)
-    nfont = min((font_for_width(BLACK, n, side_w, max_size=round(bar_h * 0.36)) for n in (home, away)),
+    nfont = min((font_for_width(BLACK, n, side_w, max_size=round(bar_h * 0.34)) for n in (home, away)),
                 key=lambda f: f.size)
-    cy = bar_top + bar_h / 2
-    draw_centered(d, (bar[0] + box[0]) / 2, cy, home, nfont, NAVY)
-    draw_centered(d, (box[2] + bar[2]) / 2, cy, away, nfont, NAVY)
+    home_cx, away_cx = (bar[0] + box[0]) / 2, (box[2] + bar[2]) / 2
+    draw_centered(d, home_cx, cy, home, nfont, NAVY)
+    draw_centered(d, away_cx, cy, away, nfont, NAVY)
 
-    # Keterangan kecil di bawah papan skor
+    # 3) Pencetak gol di bawah nama tim masing-masing
+    gfont = ImageFont.truetype(SEMI, round(H * 0.026))
+    _, gt, _, gb = gfont.getbbox("Ag")
+    line_h = round((gb - gt) * 1.5)
+    gy = box[3] + round(H * 0.03)
+    for cx, goals in ((home_cx, home_goals), (away_cx, away_goals)):
+        for i, g in enumerate(goals):
+            draw_centered(d, cx, gy + i * line_h + line_h / 2, g, gfont, (255, 255, 255))
+
+    # 4) Keterangan di bawah
     efont = ImageFont.truetype(BOLD, round(H * 0.022))
-    draw_centered(d, W / 2, (box[3] + H) / 2, f"BABAK PERTAMA  ·  {event}", efont, (255, 255, 255))
+    ey = H - margin - round(H * 0.01)
+    label = f"BABAK PERTAMA  ·  {event}"
+    l, t, r, b = efont.getbbox(label)
+    pad_x, pad_y = round(W * 0.03), round(H * 0.012)
+    pill = (W / 2 - (r - l) / 2 - pad_x, ey - (b - t) / 2 - pad_y,
+            W / 2 + (r - l) / 2 + pad_x, ey + (b - t) / 2 + pad_y)
+    d.rounded_rectangle(pill, radius=round((pill[3] - pill[1]) / 2),
+                        outline=(255, 255, 255), width=max(2, round(W * 0.0025)))
+    draw_centered(d, W / 2, ey, label, efont, (255, 255, 255))
 
-    # 4) Watermark PRDN BLUE.
+    # 5) Watermark PRDN BLUE.
     wm = watermark_mask(round(W * 0.22)).point(lambda v: round(v * 0.95))
-    canvas.paste((255, 255, 255, 255), (margin, margin), wm)
+    canvas.paste((255, 255, 255, 255), (round(W * 0.055), round(W * 0.055)), wm)
 
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
     canvas.convert("RGB").save(out, quality=95)
@@ -116,15 +119,14 @@ def make_poster(out, score, home, away, event, players, size=(1080, 1350), scale
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("out")
-    ap.add_argument("--score", required=True, help="mis. 1-0 (kandang-tamu)")
+    ap.add_argument("--score", required=True, help="mis. 2-0 (kandang-tamu)")
     ap.add_argument("--home", default="PERSIB")
     ap.add_argument("--away", default="SHAN UNITED")
     ap.add_argument("--event", default="SHOPEE CUP")
-    ap.add_argument("--players", nargs="+", default=[os.path.join(HERE, "foto", "sekulic.png"),
-                                                     os.path.join(HERE, "foto", "peralta.png")])
-    ap.add_argument("--scales", nargs="+", type=float, default=[0.87, 0.86],
-                    help="skala tinggi tiap pemain (default: Peralta sedikit dikecilkan)")
+    ap.add_argument("--home-goals", nargs="*", default=[])
+    ap.add_argument("--away-goals", nargs="*", default=[])
     ap.add_argument("--size", default="1080x1350")
     a = ap.parse_args()
     w, h = map(int, a.size.lower().split("x"))
-    print(make_poster(a.out, a.score, a.home.upper(), a.away.upper(), a.event.upper(), a.players, (w, h), a.scales))
+    print(make_poster(a.out, a.score, a.home.upper(), a.away.upper(), a.event.upper(),
+                      a.home_goals, a.away_goals, (w, h)))
