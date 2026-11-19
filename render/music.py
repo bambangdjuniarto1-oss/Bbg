@@ -182,7 +182,7 @@ CHORDS_F = [
 MOTIF_F = [(0, 74), (.5, 77), (1, 81), (2, 79), (2.5, 77), (3, 76),
            (4, 74), (4.5, 72), (5, 74), (6, 77), (6.5, 76), (7, 72)]
 # variasi G (video bisnis media): gaya beda total, groove hip-hop/business ~94 BPM, lihat render_biz()
-VARIANTS = {"J": "neon", "I": "street", "H": "fest", "G": "biz", "A": None, "B": (CHORDS_B, MOTIF_B), "C": (CHORDS_C, MOTIF_C), "D": (CHORDS_D, MOTIF_D),
+VARIANTS = {"K": "vice", "J": "neon", "I": "street", "H": "fest", "G": "biz", "A": None, "B": (CHORDS_B, MOTIF_B), "C": (CHORDS_C, MOTIF_C), "D": (CHORDS_D, MOTIF_D),
             "E": (CHORDS_E, MOTIF_E), "F": (CHORDS_F, MOTIF_F)}
 
 
@@ -864,6 +864,148 @@ def render_neon(dur, bpm=100.0, marks=(8.85, 24.47, 29.38, 46.70, 51.26, 64.40))
     return buf
 
 
+
+# ================================================================== VICE (nuansa GTA VI / Leonida, orisinal)
+VICE_CHORDS = [  # F# minor: F#m9 - Dmaj7 - Bm9 - C#7  (bass root, voicing Rhodes)
+    (42, [57, 61, 64, 68]), (38, [54, 57, 61, 66]), (35, [54, 57, 62, 66]), (37, [53, 56, 59, 65])]
+VICE_HOOK = [(0, 73), (.5, 76), (1, 78), (1.75, 76), (2.5, 73), (3, 71), (4, 69), (4.5, 71), (5, 73), (6, 76),
+             (6.75, 78), (7.25, 80)]
+
+
+def sax(note, dur, vib=5.2):
+    """lead mirip saksofon 80-an: gergaji ber-vibrato + filter + napas."""
+    f = midi(note)
+    t = np.arange(int(dur * SR)) / SR
+    fv = f * (1 + .006 * np.sin(2 * np.pi * vib * t) * np.minimum(1, t / .25))
+    ph = 2 * np.pi * np.cumsum(fv) / SR
+    s = sum(np.sin(k * ph) / k ** 1.15 for k in range(1, 12))
+    s = lp(s, 2600)
+    br = bp(RNG.standard_normal(len(t)), 1200, 4000) * .06
+    env = np.minimum(1, t / .05) * np.minimum(1, (dur - t) / .08)
+    return (s * .22 + br) * env
+
+
+def brass_stab(notes, dur=.42):
+    """stab brass synth (tiupan pendek, filter membuka cepat)."""
+    t = np.arange(int(dur * SR)) / SR
+    out = np.zeros_like(t)
+    for n_ in notes:
+        for dt in (-.06, .06):
+            f = midi(n_) * (1 + dt / 12)
+            out += 2 * ((t * f) % 1) - 1
+    out = lp(out, 2400) * np.exp(-t * 5) * np.minimum(1, t / .008)
+    return out * .09
+
+
+def glide808(n0, n1, dur):
+    """808 meluncur dari n0 ke n1 (khas trap)."""
+    t = np.arange(int(dur * SR)) / SR
+    f = midi(n0) + (midi(n1) - midi(n0)) * np.minimum(1, t / .12)
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    env = np.minimum(1, t / .003) * np.exp(-t * .8) * np.minimum(1, (dur - t) / .03)
+    return np.tanh((np.sin(ph) + .2 * np.sin(2 * ph)) * env * 1.8) * .55
+
+
+def render_vice(dur, bpm=92.0, marks=(8.85, 24.47, 29.38, 46.70, 51.26, 64.40)):
+    """backsound orisinal nuansa GTA VI: Rhodes + bass 808 + drum hip-hop (snare gated 80-an) + stab brass +
+    lead saksofon synth. marks = drop1, break1, drop2, break2, drop3, outro (dijangkar ke kata kunci)."""
+    beat = 60.0 / bpm
+    L = int((dur + 4) * SR)
+    dry = np.zeros((2, L))
+    syn = np.zeros((2, L))
+    d1, b1, d2, b2, d3, oc = marks
+    secs = [(0.0, d1, "intro"), (d1, b1, "main"), (b1, d2, "break"), (d2, b2, "main2"), (b2, d3, "break2"),
+            (d3, oc, "main3"), (oc, dur, "outro")]
+    K, SN, CL, H, HO = kick(), gated_snare(), clap(), hat(), hat(True)
+    for s0, s1, kind in secs:
+        nb = int(np.ceil((s1 - s0) / beat))
+        for bt in range(nb):
+            t0 = s0 + bt * beat
+            if t0 >= s1 - .02:
+                break
+            ci = (bt // 4) % 4
+            root, notes = VICE_CHORDS[ci]
+            brk = kind in ("break", "break2")
+            if bt % 4 == 0:
+                bl = min(4 * beat, s1 - t0)
+                for j, n_ in enumerate(notes):                    # Rhodes sedikit digeser (strum)
+                    add(syn, t0 + .012 * j, epiano(n_, bl + .2, .9), .85 if not brk else 1.0, -.25 + .17 * j)
+                if kind in ("main", "main2", "main3") and bt % 8 == 0:
+                    add(syn, t0, brass_stab([n_ + 12 for n_ in notes[:3]]), .9, .1)
+                    add(syn, t0 + beat * 1.5, brass_stab([n_ + 12 for n_ in notes[1:4]], .3), .6, -.1)
+            if kind == "intro":
+                if bt % 2 == 0:
+                    add(dry, t0, K, .4)
+                for k in range(2):
+                    add(dry, t0 + k * beat / 2, H, .14, .35)
+                if bt % 4 == 0:
+                    add(dry, t0, sub808(root - 12, beat * 3.6), .45)
+                continue
+            if brk:
+                if bt == 0:
+                    add(dry, t0, impact(2.8), .85)
+                    add(dry, t0, sub808(root - 12, 2.6), .8)
+                if bt % 2 == 0:
+                    add(dry, t0, K, .3)
+                add(dry, t0 + beat / 2, rim(), .35, .2)
+                continue
+            outro = kind == "outro"
+            bar_b = bt % 4
+            # kick hip-hop: 1, (1&), 3-and-a-bit; snare gated + clap di 2 & 4
+            if bar_b in (0, 2):
+                add(dry, t0, K, .95 if not outro else .7)
+            if bar_b == 0:
+                add(dry, t0 + beat * .75, K, .55)
+            if bar_b == 2 and (bt // 4) % 2 == 1:
+                add(dry, t0 + beat * .5, K, .5)
+            if bar_b in (1, 3):
+                add(dry, t0, SN, .7 if not outro else .5, .05)
+                add(dry, t0, CL, .45, -.05)
+            # hat 8-an + roll 16-an/32-an di akhir tiap 2 bar
+            roll = (bt % 8 == 7) and not outro
+            n_h = 8 if roll else 2
+            for k in range(n_h):
+                add(dry, t0 + k * beat / n_h, H, .2 if k % 2 == 0 else .13, .3)
+            if bar_b == 3 and not roll:
+                add(dry, t0 + beat * .5, HO, .18, .3)
+            # 808 mengikuti akar, meluncur ke akar berikut di ketuk 4
+            if bar_b == 0:
+                add(dry, t0, sub808(root - 12, beat * 2.9), .8)
+            if bar_b == 3:
+                nroot = VICE_CHORDS[((bt + 1) // 4) % 4][0]
+                add(dry, t0 + beat * .5, glide808(root - 12, nroot - 12, beat * .55), .55)
+            # lead saksofon di main2 & main3 (2 bar dari tiap 4)
+            if kind in ("main2", "main3") and (bt // 8) % 2 == 0:
+                for lt, ln in VICE_HOOK:
+                    if bt % 8 <= lt < bt % 8 + 1:
+                        nxt = [x for x, _ in VICE_HOOK if x > lt]
+                        L_ = ((nxt[0] if nxt else 8) - lt) * beat * .92
+                        add(syn, t0 + (lt - bt % 8) * beat, sax(ln, L_), .9, .15)
+            # pluck tipis (gitar chorus) di main
+            if kind == "main" and bt % 2 == 1:
+                add(syn, t0 + beat / 2, pluck(notes[(bt // 2) % 4] + 12, beat * .6), .22, .4)
+        if kind in ("intro", "break", "break2"):
+            rl = min(2.0, s1 - s0 - .2)
+            add(dry, s1 - rl, swell(rl), 1.0)
+            if kind != "intro":
+                for r in range(8):
+                    add(dry, s1 - 2 * beat + r * beat / 4, SN, .1 + .05 * r, .05)
+        if kind in ("main", "main2", "main3"):
+            add(dry, s0, impact(2.4), .75)
+    for s0, s1, kind in secs:
+        if kind in ("intro", "break", "break2"):
+            i0, i1 = int(s0 * SR), int(s1 * SR)
+            for ch in range(2):
+                syn[ch, i0:i1] = lp(syn[ch, i0:i1], 1100 if kind != "intro" else 1800)
+    buf = dry + reverb(syn, 2.0, .28)
+    add(buf, dur - 2.2, impact(2.4), .55)
+    buf = buf[:, : int(dur * SR)]
+    fade = int(1.4 * SR)
+    buf[:, -fade:] *= np.linspace(1, 0, fade)
+    buf = np.tanh(buf * 1.1) / np.tanh(1.1)
+    buf /= np.abs(buf).max() / .89
+    return buf
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("out")
@@ -874,6 +1016,11 @@ def main():
     a = ap.parse_args()
     import soundfile as sf
     global CHORDS, MOTIF
+    if VARIANTS[a.variant] == "vice":
+        mk = tuple(float(x) for x in os.environ.get("NEON_MARKS", "8.85,24.47,29.38,46.70,51.26,64.40").split(","))
+        sf.write(a.out, render_vice(a.dur, a.bpm, mk).T, SR, subtype="PCM_16")
+        print("wrote", a.out)
+        return
     if VARIANTS[a.variant] == "neon":
         mk = tuple(float(x) for x in os.environ.get("NEON_MARKS", "8.85,24.47,29.38,46.70,51.26,64.40").split(","))
         sf.write(a.out, render_neon(a.dur, a.bpm, mk).T, SR, subtype="PCM_16")

@@ -186,6 +186,173 @@ def typing(n=6):
     return out
 
 
+# ------------------------------------------------------------------ efek tambahan (seri GTA / kota)
+def _norm(s, pk=.8):
+    return s / (np.abs(s).max() + 1e-9) * pk
+
+
+def cash():
+    """mesin kasir: denting bel + laci logam meluncur + koin."""
+    t = tt(.9)
+    bell_ = sum(np.sin(2 * np.pi * f * t) * np.exp(-t * d) for f, d in ((2637, 5), (3951, 7), (5274, 9)))
+    drawer = np.zeros_like(t)
+    i = int(.18 * SR)
+    sl = _f(RNG.standard_normal(int(.22 * SR)), 600, 4000) * np.linspace(1, .2, int(.22 * SR)) * .5
+    drawer[i:i + len(sl)] += sl
+    out = _norm(bell_ * .7 + drawer)
+    c = coin()
+    j = int(.42 * SR)
+    out[j:j + len(c)] += c[: len(out) - j] * .6
+    return out
+
+
+def crowd(d=2.0):
+    """riuh orang banyak (gumaman) - noise band 300-2500 dengan modulasi suku kata acak."""
+    t = tt(d)
+    n = _f(RNG.standard_normal(len(t)), 300, 2500)
+    mod = np.zeros_like(t)
+    for k in range(14):
+        f = RNG.uniform(2.5, 6.0)
+        mod += np.abs(np.sin(2 * np.pi * f * t + RNG.uniform(0, 6)))
+    env = np.minimum(1, t / .3) * np.minimum(1, (d - t) / .4)
+    return _norm(n * mod / 14 * env, .55)
+
+
+def cheer(d=1.8):
+    """sorak penonton: noise terang naik-turun + siulan pendek."""
+    t = tt(d)
+    n = _f(RNG.standard_normal(len(t)), 700, 6000)
+    env = np.minimum(1, t / .12) * np.exp(-np.maximum(0, t - .5) * 1.6)
+    wh = np.sin(2 * np.pi * np.cumsum(1800 + 900 * np.minimum(1, t / .35)) / SR) * np.exp(-t * 3) * .25
+    return _norm(n * env + wh * (t < .6), .75)
+
+
+def chain(d=.7):
+    """rantai logam bergemerincing."""
+    out = np.zeros(int(d * SR))
+    for k in range(10):
+        tk = tt(.08)
+        f = RNG.uniform(2500, 5200)
+        c = (np.sin(2 * np.pi * f * tk) + .5 * np.sin(2 * np.pi * f * 1.48 * tk)) * np.exp(-tk * 60)
+        i = int(RNG.uniform(0, d - .09) * SR)
+        out[i:i + len(c)] += c * RNG.uniform(.4, 1)
+    return _norm(out, .7)
+
+
+def clank():
+    """gembok terkunci: hantaman logam + klik."""
+    t = tt(.6)
+    body = sum(np.sin(2 * np.pi * f * t) * np.exp(-t * d) for f, d in ((420, 9), (1130, 14), (2210, 22)))
+    hit = _f(RNG.standard_normal(len(t)), 800, 6000) * np.exp(-t * 70)
+    return _norm(body * .6 + hit)
+
+
+def ping(f=1760.0):
+    """blip sonar/peta (pin menyala)."""
+    t = tt(.45)
+    s = np.sin(2 * np.pi * f * t) * np.exp(-t * 9) + .3 * np.sin(2 * np.pi * f * 2 * t) * np.exp(-t * 16)
+    return _norm(s, .6)
+
+
+def heart():
+    """detak jantung (lub-dub)."""
+    out = np.zeros(int(.8 * SR))
+    for off, g in ((0, 1.0), (.22, .7)):
+        t = tt(.18)
+        s = np.sin(2 * np.pi * (60 - 80 * t) * t) * np.exp(-t * 22) * g
+        i = int(off * SR)
+        out[i:i + len(s)] += s
+    return _norm(out, .9)
+
+
+def car(d=1.6):
+    """mobil lewat (doppler): mesin harmonik + ban, keras di tengah."""
+    t = tt(d)
+    u = t / d
+    f = 95 * (1.18 - .36 * u)
+    ph = 2 * np.cumsum(f) * np.pi / SR
+    eng = sum(np.sin(k * ph) / k for k in range(1, 7))
+    tyre = _f(RNG.standard_normal(len(t)), 200, 1800) * .4
+    env = 1 / (1 + ((u - .5) * 6) ** 2)
+    return _norm((eng + tyre) * env, .7)
+
+
+def heli(d=2.4):
+    """rotor helikopter (denyut 'thup-thup')."""
+    t = tt(d)
+    pulse = (np.sin(2 * np.pi * 11 * t) > .6).astype(float)
+    pulse = _f(pulse, hi=200)
+    n = _f(RNG.standard_normal(len(t)), 60, 600)
+    env = np.minimum(1, t / .5) * np.minimum(1, (d - t) / .6)
+    return _norm(n * (.3 + pulse) * env, .65)
+
+
+def shutter():
+    t = tt(.2)
+    s = _f(RNG.standard_normal(len(t)), 1500, 9000) * (np.exp(-t * 90) + .6 * np.exp(-np.maximum(0, t - .07) * 90) * (t > .07))
+    return _norm(s, .7)
+
+
+def star():
+    """bintang 'wanted' (orisinal): dua nada synth naik + kilau."""
+    out = np.zeros(int(.7 * SR))
+    for off, f in ((0, 987.8), (.09, 1318.5)):
+        t = tt(.5)
+        s = (np.sign(np.sin(2 * np.pi * f * t)) * .25 + np.sin(2 * np.pi * f * t)) * np.exp(-t * 7)
+        i = int(off * SR)
+        out[i:i + len(s)] += s
+    return _norm(out, .55)
+
+
+def bass_drop(d=1.4):
+    """sub turun (808 drop) untuk angka besar."""
+    t = tt(d)
+    f = 110 * np.exp(-t * 2.2) + 32
+    s = np.tanh(2.2 * np.sin(2 * np.pi * np.cumsum(f) / SR)) * np.exp(-t * 1.6)
+    return _norm(s, .9)
+
+
+def sparkle(d=.9):
+    """kilau (logo/kartu muncul): butiran nada tinggi acak."""
+    out = np.zeros(int(d * SR))
+    for k in range(18):
+        tk = tt(.12)
+        f = RNG.uniform(3000, 7500)
+        c = np.sin(2 * np.pi * f * tk) * np.exp(-tk * 40)
+        i = int(RNG.uniform(0, d - .13) * SR)
+        out[i:i + len(c)] += c * (1 - i / len(out))
+    return _norm(out, .5)
+
+
+def coins_pour(d=1.6):
+    """hujan koin/uang mengalir."""
+    out = np.zeros(int(d * SR))
+    c = coin()
+    for k in range(int(d * 16)):
+        i = int(RNG.uniform(0, d - .3) * SR)
+        seg = c[: min(len(c), len(out) - i)] * RNG.uniform(.2, .6)
+        out[i:i + len(seg)] += seg
+    return _norm(out, .7)
+
+
+def flutter(d=.6):
+    """kartu/kertas berkibar (deretan swoosh pendek)."""
+    out = np.zeros(int(d * SR))
+    for k in range(6):
+        s = whoosh(.12) * RNG.uniform(.4, .9)
+        i = int(k * d / 7 * SR)
+        out[i:i + len(s)] += s[: len(out) - i]
+    return _norm(out, .6)
+
+
+GEN_X = {"cash": lambda a: cash(), "crowd": lambda a: crowd(a or 2.0), "cheer": lambda a: cheer(a or 1.8),
+         "chain": lambda a: chain(a or .7), "clank": lambda a: clank(), "ping": lambda a: ping(a or 1760.0),
+         "heart": lambda a: heart(), "car": lambda a: car(a or 1.6), "heli": lambda a: heli(a or 2.4),
+         "shutter": lambda a: shutter(), "star": lambda a: star(), "bass_drop": lambda a: bass_drop(a or 1.4),
+         "sparkle": lambda a: sparkle(a or .9), "coins_pour": lambda a: coins_pour(a or 1.6),
+         "flutter": lambda a: flutter(a or .6)}
+
+
 GEN = {"whoosh": lambda a: whoosh(a or .55), "whoosh_rev": lambda a: whoosh(a or .55, False),
        "whoosh_low": lambda a: whoosh_low(a or .7), "swoosh": lambda a: whoosh(a or .3) * .7,
        "impact": lambda a: impact(), "boom": lambda a: boom(), "riser": lambda a: riser(a or 1.6),
@@ -193,7 +360,9 @@ GEN = {"whoosh": lambda a: whoosh(a or .55), "whoosh_rev": lambda a: whoosh(a or
        "coin": lambda a: coin(), "glitch": lambda a: glitch(a or .35), "stamp": lambda a: stamp(),
        "siren": lambda a: siren(a or 1.6), "notif": lambda a: notif(), "scan": lambda a: scan(a or 1.4),
        "sticker": lambda a: sticker(), "type": lambda a: typing(int(a or 6))}
-PAN = {"whoosh": .25, "whoosh_rev": -.25, "swoosh": -.2, "tick": .15, "ticks": .15, "pop": 0, "coin": .2}
+GEN.update(GEN_X)
+PAN = {"whoosh": .25, "whoosh_rev": -.25, "swoosh": -.2, "tick": .15, "ticks": .15, "pop": 0, "coin": .2,
+       "car": -.3, "heli": .35, "ping": .15, "cash": .15, "flutter": -.2}
 
 
 def main():
