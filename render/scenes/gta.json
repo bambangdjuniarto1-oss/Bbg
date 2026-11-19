@@ -1,0 +1,832 @@
+{
+ "scenes": [
+  {
+   "id": "G01",
+   "bubble": "Jutaan orang **pre-order** GTA 6",
+   "labels": [
+    {
+     "anchor": "QUEUE",
+     "title": "PEMBELI SELURUH DUNIA",
+     "sub": "antre pre-order",
+     "color": "cyan",
+     "t": 0.9,
+     "lift": 60
+    }
+   ],
+   "tilt": 0.3,
+   "theme": "city"
+  },
+  {
+   "id": "G02",
+   "bubble": "Padahal **belum bisa dimainkan**",
+   "labels": [
+    {
+     "anchor": "CASE",
+     "title": "GTA VI",
+     "sub": "sudah dibayar",
+     "color": "pink",
+     "t": 0.27,
+     "lift": 50
+    },
+    {
+     "anchor": "LOCK",
+     "title": "BELUM RILIS",
+     "sub": "",
+     "color": "gold",
+     "t": 2.02,
+     "lift": 40
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "G03",
+   "bubble": "Belum lihat **gameplay barunya**",
+   "labels": [
+    {
+     "anchor": "SCREEN",
+     "title": "CUPLIKAN RESMI",
+     "sub": "trailer & artwork",
+     "color": "cyan",
+     "t": 0.34,
+     "lift": 50,
+     "until": 2.04
+    },
+    {
+     "anchor": "YOU",
+     "title": "KAMU?",
+     "sub": "",
+     "color": "gold",
+     "t": 2.64,
+     "lift": 70
+    }
+   ],
+   "tilt": 0.25,
+   "theme": "city"
+  },
+  {
+   "id": "G04",
+   "bubble": "Namanya **GTA 6**",
+   "labels": [
+    {
+     "anchor": "JL",
+     "title": "JASON & LUCIA",
+     "sub": "tokoh utama",
+     "color": "pink",
+     "t": 0.51,
+     "lift": 50,
+     "until": 2.01
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "G05",
+   "bubble": "Pre-order **9,69 juta kopi**",
+   "labels": [
+    {
+     "anchor": "ID",
+     "title": "INDONESIA",
+     "sub": "ikut pre-order",
+     "color": "red",
+     "t": 0.6,
+     "lift": 50,
+     "until": 2.9
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "hud": {
+    "title": "PRE-ORDER (ESTIMASI)",
+    "start": 0,
+    "keys": [
+     [
+      2.25,
+      9.69
+     ]
+    ],
+    "max": 10,
+    "unit": "juta kopi",
+    "t": 0.3,
+    "dur": 1.4,
+    "target_text": "sebelum rilis",
+    "prefix": "",
+    "decimals": 2,
+    "pos": [
+     56,
+     1640
+    ]
+   }
+  },
+  {
+   "id": "G06",
+   "bubble": "Nilainya **hampir Rp17 triliun**",
+   "labels": [
+    {
+     "anchor": "TOWER",
+     "title": "UANG PRE-ORDER",
+     "sub": "",
+     "color": "gold",
+     "t": 2.65,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "hud": {
+    "title": "NILAI PRE-ORDER",
+    "start": 0,
+    "keys": [
+     [
+      1.31,
+      942
+     ]
+    ],
+    "max": 942,
+    "unit": "juta",
+    "t": 0.25,
+    "dur": 1.6,
+    "target_text": "hampir Rp17 triliun",
+    "prefix": "US$",
+    "pos": [
+     56,
+     1640
+    ]
+   }
+  },
+  {
+   "id": "G07",
+   "bubble": "Uang masuk **duluan**",
+   "labels": [
+    {
+     "anchor": "HQ",
+     "title": "ROCKSTAR GAMES",
+     "sub": "uang sudah masuk",
+     "color": "gold",
+     "t": 0.35,
+     "lift": 60
+    },
+    {
+     "anchor": "LATE",
+     "title": "GAME-NYA",
+     "sub": "belakangan",
+     "color": "cyan",
+     "t": 1.55,
+     "lift": 50
+    }
+   ],
+   "tilt": 0.25,
+   "theme": "city"
+  },
+  {
+   "id": "G08",
+   "bubble": "Bayar **tanpa lihat isinya**?",
+   "labels": [
+    {
+     "anchor": "BOX",
+     "title": "ISINYA?",
+     "sub": "belum ada yang main",
+     "color": "pink",
+     "t": 0.9,
+     "lift": 60
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "G09",
+   "bubble": "Jawabannya: **13 tahun**",
+   "labels": [
+    {
+     "anchor": "Y13",
+     "title": "2013 • GTA V",
+     "sub": "",
+     "color": "green",
+     "t": 0.15,
+     "lift": 40,
+     "until": 1.35
+    },
+    {
+     "anchor": "Y26",
+     "title": "2026 • GTA VI",
+     "sub": "",
+     "color": "pink",
+     "t": 1.55,
+     "lift": 40
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "G10",
+   "bubble": "Rockstar **nggak perlu promosi**",
+   "labels": [
+    {
+     "anchor": "RS",
+     "title": "ROCKSTAR GAMES",
+     "sub": "",
+     "color": "gold",
+     "t": 0.19,
+     "lift": 60
+    }
+   ],
+   "tilt": 0.2,
+   "theme": "city"
+  },
+  {
+   "id": "G11",
+   "bubble": "Stok fisik **habis** dalam jam",
+   "labels": [
+    {
+     "anchor": "SHELF",
+     "title": "STOK FISIK PERTAMA",
+     "sub": "",
+     "color": "cyan",
+     "t": 0.16,
+     "lift": 40,
+     "until": 1.61
+    },
+    {
+     "anchor": "CLOCK",
+     "title": "HITUNGAN JAM",
+     "sub": "",
+     "color": "pink",
+     "t": 0.96,
+     "lift": 40
+    }
+   ],
+   "tilt": 0.25,
+   "theme": "city"
+  },
+  {
+   "id": "G12",
+   "bubble": "Edisi mahal **paling laris**",
+   "labels": [
+    {
+     "anchor": "STD",
+     "title": "STANDARD",
+     "sub": "",
+     "color": "cyan",
+     "t": 0.36,
+     "lift": 50
+    },
+    {
+     "anchor": "ULT",
+     "title": "ULTIMATE EDITION",
+     "sub": "lebih mahal",
+     "color": "gold",
+     "t": 0.86,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "G13",
+   "bubble": "Harga dasar **termahal**",
+   "labels": [
+    {
+     "anchor": "VI",
+     "title": "GTA VI",
+     "sub": "termahal sepanjang sejarah GTA",
+     "color": "gold",
+     "t": 2.44,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "G14",
+   "bubble": "Tapi **tunggu**...",
+   "labels": [
+    {
+     "anchor": "T17",
+     "title": "Rp17 TRILIUN",
+     "sub": "pre-order",
+     "color": "gold",
+     "t": 0.29,
+     "lift": 50,
+     "until": 2.44
+    },
+    {
+     "anchor": "GHOST",
+     "title": "PROYEKSI ANALIS",
+     "sub": "",
+     "color": "cyan",
+     "t": 2.84,
+     "lift": 60
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "G15",
+   "bubble": "Proyeksi **minggu pertama**",
+   "labels": [
+    {
+     "anchor": "AN",
+     "title": "ANALIS",
+     "sub": "proyeksi pendapatan",
+     "color": "purple",
+     "t": 0.3,
+     "lift": 60
+    },
+    {
+     "anchor": "B1",
+     "title": "US$3,25 MILIAR",
+     "sub": "",
+     "color": "cyan",
+     "t": 3.3,
+     "lift": 40
+    },
+    {
+     "anchor": "B2",
+     "title": "US$5,2 MILIAR",
+     "sub": "",
+     "color": "pink",
+     "t": 5.0,
+     "lift": 40
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "G16",
+   "bubble": "Cuma dalam **1 minggu**",
+   "labels": [
+    {
+     "anchor": "T17",
+     "title": "Rp17 T",
+     "sub": "",
+     "color": "gold",
+     "t": 0.41,
+     "lift": 40
+    },
+    {
+     "anchor": "T58",
+     "title": "Rp58 T",
+     "sub": "",
+     "color": "cyan",
+     "t": 1.11,
+     "lift": 40
+    },
+    {
+     "anchor": "T93",
+     "title": "Rp93 T",
+     "sub": "",
+     "color": "pink",
+     "t": 2.01,
+     "lift": 40
+    }
+   ],
+   "tilt": 0.2,
+   "theme": "city",
+   "hud": {
+    "title": "PROYEKSI 1 MINGGU",
+    "start": 0,
+    "keys": [
+     [
+      0.48,
+      58
+     ],
+     [
+      1.45,
+      93
+     ]
+    ],
+    "max": 93,
+    "unit": "triliun",
+    "t": 0.21,
+    "dur": 0.8,
+    "target_text": "sampai",
+    "prefix": "Rp",
+    "pos": [
+     56,
+     1640
+    ]
+   }
+  },
+  {
+   "id": "G17",
+   "bubble": "Dan itu **tanpa versi PC**",
+   "labels": [
+    {
+     "anchor": "PS5",
+     "title": "PS5",
+     "sub": "sudah bisa",
+     "color": "cyan",
+     "t": 0.28,
+     "lift": 50
+    },
+    {
+     "anchor": "PC",
+     "title": "PC",
+     "sub": "belum ada",
+     "color": "purple",
+     "t": 1.83,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "G18",
+   "bubble": "Tim **PS5** atau **PC**?",
+   "labels": [],
+   "tilt": 0.2,
+   "theme": "city"
+  },
+  {
+   "id": "G19",
+   "bubble": "Kirim ke **temen** yang pre-order",
+   "labels": [
+    {
+     "anchor": "ME",
+     "title": "KAMU",
+     "sub": "",
+     "color": "gold",
+     "t": 0.28,
+     "lift": 70,
+     "until": 1.88
+    },
+    {
+     "anchor": "TEMAN",
+     "title": "TEMEN KAMU",
+     "sub": "udah pre-order",
+     "color": "cyan",
+     "t": 2.18,
+     "lift": 70,
+     "until": 3.68
+    }
+   ],
+   "tilt": 0.25,
+   "theme": "city"
+  }
+ ],
+ "hero": [
+  {
+   "t0": 1.38,
+   "t1": 3.13,
+   "text": "**Rp1,19 juta**",
+   "sub": "per kopi, dibayar di muka",
+   "style": "gold",
+   "size": 124,
+   "y": 1440
+  },
+  {
+   "t0": 5.0,
+   "t1": 6.26,
+   "text": "**BELUM BISA DIMAINKAN**",
+   "sub": "",
+   "style": "red",
+   "size": 96,
+   "y": 1440
+  },
+  {
+   "t0": 17.35,
+   "t1": 19.65,
+   "text": "**9,69 juta** kopi",
+   "sub": "estimasi pre-order",
+   "style": "cyan",
+   "size": 112,
+   "y": 1440
+  },
+  {
+   "t0": 20.96,
+   "t1": 23.9,
+   "text": "**US$942 juta**",
+   "sub": "nilai pre-order",
+   "style": "gold",
+   "size": 118,
+   "y": 1440,
+   "count": {
+    "t0": 20.96,
+    "t1": 21.8,
+    "frm": 0,
+    "to": 942,
+    "fmt": "US${} juta"
+   }
+  },
+  {
+   "t0": 24.06,
+   "t1": 25.45,
+   "text": "hampir **Rp17 triliun**",
+   "sub": "",
+   "style": "gold",
+   "size": 124,
+   "y": 1440
+  },
+  {
+   "t0": 31.4,
+   "t1": 32.45,
+   "text": "Kok **bisa**?",
+   "sub": "",
+   "style": "pink",
+   "size": 118,
+   "y": 1440
+  },
+  {
+   "t0": 33.05,
+   "t1": 34.96,
+   "text": "**13 tahun**",
+   "sub": "penantian",
+   "style": "pink",
+   "size": 124,
+   "y": 1440,
+   "count": {
+    "t0": 33.05,
+    "t1": 33.7,
+    "frm": 0,
+    "to": 13,
+    "fmt": "{} tahun"
+   }
+  },
+  {
+   "t0": 41.6,
+   "t1": 42.9,
+   "text": "**PALING LARIS**",
+   "sub": "",
+   "style": "gold",
+   "size": 118,
+   "y": 1440
+  },
+  {
+   "t0": 44.3,
+   "t1": 47.0,
+   "text": "**Rp1,19 juta**",
+   "sub": "harga dasar GTA termahal",
+   "style": "purple",
+   "size": 124,
+   "y": 1440
+  },
+  {
+   "t0": 50.3,
+   "t1": 51.7,
+   "text": "baru **pemanasan**",
+   "sub": "",
+   "style": "pink",
+   "size": 112,
+   "y": 1440
+  },
+  {
+   "t0": 56.43,
+   "t1": 58.19,
+   "text": "**US$3,25–5,2 M**",
+   "sub": "proyeksi pendapatan minggu pertama",
+   "style": "cyan",
+   "size": 104,
+   "y": 1440
+  },
+  {
+   "t0": 60.2,
+   "t1": 63.0,
+   "text": "**Rp58–93 T**",
+   "sub": "cuma dalam 1 minggu",
+   "style": "gold",
+   "size": 124,
+   "y": 1440
+  },
+  {
+   "t0": 64.82,
+   "t1": 66.79,
+   "text": "**TANPA PC**",
+   "sub": "",
+   "style": "red",
+   "size": 124,
+   "y": 1440
+  },
+  {
+   "t0": 78.25,
+   "t1": 83.4,
+   "text": "**ESTIMASI**",
+   "sub": "pihak ketiga & analis, bukan data resmi Rockstar",
+   "style": "gold",
+   "size": 112,
+   "y": 1440
+  }
+ ],
+ "comments": [
+  {
+   "t": 71.3,
+   "text": "PS5",
+   "y": 1395
+  },
+  {
+   "t": 72.95,
+   "text": "PC",
+   "y": 1545
+  }
+ ],
+ "comment_scene": "G18",
+ "fx": {
+  "punch": [
+   [
+    1.4,
+    0.8
+   ],
+   [
+    5.0,
+    0.7
+   ],
+   [
+    8.9,
+    0.5
+   ],
+   [
+    10.75,
+    0.9
+   ],
+   [
+    13.5,
+    0.5
+   ],
+   [
+    17.35,
+    0.7
+   ],
+   [
+    21.0,
+    0.7
+   ],
+   [
+    24.06,
+    1.0
+   ],
+   [
+    25.6,
+    0.5
+   ],
+   [
+    27.0,
+    0.5
+   ],
+   [
+    31.4,
+    0.7
+   ],
+   [
+    33.05,
+    0.9
+   ],
+   [
+    35.55,
+    0.6
+   ],
+   [
+    38.3,
+    0.9
+   ],
+   [
+    41.9,
+    0.7
+   ],
+   [
+    44.6,
+    0.7
+   ],
+   [
+    49.3,
+    0.5
+   ],
+   [
+    50.4,
+    0.8
+   ],
+   [
+    56.43,
+    0.9
+   ],
+   [
+    60.2,
+    1.0
+   ],
+   [
+    65.0,
+    0.9
+   ],
+   [
+    68.3,
+    0.5
+   ],
+   [
+    70.2,
+    0.5
+   ],
+   [
+    78.3,
+    0.6
+   ]
+  ],
+  "flash": [
+   [
+    10.75,
+    0.22,
+    "w"
+   ],
+   [
+    24.06,
+    0.22,
+    "w"
+   ],
+   [
+    60.2,
+    0.2,
+    "w"
+   ],
+   [
+    38.3,
+    0.2,
+    "r"
+   ]
+  ],
+  "chroma": [
+   [
+    10.75,
+    0.25
+   ],
+   [
+    24.06,
+    0.25
+   ],
+   [
+    50.4,
+    0.2
+   ],
+   [
+    65.0,
+    0.2
+   ]
+  ],
+  "pale": [
+   0,
+   0,
+   "NONE"
+  ]
+ },
+ "keywords": [
+  "jutaan",
+  "1,19",
+  "juta",
+  "game",
+  "belum",
+  "mainkan",
+  "gameplay",
+  "kamu",
+  "gta",
+  "6",
+  "6,",
+  "19",
+  "november",
+  "pre-ordernya",
+  "9,69",
+  "kopi",
+  "942",
+  "dolar",
+  "17",
+  "triliun",
+  "duluan",
+  "belakangan",
+  "muka",
+  "isinya",
+  "13",
+  "tahun",
+  "penantian",
+  "rockstar",
+  "promosi",
+  "stok",
+  "habis",
+  "jam",
+  "mahal",
+  "laris",
+  "termahal",
+  "sejarah",
+  "tunggu",
+  "pemanasan",
+  "analis",
+  "minggu",
+  "3,25",
+  "5,2",
+  "miliar",
+  "58",
+  "93",
+  "satu",
+  "pc",
+  "ps5",
+  "komentar",
+  "kirim",
+  "temen",
+  "pre-order",
+  "estimasi",
+  "resmi"
+ ]
+}
