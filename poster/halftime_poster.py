@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Poster HALF TIME - PRDN Blue (tanpa foto pemain).
+"""Poster HALF TIME / FULL TIME - PRDN Blue (tanpa foto pemain).
+
+Full time: --title FULL TIME --label "SKOR AKHIR" --title-scale 0.8
 
 Background grid PRDN Blue, tulisan HALF TIME, papan skor, pencetak gol, watermark.
 
@@ -39,31 +41,32 @@ def soft_shadow(canvas, mask, blur, offset, strength=0.5):
     canvas.paste(SHADOW, offset, sh)
 
 
-def make_poster(out, score, home, away, event, home_goals=(), away_goals=(), size=(1080, 1350)):
+def make_poster(out, score, home, away, event, home_goals=(), away_goals=(), size=(1080, 1350),
+                title=("HALF", "TIME"), label="BABAK PERTAMA", title_scale=1.0):
     W, H = size
     canvas = grid_background(W, H).convert("RGBA")
     margin = round(W * 0.07)
 
-    # 1) HALF / TIME bertumpuk, besar memenuhi lebar
-    font = font_for_width(BLACK, "HALF", W - 2 * margin)
+    # 1) Judul bertumpuk (HALF/TIME, FULL/TIME), satu ukuran huruf untuk semua baris
+    fonts = [font_for_width(BLACK, line, (W - 2 * margin) * title_scale) for line in title]
+    font = min(fonts, key=lambda f: f.size)
     hb = font.getbbox("H")
     cap_h = hb[3] - hb[1]
     gap = round(cap_h * 0.12)
     top = round(H * 0.17)
     txt = Image.new("L", (W, H), 0)
     td = ImageDraw.Draw(txt)
-    for i, line in enumerate(["HALF", "TIME"]):
-        f = font_for_width(BLACK, line, W - 2 * margin)
-        l, t, r, b = f.getbbox(line)
-        td.text(((W - (r - l)) / 2 - l, top + i * (cap_h + gap) - t), line, font=f, fill=255)
+    for i, line in enumerate(title):
+        l, t, r, b = font.getbbox(line)
+        td.text(((W - (r - l)) / 2 - l, top + i * (cap_h + gap) - hb[1]), line, font=font, fill=255)
     soft_shadow(canvas, txt, W * 0.01, (round(W * 0.006), round(W * 0.01)), 0.45)
     canvas.paste((255, 255, 255, 255), (0, 0), txt)
-    text_bottom = top + 2 * cap_h + gap
+    text_bottom = top + len(title) * cap_h + (len(title) - 1) * gap
 
     # 2) Papan skor
     d = ImageDraw.Draw(canvas)
     bar_h = round(H * 0.11)
-    bar_top = text_bottom + round(H * 0.09)
+    bar_top = text_bottom + round(H * (0.09 if title_scale >= 1 else 0.07))
     bar = (margin, bar_top, W - margin, bar_top + bar_h)
     radius = round(bar_h * 0.2)
     m = Image.new("L", (W, H), 0)
@@ -91,14 +94,28 @@ def make_poster(out, score, home, away, event, home_goals=(), away_goals=(), siz
     _, gt, _, gb = gfont.getbbox("Ag")
     line_h = round((gb - gt) * 1.5)
     gy = box[3] + round(H * 0.03)
-    for cx, goals in ((home_cx, home_goals), (away_cx, away_goals)):
-        for i, g in enumerate(goals):
-            draw_centered(d, cx, gy + i * line_h + line_h / 2, g, gfont, (255, 255, 255))
+    if away_goals or len(home_goals) <= 3:
+        for cx, goals in ((home_cx, home_goals), (away_cx, away_goals)):
+            for i, g in enumerate(goals):
+                draw_centered(d, cx, gy + i * line_h + line_h / 2, g, gfont, (255, 255, 255))
+    else:
+        # Banyak gol satu tim: susun rata tengah selebar papan skor, dipisah titik
+        rows, cur = [], ""
+        for g in home_goals:
+            cand = f"{cur}   ·   {g}" if cur else g
+            if gfont.getlength(cand) > bar[2] - bar[0] and cur:
+                rows.append(cur)
+                cur = g
+            else:
+                cur = cand
+        rows.append(cur)
+        for i, row in enumerate(rows):
+            draw_centered(d, W / 2, gy + i * line_h + line_h / 2, row, gfont, (255, 255, 255))
 
     # 4) Keterangan di bawah
     efont = ImageFont.truetype(BOLD, round(H * 0.022))
     ey = H - margin - round(H * 0.01)
-    label = f"BABAK PERTAMA  ·  {event}"
+    label = f"{label}  ·  {event}"
     l, t, r, b = efont.getbbox(label)
     pad_x, pad_y = round(W * 0.03), round(H * 0.012)
     pill = (W / 2 - (r - l) / 2 - pad_x, ey - (b - t) / 2 - pad_y,
@@ -125,8 +142,12 @@ if __name__ == "__main__":
     ap.add_argument("--event", default="SHOPEE CUP")
     ap.add_argument("--home-goals", nargs="*", default=[])
     ap.add_argument("--away-goals", nargs="*", default=[])
+    ap.add_argument("--title", nargs="+", default=["HALF", "TIME"])
+    ap.add_argument("--label", default="BABAK PERTAMA")
+    ap.add_argument("--title-scale", type=float, default=1.0)
     ap.add_argument("--size", default="1080x1350")
     a = ap.parse_args()
     w, h = map(int, a.size.lower().split("x"))
     print(make_poster(a.out, a.score, a.home.upper(), a.away.upper(), a.event.upper(),
-                      a.home_goals, a.away_goals, (w, h)))
+                      a.home_goals, a.away_goals, (w, h),
+                      [t.upper() for t in a.title], a.label.upper(), a.title_scale))
