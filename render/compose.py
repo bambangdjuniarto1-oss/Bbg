@@ -199,8 +199,13 @@ def draw_hud(img, hud, value, t_in, x, y):
 
 
 def draw_subtitle(img, parts, y, t_in):
-    f = font(F800, 70)
+    size = 70
+    f = font(F800, size)
     tw = rich_width(parts, f)
+    while tw > img.width - 110 and size > 50:  # jaga margin kiri-kanan, jangan kepotong
+        size -= 2
+        f = font(F800, size)
+        tw = rich_width(parts, f)
     x = (img.width - tw) / 2
     s = 0.85 + 0.15 * ease_out_back(t_in / 0.18)
     layer = Image.new("RGBA", (int(tw + 60), 130), (0, 0, 0, 0))
