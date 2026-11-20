@@ -387,14 +387,18 @@ def stock_board(name, loc=(0, 0, 0), w=16.0, h=8.0, n=14, seed=5, rise=True):
     bo = mb.build(loc)
     V.glow(bo, {"psb_blue2": 6.0, "psb_navy": .5, "psb_grid": 3.0})
     cs = []
-    v = h * .25
+    step = h * .66 / (n - 1)                 # tren naik yang jelas (tiap lilin ke-3 dari 4 merah/koreksi)
+    v = h * .12
     for i in range(n):
         x = -w / 2 + 1.0 + i * (w - 2.0) / (n - 1)
-        d = rnd.uniform(-.25, .55) * (1 if rise else -1) * h / 10
+        close = h * .12 + step * (i + 1) + (-.9 if i % 4 == 2 else .2 + rnd.uniform(0, .3)) * step
+        if not rise:
+            close = h - close
+        d = close - v
         up = d >= 0
         lo_, hi_ = min(v, v + d), max(v, v + d) + .12
         cm = W.MB(f"{name}_c{i}")
-        cm.box(x - .22, -.12, lo_, x + .22, -.05, hi_, "candle_g" if up else "candle_r")
+        cm.box(x - .26, -.12, lo_, x + .26, -.05, hi_, "candle_g" if up else "candle_r")
         cm.box(x - .03, -.1, lo_ - .3, x + .03, -.07, hi_ + .3, "candle_g" if up else "candle_r")
         co = cm.build(loc)
         V.glow(co, {"candle_g": 5.0, "candle_r": 5.0})

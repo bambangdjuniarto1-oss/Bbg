@@ -364,23 +364,25 @@ def p11(n, A):
     artikel Katadata & detikFinance."""
     sid = "P11"
     stage(rig_c=(0, 0, 3.5), rig_s=1.6, fade=(12, 56))
-    bd = P.stock_board("bd", (0, 1.5, .4), 15.0, 8.0, 14, 7)
+    bd = P.stock_board("bd", (0, 1.5, .4), 12.0, 7.0, 14, 7)
     pop_in(bd["board"], fr(sid, 46.6), 1.0, 12)
     for i, c in enumerate(bd["candles"]):
         pop_in(c, fr(sid, 47.1 + .2 * i), 1.0, 8)
-    ip, ipf = sign("ipo", "IPO", (0, -.6, 9.4), 1.3, "n_gold", 8.0)
+    ip, ipf = sign("ipo", "IPO", (0, -.6, 8.7), 1.3, "n_gold", 8.0)
     pop_pair((ip, ipf), fr(sid, 49.53))
     st, stf = sign("td", "TERTUNDA", (0, -1.2, 4.0), 1.0, "n_red", 9.0)
     pop_pair((st, stf), fr(sid, 52.63), 1.0)
     for ob in (st, stf):
         ob.rotation_euler.y = math.radians(-8)
-    ak = phone("ak", "art_katadata", 7.2, (-11.2, 3.4, .1), .45, sid, 47.6, n, .35)
-    ad = phone("ad", "art_detikipo", 7.2, (11.2, 3.4, .1), -.45, sid, 51.6, n, .35)
-    camera(sid, [(46.53, (0, 1, 4.6), -96, 6, 22), (49.4, (0, 1, 5.2), -92, 8, 24),
-                 (51.5, (2, 1, 4.6), -86, 8, 24), (53.31, (1, 1, 4.4), -88, 8, 21)], lens=26)
+    # artikel kecil di sudut depan papan, bergantian (Katadata lalu detikFinance) agar terlihat di frame tegak
+    ak = phone("ak", "art_katadata", 4.4, (-4.5, -2.6, .1), .35, sid, 47.6, n, .35)
+    pop_out(ak["root"], fr(sid, 51.2), 8)
+    ad = phone("ad", "art_detikipo", 4.4, (4.5, -2.6, .1), -.35, sid, 51.4, n, .35)
+    camera(sid, [(46.53, (0, 1, 2.6), -96, 6, 24), (49.4, (0, 1, 2.8), -92, 8, 25),
+                 (51.5, (.6, 1, 2.6), -88, 8, 25), (53.31, (0, 1, 2.4), -90, 7, 23)], lens=26)
     A["BD"] = (bd["board"], (0, 0, 8.6))
-    A["AK"] = (ak["root"], (0, 0, 7.6))
-    A["AD"] = (ad["root"], (0, 0, 7.6))
+    A["AK"] = (ak["root"], (0, 0, 4.8))
+    A["AD"] = (ad["root"], (0, 0, 4.8))
 
 
 ROUTE_UV = [(1085, 580), (1150, 578), (1205, 590), (1250, 665), (1275, 688), (1325, 690), (1322, 780),
