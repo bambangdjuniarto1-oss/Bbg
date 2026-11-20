@@ -20,3 +20,8 @@ Cara render ulang:
 Sumber: `ai-office/public/video-pov-knowbyhours.html`. Jumlah pengikut (3.458) dan postingan (20)
 diambil dari profil; reach, engagement, disimpan, dan sentimen adalah angka ilustrasi
 (ditandai "*data ilustrasi" di video). Ganti dengan angka dari Instagram Insights sebelum dipublikasikan.
+
+## Versi 15 detik "POV: AI Agent"
+
+`pov-ai-agent-knowbyhours-15s.mp4`: caption "POV: AI Agent ngurus sosmed KnowByHours", 15 detik.
+Alur layar yang sama diputar 1,6x lebih cepat (`DURASI = 15` di `video-pov-knowbyhours.html`).
