@@ -241,16 +241,16 @@ def p06(n, A):
     pop_in(g, fr(sid, 24.8), 1.0, 12)
     s_ = P.photo("store", "ph_store", 4.4, (6.2, 3.5, .3), -.3, em=.85)
     pop_in(s_, fr(sid, 25.6), 1.0, 12)
-    pt, pf = sign("pt", "PT PERSIB BANDUNG BERMARTABAT", (0, -2.0, 7.9), .32, "n_white", 6.0)
+    pt, pf = sign("pt", "PT PERSIB BANDUNG BERMARTABAT", (0, -2.0, 7.3), .32, "n_white", 6.0)
     pop_pair((pt, pf), fr(sid, 25.31))
-    p1, f1 = sign("pro", "PROFESIONAL", (-5.0, -3.2, .8), .55, "n_cyan", 7.0)
-    p2, f2 = sign("tra", "TRANSPARAN", (2.6, -3.2, .8), .55, "n_cyan", 7.0)
+    p1, f1 = sign("pro", "PROFESIONAL", (-2.45, -3.2, .8), .42, "n_cyan", 7.0)
+    p2, f2 = sign("tra", "TRANSPARAN", (2.45, -3.2, .8), .42, "n_cyan", 7.0)
     pop_pair((p1, f1), fr(sid, 26.49))
     pop_pair((p2, f2), fr(sid, 27.18))
     a1 = phone("ag", "art_graha", 7.2, (-11.0, 3.6, .1), .45, sid, 25.9, n, .35)
     a2 = phone("ai", "art_ileague", 7.2, (11.6, 4.2, .1), -.45, sid, 28.6, n, .35)
-    camera(sid, [(24.65, (-2, 1, 3.6), -100, 6, 15), (27.0, (0, 1, 3.8), -92, 8, 19),
-                 (29.0, (3, 2, 4.0), -84, 9, 22), (31.37, (4, 2, 4.2), -80, 10, 24)], lens=26)
+    camera(sid, [(24.65, (-2, 1, 3.6), -100, 6, 15), (27.0, (0, 1, 3.8), -92, 8, 20),
+                 (28.7, (1, 1.5, 3.9), -88, 9, 22), (31.37, (4, 2, 4.2), -80, 10, 24)], lens=26)
     A["GRAHA"] = (g, (0, 0, 6.9))
     A["AI"] = (a2["root"], (0, 0, 7.6))
 
