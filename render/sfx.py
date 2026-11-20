@@ -436,6 +436,162 @@ GEN_X.update({"gavel": lambda a: gavel(), "news": lambda a: news_alert(), "paper
               "kawaii": lambda a: kawaii(a or .8), "flash": lambda a: flash()})
 
 
+# ---------------------------------------------------------------- stadion (bobotoh)
+VOWEL = {"a": (750, 1200, 2600), "e": (480, 1900, 2600), "i": (320, 2300, 3000), "o": (500, 850, 2500),
+         "u": (350, 700, 2400)}
+
+
+def _stadium_verb(x, secs=2.4, mix=.55):
+    from scipy.signal import fftconvolve
+    t = tt(secs)
+    ir = _f(RNG.standard_normal(len(t)), 150, 6000) * np.exp(-t * 2.4)
+    ir[: int(.03 * SR)] = 0
+    ir /= np.sqrt(np.sum(ir ** 2))
+    return x + fftconvolve(x, ir)[: len(x)] * mix
+
+
+def _voices(d, n=36, vowel="a", lo=110, hi=260, env=None):
+    """massa suara penonton: n sumber glotal (pitch acak + vibrato + jitter) disaring formant vokal."""
+    t = tt(d)
+    g = np.zeros_like(t)
+    for k in range(n):
+        f0 = RNG.uniform(lo, hi) * (1 + .02 * np.sin(2 * np.pi * RNG.uniform(4, 7) * t + RNG.uniform(0, 6)))
+        ph = np.cumsum(f0) / SR + RNG.uniform(0, 1)
+        saw = 2 * (ph % 1) - 1
+        a = np.clip(.6 + .4 * np.sin(2 * np.pi * RNG.uniform(.2, .9) * t + RNG.uniform(0, 6)), 0, 1)
+        g += saw * a * RNG.uniform(.5, 1)
+    f1, f2, f3 = VOWEL[vowel]
+    out = _f(g, f1 * .8, f1 * 1.25) + .7 * _f(g, f2 * .85, f2 * 1.15) + .3 * _f(g, f3 * .9, f3 * 1.1)
+    if env is not None:
+        out *= env
+    return out / n
+
+
+def stadium_roar(d=3.0):
+    """gemuruh stadion: massa vokal 'aaah' + desis riuh, naik cepat, tahan, surut - dengan gema stadion."""
+    t = tt(d)
+    env = np.minimum(1, t / .35) * np.minimum(1, (d - t) / (d * .45))
+    v = _voices(d, 40, "a", 120, 300, env) + .6 * _voices(d, 24, "o", 95, 180, env)
+    n = _f(RNG.standard_normal(len(t)), 500, 5000) * env * .25
+    return _norm(_stadium_verb(v * 3 + n), .8)
+
+
+def goal_roar(d=3.6):
+    """ledakan sorak gol: serangan seketika, puncak tinggi, ekor panjang."""
+    t = tt(d)
+    env = np.minimum(1, t / .08) * np.exp(-np.maximum(0, t - .9) * .9)
+    v = _voices(d, 44, "a", 160, 360, env) + .5 * _voices(d, 24, "e", 200, 420, env)
+    n = _f(RNG.standard_normal(len(t)), 900, 7000) * env * .35
+    return _norm(_stadium_verb(v * 3 + n, 2.6, .6), .85)
+
+
+def _crowd_clap(d=.25, n=60):
+    out = np.zeros(int(d * SR))
+    for k in range(n):
+        c = _f(RNG.standard_normal(int(.03 * SR)), 900, 5000) * np.exp(-tt(.03) * 140)
+        i = int(abs(RNG.normal(0, .018)) * SR)
+        out[i:i + len(c)] += c[: len(out) - i] * RNG.uniform(.4, 1)
+    return out / 10
+
+
+def chant(d=4.0, bpm=118.0):
+    """yel suporter generik: tepuk-tepuk-tepuk + teriakan dua suku kata serempak, berulang, bergema."""
+    beat = 60 / bpm
+    out = np.zeros(int((d + .5) * SR))
+    bar = 0
+    while bar * 4 * beat < d:
+        b0 = bar * 4 * beat
+        for k in range(3):
+            i = int((b0 + k * beat) * SR)
+            if i >= len(out):
+                continue
+            c = _crowd_clap()
+            out[i:i + len(c)] += c[: len(out) - i] * 1.3
+        for j, (vw, off, L) in enumerate((("e", 3.0, .32), ("i", 3.5, .42))):
+            i = int((b0 + off * beat) * SR)
+            if i >= len(out):
+                continue
+            tl = tt(L)
+            env = np.minimum(1, tl / .03) * np.exp(-tl * 4) * (1.0 if j else .9)
+            v = _voices(L, 30, vw, 150 + 40 * j, 300 + 60 * j, env) * 4
+            out[i:i + len(v)] += v[: len(out) - i]
+        bar += 1
+    out = out[: int(d * SR)]
+    t = tt(d)
+    out *= np.minimum(1, t / .2) * np.minimum(1, (d - t) / .5)
+    return _norm(_stadium_verb(out, 2.2, .5), .75)
+
+
+def sup_drum(d=2.4, bpm=118.0):
+    """bass drum suporter di tribun: dum . dum-dum ., bergema."""
+    beat = 60 / bpm
+    out = np.zeros(int((d + .5) * SR))
+    k = 0
+    while k * beat < d:
+        for off, g in ((0, 1.0), (.5, .0), (1, .8), (1.5, .7)):
+            if g == 0 or (k + off) * beat >= d:
+                continue
+            tk = tt(.5)
+            hit = np.sin(2 * np.pi * np.cumsum(70 + 50 * np.exp(-tk * 30)) / SR) * np.exp(-tk * 7)
+            hit += _f(RNG.standard_normal(len(tk)), 200, 2000) * np.exp(-tk * 40) * .3
+            i = int((k + off) * beat * SR)
+            if i >= len(out):
+                continue
+            out[i:i + len(hit)] += hit[: len(out) - i] * g
+        k += 2
+    out = out[: int(d * SR)]
+    return _norm(_stadium_verb(out, 2.0, .45), .8)
+
+
+def ref_whistle(d=.7):
+    """peluit wasit: nada ~2,9 kHz dengan getar bola (trill)."""
+    t = tt(d)
+    f = 2900 + 40 * np.sin(2 * np.pi * 6 * t)
+    s = np.sin(2 * np.pi * np.cumsum(f) / SR) * (.65 + .35 * np.sin(2 * np.pi * 34 * t))
+    s += _f(RNG.standard_normal(len(t)), 2500, 6000) * .08
+    env = np.minimum(1, t / .02) * np.minimum(1, (d - t) / .05)
+    return _norm(_stadium_verb(s * env, 1.4, .3), .6)
+
+
+def stadium_bed(d=6.0):
+    """riuh dasar tribun (gumaman ribuan orang) untuk latar panjang."""
+    t = tt(d)
+    env = np.minimum(1, t / 1.0) * np.minimum(1, (d - t) / 1.2)
+    v = _voices(d, 30, "o", 100, 220, env * (.7 + .3 * np.sin(2 * np.pi * .23 * t)))
+    n = _f(RNG.standard_normal(len(t)), 300, 2500) * env * .12
+    return _norm(_stadium_verb(v * 2 + n, 2.4, .6), .5)
+
+
+GEN_X.update({"roar": lambda a: stadium_roar(a or 3.0), "goal": lambda a: goal_roar(a or 3.6),
+              "chant": lambda a: chant(a or 4.0), "drum": lambda a: sup_drum(a or 2.4),
+              "whistle": lambda a: ref_whistle(a or .7), "bed": lambda a: stadium_bed(a or 6.0)})
+
+
+_SMP = {}
+
+
+def sample(arg):
+    """potongan rekaman: arg = [path, mulai_detik, lama_detik, fade_in, fade_out] (mono, dinormalisasi RMS)."""
+    path, st, d = arg[0], float(arg[1]), float(arg[2])
+    fi = float(arg[3]) if len(arg) > 3 else .4
+    fo = float(arg[4]) if len(arg) > 4 else .8
+    if path not in _SMP:
+        x, sr = sf.read(path, always_2d=True)
+        x = x.mean(1)
+        if sr != SR:
+            from scipy.signal import resample_poly
+            x = resample_poly(x, SR, sr)
+        _SMP[path] = x
+    x = _SMP[path][int(st * SR): int((st + d) * SR)].copy()
+    t = np.arange(len(x)) / SR
+    x *= np.minimum(1, t / max(fi, 1e-3)) * np.minimum(1, (d - t) / max(fo, 1e-3))
+    rms = np.sqrt(np.mean(x ** 2)) + 1e-9
+    return x * (.12 / rms)
+
+
+GEN_X["smp"] = sample
+
+
 GEN = {"whoosh": lambda a: whoosh(a or .55), "whoosh_rev": lambda a: whoosh(a or .55, False),
        "whoosh_low": lambda a: whoosh_low(a or .7), "swoosh": lambda a: whoosh(a or .3) * .7,
        "impact": lambda a: impact(), "boom": lambda a: boom(), "riser": lambda a: riser(a or 1.6),

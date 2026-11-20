@@ -182,7 +182,7 @@ CHORDS_F = [
 MOTIF_F = [(0, 74), (.5, 77), (1, 81), (2, 79), (2.5, 77), (3, 76),
            (4, 74), (4.5, 72), (5, 74), (6, 77), (6.5, 76), (7, 72)]
 # variasi G (video bisnis media): gaya beda total, groove hip-hop/business ~94 BPM, lihat render_biz()
-VARIANTS = {"L": "sakura", "K": "vice", "J": "neon", "I": "street", "H": "fest", "G": "biz", "A": None, "B": (CHORDS_B, MOTIF_B), "C": (CHORDS_C, MOTIF_C), "D": (CHORDS_D, MOTIF_D),
+VARIANTS = {"M": "doc", "L": "sakura", "K": "vice", "J": "neon", "I": "street", "H": "fest", "G": "biz", "A": None, "B": (CHORDS_B, MOTIF_B), "C": (CHORDS_C, MOTIF_C), "D": (CHORDS_D, MOTIF_D),
             "E": (CHORDS_E, MOTIF_E), "F": (CHORDS_F, MOTIF_F)}
 
 
@@ -1151,6 +1151,121 @@ def render_sakura(dur, bpm=96.0, marks=(6.3, 18.68, 20.55, 30.68, 34.64, 43.67, 
     return buf
 
 
+# ---------------------------------------------------------------- dokumenter (Persib)
+DOC_EPIC = [(38, [50, 53, 57, 62]), (34, [50, 53, 58, 62]), (41, [48, 53, 57, 60]), (36, [48, 52, 55, 60])]   # Dm Bb F C
+DOC_BIZ = [(41, [53, 57, 60, 64]), (38, [53, 57, 62, 65]), (34, [53, 58, 62, 65]), (36, [52, 55, 60, 64])]   # Fmaj7 Dm7 Bbmaj7 C
+DOC_RISE = [(34, [53, 58, 62, 65]), (36, [52, 55, 60, 64]), (38, [53, 57, 62, 65]), (41, [53, 57, 60, 65])]  # Bb C Dm F
+DOC_MOTIF = [74, 77, 76, 72, 74, 69, 72, 74]
+
+
+def taiko(big=1.0):
+    t = np.arange(int(1.2 * SR)) / SR
+    f = 52 + 60 * np.exp(-t * 18)
+    body = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 4.5)
+    skin = bp(RNG.standard_normal(len(t)), 120, 1800) * np.exp(-t * 22) * .5
+    return np.tanh((body + skin) * 1.4 * big) * .8
+
+
+def string_ens(note, dur, bright=1300):
+    s = saw_pad(note, dur) + .6 * saw_pad(note + 12, dur, (-.06, .05))
+    t = np.arange(len(s)) / SR
+    env = np.minimum(1, t / .5) * np.minimum(1, (dur - t) / .6)
+    return lp(s * env, bright) * .9
+
+
+def piano(note, dur=1.8, vel=1.0):
+    return harm_tone(midi(note), dur, 2.2, 5.0, nh=8, bright=.8) * .5 * vel + epiano(note, dur, vel) * .6
+
+
+def render_doc(dur, bpm=100.0, marks=(7.05, 20.31, 24.65, 46.53, 60.52, 68.31)):
+    """dokumenter sepak bola: intro malam stadion -> anthem epik (taiko+strings) -> hening (rahasia?) ->
+    bed bisnis berdenyut (ostinato) -> mimpi IPO naik -> ujian terberat (drum perang) -> resolusi hangat."""
+    beat = 60.0 / bpm
+    L = int((dur + 4) * SR)
+    dry = np.zeros((2, L))
+    syn = np.zeros((2, L))
+    kinds = ["intro", "epic", "brk", "biz", "rise", "war", "res"]
+    bounds = [0.0] + list(marks) + [dur]
+    secs = [(bounds[i], bounds[i + 1], kinds[i]) for i in range(len(kinds))]
+    K, SN, H = kick(), snare(), hat()
+    for s0, s1, kind in secs:
+        prog = DOC_BIZ if kind in ("biz", "res") else DOC_RISE if kind == "rise" else DOC_EPIC
+        nb = int(np.ceil((s1 - s0) / beat))
+        for bt in range(nb):
+            t0 = s0 + bt * beat
+            if t0 >= s1 - .02:
+                break
+            root, notes = prog[(bt // 4) % 4]
+            bb = bt % 4
+            if bb == 0:
+                bl = min(4 * beat, s1 - t0) + .4
+                lvl = {"intro": .35, "brk": .3, "biz": .32, "res": .42}.get(kind, .55)
+                add(syn, t0, sum(string_ens(n_, bl, 900 if kind in ("intro", "brk") else 1600) for n_ in notes), lvl)
+                add(dry, t0, bass_note(root, bl * .9), .5 if kind not in ("intro", "brk") else .3)
+            if kind == "intro":
+                if bb == 0:
+                    add(dry, t0, taiko(.7), .6)
+                if bt % 2 == 0:
+                    add(syn, t0, piano(DOC_MOTIF[(bt // 2) % 8] - 12, 2.0, .7), .45, .2)
+                continue
+            if kind == "brk":
+                if bt == 0:
+                    add(dry, t0, impact(2.6), .8)
+                add(syn, t0, bell(notes[bt % 4] + 12, 1.2), .18, .3)
+                continue
+            if kind in ("epic", "war"):
+                war = kind == "war"
+                # pola taiko mars: 1 . 3 & 4
+                if bb in (0, 2):
+                    add(dry, t0, taiko(1.0), .9 if war else .75, -.15)
+                if bb == 3 or (war and bb == 1):
+                    add(dry, t0 + beat / 2, taiko(.8), .6, .15)
+                if war:
+                    add(dry, t0, K, .7)
+                    for k in range(4):
+                        add(dry, t0 + k * beat / 4, H, .1, .3)
+                    if bb in (1, 3):
+                        add(dry, t0, SN, .5)
+                add(syn, t0, pluck(notes[bt % 4] + 12, beat * .9), .3, -.4 + .8 * (bt % 2))
+                add(syn, t0 + beat / 2, pluck(notes[(bt + 2) % 4] + 12, beat * .9), .22, .4)
+                if bt % 2 == 0:
+                    add(syn, t0, piano(DOC_MOTIF[(bt // 2) % 8], 1.6), .5, .1)
+                if war and bb == 0:
+                    add(syn, t0, brass_stab([n_ for n_ in notes], .5), .5)
+                continue
+            if kind in ("biz", "rise"):
+                # ostinato 8-an bersih + kick lembut 4/4 + rim, bel di 'rise'
+                if bb in (0, 2):
+                    add(dry, t0, K, .55 if kind == "biz" else .7)
+                if bb in (1, 3):
+                    add(dry, t0, rim(), .5)
+                for k in range(2):
+                    add(syn, t0 + k * beat / 2, pluck(notes[(bt * 2 + k) % 4] + 12, beat * .45), .32, -.3 + .6 * k)
+                    add(dry, t0 + k * beat / 2, H, .08, .35)
+                if kind == "rise" and bt % 2 == 0:
+                    add(syn, t0, bell(notes[(bt // 2) % 4] + 24, 1.4), .2, .2)
+                continue
+            # resolusi hangat
+            if bb == 0:
+                add(dry, t0, taiko(.6), .45)
+            if bt % 2 == 0:
+                add(syn, t0, piano(DOC_MOTIF[(bt // 2) % 8], 2.0, .9), .5, .1)
+            add(syn, t0, epiano(notes[bt % 4] + 12, beat * 1.5, .6), .25, -.2)
+        if kind in ("intro", "brk", "rise"):
+            rl = min(2.2 if kind == "rise" else 1.5, s1 - s0 - .2)
+            add(dry, s1 - rl, swell(rl), 1.1 if kind == "rise" else .8)
+        if kind in ("epic", "biz", "war", "res"):
+            add(dry, s0, impact(2.4), .8)
+    buf = dry + reverb(syn, 2.6, .38)
+    add(buf, dur - 2.6, impact(2.4), .5)
+    buf = buf[:, : int(dur * SR)]
+    fade = int(1.8 * SR)
+    buf[:, -fade:] *= np.linspace(1, 0, fade)
+    buf = np.tanh(buf * 1.1) / np.tanh(1.1)
+    buf /= np.abs(buf).max() / .89
+    return buf
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("out")
@@ -1161,6 +1276,11 @@ def main():
     a = ap.parse_args()
     import soundfile as sf
     global CHORDS, MOTIF
+    if VARIANTS[a.variant] == "doc":
+        mk = tuple(float(x) for x in os.environ.get("DOC_MARKS", "7.05,20.31,24.65,46.53,60.52,68.31").split(","))
+        sf.write(a.out, render_doc(a.dur, a.bpm, mk).T, SR, subtype="PCM_16")
+        print("wrote", a.out)
+        return
     if VARIANTS[a.variant] == "sakura":
         mk = tuple(float(x) for x in os.environ.get("SAKURA_MARKS", "6.3,18.68,20.55,30.68,34.64,43.67,60.62").split(","))
         sf.write(a.out, render_sakura(a.dur, a.bpm, mk).T, SR, subtype="PCM_16")

@@ -88,11 +88,31 @@ def load_raw(path):
     return img
 
 
-def grade(img, sc, st):
+def doc_look(arr, tg):
+    """look dokumenter: kontras lembut (kurva S), sedikit desaturasi, bayangan teal / sorotan hangat,
+    plus butiran film halus yang berubah tiap frame."""
+    x = arr / 255.0
+    x = x + .15 * (x - x * x) * (2 * x - 1)               # kurva S lembut
+    lum = (x * np.array([.299, .587, .114], np.float32)).sum(axis=2, keepdims=True)
+    x = lum + (x - lum) * .88
+    sh = np.clip(1 - lum * 2, 0, 1)
+    hi = np.clip(lum * 2 - 1, 0, 1)
+    x = x + sh * np.array([-.012, .012, .03], np.float32) + hi * np.array([.035, .012, -.02], np.float32)
+    rng = np.random.default_rng(int(tg * 30) + 7)
+    g = rng.standard_normal((x.shape[0] // 2, x.shape[1] // 2, 1)).astype(np.float32)
+    g = np.repeat(np.repeat(g, 2, axis=0), 2, axis=1)[: x.shape[0], : x.shape[1]]
+    x = x + g * .022 * (.6 + .4 * (1 - lum))
+    return np.clip(x, 0, 1) * 255.0
+
+
+def grade(img, sc, st, tg=0.0):
     city = sc.get("theme") == "city"
     img = CV.zoom_crop(img, st["scale"])
     img = CV.tilt_shift(img, sc.get("tilt", 0))
     arr = np.asarray(img, np.float32)
+    if sc.get("look") == "doc":
+        arr = CV.bloom(arr, .28) * (CV.VIGNETTE * .8 + .2)
+        return doc_look(arr, tg)
     arr = CV.bloom(arr, .18 if city else .5) * (CV.VIGNETTE * .6 + .4 if city else CV.VIGNETTE)
     return pale(arr, st["pale"])
 
@@ -123,7 +143,7 @@ def do_scene(job):
         tg = anch["t0"] + t
         img = load_raw(src)
         st = fx_state(tg, sc["id"], fx)
-        arr = grade(img, sc, st)
+        arr = grade(img, sc, st, tg)
         # crossfade dari ekor adegan sebelumnya: ekor diproses dengan gaya adegannya SENDIRI (bloom/tilt/vignette)
         # supaya tidak ada lonjakan terang/gelap di frame sambungan
         if tail_prev and k <= tail_prev[2]:
@@ -131,7 +151,7 @@ def do_scene(job):
             if os.path.exists(pp):
                 u = k / (tail_prev[2] + 1)
                 w = u * u * (3 - 2 * u)
-                arr = grade(load_raw(pp), prev_sc, fx_state(tg, prev_sc["id"], fx)) * (1 - w) + arr * w
+                arr = grade(load_raw(pp), prev_sc, fx_state(tg, prev_sc["id"], fx), tg) * (1 - w) + arr * w
         if st["flash"]:
             v, col = st["flash"]
             arr = arr * (1 - v) + np.array(col, np.float32) * v
@@ -173,12 +193,17 @@ def do_scene(job):
             lay.putalpha(al)
             img.alpha_composite(lay)
         CF.draw_bubble_center(img, sc["bubble"], t - .05)
-        cur = None
-        for s0, s1, parts in subs:
-            if s0 <= tg < s1:
-                cur = (s0, parts)
-        if cur:
-            C.draw_subtitle(img, cur[1], 1250, tg - cur[0])
+        if cfg.get("bisubs"):
+            for s0, s1, en, idt in cfg["bisubs"]:
+                if s0 <= tg < s1:
+                    C.draw_subtitle_bi(img, C.parse_rich(en), idt, cfg.get("sub_y", 1235), tg - s0)
+        else:
+            cur = None
+            for s0, s1, parts in subs:
+                if s0 <= tg < s1:
+                    cur = (s0, parts)
+            if cur:
+                C.draw_subtitle(img, cur[1], 1250, tg - cur[0])
         if sc.get("cta") is not None:
             CF.draw_cta(img, t - sc["cta"])
         img.convert("RGB").save(dst, compress_level=1)

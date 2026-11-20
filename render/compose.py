@@ -227,6 +227,47 @@ def draw_subtitle(img, parts, y, t_in):
     img.alpha_composite(layer, (px, py))
 
 
+def draw_subtitle_bi(img, parts, id_text, y, t_in):
+    """subtitle dua bahasa gaya dokumenter: baris EN (putih, kata kunci kuning) + terjemahan ID di bawahnya
+    (lebih kecil, biru muda). Ukuran mengecil otomatis supaya tidak kepotong."""
+    size = 62
+    f = font(F800, size)
+    tw = rich_width(parts, f)
+    while tw > img.width - 110 and size > 44:
+        size -= 2
+        f = font(F800, size)
+        tw = rich_width(parts, f)
+    fs_size = 44
+    fi = font(F700, fs_size)
+    iw = fi.getlength(id_text)
+    while iw > img.width - 110 and fs_size > 32:
+        fs_size -= 2
+        fi = font(F700, fs_size)
+        iw = fi.getlength(id_text)
+    W = int(max(tw, iw) + 60)
+    lh = int(size * 1.3)
+    layer = Image.new("RGBA", (W, lh + int(fs_size * 1.4) + 30), (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+    cx = (W - tw) / 2
+    for t, hl in parts:
+        d.text((cx, 10), t, font=f, fill=YELLOW if hl else (255, 255, 255), stroke_width=6, stroke_fill=(12, 14, 20))
+        cx += f.getlength(t)
+    if id_text:
+        d.text(((W - iw) / 2, lh + 8), id_text, font=fi, fill=(150, 205, 255), stroke_width=5,
+               stroke_fill=(12, 14, 20))
+    sh = layer.getchannel("A").filter(ImageFilter.GaussianBlur(6)).point(lambda v: int(v * .45))
+    shadow = Image.new("RGBA", layer.size, (0, 0, 0, 0))
+    shadow.putalpha(sh)
+    a = min(1.0, max(0.0, t_in / .12))
+    if a < 1:
+        layer.putalpha(layer.getchannel("A").point(lambda v: int(v * a)))
+        shadow.putalpha(shadow.getchannel("A").point(lambda v: int(v * a)))
+    px = int(img.width / 2 - W / 2)
+    py = int(y - lh / 2) + int((1 - a) * 12)
+    img.alpha_composite(shadow, (px + 3, py + 5))
+    img.alpha_composite(layer, (px, py))
+
+
 # ------------------------------------------------------------------ build
 def subtitle_chunks(words, scene):
     t0, t1 = scene["t_start"], scene["t_end"]

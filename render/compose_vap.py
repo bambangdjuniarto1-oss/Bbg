@@ -185,10 +185,11 @@ def draw_hero(img, h, tg, city=False):
         parts = new
     col = STYLE.get(h.get("style", "pink"), STYLE["pink"])
     size = h.get("size", 124)
-    f = C.font(C.F800, size)
+    fp = os.path.join(C.FONT_DIR, "RobotoSlab-700.woff") if h.get("font") == "slab" else C.F800
+    f = C.font(fp, size)
     tw = C.rich_width(parts, f)
     if tw > 1000:
-        f = C.font(C.F800, int(size * 1000 / tw))
+        f = C.font(fp, int(size * 1000 / tw))
         tw = C.rich_width(parts, f)
     fs = C.font(C.F700, 40)
     sub = h.get("sub", "")

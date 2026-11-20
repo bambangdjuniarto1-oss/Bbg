@@ -1,0 +1,968 @@
+{
+ "scenes": [
+  {
+   "id": "P01",
+   "bubble": "Juara **3x beruntun**",
+   "labels": [
+    {
+     "anchor": "TR",
+     "title": "3 TROFI LIGA",
+     "sub": "3 musim beruntun",
+     "color": "gold",
+     "t": 3.3,
+     "lift": 60
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "P02",
+   "bubble": "Padahal **bukan termahal**",
+   "labels": [
+    {
+     "anchor": "PH",
+     "title": "BOJAN HODAK",
+     "sub": "pelatih 3 gelar • foto: persib.co.id",
+     "color": "cyan",
+     "t": 0.45,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "P03",
+   "bubble": "Namanya **Persib Bandung**",
+   "labels": [
+    {
+     "anchor": "PK",
+     "title": "KOMPAS (EN)",
+     "sub": "media internasional",
+     "color": "cyan",
+     "t": 1.95,
+     "lift": 50,
+     "until": 4.95
+    },
+    {
+     "anchor": "PW",
+     "title": "WIKIPEDIA (EN)",
+     "sub": "",
+     "color": "purple",
+     "t": 2.35,
+     "lift": 50,
+     "until": 4.95
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "P04",
+   "bubble": "Nilai skuad **±€9 juta**",
+   "labels": [
+    {
+     "anchor": "PP",
+     "title": "PERSIB",
+     "sub": "€8,93 jt",
+     "color": "cyan",
+     "t": 1.41,
+     "lift": 50
+    },
+    {
+     "anchor": "PJ",
+     "title": "JOHOR DARUL TA'ZIM",
+     "sub": "€15,93 jt • termahal ASEAN",
+     "color": "red",
+     "t": 6.11,
+     "lift": 50
+    },
+    {
+     "anchor": "GS",
+     "title": "GOODSTATS",
+     "sub": "data Transfermarkt",
+     "color": "purple",
+     "t": 0.81,
+     "lift": 50,
+     "until": 3.11
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "P05",
+   "bubble": "Rahasianya **di luar lapangan**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "P06",
+   "bubble": "Dikelola **seperti perusahaan**",
+   "labels": [
+    {
+     "anchor": "GRAHA",
+     "title": "GRAHA PERSIB",
+     "sub": "Jl. Sulanjana 17, Bandung",
+     "color": "cyan",
+     "t": 0.45,
+     "lift": 50,
+     "until": 3.75
+    },
+    {
+     "anchor": "AI",
+     "title": "I.LEAGUE",
+     "sub": "operator liga",
+     "color": "purple",
+     "t": 4.35,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "P07",
+   "bubble": "Tiket lewat **aplikasi resmi**",
+   "labels": [
+    {
+     "anchor": "APP",
+     "title": "PERSIB APP",
+     "sub": "kanal tiket resmi",
+     "color": "cyan",
+     "t": 0.33,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "P08",
+   "bubble": "Sampah stadion: **zero waste**",
+   "labels": [
+    {
+     "anchor": "BIN",
+     "title": "DIPILAH 3 JENIS",
+     "sub": "organik • anorganik • residu",
+     "color": "green",
+     "t": 0.38,
+     "lift": 60,
+     "until": 1.28
+    },
+    {
+     "anchor": "AZ",
+     "title": "65,4 TON",
+     "sub": "sampah dikelola 2025/26",
+     "color": "green",
+     "t": 1.88,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "P09",
+   "bubble": "Bobotoh dirawat **365 hari**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "P10",
+   "bubble": "Jersey sampai **luar negeri**",
+   "labels": [
+    {
+     "anchor": "JS",
+     "title": "JERSEY PERSIB",
+     "sub": "",
+     "color": "cyan",
+     "t": 0.59,
+     "lift": 50,
+     "until": 2.09
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "P11",
+   "bubble": "Mimpi **masuk bursa**",
+   "labels": [
+    {
+     "anchor": "AK",
+     "title": "KATADATA",
+     "sub": "",
+     "color": "purple",
+     "t": 1.47,
+     "lift": 50,
+     "until": 4.47
+    },
+    {
+     "anchor": "AD",
+     "title": "DETIKFINANCE",
+     "sub": "",
+     "color": "purple",
+     "t": 5.37,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "P12",
+   "bubble": "Valuasi **Rp1 triliun**?",
+   "labels": [
+    {
+     "anchor": "PG",
+     "title": "GRAHA PERSIB",
+     "sub": "",
+     "color": "cyan",
+     "t": 0.59,
+     "lift": 50
+    },
+    {
+     "anchor": "PB",
+     "title": "STADION GBLA",
+     "sub": "Gedebage",
+     "color": "red",
+     "t": 1.09,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "P13",
+   "bubble": "**4 kompetisi** sekaligus",
+   "labels": [
+    {
+     "anchor": "AF",
+     "title": "AFC.COM",
+     "sub": "media luar negeri",
+     "color": "purple",
+     "t": 0.68,
+     "lift": 50,
+     "until": 1.48
+    },
+    {
+     "anchor": "ES",
+     "title": "ESPN",
+     "sub": "media luar negeri",
+     "color": "purple",
+     "t": 1.08,
+     "lift": 50,
+     "until": 1.48
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "P14",
+   "bubble": "**64 laga**, **29 pemain**",
+   "labels": [
+    {
+     "anchor": "RB",
+     "title": "RADAR BANDUNG",
+     "sub": "",
+     "color": "purple",
+     "t": 2.7,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "P15",
+   "bubble": "Di negaramu **ada nggak**?",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "P16",
+   "bubble": "Part 2: **mesin uang Persib**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  }
+ ],
+ "hero": [
+  {
+   "t0": 2.64,
+   "t1": 3.85,
+   "text": "**3x** JUARA BERUNTUN",
+   "sub": "Liga Indonesia 2023/24 • 2024/25 • 2025/26",
+   "style": "gold",
+   "size": 104,
+   "y": 1460,
+   "font": "slab"
+  },
+  {
+   "t0": 4.92,
+   "t1": 6.95,
+   "text": "bukan skuad **termahal**",
+   "sub": "di Asia Tenggara",
+   "style": "red",
+   "size": 96,
+   "y": 1460,
+   "font": "slab"
+  },
+  {
+   "t0": 7.54,
+   "t1": 9.0,
+   "text": "**PERSIB BANDUNG**",
+   "sub": "",
+   "style": "cyan",
+   "size": 118,
+   "y": 1460,
+   "font": "slab"
+  },
+  {
+   "t0": 10.38,
+   "t1": 12.8,
+   "text": "klub **pertama**",
+   "sub": "juara 3 musim beruntun di era profesional",
+   "style": "gold",
+   "size": 104,
+   "y": 1460,
+   "font": "slab"
+  },
+  {
+   "t0": 14.02,
+   "t1": 16.0,
+   "text": "**€8,93** juta",
+   "sub": "nilai pasar skuad (Transfermarkt via GoodStats)",
+   "style": "cyan",
+   "size": 118,
+   "y": 1460,
+   "font": "slab"
+  },
+  {
+   "t0": 16.16,
+   "t1": 20.1,
+   "text": "± **separuh** JDT",
+   "sub": "JDT €15,93 juta — termahal di Asia Tenggara",
+   "style": "red",
+   "size": 104,
+   "y": 1460,
+   "font": "slab"
+  },
+  {
+   "t0": 23.26,
+   "t1": 24.6,
+   "text": "**DI LUAR** LAPANGAN",
+   "sub": "",
+   "style": "cyan",
+   "size": 108,
+   "y": 1460,
+   "font": "slab"
+  },
+  {
+   "t0": 25.0,
+   "t1": 26.4,
+   "text": "seperti **perusahaan**",
+   "sub": "PT Persib Bandung Bermartabat",
+   "style": "cyan",
+   "size": 100,
+   "y": 1460,
+   "font": "slab"
+  },
+  {
+   "t0": 32.0,
+   "t1": 33.45,
+   "text": "tiket via **aplikasi**",
+   "sub": "PERSIB App",
+   "style": "cyan",
+   "size": 100,
+   "y": 1460,
+   "font": "slab"
+  },
+  {
+   "t0": 34.88,
+   "t1": 36.55,
+   "text": "**65,4 ton** sampah",
+   "sub": "terkelola sepanjang 2025/26 (data klub)",
+   "style": "green",
+   "size": 104,
+   "y": 1460,
+   "font": "slab"
+  },
+  {
+   "t0": 37.41,
+   "t1": 39.6,
+   "text": "**365** hari",
+   "sub": "",
+   "style": "gold",
+   "size": 124,
+   "y": 1460,
+   "font": "slab"
+  },
+  {
+   "t0": 39.9,
+   "t1": 40.75,
+   "text": "bukan cuma **90'**",
+   "sub": "",
+   "style": "cyan",
+   "size": 110,
+   "y": 1460,
+   "font": "slab"
+  },
+  {
+   "t0": 43.08,
+   "t1": 46.45,
+   "text": "Jepang • Taiwan • HK • **Brasil**",
+   "sub": "pembeli jersey luar negeri (menurut manajemen)",
+   "style": "gold",
+   "size": 80,
+   "y": 1460,
+   "font": "slab"
+  },
+  {
+   "t0": 49.24,
+   "t1": 51.3,
+   "text": "masuk **bursa**",
+   "sub": "rencana IPO",
+   "style": "gold",
+   "size": 110,
+   "y": 1460,
+   "font": "slab"
+  },
+  {
+   "t0": 52.63,
+   "t1": 53.28,
+   "text": "IPO **TERTUNDA**",
+   "sub": "",
+   "style": "red",
+   "size": 104,
+   "y": 1460,
+   "font": "slab"
+  },
+  {
+   "t0": 56.86,
+   "t1": 60.4,
+   "text": "**Rp1 triliun**",
+   "sub": "≈ US$60 juta • taksiran bila aset dikonsolidasi",
+   "style": "gold",
+   "size": 118,
+   "y": 1460,
+   "font": "slab"
+  },
+  {
+   "t0": 62.18,
+   "t1": 63.95,
+   "text": "**4** KOMPETISI",
+   "sub": "Super League • I.League Cup • Shopee Cup • ACL Two",
+   "style": "cyan",
+   "size": 110,
+   "y": 1460,
+   "font": "slab"
+  },
+  {
+   "t0": 64.21,
+   "t1": 66.6,
+   "text": "**64** laga",
+   "sub": "potensi semusim",
+   "style": "gold",
+   "size": 118,
+   "y": 1460,
+   "font": "slab",
+   "count": {
+    "t0": 64.21,
+    "t1": 65.1,
+    "frm": 0,
+    "to": 64,
+    "fmt": "{}"
+   }
+  },
+  {
+   "t0": 66.88,
+   "t1": 68.25,
+   "text": "**29** pemain",
+   "sub": "skuad 2026/27",
+   "style": "red",
+   "size": 118,
+   "y": 1460,
+   "font": "slab",
+   "count": {
+    "t0": 66.88,
+    "t1": 67.5,
+    "frm": 0,
+    "to": 29,
+    "fmt": "{}"
+   }
+  },
+  {
+   "t0": 74.81,
+   "t1": 78.9,
+   "text": "PART 2",
+   "sub": "mesin uang Persib",
+   "style": "gold",
+   "size": 118,
+   "y": 1460,
+   "font": "slab"
+  }
+ ],
+ "comments": [
+  {
+   "t": 71.1,
+   "text": "Buriram United, Thailand!",
+   "y": 1395
+  },
+  {
+   "t": 72.4,
+   "text": "@kawan_bola wajib nonton ini",
+   "y": 1545
+  }
+ ],
+ "comment_scene": "P15",
+ "bisubs": [
+  [
+   -0.06,
+   1.751,
+   "In Indonesia, there's a **football club**",
+   "Di Indonesia, ada klub sepak bola"
+  ],
+  [
+   1.751,
+   3.789,
+   "that just won the league **three times in a row**,",
+   "yang baru juara liga tiga kali beruntun,"
+  ],
+  [
+   3.789,
+   4.865,
+   "and its squad isn't even",
+   "padahal skuadnya bahkan bukan"
+  ],
+  [
+   4.865,
+   6.992,
+   "the **most expensive** in Southeast Asia.",
+   "yang termahal di Asia Tenggara."
+  ],
+  [
+   6.992,
+   8.492,
+   "It's called **Persib Bandung**,",
+   "Namanya Persib Bandung,"
+  ],
+  [
+   8.492,
+   10.699,
+   "the **first club** in Indonesia's professional era",
+   "klub pertama di era profesional Indonesia"
+  ],
+  [
+   10.699,
+   12.827,
+   "to win **three straight** league titles.",
+   "yang juara liga tiga musim beruntun."
+  ],
+  [
+   12.827,
+   15.346,
+   "Its squad is worth around **9 million euros**.",
+   "Nilai skuadnya sekitar 9 juta euro."
+  ],
+  [
+   15.346,
+   16.61,
+   "That's only about **half** of",
+   "Cuma sekitar separuh dari"
+  ],
+  [
+   16.61,
+   18.695,
+   "Southeast Asia's **most valuable** club,",
+   "klub termahal di Asia Tenggara,"
+  ],
+  [
+   18.695,
+   20.251,
+   "**Johor Darul Ta'zim**.",
+   "Johor Darul Ta'zim."
+  ],
+  [
+   20.251,
+   22.261,
+   "So, what's the **secret**?",
+   "Terus, rahasianya di mana?"
+  ],
+  [
+   22.261,
+   24.586,
+   "The answer is, **off the pitch**.",
+   "Jawabannya: di luar lapangan."
+  ],
+  [
+   24.586,
+   26.426,
+   "Persib is run like a **company**.",
+   "Persib dikelola seperti perusahaan."
+  ],
+  [
+   26.426,
+   28.841,
+   "**Professional**, **transparent** business practices,",
+   "Praktik bisnisnya profesional dan transparan,"
+  ],
+  [
+   28.841,
+   31.308,
+   "something still **rare** in Indonesian football.",
+   "hal yang masih langka di sepak bola Indonesia."
+  ],
+  [
+   31.308,
+   33.459,
+   "Match tickets are sold through an **official app**.",
+   "Tiket dijual lewat aplikasi resmi."
+  ],
+  [
+   33.459,
+   34.817,
+   "Stadium **waste** is handled with a",
+   "Sampah stadion dikelola dengan sistem"
+  ],
+  [
+   34.817,
+   36.577,
+   "**zero-waste-to-landfill** system.",
+   "zero waste to landfill (tanpa dibuang ke TPA)."
+  ],
+  [
+   36.577,
+   39.313,
+   "Fans are engaged **365 days** a year,",
+   "Suporter dirawat 365 hari setahun,"
+  ],
+  [
+   39.313,
+   40.747,
+   "not just for **90 minutes**.",
+   "bukan cuma 90 menit."
+  ],
+  [
+   40.747,
+   42.28,
+   "And their **jerseys** are bought by fans",
+   "Jersey-nya dibeli fans"
+  ],
+  [
+   42.28,
+   44.449,
+   "as far away as **Japan**, **Taiwan**,",
+   "sampai Jepang, Taiwan,"
+  ],
+  [
+   44.449,
+   46.473,
+   "**Hong Kong**, and even **Brazil**.",
+   "Hong Kong, bahkan Brasil."
+  ],
+  [
+   46.473,
+   47.266,
+   "They also have a **dream**",
+   "Mereka juga punya mimpi"
+  ],
+  [
+   47.266,
+   49.176,
+   "few Indonesian clubs ever have,",
+   "yang jarang dimiliki klub Indonesia:"
+  ],
+  [
+   49.176,
+   51.289,
+   "going public on the **stock exchange**.",
+   "masuk bursa saham."
+  ],
+  [
+   51.289,
+   53.251,
+   "Their **IPO** plan has been **delayed**.",
+   "Rencana IPO-nya sempat tertunda."
+  ],
+  [
+   53.251,
+   55.044,
+   "But once their assets are **consolidated**,",
+   "Tapi kalau asetnya sudah dirapikan,"
+  ],
+  [
+   55.044,
+   56.365,
+   "the club's **valuation** is estimated",
+   "valuasi klubnya ditaksir"
+  ],
+  [
+   56.365,
+   58.148,
+   "to reach **1 trillion rupiah**,",
+   "bisa tembus Rp1 triliun,"
+  ],
+  [
+   58.148,
+   60.459,
+   "around **60 million US dollars**.",
+   "sekitar 60 juta dolar AS."
+  ],
+  [
+   60.459,
+   62.119,
+   "Now comes the **hardest test**.",
+   "Sekarang ujiannya lebih berat."
+  ],
+  [
+   62.119,
+   63.827,
+   "**Four competitions** at once,",
+   "Empat kompetisi sekaligus,"
+  ],
+  [
+   63.827,
+   66.039,
+   "up to **64 matches** in one season,",
+   "potensi 64 laga dalam semusim,"
+  ],
+  [
+   66.039,
+   68.251,
+   "with a squad of just **29 players**.",
+   "dengan skuad cuma 29 pemain."
+  ],
+  [
+   68.251,
+   70.28,
+   "Does **your country** have a club run this well?",
+   "Di negaramu, ada klub yang dikelola serapi ini?"
+  ],
+  [
+   70.28,
+   72.204,
+   "Drop the **club's name** in the comments.",
+   "Tulis nama klubnya di komentar."
+  ],
+  [
+   72.204,
+   74.185,
+   "**Tag** a football fan from another country,",
+   "Tag temen pecinta bola dari negara lain,"
+  ],
+  [
+   74.185,
+   75.681,
+   "and **follow** for Part 2:",
+   "dan follow buat part 2:"
+  ],
+  [
+   75.681,
+   77.556,
+   "Inside **Persib's Money Machine**.",
+   "mesin uang Persib."
+  ]
+ ],
+ "sub_y": 1228,
+ "fx": {
+  "punch": [
+   [
+    2.64,
+    0.7
+   ],
+   [
+    2.94,
+    0.5
+   ],
+   [
+    3.19,
+    0.5
+   ],
+   [
+    4.92,
+    0.6
+   ],
+   [
+    7.54,
+    1.0
+   ],
+   [
+    11.23,
+    0.5
+   ],
+   [
+    14.02,
+    0.8
+   ],
+   [
+    16.16,
+    0.6
+   ],
+   [
+    18.75,
+    0.8
+   ],
+   [
+    21.57,
+    0.6
+   ],
+   [
+    23.26,
+    0.8
+   ],
+   [
+    25.31,
+    0.6
+   ],
+   [
+    26.49,
+    0.4
+   ],
+   [
+    27.18,
+    0.4
+   ],
+   [
+    31.9,
+    0.5
+   ],
+   [
+    34.88,
+    0.7
+   ],
+   [
+    37.41,
+    0.8
+   ],
+   [
+    39.9,
+    0.6
+   ],
+   [
+    43.08,
+    0.5
+   ],
+   [
+    43.76,
+    0.5
+   ],
+   [
+    44.51,
+    0.5
+   ],
+   [
+    45.55,
+    0.7
+   ],
+   [
+    49.53,
+    0.8
+   ],
+   [
+    52.63,
+    1.0
+   ],
+   [
+    54.2,
+    0.5
+   ],
+   [
+    56.86,
+    1.0
+   ],
+   [
+    62.18,
+    0.6
+   ],
+   [
+    62.45,
+    0.5
+   ],
+   [
+    62.72,
+    0.5
+   ],
+   [
+    62.98,
+    0.6
+   ],
+   [
+    64.21,
+    0.7
+   ],
+   [
+    66.88,
+    0.8
+   ],
+   [
+    71.1,
+    0.4
+   ],
+   [
+    72.4,
+    0.4
+   ],
+   [
+    74.81,
+    0.9
+   ]
+  ],
+  "flash": [
+   [
+    7.54,
+    0.2,
+    "w"
+   ],
+   [
+    52.63,
+    0.18,
+    "r"
+   ],
+   [
+    56.86,
+    0.2,
+    "w"
+   ]
+  ],
+  "chroma": [
+   [
+    52.63,
+    0.25
+   ],
+   [
+    74.81,
+    0.15
+   ]
+  ],
+  "pale": [
+   0,
+   0,
+   "NONE"
+  ]
+ },
+ "keywords": []
+}
