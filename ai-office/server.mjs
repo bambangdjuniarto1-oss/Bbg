@@ -47,6 +47,9 @@ const MIME = {
   ".svg": "image/svg+xml",
   ".png": "image/png",
   ".json": "application/json",
+  ".woff": "font/woff",
+  ".jpg": "image/jpeg",
+  ".mp4": "video/mp4",
 };
 
 async function kirimFile(res, root, rel) {

@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>POV Claude Code x Tim Analis Sosmed</title>
+<script type="importmap">
+  { "imports": { "three": "/vendor/three/build/three.module.js" } }
+</script>
+<style>
+  @font-face { font-family: "Plus Jakarta Sans"; font-weight: 800; src: url("/fonts/PlusJakartaSans-800.woff") format("woff"); }
+  @font-face { font-family: "Plus Jakarta Sans"; font-weight: 700; src: url("/fonts/PlusJakartaSans-700.woff") format("woff"); }
+  html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+  #c { position: absolute; inset: 0; }
+  .caption { position: absolute; left: 0; right: 0; text-align: center; color: #fff;
+    font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; font-style: italic;
+    text-shadow: 0 3px 14px #000a, 0 1px 3px #000c; }
+  #judul { top: 300px; font-size: 66px; letter-spacing: -1px; }
+  #sub { top: 392px; font-size: 34px; font-weight: 700; opacity: 0; }
+  #vignette { position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 85% 70% at 50% 55%, transparent 55%, #0006 100%); }
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<div id="vignette"></div>
+<div class="caption" id="judul">Claude Code x Tim Analis Sosmed</div>
+<div class="caption" id="sub">POV: tim AI kerja, gue tinggal ngopi</div>
+<script type="module">
+import * as THREE from "three";
+
+// ============================================================ util waktu
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const ease = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+const DURASI = 24;
+
+// ============================================================ layar laptop (kanvas 2D)
+const W = 1280, H = 800;
+const ui = document.createElement("canvas");
+ui.width = W; ui.height = H;
+const g = ui.getContext("2d");
+const SANS = '"Plus Jakarta Sans", "DejaVu Sans", sans-serif';
+const MONO = '"DejaVu Sans Mono", "Liberation Mono", monospace';
+const CORAL = "#d97757";
+const AGEN = {
+  Taufik: { warna: "#16a34a", peran: "Social Media" },
+  Umar: { warna: "#2563eb", peran: "SEO & Tren" },
+  Yoga: { warna: "#d97706", peran: "Paid Ads" },
+  Nadia: { warna: "#db2777", peran: "Head of Growth" },
+};
+
+function rrect(x, y, w, h, r, isi, garis) {
+  g.beginPath();
+  g.roundRect(x, y, w, h, r);
+  if (isi) { g.fillStyle = isi; g.fill(); }
+  if (garis) { g.strokeStyle = garis; g.lineWidth = 1.5; g.stroke(); }
+}
+function teks(s, x, y, warna, ukuran, berat = 600, font = SANS, align = "left") {
+  g.font = `${berat} ${ukuran}px ${font}`;
+  g.fillStyle = warna;
+  g.textAlign = align;
+  g.fillText(s, x, y);
+}
+function bungkus(s, lebar, ukuran, font = MONO, berat = 400) {
+  g.font = `${berat} ${ukuran}px ${font}`;
+  const kata = s.split(" ");
+  const baris = [];
+  let cur = "";
+  for (const k of kata) {
+    const coba = cur ? cur + " " + k : k;
+    if (g.measureText(coba).width > lebar && cur) { baris.push(cur); cur = k; } else cur = coba;
+  }
+  if (cur) baris.push(cur);
+  return baris;
+}
+
+// ---------- terminal Claude Code (kiri)
+const PROMPT = "Tim sosmed, analisis performa IG & TikTok minggu ini. Cari 5 konten terbaik dan jam posting terbaik, lalu susun rencana minggu depan.";
+const TODO = [
+  { teks: "Tarik data Insights IG & TikTok", agen: "Taufik", selesai: 11.0 },
+  { teks: "Riset hashtag & topik yang naik", agen: "Umar", selesai: 12.3 },
+  { teks: "Cek performa iklan berbayar", agen: "Yoga", selesai: 13.2 },
+  { teks: "Susun laporan & kalender konten", agen: "Nadia", selesai: 17.4 },
+];
+const LOG = [
+  { t: 3.9, jenis: "jawab", s: "Oke! Gue bagi ke 4 anggota tim analis sosmed." },
+  { t: 4.4, jenis: "todo" },
+  { t: 5.3, jenis: "tool", agen: "Taufik", s: "Read(ig_insights_w47.csv)" },
+  { t: 5.8, jenis: "hasil", s: "1.284 baris" },
+  { t: 6.5, jenis: "tool", agen: "Taufik", s: "Read(tiktok_analytics.csv)" },
+  { t: 6.9, jenis: "hasil", s: "862 baris" },
+  { t: 7.5, jenis: "tool", agen: "Umar", s: 'WebSearch("tren musik indie nov")' },
+  { t: 8.0, jenis: "hasil", s: "12 hasil" },
+  { t: 8.7, jenis: "tool", agen: "Yoga", s: "Read(meta_ads_export.csv)" },
+  { t: 9.1, jenis: "hasil", s: "6 kampanye · ROAS 3,4x" },
+  { t: 9.9, jenis: "tool", agen: "Taufik", s: "Bash(python engagement.py)" },
+  { t: 10.4, jenis: "hasil", s: "top 5 konten ditemukan" },
+  { t: 11.3, jenis: "tool", agen: "Umar", s: "Grep(hashtag trending)" },
+  { t: 11.8, jenis: "hasil", s: "#indiemusic naik 41%" },
+  { t: 13.6, jenis: "tool", agen: "Nadia", s: "Write(laporan-mingguan.md)" },
+  { t: 14.1, jenis: "hasil", s: "48 baris" },
+  { t: 15.1, jenis: "tool", agen: "Nadia", s: "Write(kalender-minggu48.csv)" },
+  { t: 15.5, jenis: "hasil", s: "4 jadwal posting" },
+  { t: 17.9, jenis: "selesai", s: "Selesai  4 agent · 2.146 baris data · 2 file" },
+  { t: 18.5, jenis: "insight", s: "Insight: Reels behind-the-scenes 2,3x lebih engaging. Jam terbaik 19.00–21.00." },
+];
+
+function terminal(t) {
+  const X = 0, Y = 40, LW = 500, LH = H - 40;
+  g.fillStyle = "#18191b";
+  g.fillRect(X, Y, LW, LH);
+  g.save();
+  g.beginPath(); g.rect(X, Y, LW, LH); g.clip();
+
+  const baris = []; // { s, warna, ukuran, berat, font, x, coret }
+  const PX = 22, LEBAR = LW - 44;
+  const tambah = (s, warna, opsi = {}) => baris.push({ s, warna, ...opsi });
+
+  // kotak sambutan
+  baris.push({ jenis: "header" });
+  // prompt yang diketik
+  const nKetik = Math.floor(clamp((t - 0.6) / 2.6) * PROMPT.length);
+  const ketik = PROMPT.slice(0, nKetik);
+  const kursor = t < 3.4 && Math.floor(t * 3) % 2 === 0 ? "▍" : "";
+  bungkus("> " + ketik + kursor, LEBAR, 15).forEach((b, i) => tambah(i ? "  " + b : b, "#f2f2f2", { ukuran: 15 }));
+  baris.push({ jarak: 10 });
+
+  for (const ev of LOG) {
+    if (t < ev.t) break;
+    if (ev.jenis === "jawab") {
+      bungkus("⏺ " + ev.s, LEBAR, 15).forEach((b) => tambah(b, "#f2f2f2", { ukuran: 15 }));
+    } else if (ev.jenis === "todo") {
+      tambah("  Update Todos", "#9aa0a6", { ukuran: 14 });
+      TODO.forEach((td, i) => {
+        if (t < ev.t + 0.18 * (i + 1)) return;
+        const ok = t >= td.selesai;
+        tambah(`  ${ok ? "☒" : "☐"} ${td.teks}`, ok ? "#6ee7a8" : "#d4d4d4", { ukuran: 14, coret: ok, agen: td.agen });
+      });
+      baris.push({ jarak: 6 });
+    } else if (ev.jenis === "tool") {
+      tambah(`⏺ ${ev.agen} · ${ev.s}`, "#e5e5e5", { ukuran: 14.5, agen: ev.agen });
+    } else if (ev.jenis === "hasil") {
+      tambah(`  ⎿  ${ev.s}`, "#9aa0a6", { ukuran: 14 });
+    } else if (ev.jenis === "selesai") {
+      baris.push({ jarak: 6 });
+      tambah(`✓ ${ev.s}`, "#6ee7a8", { ukuran: 15, berat: 700 });
+    } else if (ev.jenis === "insight") {
+      bungkus(ev.s, LEBAR - 10, 14.5).forEach((b) => tambah("  " + b, "#ffffff", { ukuran: 14.5 }));
+    }
+  }
+
+  // tinggi total + auto-scroll
+  const tinggi = (b) => (b.jenis === "header" ? 96 : b.jarak ?? Math.round((b.ukuran ?? 15) * 1.65));
+  const total = baris.reduce((s, b) => s + tinggi(b), 0) + 60;
+  let y = Y + 20 - Math.max(0, total - (LH - 54));
+  for (const b of baris) {
+    if (b.jenis === "header") {
+      rrect(PX - 6, y, LEBAR + 12, 80, 8, null, CORAL);
+      teks("✻", PX + 8, y + 32, CORAL, 22, 700, MONO);
+      teks("Selamat datang di Claude Code", PX + 36, y + 32, "#f2f2f2", 15, 700, MONO);
+      teks("cwd: ~/kantor-ai/tim-sosmed", PX + 36, y + 58, "#8a8f98", 13, 400, MONO);
+    } else if (b.s !== undefined) {
+      const fs = b.ukuran ?? 15;
+      let x = PX;
+      if (b.agen && b.s.startsWith("⏺ ")) {
+        // titik & nama agen berwarna
+        teks("⏺", x, y + fs, AGEN[b.agen].warna, fs, 400, MONO);
+        g.font = `400 ${fs}px ${MONO}`;
+        const lebarTitik = g.measureText("⏺ ").width;
+        teks(b.agen, x + lebarTitik, y + fs, AGEN[b.agen].warna, fs, 700, MONO);
+        const lebarNama = g.measureText(b.agen).width;
+        teks(b.s.slice(2 + b.agen.length), x + lebarTitik + lebarNama, y + fs, b.warna, fs, 400, MONO);
+      } else {
+        teks(b.s, x, y + fs, b.warna, fs, b.berat ?? 400, MONO);
+        if (b.coret) {
+          g.font = `400 ${fs}px ${MONO}`;
+          const w = g.measureText(b.s).width;
+          g.fillStyle = "#6ee7a8"; g.fillRect(x + 34, y + fs * 0.62, w - 34, 1.2);
+        }
+      }
+    }
+    y += tinggi(b);
+  }
+  g.restore();
+
+  // status bawah: spinner saat tim bekerja
+  if (t > 4 && t < 17.9) {
+    const bintang = "✢✳✶✻✽✻✶✳"[Math.floor(t * 8) % 8];
+    const detik = Math.floor((t - 4) * 17);
+    g.fillStyle = "#18191b"; g.fillRect(0, H - 50, LW, 50);
+    teks(`${bintang} Tim menganalisis… (${detik}s · esc untuk berhenti)`, PX, H - 22, CORAL, 14, 400, MONO);
+  } else if (t >= 17.9) {
+    g.fillStyle = "#18191b"; g.fillRect(0, H - 50, LW, 50);
+    rrect(PX - 6, H - 44, LEBAR + 12, 32, 6, null, "#3a3d42");
+    teks(">", PX + 4, H - 22, "#8a8f98", 15, 400, MONO);
+  }
+}
+
+// ---------- dashboard sosmed (kanan)
+const DX = 500, DW = W - 500;
+const KPI = [
+  { label: "Reach", nilai: 1.24, fmt: (v) => `${v.toFixed(2).replace(".", ",")} jt`, delta: "▲ 18%" },
+  { label: "Engagement", nilai: 6.2, fmt: (v) => `${v.toFixed(1).replace(".", ",")}%`, delta: "▲ 0,9 pt" },
+  { label: "Followers", nilai: 3410, fmt: (v) => `+${Math.round(v).toLocaleString("id-ID")}`, delta: "▲ 27%" },
+  { label: "ROAS Iklan", nilai: 3.4, fmt: (v) => `${v.toFixed(1).replace(".", ",")}x`, delta: "▲ 0,6" },
+];
+const IG = [3.1, 4.2, 3.8, 5.6, 4.9, 7.4, 6.8];
+const TT = [2.2, 2.9, 4.1, 3.6, 5.2, 5.9, 7.9];
+const TOP = [
+  ["BTS rekaman album", "Reels", "11,4%", "#f97316"],
+  ["Cover akustik 60 detik", "TikTok", "9,8%", "#111827"],
+  ["Review film festival", "Carousel", "7,6%", "#8b5cf6"],
+  ["Tips foto konser", "Reels", "6,9%", "#ec4899"],
+  ["Q&A musisi tamu", "Live", "6,1%", "#0ea5e9"],
+];
+const RENCANA = [
+  ["Sen", "19.00", "Reels BTS sesi latihan"],
+  ["Rab", "12.00", "Carousel 5 album wajib dengar"],
+  ["Jum", "20.00", "TikTok challenge cover"],
+  ["Min", "10.00", "Live Q&A bareng musisi"],
+];
+
+function kartu(x, y, w, h, judul) {
+  rrect(x, y, w, h, 12, "#ffffff", "#e6e8ec");
+  if (judul) teks(judul, x + 16, y + 26, "#1f2633", 15, 700);
+}
+
+function dashboard(t) {
+  g.fillStyle = "#f4f5f8";
+  g.fillRect(DX, 40, DW, H - 40);
+  const x0 = DX + 22;
+
+  // header
+  teks("Social Insights", x0, 82, "#111827", 24, 800);
+  teks("18–24 Nov · semua akun", x0 + 214, 82, "#6b7280", 14, 600);
+  ["Instagram", "TikTok", "YouTube"].forEach((tab, i) => {
+    const aktif = (t > 7.6 && t < 10.5 ? 1 : 0) === i;
+    const tx = DX + DW - 330 + i * 104;
+    rrect(tx, 60, 96, 30, 15, aktif ? "#111827" : "#ffffff", aktif ? null : "#e0e3e8");
+    teks(tab, tx + 48, 80, aktif ? "#fff" : "#4b5563", 13, 700, SANS, "center");
+  });
+
+  // KPI
+  const kw = (DW - 44 - 3 * 12) / 4;
+  KPI.forEach((k, i) => {
+    const kx = x0 + i * (kw + 12), ky = 108;
+    kartu(kx, ky, kw, 92);
+    const p = ease(prog(t, 5.4 + i * 0.35, 7.4 + i * 0.35));
+    teks(k.label, kx + 14, ky + 26, "#6b7280", 13, 700);
+    teks(p > 0 ? k.fmt(k.nilai * p) : "–", kx + 14, ky + 60, "#111827", 26, 800);
+    if (p > 0.95) teks(k.delta, kx + 14, ky + 82, "#16a34a", 12.5, 700);
+  });
+
+  // grafik garis engagement harian
+  const gx = x0, gy = 214, gw = 430, gh = 190;
+  kartu(gx, gy, gw, gh, "Engagement harian");
+  const px = gx + 24, py = gy + 46, pw = gw - 48, ph = gh - 74;
+  g.strokeStyle = "#eef0f3"; g.lineWidth = 1;
+  for (let i = 0; i <= 3; i++) { g.beginPath(); g.moveTo(px, py + (ph * i) / 3); g.lineTo(px + pw, py + (ph * i) / 3); g.stroke(); }
+  ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"].forEach((d, i) => teks(d, px + (pw * i) / 6, py + ph + 18, "#9ca3af", 11, 600, SANS, "center"));
+  const garis = (data, warna, a) => {
+    const p = ease(prog(t, a, a + 2.4));
+    if (p <= 0) return;
+    const n = (data.length - 1) * p;
+    g.strokeStyle = warna; g.lineWidth = 3; g.lineJoin = "round"; g.beginPath();
+    for (let i = 0; i <= Math.ceil(n); i++) {
+      const j = Math.min(i, n);
+      const v = data[Math.floor(j)] + (data[Math.min(Math.ceil(j), data.length - 1)] - data[Math.floor(j)]) * (j - Math.floor(j));
+      const xx = px + (pw * j) / 6, yy = py + ph - (v / 8.5) * ph;
+      i ? g.lineTo(xx, yy) : g.moveTo(xx, yy);
+    }
+    g.stroke();
+  };
+  garis(IG, "#f97316", 6.8);
+  garis(TT, "#111827", 7.4);
+  if (t > 7) { teks("● IG", gx + gw - 110, gy + 26, "#f97316", 12, 700); teks("● TikTok", gx + gw - 70, gy + 26, "#111827", 12, 700); }
+
+  // donat sentimen
+  const sx = gx + gw + 14, sw = DW - 44 - gw - 14;
+  kartu(sx, gy, sw, gh, "Sentimen komentar");
+  const cx = sx + 82, cy = gy + 112, r = 54;
+  const pd = ease(prog(t, 8.6, 10.2));
+  let mulai = -Math.PI / 2;
+  [[0.72, "#22c55e"], [0.21, "#cbd5e1"], [0.07, "#ef4444"]].forEach(([v, c]) => {
+    const akhir = mulai + v * Math.PI * 2 * pd;
+    g.strokeStyle = c; g.lineWidth = 20; g.lineCap = "butt"; g.beginPath(); g.arc(cx, cy, r, mulai, akhir); g.stroke();
+    mulai = akhir;
+  });
+  if (pd > 0.9) {
+    teks("72%", cx, cy + 8, "#111827", 22, 800, SANS, "center");
+    [["Positif 72%", "#22c55e"], ["Netral 21%", "#94a3b8"], ["Negatif 7%", "#ef4444"]].forEach(([l, c], i) => teks(l, sx + 158, gy + 92 + i * 24, c, 13, 700));
+  }
+
+  // top 5 konten
+  const ty = 416, tw = 430, th = 226;
+  kartu(gx, ty, tw, th, "Top 5 konten minggu ini");
+  TOP.forEach(([judul, platform, er, warna], i) => {
+    const a = prog(t, 9.6 + i * 0.4, 10.2 + i * 0.4);
+    if (a <= 0) return;
+    g.globalAlpha = a;
+    const ry = ty + 42 + i * 36;
+    if (i === 0 && t > 11.6) rrect(gx + 8, ry - 4, tw - 16, 34, 8, "#fff7ed", "#fdba74");
+    teks(`${i + 1}`, gx + 18, ry + 19, "#9ca3af", 14, 800);
+    rrect(gx + 38, ry, 40, 26, 5, warna);
+    g.fillStyle = "#fff"; g.beginPath(); g.moveTo(gx + 54, ry + 7); g.lineTo(gx + 54, ry + 19); g.lineTo(gx + 64, ry + 13); g.fill();
+    teks(judul, gx + 90, ry + 13, "#111827", 13.5, 700);
+    teks(platform, gx + 90, ry + 28, "#9ca3af", 11.5, 600);
+    teks(er, gx + tw - 18, ry + 19, "#16a34a", 14, 800, SANS, "right");
+    g.globalAlpha = 1;
+  });
+
+  // heatmap jam posting
+  kartu(sx, ty, sw, th, "Jam posting terbaik");
+  const jam = ["07", "12", "15", "19", "21", "23"];
+  const hari = ["S", "S", "R", "K", "J", "S", "M"];
+  const hx = sx + 44, hy = ty + 46, cw = (sw - 64) / 7, ch = 24;
+  jam.forEach((j, r) => teks(j, sx + 16, hy + r * (ch + 4) + 17, "#9ca3af", 11, 700));
+  hari.forEach((h, c) => teks(h, hx + c * cw + cw / 2 - 2, hy + 6 * (ch + 4) + 12, "#9ca3af", 11, 700, SANS, "center"));
+  for (let r = 0; r < 6; r++) for (let c = 0; c < 7; c++) {
+    const a = prog(t, 11.0 + (r * 7 + c) * 0.028, 11.5 + (r * 7 + c) * 0.028);
+    if (a <= 0) continue;
+    const kuat = clamp(0.15 + (r === 3 || r === 4 ? 0.55 : r === 1 ? 0.25 : 0.05) + ((c * 37 + r * 11) % 10) / 40 + (c >= 4 ? 0.1 : 0));
+    g.globalAlpha = a;
+    rrect(hx + c * cw, hy + r * (ch + 4), cw - 4, ch, 4, `rgba(249,115,22,${kuat})`);
+    g.globalAlpha = 1;
+  }
+  if (t > 12.8) rrect(hx - 3, hy + 3 * (ch + 4) - 3, 7 * cw - 2, 2 * (ch + 4) + 2, 6, null, "#ea580c");
+
+  // rencana minggu depan
+  const ry0 = 656;
+  kartu(gx, ry0, DW - 44, 132, "Rencana minggu depan");
+  RENCANA.forEach(([hr, jm, isi], i) => {
+    const a = prog(t, 15.3 + i * 0.45, 15.8 + i * 0.45);
+    if (a <= 0) return;
+    g.globalAlpha = a;
+    const col = i % 2, row = Math.floor(i / 2);
+    const bx = gx + 16 + col * ((DW - 76) / 2), by = ry0 + 44 + row * 40;
+    rrect(bx, by, (DW - 92) / 2, 32, 8, "#f8fafc", "#e5e7eb");
+    rrect(bx + 6, by + 5, 46, 22, 6, "#111827");
+    teks(hr, bx + 29, by + 21, "#fff", 12, 800, SANS, "center");
+    teks(jm, bx + 62, by + 21, "#f97316", 13, 800);
+    teks(isi, bx + 112, by + 21, "#1f2937", 13, 700);
+    g.globalAlpha = 1;
+  });
+
+  // toast laporan terkirim
+  const tp = ease(prog(t, 18.8, 19.4));
+  if (tp > 0) {
+    const tx = DX + DW - 22 - 360, tyy = 20 + 92 * tp;
+    g.globalAlpha = tp;
+    rrect(tx, tyy, 360, 56, 12, "#111827");
+    rrect(tx + 12, tyy + 12, 32, 32, 16, "#22c55e");
+    teks("✓", tx + 28, tyy + 34, "#fff", 18, 800, SANS, "center");
+    teks("Laporan terkirim", tx + 56, tyy + 24, "#fff", 14, 800);
+    teks("ke grup Telegram Tim Sosmed", tx + 56, tyy + 43, "#9ca3af", 12.5, 600);
+    g.globalAlpha = 1;
+  }
+}
+
+// ---------- kursor agen yang bergerak di dashboard
+const JALUR = {
+  Taufik: [[4.9, 1000, 420], [5.8, 590, 160, 1], [7.0, 640, 300], [8.2, 760, 330], [10.0, 650, 470, 1], [11.7, 680, 462, 1], [13.0, 760, 560], [17.6, 860, 540]],
+  Umar: [[6.6, 1200, 300], [7.6, 1010, 76, 1], [9.0, 980, 160], [11.0, 1080, 520, 1], [12.9, 1120, 590, 1], [17.6, 1180, 470]],
+  Yoga: [[8.3, 1240, 120], [9.0, 1180, 160, 1], [10.1, 1080, 330, 1], [12.0, 1150, 300], [13.3, 1020, 250], [17.6, 1100, 200]],
+  Nadia: [[13.3, 900, 780], [14.0, 700, 700], [15.6, 640, 714, 1], [16.6, 960, 714, 1], [17.4, 900, 760, 1], [18.6, 1060, 150, 1]],
+};
+function posisiKursor(kunci, t) {
+  if (t < kunci[0][0] || t > kunci[kunci.length - 1][0] + 0.6) return null;
+  let i = 0;
+  while (i < kunci.length - 1 && t > kunci[i + 1][0]) i++;
+  const a = kunci[i], b = kunci[Math.min(i + 1, kunci.length - 1)];
+  const p = b === a ? 1 : ease(prog(t, a[0], b[0]));
+  // jeda kecil di setiap titik supaya terlihat seperti manusia/agen yang membaca
+  return { x: a[1] + (b[1] - a[1]) * p, y: a[2] + (b[2] - a[2]) * p, klik: kunci.find((k) => k[3] && t >= k[0] && t < k[0] + 0.45) };
+}
+function kursor(t) {
+  for (const [nama, kunci] of Object.entries(JALUR)) {
+    const pos = posisiKursor(kunci, t);
+    if (!pos) continue;
+    const warna = AGEN[nama].warna;
+    const muncul = clamp((t - kunci[0][0]) / 0.3) * clamp((kunci[kunci.length - 1][0] + 0.6 - t) / 0.3);
+    g.globalAlpha = muncul;
+    if (pos.klik) {
+      const r = 6 + (t - pos.klik[0]) * 60;
+      g.strokeStyle = warna; g.lineWidth = 3; g.globalAlpha = muncul * (1 - (t - pos.klik[0]) / 0.45);
+      g.beginPath(); g.arc(pos.x, pos.y, r, 0, Math.PI * 2); g.stroke();
+      g.globalAlpha = muncul;
+    }
+    g.fillStyle = warna; g.strokeStyle = "#fff"; g.lineWidth = 2;
+    g.beginPath(); g.moveTo(pos.x, pos.y); g.lineTo(pos.x, pos.y + 22); g.lineTo(pos.x + 6, pos.y + 16); g.lineTo(pos.x + 15, pos.y + 16); g.closePath();
+    g.fill(); g.stroke();
+    g.font = `800 12.5px ${SANS}`;
+    const lw = g.measureText(nama).width + 16;
+    rrect(pos.x + 12, pos.y + 18, lw, 22, 11, warna);
+    teks(nama, pos.x + 20, pos.y + 33, "#fff", 12.5, 800);
+    g.globalAlpha = 1;
+  }
+}
+
+function gambarLayar(t) {
+  g.fillStyle = "#2b2d31"; g.fillRect(0, 0, W, 40);
+  ["#ff5f57", "#febc2e", "#28c840"].forEach((c, i) => { g.fillStyle = c; g.beginPath(); g.arc(22 + i * 22, 20, 7, 0, Math.PI * 2); g.fill(); });
+  teks("Claude Code — kantor-ai/tim-sosmed", W / 2, 26, "#c9cdd3", 14, 700, SANS, "center");
+  terminal(t);
+  dashboard(t);
+  g.fillStyle = "#2b2d31"; g.fillRect(498, 40, 2, H - 40);
+  kursor(t);
+}
+
+// ============================================================ adegan 3D
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("c"), antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1);
+renderer.setSize(1080, 1920, false);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.25;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+const scene = new THREE.Scene();
+const mat = (c, o = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: 0.75, ...o });
+const kotak = (w, h, d, m, x, y, z, induk = scene) => {
+  const o = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m);
+  o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; induk.add(o); return o;
+};
+
+// latar jendela terang + kebun di luar (tekstur buram)
+{
+  const c = document.createElement("canvas"); c.width = 1024; c.height = 1024;
+  const x = c.getContext("2d");
+  const gr = x.createLinearGradient(0, 0, 0, 1024);
+  gr.addColorStop(0, "#f3f6ee"); gr.addColorStop(0.45, "#dfe9d2"); gr.addColorStop(1, "#7f9a6a");
+  x.fillStyle = gr; x.fillRect(0, 0, 1024, 1024);
+  x.filter = "blur(18px)";
+  const daun = ["#5f8f3e", "#7fb04c", "#3f6d2c", "#9cc46a", "#4d7d35"];
+  for (let i = 0; i < 70; i++) {
+    x.fillStyle = daun[i % 5]; x.globalAlpha = 0.65;
+    x.beginPath(); x.arc((i * 137) % 1024, 420 + ((i * 89) % 600), 40 + ((i * 53) % 90), 0, Math.PI * 2); x.fill();
+  }
+  x.globalAlpha = 1; x.filter = "none";
+  for (let i = 0; i < 6; i++) { x.fillStyle = "#2b2b2b"; x.fillRect(i * 205, 0, 14, 1024); }
+  x.fillRect(0, 380, 1024, 12);
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
+  const latar = new THREE.Mesh(new THREE.PlaneGeometry(26, 26), new THREE.MeshBasicMaterial({ map: tex }));
+  latar.position.set(0, 6, -9); scene.add(latar);
+}
+
+// meja
+kotak(14, 0.4, 9, mat("#4a4b50", { roughness: 0.85 }), 0, -0.2, 0.5);
+// rak tanaman di belakang laptop (gaya voxel, senada dengan kantor virtual)
+kotak(10, 0.2, 1.2, mat("#6b5640"), 0, 1.7, -5.6);
+const DAUN = ["#7cc35a", "#5aa84f", "#9bd46e", "#68b04d"];
+for (let i = 0; i < 9; i++) {
+  const px = -4.4 + i * 1.1, s = 0.45 + ((i * 7) % 4) * 0.1;
+  const pot = new THREE.Mesh(new THREE.CylinderGeometry(0.28 * s, 0.22 * s, 0.5 * s, 14), mat(["#c0703f", "#e9e4da", "#9a5a35"][i % 3]));
+  pot.position.set(px, 1.8 + 0.25 * s, -5.6); pot.castShadow = true; scene.add(pot);
+  for (let j = 0; j < 4; j++) {
+    const d = new THREE.Mesh(new THREE.IcosahedronGeometry((0.3 + j * 0.04) * s, 1), mat(DAUN[(i + j) % 4], { flatShading: true }));
+    d.position.set(px + Math.sin(i + j * 2) * 0.22 * s, 2.05 + 0.5 * s + j * 0.26 * s, -5.6 + Math.cos(i * 3 + j) * 0.15);
+    d.castShadow = true; scene.add(d);
+  }
+}
+// tanaman besar kiri & kanan
+for (const [x, z, s] of [[-3.6, -3.4, 1.1], [3.8, -3.8, 1.0]]) {
+  const pot = new THREE.Mesh(new THREE.CylinderGeometry(0.42 * s, 0.32 * s, 0.7 * s, 16), mat("#e9e4da")); pot.position.set(x, 0.35 * s, z); scene.add(pot);
+  for (let j = 0; j < 7; j++) {
+    const d = new THREE.Mesh(new THREE.IcosahedronGeometry(0.38 * s, 1), mat(DAUN[j % 4], { flatShading: true }));
+    d.position.set(x + Math.sin(j * 2.3) * 0.45 * s, 0.9 * s + j * 0.32 * s, z + Math.cos(j * 1.7) * 0.3 * s); scene.add(d);
+  }
+}
+
+// laptop
+const laptop = new THREE.Group(); scene.add(laptop);
+const bodi = mat("#2b2c30", { roughness: 0.45, metalness: 0.3 });
+kotak(4.2, 0.12, 2.8, bodi, 0, 0.06, 0, laptop);
+kotak(3.9, 0.02, 1.35, mat("#151518"), 0, 0.125, -0.42, laptop);
+const tuts = mat("#1d1e22", { roughness: 0.6 });
+for (let r = 0; r < 5; r++) for (let c = 0; c < 14; c++) {
+  const lebar = r === 4 && c >= 4 && c <= 8 ? 0 : 0.22;
+  if (!lebar) continue;
+  kotak(lebar, 0.03, 0.2, tuts, -1.82 + c * 0.28, 0.14, -0.98 + r * 0.26, laptop);
+}
+kotak(1.75, 0.03, 0.2, tuts, 0.0, 0.14, 0.06, laptop); // spasi
+kotak(1.5, 0.01, 0.95, mat("#2f3135", { roughness: 0.7 }), 0, 0.125, 0.78, laptop); // trackpad
+const engsel = new THREE.Group(); engsel.position.set(0, 0.12, -1.4); engsel.rotation.x = -0.2; laptop.add(engsel);
+kotak(4.2, 2.75, 0.09, bodi, 0, 1.375, 0, engsel);
+kotak(4.02, 2.6, 0.01, mat("#0b0b0d"), 0, 1.375, 0.05, engsel);
+const texLayar = new THREE.CanvasTexture(ui);
+texLayar.colorSpace = THREE.SRGBColorSpace;
+texLayar.anisotropy = 8;
+const layar = new THREE.Mesh(new THREE.PlaneGeometry(3.86, 2.41), new THREE.MeshBasicMaterial({ map: texLayar, toneMapped: false }));
+layar.position.set(0, 1.39, 0.056); engsel.add(layar);
+// cahaya pantulan layar di keyboard
+const pantul = new THREE.PointLight("#cfe0ff", 1.2, 4, 2); pantul.position.set(0, 1.0, -0.6); laptop.add(pantul);
+
+// cangkir kopi & ponsel di meja
+const cangkir = new THREE.Group(); cangkir.position.set(2.9, 0, 1.0); scene.add(cangkir);
+const badanCangkir = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.3, 0.7, 24), mat("#f4f1ea")); badanCangkir.position.y = 0.35; badanCangkir.castShadow = true; cangkir.add(badanCangkir);
+const kopi = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 0.02, 24), mat("#3b2416", { roughness: 0.2 })); kopi.position.y = 0.66; cangkir.add(kopi);
+const pegangan = new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.05, 8, 16), mat("#f4f1ea")); pegangan.position.set(0.38, 0.38, 0); cangkir.add(pegangan);
+const hp = kotak(0.62, 0.05, 1.25, mat("#111214", { roughness: 0.35 }), -2.85, 0.03, 1.05); hp.rotation.y = 0.25;
+
+// cahaya
+scene.add(new THREE.HemisphereLight("#f4f7ff", "#5a5a5a", 1.6));
+const matahari = new THREE.DirectionalLight("#fff3df", 2.4);
+matahari.position.set(-3, 9, -7); matahari.castShadow = true;
+matahari.shadow.mapSize.set(2048, 2048);
+Object.assign(matahari.shadow.camera, { left: -7, right: 7, top: 7, bottom: -7, near: 1, far: 30 });
+scene.add(matahari);
+const isi = new THREE.DirectionalLight("#ffffff", 0.7); isi.position.set(2, 5, 6); scene.add(isi);
+
+// kamera POV (dipegang tangan)
+const kamera = new THREE.PerspectiveCamera(72, 1080 / 1920, 0.1, 100);
+const getar = (t, f, fase) => Math.sin(t * f + fase) * 0.6 + Math.sin(t * f * 2.13 + fase * 1.7) * 0.4;
+
+// ============================================================ satu frame
+window.gambar = (t) => {
+  gambarLayar(t);
+  texLayar.needsUpdate = true;
+  const dorong = ease(prog(t, 0, DURASI));
+  const jarak = 3.35 - 0.18 * dorong;
+  kamera.position.set(0.08 + getar(t, 1.3, 0) * 0.03, 3.3 - 0.1 * dorong + getar(t, 1.7, 2) * 0.025, jarak + getar(t, 0.9, 4) * 0.02);
+  kamera.lookAt(0.02 + getar(t, 1.1, 1) * 0.015, 1.3 + getar(t, 1.5, 3) * 0.012, -1.3);
+  kamera.rotation.z += getar(t, 0.8, 5) * 0.004;
+  renderer.render(scene, kamera);
+  document.getElementById("sub").style.opacity = String(ease(prog(t, 2.2, 3.0)));
+};
+
+await document.fonts.load(`800 20px "Plus Jakarta Sans"`);
+await document.fonts.load(`700 20px "Plus Jakarta Sans"`);
+window.gambar(Number(new URLSearchParams(location.search).get("t") ?? 0));
+document.body.dataset.siap = "1";
+</script>
+</body>
+</html>
