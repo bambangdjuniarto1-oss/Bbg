@@ -182,7 +182,7 @@ CHORDS_F = [
 MOTIF_F = [(0, 74), (.5, 77), (1, 81), (2, 79), (2.5, 77), (3, 76),
            (4, 74), (4.5, 72), (5, 74), (6, 77), (6.5, 76), (7, 72)]
 # variasi G (video bisnis media): gaya beda total, groove hip-hop/business ~94 BPM, lihat render_biz()
-VARIANTS = {"K": "vice", "J": "neon", "I": "street", "H": "fest", "G": "biz", "A": None, "B": (CHORDS_B, MOTIF_B), "C": (CHORDS_C, MOTIF_C), "D": (CHORDS_D, MOTIF_D),
+VARIANTS = {"L": "sakura", "K": "vice", "J": "neon", "I": "street", "H": "fest", "G": "biz", "A": None, "B": (CHORDS_B, MOTIF_B), "C": (CHORDS_C, MOTIF_C), "D": (CHORDS_D, MOTIF_D),
             "E": (CHORDS_E, MOTIF_E), "F": (CHORDS_F, MOTIF_F)}
 
 
@@ -1006,6 +1006,151 @@ def render_vice(dur, bpm=92.0, marks=(8.85, 24.47, 29.38, 46.70, 51.26, 64.40)):
     buf /= np.abs(buf).max() / .89
     return buf
 
+# ================================================================== SAKURA (berita tegang -> pop Jepang -> tenang)
+SK_DARK = [(40, [52, 55, 59, 64]), (36, [52, 55, 60, 64]), (33, [52, 57, 60, 64]), (35, [51, 54, 59, 63])]  # Em C Am B
+SK_POP = [(43, [55, 59, 62, 66]), (38, [54, 57, 62, 66]), (40, [55, 59, 62, 64]), (36, [55, 60, 64, 67])]  # G D Em C
+SK_RES = [(40, [55, 59, 64, 66]), (36, [55, 60, 64, 67]), (43, [55, 59, 62, 67]), (38, [54, 57, 62, 66])]  # Em9 C G D
+KOTO = [79, 78, 76, 74, 76, 71, 74, 76, 79, 81, 79, 76, 74, 71, 74, 76]   # pentatonik G (nuansa Jepang)
+
+
+def koto(note, dur=.7):
+    """petikan mirip koto: harmonik terang, peluruhan cepat, sedikit 'tekuk' nada di awal."""
+    f = midi(note)
+    t = np.arange(int(dur * SR)) / SR
+    fb = f * (1 + .012 * np.exp(-t * 30))
+    ph = 2 * np.pi * np.cumsum(fb) / SR
+    s = sum(np.sin(k * ph) * np.exp(-t * (4 + 2.2 * k)) / k ** .8 for k in range(1, 9))
+    return s * np.minimum(1, t / .002) * .32
+
+
+def news_sting(dur=1.6):
+    """sting 'breaking news': dua nada sinus bertumpuk + noise sapuan."""
+    t = np.arange(int(dur * SR)) / SR
+    s = (np.sin(2 * np.pi * midi(76) * t) + .7 * np.sin(2 * np.pi * midi(83) * t)) * np.exp(-t * 2.5)
+    return s * .25 * np.minimum(1, t / .004)
+
+
+def chord_wobble(notes, dur, rate):
+    """chord future-bass: supersaw dengan volume 'wobble' (sidechain) tiap rate detik."""
+    s = sum(supersaw(n_, dur) for n_ in notes)
+    t = np.arange(len(s)) / SR
+    g = .35 + .65 * np.minimum(1, ((t % rate) / rate) * 3)
+    return lp(s * g, 4200) * .55
+
+
+def render_sakura(dur, bpm=96.0, marks=(6.3, 18.68, 20.55, 30.68, 34.64, 43.67, 60.62)):
+    """intro tegang (jam berdetak) -> trap gelap (fatwa) -> jeda (siapa kena?) -> trap gelap (PHK) -> riser ->
+    pop Jepang terang (campaign pink sakura: koto + future bass) -> tegas-tenang (respons krisis) -> outro lembut."""
+    beat = 60.0 / bpm
+    L = int((dur + 4) * SR)
+    dry = np.zeros((2, L))
+    syn = np.zeros((2, L))
+    m = list(marks)
+    kinds = ["intro", "dark", "brk", "dark2", "rise", "pop", "res", "outro"]
+    bounds = [0.0] + m + [dur]
+    secs = [(bounds[i], bounds[i + 1], kinds[i]) for i in range(len(kinds))]
+    K, SN, CL, H, HO = kick(), gated_snare(), clap(), hat(), hat(True)
+    for s0, s1, kind in secs:
+        prog = SK_POP if kind == "pop" else SK_RES if kind in ("res", "outro") else SK_DARK
+        nb = int(np.ceil((s1 - s0) / beat))
+        for bt in range(nb):
+            t0 = s0 + bt * beat
+            if t0 >= s1 - .02:
+                break
+            root, notes = prog[(bt // 4) % 4]
+            bb = bt % 4
+            if bb == 0:
+                bl = min(4 * beat, s1 - t0) + .25
+                if kind == "pop":
+                    add(syn, t0, chord_wobble([n_ + 12 for n_ in notes], bl, beat / 2), .8)
+                elif kind in ("res", "outro"):
+                    for j, n_ in enumerate(notes):
+                        add(syn, t0 + .015 * j, epiano(n_, bl, .85), .9, -.3 + .2 * j)
+                    add(syn, t0, sum(saw_pad(n_, bl) for n_ in notes[:3]), .35)
+                else:
+                    add(syn, t0, sum(saw_pad(n_, bl) for n_ in notes), .55 if kind != "intro" else .4)
+            if kind == "intro":
+                add(dry, t0, tick_clock(), .55, .3)
+                add(dry, t0 + beat / 2, tick_clock(), .3, -.3)
+                if bb == 0:
+                    add(dry, t0, K, .55)                                   # detak jantung
+                    add(dry, t0 + .22, K, .35)
+                    add(dry, t0, sub808(root - 12, beat * 3.5), .5)
+                if bt == 0:
+                    add(dry, t0, news_sting(), .8)
+                continue
+            if kind in ("brk", "rise"):
+                if bt == 0:
+                    add(dry, t0, impact(2.6), .85)
+                    add(dry, t0, sub808(root - 12, 2.4), .75)
+                add(dry, t0, tick_clock(), .35, .2)
+                add(syn, t0, bell(notes[bt % 4] + 12, 1.0), .2, .3)
+                continue
+            if kind in ("dark", "dark2"):
+                # trap setengah-tempo: kick 1 & 2-and, snare 3, hat 8-an/16-an bergulir
+                if bb == 0:
+                    add(dry, t0, K, .95)
+                    add(dry, t0, sub808(root - 12, beat * 1.8), .85)
+                if bb == 1:
+                    add(dry, t0 + beat / 2, K, .6)
+                    add(dry, t0 + beat / 2, sub808(root - 12, beat * 1.2), .6)
+                if bb == 2:
+                    add(dry, t0, SN, .8, .05)
+                    add(dry, t0, CL, .4, -.05)
+                n_h = 4 if (bt % 8 in (6, 7)) else 2
+                for k in range(n_h):
+                    add(dry, t0 + k * beat / n_h, H, .2 if k % 2 == 0 else .12, .3)
+                if bt % 2 == 1:
+                    add(syn, t0, pluck(notes[(bt // 2) % 4] + 12, beat * .8), .2, -.4)
+                continue
+            if kind == "pop":
+                # four-on-the-floor ringan + clap, koto pentatonik 8-an, bass oktaf
+                add(dry, t0, K, .85)
+                if bb in (1, 3):
+                    add(dry, t0, CL, .6, .05)
+                    add(dry, t0, SN, .35)
+                for k in range(2):
+                    add(dry, t0 + k * beat / 2 + (beat / 4 if k else 0) * 0, HO if k else H, .16, .3)
+                    add(syn, t0 + k * beat / 2, koto(KOTO[(bt * 2 + k) % 16], .6), .75, -.35 + .7 * k)
+                    add(dry, t0 + k * beat / 2, pulse_bass(root + (12 if k else 0), beat / 2 * .8, 900), .7)
+                continue
+            outro = kind == "outro"
+            # 'res': hip-hop mantap, tenang
+            if bb in (0, 2):
+                add(dry, t0, K, .85 if not outro else .5)
+            if bb == 0 and not outro:
+                add(dry, t0 + beat * .75, K, .45)
+            if bb in (1, 3):
+                add(dry, t0, SN, .55 if not outro else .3, .05)
+            for k in range(2):
+                add(dry, t0 + k * beat / 2, H, .15 if not outro else .09, .3)
+            if bb == 0:
+                add(dry, t0, sub808(root - 12, beat * 3.2), .7 if not outro else .45)
+            if not outro and bt % 2 == 0:
+                add(syn, t0 + beat / 2, koto(notes[(bt // 2) % 4] + 12, .8), .35, .4)
+        if kind in ("intro", "brk", "rise"):
+            rl = min(2.2 if kind == "rise" else 1.4, s1 - s0 - .2)
+            add(dry, s1 - rl, swell(rl), 1.15 if kind == "rise" else .8)
+            if kind != "intro":
+                for r in range(8):
+                    add(dry, s1 - 2 * beat + r * beat / 4, SN, .1 + .06 * r, .05)
+        if kind in ("dark", "dark2", "pop", "res"):
+            add(dry, s0, impact(2.4), .8)
+    for s0, s1, kind in secs:
+        if kind in ("intro", "brk", "rise"):
+            i0, i1 = int(s0 * SR), int(s1 * SR)
+            for ch in range(2):
+                syn[ch, i0:i1] = lp(syn[ch, i0:i1], 1300)
+    buf = dry + reverb(syn, 2.2, .3)
+    add(buf, dur - 2.4, impact(2.4), .5)
+    buf = buf[:, : int(dur * SR)]
+    fade = int(1.6 * SR)
+    buf[:, -fade:] *= np.linspace(1, 0, fade)
+    buf = np.tanh(buf * 1.1) / np.tanh(1.1)
+    buf /= np.abs(buf).max() / .89
+    return buf
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("out")
@@ -1016,6 +1161,11 @@ def main():
     a = ap.parse_args()
     import soundfile as sf
     global CHORDS, MOTIF
+    if VARIANTS[a.variant] == "sakura":
+        mk = tuple(float(x) for x in os.environ.get("SAKURA_MARKS", "6.3,18.68,20.55,30.68,34.64,43.67,60.62").split(","))
+        sf.write(a.out, render_sakura(a.dur, a.bpm, mk).T, SR, subtype="PCM_16")
+        print("wrote", a.out)
+        return
     if VARIANTS[a.variant] == "vice":
         mk = tuple(float(x) for x in os.environ.get("NEON_MARKS", "8.85,24.47,29.38,46.70,51.26,64.40").split(","))
         sf.write(a.out, render_vice(a.dur, a.bpm, mk).T, SR, subtype="PCM_16")

@@ -1,0 +1,797 @@
+{
+ "scenes": [
+  {
+   "id": "F01",
+   "bubble": "Sewa toko **ditolak**",
+   "labels": [
+    {
+     "anchor": "ART",
+     "title": "KATADATA",
+     "sub": "berita 18 Nov 2026",
+     "color": "cyan",
+     "t": 0.7,
+     "lift": 40,
+     "until": 2.2
+    },
+    {
+     "anchor": "DOC",
+     "title": "SEWA DITOLAK",
+     "sub": "",
+     "color": "red",
+     "t": 1.65,
+     "lift": 50
+    }
+   ],
+   "tilt": 0.3,
+   "theme": "city"
+  },
+  {
+   "id": "F02",
+   "bubble": "Bukan nunggak, tapi **fatwa**",
+   "labels": [
+    {
+     "anchor": "BILL",
+     "title": "LUNAS",
+     "sub": "bukan nunggak",
+     "color": "green",
+     "t": 0.68,
+     "lift": 50
+    },
+    {
+     "anchor": "FAT",
+     "title": "FATWA MUI",
+     "sub": "",
+     "color": "red",
+     "t": 1.33,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "F03",
+   "bubble": "**Fatwa MUI** No. 131/2026",
+   "labels": [
+    {
+     "anchor": "MUI",
+     "title": "MUI • CNN • DETIK",
+     "sub": "berita asli",
+     "color": "cyan",
+     "t": 2.4,
+     "lift": 60,
+     "until": 5.3
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "F04",
+   "bubble": "Bukan cuma **pakai** yang haram",
+   "labels": [
+    {
+     "anchor": "HR",
+     "title": "KESEHATAN",
+     "sub": "",
+     "color": "red",
+     "t": 4.68,
+     "lift": 40
+    },
+    {
+     "anchor": "GL",
+     "title": "LINGKUNGAN",
+     "sub": "",
+     "color": "green",
+     "t": 5.18,
+     "lift": 40
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "F05",
+   "bubble": "Siapa yang **paling kena**?",
+   "labels": [],
+   "tilt": 0.3,
+   "theme": "city"
+  },
+  {
+   "id": "F06",
+   "bubble": "Ancaman **PHK 100 ribu** pekerja",
+   "labels": [
+    {
+     "anchor": "CROWD",
+     "title": "PEKERJA",
+     "sub": "rantai industri vape",
+     "color": "gold",
+     "t": 0.75,
+     "lift": 50,
+     "until": 3.65
+    },
+    {
+     "anchor": "FAC",
+     "title": "200 INDUSTRI",
+     "sub": "terancam",
+     "color": "red",
+     "t": 4.75,
+     "lift": 70
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "hud": {
+    "title": "ANCAMAN PHK (KLAIM INDUSTRI)",
+    "start": 0,
+    "keys": [
+     [
+      2.22,
+      100
+     ]
+    ],
+    "max": 100,
+    "unit": "ribu pekerja",
+    "t": 0.45,
+    "dur": 1.4,
+    "target_text": "200 industri terancam",
+    "prefix": "",
+    "pos": [
+     56,
+     1640
+    ]
+   }
+  },
+  {
+   "id": "F07",
+   "bubble": "Brand lokal **paling disorot**",
+   "labels": [
+    {
+     "anchor": "LOGO",
+     "title": "FOOM",
+     "sub": "brand lokal",
+     "color": "pink",
+     "t": 2.12,
+     "lift": 60
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "F08",
+   "bubble": "Pas lagi **campaign besar**",
+   "labels": [
+    {
+     "anchor": "BB",
+     "title": "CAMPAIGN FOOM x YB",
+     "sub": "",
+     "color": "pink",
+     "t": 0.92,
+     "lift": 60
+    },
+    {
+     "anchor": "TW",
+     "title": "FOOM",
+     "sub": "",
+     "color": "cyan",
+     "t": 2.92,
+     "lift": 40
+    }
+   ],
+   "tilt": 0.25,
+   "theme": "city"
+  },
+  {
+   "id": "F09",
+   "bubble": "Kolab **FOOM x YB**",
+   "labels": [
+    {
+     "anchor": "COLLAB",
+     "title": "FOOM x YB",
+     "sub": "kolaborasi",
+     "color": "pink",
+     "t": 0.36,
+     "lift": 40,
+     "until": 2.26
+    },
+    {
+     "anchor": "IG",
+     "title": "REZA ARAP (YB)",
+     "sub": "",
+     "color": "cyan",
+     "t": 1.96,
+     "lift": 40,
+     "until": 3.46
+    },
+    {
+     "anchor": "GUY",
+     "title": "GAYA POP JEPANG",
+     "sub": "",
+     "color": "gold",
+     "t": 4.76,
+     "lift": 40
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "F10",
+   "bubble": "Pinjam **fanbase**",
+   "labels": [
+    {
+     "anchor": "FANS",
+     "title": "FANBASE",
+     "sub": "",
+     "color": "pink",
+     "t": 1.08,
+     "lift": 60
+    },
+    {
+     "anchor": "POD",
+     "title": "EKSKLUSIF",
+     "sub": "",
+     "color": "gold",
+     "t": 2.43,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "F11",
+   "bubble": "Isu meledak, **nggak panik**",
+   "labels": [
+    {
+     "anchor": "LOGO",
+     "title": "FOOM",
+     "sub": "tetap tenang",
+     "color": "pink",
+     "t": 0.33,
+     "lift": 60
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "F12",
+   "bubble": "**Satu Industri, Satu Komitmen**",
+   "labels": [
+    {
+     "anchor": "BAL",
+     "title": "HORMATI SEMUA PANDANGAN",
+     "sub": "",
+     "color": "cyan",
+     "t": 3.15,
+     "lift": 60,
+     "until": 5.15
+    },
+    {
+     "anchor": "GOV",
+     "title": "PATUH ATURAN",
+     "sub": "pemerintah",
+     "color": "green",
+     "t": 5.9,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "F13",
+   "bubble": "Label **21+** tetap dipasang",
+   "labels": [
+    {
+     "anchor": "B21",
+     "title": "21+",
+     "sub": "",
+     "color": "red",
+     "t": 1.67,
+     "lift": 50
+    },
+    {
+     "anchor": "WARN",
+     "title": "PERINGATAN NIKOTIN",
+     "sub": "",
+     "color": "gold",
+     "t": 2.77,
+     "lift": 40
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "F14",
+   "bubble": "**Regulasi**, bukan eliminasi",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "F15",
+   "bubble": "Yang paling mahal: **kepercayaan**",
+   "labels": [
+    {
+     "anchor": "PRODUK",
+     "title": "PRODUK",
+     "sub": "",
+     "color": "cyan",
+     "t": 3.68,
+     "lift": 40
+    },
+    {
+     "anchor": "TRUST",
+     "title": "KEPERCAYAAN",
+     "sub": "",
+     "color": "pink",
+     "t": 4.48,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "F16",
+   "bubble": "Kalau **kamu** pemilik brand?",
+   "labels": [
+    {
+     "anchor": "ME",
+     "title": "KAMU",
+     "sub": "pemilik brand",
+     "color": "gold",
+     "t": 0.77,
+     "lift": 70,
+     "until": 3.57
+    }
+   ],
+   "tilt": 0.25,
+   "theme": "city"
+  },
+  {
+   "id": "F17",
+   "bubble": "Tulis **jawabanmu** di komentar",
+   "labels": [
+    {
+     "anchor": "BM",
+     "title": "SIMPAN",
+     "sub": "buat referensi",
+     "color": "gold",
+     "t": 2.99,
+     "lift": 50
+    }
+   ],
+   "tilt": 0.25,
+   "theme": "city"
+  },
+  {
+   "id": "F18",
+   "bubble": "Buat **tim FOOM**",
+   "labels": [
+    {
+     "anchor": "TW",
+     "title": "TIM FOOM",
+     "sub": "yuk bedah strategi",
+     "color": "pink",
+     "t": 1.28,
+     "lift": 60
+    }
+   ],
+   "tilt": 0.2,
+   "theme": "city"
+  },
+  {
+   "id": "F19",
+   "bubble": "Konten edukasi bisnis **21+**",
+   "labels": [],
+   "tilt": 0.25,
+   "theme": "city"
+  }
+ ],
+ "hero": [
+  {
+   "t0": 1.57,
+   "t1": 3.2,
+   "text": "Sewa **DITOLAK**",
+   "sub": "bukan karena nunggak",
+   "style": "red",
+   "size": 118,
+   "y": 1440
+  },
+  {
+   "t0": 5.04,
+   "t1": 6.3,
+   "text": "karena **satu fatwa**",
+   "sub": "",
+   "style": "gold",
+   "size": 112,
+   "y": 1440
+  },
+  {
+   "t0": 9.92,
+   "t1": 12.4,
+   "text": "Fatwa **No. 131/2026**",
+   "sub": "MUI, 6 November 2026",
+   "style": "pink",
+   "size": 104,
+   "y": 1440
+  },
+  {
+   "t0": 14.11,
+   "t1": 16.2,
+   "text": "pakai • produksi • **jual**",
+   "sub": "semuanya dinyatakan haram",
+   "style": "red",
+   "size": 96,
+   "y": 1440
+  },
+  {
+   "t0": 22.77,
+   "t1": 24.5,
+   "text": "**100 ribu** pekerja",
+   "sub": "ancaman PHK (klaim industri)",
+   "style": "red",
+   "size": 118,
+   "y": 1440,
+   "count": {
+    "t0": 22.77,
+    "t1": 23.5,
+    "frm": 0,
+    "to": 100,
+    "fmt": "{} ribu"
+   }
+  },
+  {
+   "t0": 24.83,
+   "t1": 27.8,
+   "text": "**200** industri",
+   "sub": "rokok elektrik terancam",
+   "style": "gold",
+   "size": 118,
+   "y": 1440,
+   "count": {
+    "t0": 24.83,
+    "t1": 25.6,
+    "frm": 0,
+    "to": 200,
+    "fmt": "{}"
+   }
+  },
+  {
+   "t0": 29.97,
+   "t1": 30.68,
+   "text": "**FOOM**",
+   "sub": "",
+   "style": "pink",
+   "size": 150,
+   "y": 1440
+  },
+  {
+   "t0": 37.48,
+   "t1": 40.2,
+   "text": "**PINK SAKURA**",
+   "sub": "FOOM x YB",
+   "style": "pink",
+   "size": 118,
+   "y": 1440
+  },
+  {
+   "t0": 42.7,
+   "t1": 43.6,
+   "text": "**EKSKLUSIF**",
+   "sub": "",
+   "style": "gold",
+   "size": 118,
+   "y": 1440
+  },
+  {
+   "t0": 47.27,
+   "t1": 49.0,
+   "text": "**Satu Industri, Satu Komitmen**",
+   "sub": "pernyataan FOOM",
+   "style": "pink",
+   "size": 84,
+   "y": 1440
+  },
+  {
+   "t0": 58.72,
+   "t1": 60.6,
+   "text": "**REGULASI**, bukan eliminasi",
+   "sub": "",
+   "style": "green",
+   "size": 96,
+   "y": 1440
+  },
+  {
+   "t0": 65.05,
+   "t1": 66.4,
+   "text": "**KEPERCAYAAN**",
+   "sub": "aset termahal saat krisis",
+   "style": "pink",
+   "size": 112,
+   "y": 1440
+  },
+  {
+   "t0": 83.4,
+   "t1": 86.6,
+   "text": "**EDUKASI BISNIS 21+**",
+   "sub": "bukan ajakan menggunakan produk",
+   "style": "gold",
+   "size": 96,
+   "y": 1440
+  }
+ ],
+ "comments": [
+  {
+   "t": 73.3,
+   "text": "Klarifikasi resmi dulu",
+   "y": 1395
+  },
+  {
+   "t": 74.4,
+   "text": "Cek fakta, baru bicara",
+   "y": 1545
+  }
+ ],
+ "comment_scene": "F17",
+ "fx": {
+  "punch": [
+   [
+    1.57,
+    0.9
+   ],
+   [
+    5.04,
+    1.0
+   ],
+   [
+    6.63,
+    0.6
+   ],
+   [
+    6.45,
+    0.5
+   ],
+   [
+    9.92,
+    0.8
+   ],
+   [
+    14.11,
+    0.7
+   ],
+   [
+    14.62,
+    0.5
+   ],
+   [
+    15.06,
+    0.5
+   ],
+   [
+    17.1,
+    0.5
+   ],
+   [
+    19.5,
+    0.7
+   ],
+   [
+    21.8,
+    0.8
+   ],
+   [
+    22.77,
+    0.9
+   ],
+   [
+    24.83,
+    0.8
+   ],
+   [
+    26.9,
+    0.5
+   ],
+   [
+    29.97,
+    1.0
+   ],
+   [
+    33.5,
+    0.5
+   ],
+   [
+    34.97,
+    0.7
+   ],
+   [
+    37.48,
+    0.8
+   ],
+   [
+    41.36,
+    0.5
+   ],
+   [
+    42.7,
+    0.8
+   ],
+   [
+    44.13,
+    1.0
+   ],
+   [
+    44.84,
+    0.5
+   ],
+   [
+    45.54,
+    0.5
+   ],
+   [
+    47.27,
+    0.7
+   ],
+   [
+    48.13,
+    0.7
+   ],
+   [
+    51.9,
+    0.7
+   ],
+   [
+    54.8,
+    0.9
+   ],
+   [
+    55.88,
+    0.6
+   ],
+   [
+    58.72,
+    0.8
+   ],
+   [
+    59.58,
+    0.6
+   ],
+   [
+    65.05,
+    0.9
+   ],
+   [
+    69.5,
+    0.7
+   ],
+   [
+    72.0,
+    0.6
+   ],
+   [
+    75.53,
+    0.6
+   ],
+   [
+    80.75,
+    0.5
+   ],
+   [
+    83.46,
+    0.7
+   ]
+  ],
+  "flash": [
+   [
+    5.04,
+    0.22,
+    "w"
+   ],
+   [
+    29.97,
+    0.25,
+    "w"
+   ],
+   [
+    44.13,
+    0.22,
+    "r"
+   ],
+   [
+    65.05,
+    0.18,
+    "w"
+   ]
+  ],
+  "chroma": [
+   [
+    5.04,
+    0.25
+   ],
+   [
+    29.97,
+    0.3
+   ],
+   [
+    44.13,
+    0.3
+   ],
+   [
+    69.5,
+    0.2
+   ]
+  ],
+  "pale": [
+   0,
+   0,
+   "NONE"
+  ]
+ },
+ "keywords": [
+  "jakarta",
+  "ditolak",
+  "sewa",
+  "nunggak",
+  "fatwa",
+  "fatwa.",
+  "6",
+  "november",
+  "mui",
+  "131",
+  "2026",
+  "haram",
+  "produksi",
+  "perdagangannya",
+  "kesehatan",
+  "lingkungan",
+  "phk",
+  "100",
+  "ribu",
+  "200",
+  "terancam",
+  "disorot",
+  "foom",
+  "foom.",
+  "foom,",
+  "campaign",
+  "yb",
+  "reza",
+  "arap",
+  "pink",
+  "sakura",
+  "jepang",
+  "fanbase",
+  "eksklusif",
+  "meledak",
+  "panik",
+  "balik",
+  "satu",
+  "industri",
+  "komitmen",
+  "menghormati",
+  "patuh",
+  "pemerintah",
+  "21+",
+  "nikotin",
+  "regulasi",
+  "eliminasi",
+  "krisis",
+  "mahal",
+  "produk",
+  "kepercayaan",
+  "kamu",
+  "brand",
+  "isu",
+  "komentar",
+  "simpan",
+  "strategi",
+  "edukasi",
+  "21",
+  "bukan"
+ ]
+}

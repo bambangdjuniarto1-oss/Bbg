@@ -353,6 +353,89 @@ GEN_X = {"cash": lambda a: cash(), "crowd": lambda a: crowd(a or 2.0), "cheer": 
          "flutter": lambda a: flutter(a or .6)}
 
 
+def gavel():
+    """ketukan palu (fatwa/keputusan): kayu padat + gema ruangan."""
+    t = tt(1.4)
+    knock = sum(np.sin(2 * np.pi * f * t) * np.exp(-t * d) for f, d in ((180, 18), (420, 26), (910, 40)))
+    click = _f(RNG.standard_normal(len(t)), 1500, 6000) * np.exp(-t * 90) * .8
+    body = np.sin(2 * np.pi * np.cumsum(60 + 50 * np.exp(-t * 20)) / SR) * np.exp(-t * 6) * .8
+    s = knock + click + body
+    rev = np.convolve(s, _f(RNG.standard_normal(int(.5 * SR)), 200, 3000) * np.exp(-tt(.5) * 9) * .04)[: len(t)]
+    return _norm(np.tanh((s + rev) * 1.5), .9)
+
+
+def news_alert():
+    """sting 'BREAKING NEWS': dua nada sinus naik + denting + sapuan."""
+    t = tt(1.5)
+    out = np.zeros_like(t)
+    for k, (f, t0) in enumerate(((880, 0), (1320, .12), (1760, .24))):
+        i = int(t0 * SR)
+        u = t[: len(t) - i]
+        out[i:] += np.sin(2 * np.pi * f * u) * np.exp(-u * (3 + k)) * .5
+    sw = sweep_noise(1.5, 6000, 900, .5, np.exp(-t * 2.5)) * .25
+    return _norm(out + sw, .8)
+
+
+def paper(d=.45):
+    """kertas/halaman meluncur (artikel muncul)."""
+    t = tt(d)
+    n = _f(RNG.standard_normal(len(t)), 1200, 9000)
+    am = np.abs(np.sin(np.pi * t / d)) ** .7 * (1 + .5 * np.sin(2 * np.pi * 37 * t))
+    return _norm(n * am, .6)
+
+
+def glass(d=1.2):
+    """kaca retak/pecah (krisis): retakan tinggi + serpihan dentingan acak."""
+    t = tt(d)
+    crack = _f(RNG.standard_normal(len(t)), 2500, 12000) * np.exp(-t * 25)
+    out = crack.copy()
+    for _ in range(26):
+        t0 = RNG.uniform(.02, d * .7)
+        f = RNG.uniform(3000, 9000)
+        i = int(t0 * SR)
+        u = t[: len(t) - i]
+        out[i:] += np.sin(2 * np.pi * f * u) * np.exp(-u * RNG.uniform(18, 40)) * RNG.uniform(.1, .3)
+    thud = np.sin(2 * np.pi * np.cumsum(70 + 80 * np.exp(-t * 18)) / SR) * np.exp(-t * 9) * .7
+    return _norm(out + thud, .85)
+
+
+def shutter_door(d=1.1):
+    """rolling door toko ditarik turun: gerinda logam berderit lalu benturan."""
+    t = tt(d)
+    rat = _f(RNG.standard_normal(len(t)), 300, 2400) * (1 + .8 * np.sign(np.sin(2 * np.pi * 34 * t))) * .35
+    rat *= np.minimum(1, t / .05) * (t < d * .8)
+    i = int(d * .8 * SR)
+    u = t[: len(t) - i]
+    hit = np.zeros_like(t)
+    hit[i:] = (np.sin(2 * np.pi * 95 * u) * np.exp(-u * 12) + _f(RNG.standard_normal(len(u)), 400, 3000)
+               * np.exp(-u * 30) * .6)
+    return _norm(rat + hit, .85)
+
+
+def kawaii(d=.8):
+    """chime manis (pink sakura / pop Jepang): arpeggio lonceng pentatonik naik."""
+    t = tt(d)
+    out = np.zeros_like(t)
+    for k, f in enumerate((1568, 1976, 2349, 2637, 3136)):
+        i = int(k * .06 * SR)
+        u = t[: len(t) - i]
+        out[i:] += (np.sin(2 * np.pi * f * u) + .3 * np.sin(4 * np.pi * f * u)) * np.exp(-u * 6) * .3
+    return _norm(out, .7)
+
+
+def flash():
+    """lampu kilat kamera: klik + dengung isi ulang naik."""
+    t = tt(.6)
+    clk = _f(RNG.standard_normal(len(t)), 2000, 9000) * np.exp(-t * 120)
+    whine = np.sin(2 * np.pi * np.cumsum(2500 + 5000 * t / .6) / SR) * np.exp(-t * 5) * .12 * (t > .05)
+    return _norm(clk + whine, .7)
+
+
+GEN_X.update({"gavel": lambda a: gavel(), "news": lambda a: news_alert(), "paper": lambda a: paper(a or .45),
+              "glass": lambda a: glass(a or 1.2), "door": lambda a: shutter_door(a or 1.1),
+              "kawaii": lambda a: kawaii(a or .8), "flash": lambda a: flash()})
+
+
 GEN = {"whoosh": lambda a: whoosh(a or .55), "whoosh_rev": lambda a: whoosh(a or .55, False),
        "whoosh_low": lambda a: whoosh_low(a or .7), "swoosh": lambda a: whoosh(a or .3) * .7,
        "impact": lambda a: impact(), "boom": lambda a: boom(), "riser": lambda a: riser(a or 1.6),
