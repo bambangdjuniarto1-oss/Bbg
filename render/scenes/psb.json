@@ -27,7 +27,9 @@
      "sub": "pelatih 3 gelar • foto: persib.co.id",
      "color": "cyan",
      "t": 0.45,
-     "lift": 50
+     "lift": 50,
+     "dx": -250,
+     "dy": 210
     }
    ],
    "tilt": 0,

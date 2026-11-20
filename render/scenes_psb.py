@@ -43,9 +43,10 @@ def _night(world_str=.3):
             ob.data.energy = .35
             ob.data.color = (.7, .8, 1.0)
             ob.rotation_euler = (math.radians(55), 0, math.radians(-30))
-    bg = sc.world.node_tree.nodes["Background"]
-    bg.inputs["Color"].default_value = lp.hex_rgba("#081226")
-    bg.inputs["Strength"].default_value = world_str
+    for bg in sc.world.node_tree.nodes:        # dua node: cahaya & yang terlihat kamera
+        if bg.type == "BACKGROUND":
+            bg.inputs["Color"].default_value = lp.hex_rgba("#081226")
+            bg.inputs["Strength"].default_value = world_str
     sc.view_settings.view_transform = "Standard"
     sc.view_settings.look = "None"
     sc.cycles.glossy_bounces = 2
@@ -121,8 +122,10 @@ def p01(n, A):
         pop_in(tr, fr(sid, t - .1), 1.0, 12)
         trs.append(tr)
     P.flares("fl", 26, (-22, 9, 22, 15), 6.0, 3)
-    camera(sid, [(0.0, (0, 0, 4), -128, 36, 105), (1.6, (0, 0, 3), -110, 26, 58),
-                 (3.0, (0, 0, 2.0), -98, 14, 22), (3.85, (0, 0, 2.0), -94, 11, 16.5)], lens=24)
+    # turun lewat lubang atap (bukan menembus atap/tribun): tetap tinggi sampai berada di dalam bukaan atap
+    camera(sid, [(0.0, (0, 0, 4), -128, 36, 105), (1.5, (0, 0, 3), -114, 58, 52),
+                 (2.4, (0, 0, 2.0), -102, 52, 22), (3.2, (0, 0, 2.0), -97, 22, 17.5),
+                 (3.85, (0, 0, 2.0), -94, 12, 16.5)], lens=24)
     A["TR"] = (trs[1], (0, 0, 3.2))
     A["GBLA"] = ((0, 26, 12))
 
@@ -225,7 +228,7 @@ def p05(n, A):
     float_bob(q, fr(sid, 21.9), fr(sid, 23.0), .25, 40)
     pop_out(q, fr(sid, 23.0), 8)
     camera(sid, [(20.31, (0, 0, 2.2), -96, 3, 13), (21.8, (0, 0, 3.6), -94, 6, 15),
-                 (23.2, (0, 4, 6.0), -96, 22, 36), (24.65, (0, 10, 8.0), -100, 34, 80)], lens=24)
+                 (23.0, (0, 1, 6.5), -96, 50, 22), (24.65, (0, 5, 6.5), -100, 56, 80)], lens=24)
     A["Q"] = (q, (0, 0, 2.6))
 
 

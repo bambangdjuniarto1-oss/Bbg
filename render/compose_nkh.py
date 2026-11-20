@@ -171,6 +171,7 @@ def do_scene(job):
             ax, ay = ax / sx, ay / sx
             ax = (ax - W_ / 2) * st["scale"] + W_ / 2
             ay = (ay - H_ / 2) * st["scale"] + H_ / 2
+            ax, ay = ax + lb.get("dx", 0), ay + lb.get("dy", 0)      # geser manual bila menabrak objek 3D
             if not (-40 < ax < 1120 and ay < 1900) or ay - lb.get("lift", 110) - 90 < 500:
                 continue
             half = max(C.font(C.F800, 34).getlength(lb["title"]), 120) / 2 + 40

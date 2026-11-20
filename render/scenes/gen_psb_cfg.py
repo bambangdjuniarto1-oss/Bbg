@@ -75,8 +75,10 @@ for k, (nw, en, idt) in enumerate(CUES):
     BISUBS.append([round(t0, 3), round(end, 3), en, idt])
 
 
-def lb(anchor, title, t, color="cyan", sub="", lift=80, until=None):
+def lb(anchor, title, t, color="cyan", sub="", lift=80, until=None, dx=0, dy=0):
     d = dict(anchor=anchor, title=title, sub=sub, color=color, t=t, lift=lift)
+    if dx or dy:
+        d["dx"], d["dy"] = dx, dy
     if until is not None:
         d["until"] = until
     return d
@@ -91,7 +93,7 @@ def hero(t0, t1, text, sub="", count=None, style="cyan", size=110, y=1460, font=
 
 S = [
     ("P01", "Juara **3x beruntun**", [lb("TR", "3 TROFI LIGA", 3.3, "gold", "3 musim beruntun", 60)]),
-    ("P02", "Padahal **bukan termahal**", [lb("PH", "BOJAN HODAK", 4.3, "cyan", "pelatih 3 gelar • foto: persib.co.id", 50)]),
+    ("P02", "Padahal **bukan termahal**", [lb("PH", "BOJAN HODAK", 4.3, "cyan", "pelatih 3 gelar • foto: persib.co.id", 50, dx=-250, dy=210)]),
     ("P03", "Namanya **Persib Bandung**", [lb("PK", "KOMPAS (EN)", 9.0, "cyan", "media internasional", 50, 12.0),
                                           lb("PW", "WIKIPEDIA (EN)", 9.4, "purple", "", 50, 12.0)]),
     ("P04", "Nilai skuad **±€9 juta**", [lb("PP", "PERSIB", 14.3, "cyan", "€8,93 jt", 50),
