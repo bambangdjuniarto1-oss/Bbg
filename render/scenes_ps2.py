@@ -320,23 +320,24 @@ def q07(n, A):
 
 
 def q08(n, A):
-    """Musim ini 4 kompetisi, minimal 24 laga kandang: 4 logo di kiri + grid kalender 24 ubin menyala satu per
-    satu; kamera tinggi dari kiri-depan lalu turun ke kanan."""
+    """Musim ini 4 kompetisi, minimal 24 laga kandang: logo Persib muncul dulu, lalu 4 logo kompetisi berjajar
+    di atas, grid kalender 24 ubin menyala satu per satu; kamera tinggi dari kiri-depan lalu turun ke kanan."""
     sid = "Q08"
     stage(rig_c=(0, 0, 3.5), rig_s=1.6, fade=(12, 56))
-    lgs = []
-    for i, (im, x, z) in enumerate((("lg_bri", -7.6, 6.6), ("lg_ileague_cup", -5.1, 6.6), ("lg_shopee", -7.6, 3.9),
-                                     ("lg_acl2", -5.1, 3.9))):
-        lc = P.logo_card(f"lg{i}", im, 2.0, (x, 1.0, z - 1.0), .25, plate="plate_w", em=1.1, pad=.25)
+    V.disc_ped("ped", 2.2, "psb_blue2", (0, -1.2, 0), em=4.5, h=.35)
+    pl = P.logo_card("pl", "lg_persib", 3.4, (0, -1.2, .4), 0.0, plate=None, em=1.35)
+    pop_in(pl, fr(sid, 24.95), 1.0, 10)
+    out_pair((pl,), fr(sid, 27.35), 8)
+    for i, im in enumerate(("lg_bri", "lg_ileague_cup", "lg_shopee", "lg_acl2")):
+        lc = P.logo_card(f"lg{i}", im, 1.9, ((i - 1.5) * 2.7, 1.6, 6.9), 0.0, plate="plate_w", em=1.1, pad=.25)
         pop_in(lc, fr(sid, 26.44 + .09 * i), 1.0, 10)
-        lgs.append(lc)
-    tiles = Q.cal_grid("cal", 24, 6, (2.6, 1.5, .4), 1.12, .22)
+    tiles = Q.cal_grid("cal", 24, 6, (0, 1.5, .4), 1.05, .2)
     for i, tl in enumerate(tiles):
         pop_in(tl, fr(sid, 27.6 + .03 * i), 1.0, 7)
-    hs, hsf = sign("hm", "HOME MATCHES", (2.6, .9, 6.3), .42, "n_cyan", 7.0)
+    hs, hsf = sign("hm", "HOME MATCHES", (0, .9, 6.05), .36, "n_cyan", 7.0)
     pop_pair((hs, hsf), fr(sid, 28.45))
-    camera(sid, [(24.90, (-1.5, 1, 3.6), -128, 32, 24), (26.8, (-2.5, 1, 3.4), -104, 16, 20),
-                 (28.2, (1.0, 1, 3.4), -80, 10, 19.5), (29.35, (2.0, 1, 3.4), -66, 9, 18.5)], lens=26)
+    camera(sid, [(24.90, (0, 0, 2.4), -124, 26, 19), (26.6, (0, .5, 4.2), -104, 14, 22),
+                 (28.2, (0, 1, 4.2), -84, 8, 22.5), (29.35, (0, 1, 4.2), -72, 8, 22)], lens=26)
     A["CAL"] = (tiles[2], (0, 0, 1.4))
 
 
