@@ -268,6 +268,90 @@ def draw_subtitle_bi(img, parts, id_text, y, t_in):
     img.alpha_composite(layer, (px, py))
 
 
+def _wrap_rich(parts, f, maxw):
+    """pecah teks rich per kata ke beberapa baris <= maxw (warna kata kunci ikut)."""
+    words = []
+    for t, hl in parts:
+        for k, w in enumerate(t.split(" ")):
+            if k > 0:
+                words.append((" ", hl))
+            if w:
+                words.append((w, hl))
+    lines, cur = [], []
+    for w in words:
+        trial = cur + [w]
+        txt = "".join(x for x, _ in trial).strip()
+        if cur and f.getlength(txt) > maxw and w[0] != " ":
+            lines.append(cur)
+            cur = [w]
+        else:
+            cur = trial
+    lines.append(cur)
+    out = []
+    for ln in lines:
+        while ln and ln[0][0] == " ":
+            ln = ln[1:]
+        while ln and ln[-1][0] == " ":
+            ln = ln[:-1]
+        out.append(ln)
+    return out
+
+
+def _wrap_plain(text, f, maxw):
+    lines, cur = [], ""
+    for w in text.split():
+        t = (cur + " " + w).strip()
+        if cur and f.getlength(t) > maxw:
+            lines.append(cur)
+            cur = w
+        else:
+            cur = t
+    lines.append(cur)
+    return lines
+
+
+def draw_subtitle_bi2(img, parts, id_text, y, t_in, en_size=54, id_size=34, max_w=840):
+    """subtitle 2 bahasa yang proporsional: lebar dibatasi max_w; kalimat panjang dipecah jadi 2 baris
+    (bukan dikecilkan). EN putih + kata kunci kuning; ID lebih kecil biru muda. y = tengah baris EN pertama."""
+    f = font(F800, en_size)
+    fi = font(F700, id_size)
+    en_lines = _wrap_rich(parts, f, max_w)
+    while len(en_lines) > 2 and en_size > 42:
+        en_size -= 2
+        f = font(F800, en_size)
+        en_lines = _wrap_rich(parts, f, max_w)
+    id_lines = _wrap_plain(id_text, fi, max_w) if id_text else []
+    lh, ih = int(en_size * 1.22), int(id_size * 1.3)
+    widths = [rich_width(ln, f) for ln in en_lines] + [fi.getlength(t) for t in id_lines]
+    W = int(max(widths) + 60)
+    Hh = lh * len(en_lines) + 10 + ih * len(id_lines) + 30
+    layer = Image.new("RGBA", (W, Hh), (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+    yy = 8
+    for ln in en_lines:
+        cx = (W - rich_width(ln, f)) / 2
+        for t, hl in ln:
+            d.text((cx, yy), t, font=f, fill=YELLOW if hl else (255, 255, 255), stroke_width=5, stroke_fill=(12, 14, 20))
+            cx += f.getlength(t)
+        yy += lh
+    yy += 6
+    for t in id_lines:
+        d.text(((W - fi.getlength(t)) / 2, yy), t, font=fi, fill=(160, 210, 255), stroke_width=4,
+               stroke_fill=(12, 14, 20))
+        yy += ih
+    sh = layer.getchannel("A").filter(ImageFilter.GaussianBlur(6)).point(lambda v: int(v * .45))
+    shadow = Image.new("RGBA", layer.size, (0, 0, 0, 0))
+    shadow.putalpha(sh)
+    a = min(1.0, max(0.0, t_in / .12))
+    if a < 1:
+        layer.putalpha(layer.getchannel("A").point(lambda v: int(v * a)))
+        shadow.putalpha(shadow.getchannel("A").point(lambda v: int(v * a)))
+    px = int(img.width / 2 - W / 2)
+    py = int(y - lh / 2) + int((1 - a) * 12)
+    img.alpha_composite(shadow, (px + 3, py + 5))
+    img.alpha_composite(layer, (px, py))
+
+
 # ------------------------------------------------------------------ build
 def subtitle_chunks(words, scene):
     t0, t1 = scene["t_start"], scene["t_end"]

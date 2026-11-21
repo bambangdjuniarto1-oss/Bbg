@@ -10,7 +10,7 @@ lufs() { ffmpeg -hide_banner -i "$1" -af ebur128 -f null - 2>&1 | grep -E "^\s+I
 python3 render/sfx.py "$EV" "$DUR" "$OUT/sfx.wav"
 ffmpeg -v error -y -i "$VO" -af "acompressor=threshold=-22dB:ratio=2:attack=12:release=160:makeup=1" -ar 44100 -ac 1 "$OUT/vo_c.wav"
 GV=$(python3 -c "print(-17-($(lufs "$OUT/vo_c.wav")))")
-GM=$(python3 -c "print(-24-($(lufs "$MUS")))")
+GM=$(python3 -c "print(${MUS_LUFS:--24}-($(lufs "$MUS")))")      # MUS_LUFS=-21.5 -> musik lebih keras
 ffmpeg -v error -y -i "$OUT/vo_c.wav" -i "$MUS" -i "$OUT/sfx.wav" -filter_complex "\
 [0:a]volume=${GV}dB,apad=whole_dur=${DUR},asplit=2[vo][key];[1:a]volume=${GM}dB,atrim=0:${DUR}[mus];\
 [mus][key]sidechaincompress=threshold=0.03:ratio=2.2:attack=40:release=450[duck];\

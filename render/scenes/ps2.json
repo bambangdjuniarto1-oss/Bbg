@@ -1,0 +1,1019 @@
+{
+ "scenes": [
+  {
+   "id": "Q01",
+   "bubble": "YouTube **2,5 juta** subscriber",
+   "labels": [
+    {
+     "anchor": "YT",
+     "title": "PERSIB YOUTUBE",
+     "sub": "2,54 jt subscriber • 3,2 rb video",
+     "color": "red",
+     "t": 0.7,
+     "lift": 60
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "Q02",
+   "bubble": "Iklannya cuma **±$2,7 rb**",
+   "labels": [
+    {
+     "anchor": "VQ",
+     "title": "VIDIQ",
+     "sub": "estimasi, bukan laporan resmi",
+     "color": "purple",
+     "t": 1.35,
+     "lift": 60,
+     "until": 3.85
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "Q03",
+   "bubble": "Uang besarnya **dari mana**?",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "Q04",
+   "bubble": "Pintu 1: **liga**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "Q05",
+   "bubble": "Subsidi **Rp27 miliar**/klub",
+   "labels": [
+    {
+     "anchor": "AR",
+     "title": "BOLA.COM",
+     "sub": "RUPS I.League, 26 Agu 2026",
+     "color": "purple",
+     "t": 3.9,
+     "lift": 60
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "Q06",
+   "bubble": "+ **hak siar** & bonus",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "Q07",
+   "bubble": "Bedanya: **bobotoh**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "Q08",
+   "bubble": "**24 laga** kandang",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "Q09",
+   "bubble": "Tiket **Rp46–90 M**/musim",
+   "labels": [
+    {
+     "anchor": "AP",
+     "title": "GOODSTATS",
+     "sub": "185.574 penonton GBLA s.d. pekan 17",
+     "color": "purple",
+     "t": 1.05,
+     "lift": 60
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "Q10",
+   "bubble": "Jersey: PO **Rp7–10 M**",
+   "labels": [
+    {
+     "anchor": "AJ",
+     "title": "BOLA.COM",
+     "sub": "angka kabar, belum dikonfirmasi klub",
+     "color": "purple",
+     "t": 2.75,
+     "lift": 60
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "Q11",
+   "bubble": "**7 toko** + membership",
+   "labels": [
+    {
+     "anchor": "ST",
+     "title": "PERSIB STORE CIBUBUR",
+     "sub": "toko ke-7 • Juli 2025",
+     "color": "cyan",
+     "t": 1.9,
+     "lift": 60,
+     "until": 3.6
+    },
+    {
+     "anchor": "MP",
+     "title": "MEMBERSIB",
+     "sub": "4 kategori membership",
+     "color": "purple",
+     "t": 3.0,
+     "lift": 60
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "Q12",
+   "bubble": "Fans = **pelanggan tetap**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "Q13",
+   "bubble": "Uang tambahan **dari Asia**",
+   "labels": [
+    {
+     "anchor": "ACL",
+     "title": "ACL TWO",
+     "sub": "AFC Champions League Two",
+     "color": "gold",
+     "t": 2.65,
+     "lift": 50,
+     "until": 3.95
+    },
+    {
+     "anchor": "AA",
+     "title": "A-LEAGUES (AUSTRALIA)",
+     "sub": "media luar negeri",
+     "color": "purple",
+     "t": 3.55,
+     "lift": 60
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "Q14",
+   "bubble": "**2 kemenangan** pertama",
+   "labels": [
+    {
+     "anchor": "SB1",
+     "title": "16 SEP 2026",
+     "sub": "di Seoul",
+     "color": "cyan",
+     "t": 0.55,
+     "lift": 40
+    },
+    {
+     "anchor": "SB2",
+     "title": "14 OKT 2026",
+     "sub": "di Si Jalak Harupat",
+     "color": "cyan",
+     "t": 0.95,
+     "lift": 40
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "Q15",
+   "bubble": "Satu insiden, **semua bocor**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "Q16",
+   "bubble": "Denda **Rp3,5 M** + tanpa penonton",
+   "labels": [
+    {
+     "anchor": "AD",
+     "title": "METROTV",
+     "sub": "sanksi AFC, 13 Mei 2026",
+     "color": "red",
+     "t": 1.55,
+     "lift": 60
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "Q17",
+   "bubble": "Follower **bukan** uang",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "Q18",
+   "bubble": "Valuasi **Rp1 triliun**",
+   "labels": [
+    {
+     "anchor": "AW",
+     "title": "WIKIPEDIA (EN)",
+     "sub": "2026–27 Persib season",
+     "color": "purple",
+     "t": 1.05,
+     "lift": 60,
+     "until": 3.05
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  },
+  {
+   "id": "Q19",
+   "bubble": "Klub negaramu **gimana**?",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon",
+   "look": "doc"
+  }
+ ],
+ "hero": [
+  {
+   "t0": 1.62,
+   "t1": 3.0,
+   "text": "**2,54 juta**",
+   "sub": "subscriber YouTube PERSIB (Nov 2026)",
+   "style": "red",
+   "size": 110,
+   "y": 1500,
+   "font": "slab"
+  },
+  {
+   "t0": 5.57,
+   "t1": 7.35,
+   "text": "**$2,7 rb**/bulan",
+   "sub": "≈ Rp45 juta • estimasi iklan YouTube",
+   "style": "red",
+   "size": 96,
+   "y": 1500,
+   "font": "slab"
+  },
+  {
+   "t0": 10.32,
+   "t1": 11.6,
+   "text": "PINTU **#1**",
+   "sub": "liga",
+   "style": "gold",
+   "size": 104,
+   "y": 1500,
+   "font": "slab"
+  },
+  {
+   "t0": 13.73,
+   "t1": 16.2,
+   "text": "**Rp27 M**/klub",
+   "sub": "≈ US$1,6 jt • subsidi I.League 2026/27",
+   "style": "gold",
+   "size": 104,
+   "y": 1500,
+   "font": "slab"
+  },
+  {
+   "t0": 16.79,
+   "t1": 17.8,
+   "text": "dari **Rp19 M**",
+   "sub": "2025/26 ≈ US$1,1 jt",
+   "style": "cyan",
+   "size": 96,
+   "y": 1500,
+   "font": "slab"
+  },
+  {
+   "t0": 18.62,
+   "t1": 20.3,
+   "text": "+ **hak siar** + bonus",
+   "sub": "di luar subsidi",
+   "style": "cyan",
+   "size": 88,
+   "y": 1500,
+   "font": "slab"
+  },
+  {
+   "t0": 24.28,
+   "t1": 24.88,
+   "text": "**BOBOTOH**",
+   "sub": "",
+   "style": "cyan",
+   "size": 110,
+   "y": 1500,
+   "font": "slab"
+  },
+  {
+   "t0": 26.44,
+   "t1": 27.9,
+   "text": "**4** kompetisi",
+   "sub": "Super League • I.League Cup • Shopee Cup • ACL Two",
+   "style": "cyan",
+   "size": 96,
+   "y": 1500,
+   "font": "slab"
+  },
+  {
+   "t0": 28.0,
+   "t1": 29.3,
+   "text": "**24** laga kandang",
+   "sub": "minimal semusim",
+   "style": "gold",
+   "size": 96,
+   "y": 1500,
+   "font": "slab",
+   "count": {
+    "t0": 28.0,
+    "t1": 28.65,
+    "frm": 0,
+    "to": 24,
+    "fmt": "{}"
+   }
+  },
+  {
+   "t0": 30.41,
+   "t1": 32.4,
+   "text": "**14–20 rb**/laga",
+   "sub": "asumsi penonton per laga kandang",
+   "style": "cyan",
+   "size": 96,
+   "y": 1500,
+   "font": "slab"
+  },
+  {
+   "t0": 33.7,
+   "t1": 36.05,
+   "text": "**$2,7–5 jt**",
+   "sub": "≈ Rp46–90 M tiket semusim (estimasi)",
+   "style": "gold",
+   "size": 104,
+   "y": 1500,
+   "font": "slab"
+  },
+  {
+   "t0": 38.77,
+   "t1": 40.9,
+   "text": "**$400–600 rb**",
+   "sub": "≈ Rp7–10 M dari PO pertama (kabarnya)",
+   "style": "gold",
+   "size": 96,
+   "y": 1500,
+   "font": "slab"
+  },
+  {
+   "t0": 42.35,
+   "t1": 43.5,
+   "text": "**7** lokasi",
+   "sub": "PERSIB Store",
+   "style": "cyan",
+   "size": 104,
+   "y": 1500,
+   "font": "slab"
+  },
+  {
+   "t0": 47.85,
+   "t1": 48.95,
+   "text": "**pelanggan** tetap",
+   "sub": "",
+   "style": "gold",
+   "size": 96,
+   "y": 1500,
+   "font": "slab"
+  },
+  {
+   "t0": 53.79,
+   "t1": 55.0,
+   "text": "**$50 rb**/menang",
+   "sub": "+ biaya partisipasi fase grup US$300 rb",
+   "style": "gold",
+   "size": 96,
+   "y": 1500,
+   "font": "slab"
+  },
+  {
+   "t0": 57.22,
+   "t1": 58.85,
+   "text": "± **$400 rb**",
+   "sub": "≈ Rp7 M • partisipasi grup + bonus 2 kemenangan",
+   "style": "gold",
+   "size": 104,
+   "y": 1500,
+   "font": "slab"
+  },
+  {
+   "t0": 62.06,
+   "t1": 63.9,
+   "text": "**- $200 rb**",
+   "sub": "denda AFC ≈ Rp3,5 M",
+   "style": "red",
+   "size": 104,
+   "y": 1500,
+   "font": "slab"
+  },
+  {
+   "t0": 64.49,
+   "t1": 66.4,
+   "text": "**2 laga** tanpa penonton",
+   "sub": "laga kandang kompetisi AFC",
+   "style": "red",
+   "size": 88,
+   "y": 1500,
+   "font": "slab"
+  },
+  {
+   "t0": 67.61,
+   "t1": 69.5,
+   "text": "± **$0,5 jt** melayang",
+   "sub": "≈ Rp8–10 M • denda + tiket hilang (estimasi)",
+   "style": "red",
+   "size": 88,
+   "y": 1500,
+   "font": "slab"
+  },
+  {
+   "t0": 70.42,
+   "t1": 72.4,
+   "text": "follower **≠** uang",
+   "sub": "",
+   "style": "red",
+   "size": 96,
+   "y": 1500,
+   "font": "slab"
+  },
+  {
+   "t0": 81.48,
+   "t1": 84.7,
+   "text": "**Rp1 triliun**",
+   "sub": "≈ US$60 jt • taksiran bila aset dibereskan",
+   "style": "gold",
+   "size": 110,
+   "y": 1500,
+   "font": "slab"
+  }
+ ],
+ "comments": [
+  {
+   "t": 88.6,
+   "text": "Buriram United, Thailand!",
+   "y": 1420
+  },
+  {
+   "t": 89.6,
+   "text": "Johor Darul Ta'zim, Malaysia",
+   "y": 1570
+  }
+ ],
+ "comment_scene": "Q19",
+ "bisubs": [
+  [
+   0.129,
+   3.19,
+   "Persib's **YouTube** channel has more than **2 million** subscribers.",
+   "Channel YouTube Persib punya lebih dari 2 juta subscriber."
+  ],
+  [
+   3.19,
+   4.718,
+   "But its **ad revenue** is estimated",
+   "Tapi pendapatan iklannya diperkirakan"
+  ],
+  [
+   4.718,
+   7.515,
+   "at only around **$2,700** a month.",
+   "cuma sekitar Rp45 juta sebulan."
+  ],
+  [
+   7.515,
+   9.709,
+   "So... where does the **big money** come from?",
+   "Terus... uang besarnya dari mana?"
+  ],
+  [
+   9.709,
+   11.803,
+   "The **first door** is **the league**.",
+   "Pintu pertama: liga."
+  ],
+  [
+   11.803,
+   14.766,
+   "This season, every club gets about **$1.6 million**",
+   "Musim ini, tiap klub dapat Rp27 miliar"
+  ],
+  [
+   14.766,
+   16.275,
+   "from the **league operator**,",
+   "dari operator liga,"
+  ],
+  [
+   16.275,
+   17.902,
+   "up from **$1.1 million**.",
+   "naik dari Rp19 miliar."
+  ],
+  [
+   17.902,
+   20.605,
+   "And that's before **TV rights** and **ranking bonuses**.",
+   "Belum termasuk hak siar dan bonus peringkat."
+  ],
+  [
+   20.605,
+   21.85,
+   "But **every club** gets that.",
+   "Tapi semua klub dapat itu."
+  ],
+  [
+   21.85,
+   25.001,
+   "What makes Persib different is its fans, the **Bobotoh**.",
+   "Yang bikin Persib beda: bobotoh."
+  ],
+  [
+   25.001,
+   27.6,
+   "This season, Persib plays in **four competitions**,",
+   "Musim ini, Persib main di empat kompetisi,"
+  ],
+  [
+   27.6,
+   29.449,
+   "at least **24 home matches**.",
+   "minimal 24 laga kandang."
+  ],
+  [
+   29.449,
+   32.468,
+   "If each match draws **14 to 20,000** fans,",
+   "Kalau tiap laga ditonton 14–20 ribu orang,"
+  ],
+  [
+   32.468,
+   33.638,
+   "**tickets** alone could bring in",
+   "tiketnya saja bisa menghasilkan"
+  ],
+  [
+   33.638,
+   36.261,
+   "**$2.7 to $5 million** a season.",
+   "Rp46–90 miliar semusim."
+  ],
+  [
+   36.261,
+   38.714,
+   "**Jerseys?** The first **pre-order** alone reportedly made",
+   "Jersey, dari PO pertama aja, kabarnya laku"
+  ],
+  [
+   38.714,
+   41.124,
+   "**$400 to $600,000**.",
+   "Rp7–10 miliar."
+  ],
+  [
+   41.124,
+   43.124,
+   "Add **official stores** in **seven locations**,",
+   "Ditambah toko resmi di tujuh lokasi,"
+  ],
+  [
+   43.124,
+   45.567,
+   "and a **membership** program inside their app.",
+   "dan membership di aplikasi."
+  ],
+  [
+   45.567,
+   47.582,
+   "The Bobotoh aren't just **fans**.",
+   "Bobotoh bukan cuma penonton."
+  ],
+  [
+   47.582,
+   49.19,
+   "They're **loyal customers**.",
+   "Mereka pelanggan tetap."
+  ],
+  [
+   49.19,
+   51.143,
+   "And from **Asia**, there's **extra money**.",
+   "Dan dari Asia, ada uang tambahan."
+  ],
+  [
+   51.143,
+   53.03,
+   "In the **AFC Champions League Two**,",
+   "Di Liga Champions Asia Two,"
+  ],
+  [
+   53.03,
+   55.185,
+   "every win pays **$50,000**.",
+   "tiap kemenangan dibayar 50 ribu dolar."
+  ],
+  [
+   55.185,
+   56.431,
+   "The **first two wins** alone",
+   "Dua kemenangan pertama aja,"
+  ],
+  [
+   56.431,
+   59.025,
+   "brought in around **$400,000**.",
+   "sekitar tujuh miliar rupiah."
+  ],
+  [
+   59.025,
+   61.751,
+   "But **one incident** can make all these doors **leak**.",
+   "Tapi satu insiden bisa bikin semua pintu ini bocor."
+  ],
+  [
+   61.751,
+   64.034,
+   "A **$200,000 fine** from the AFC",
+   "Denda AFC 3,5 miliar rupiah,"
+  ],
+  [
+   64.034,
+   66.478,
+   "plus two home matches with **no fans**.",
+   "plus dua laga kandang tanpa penonton."
+  ],
+  [
+   66.478,
+   69.751,
+   "In total, around **half a million dollars**, gone.",
+   "Totalnya 8 sampai hampir 10 miliar rupiah, melayang."
+  ],
+  [
+   69.751,
+   72.973,
+   "So, **millions of followers** don't automatically turn into money.",
+   "Jadi, follower jutaan nggak otomatis jadi uang."
+  ],
+  [
+   72.973,
+   74.35,
+   "Persib turns them into **cash** through",
+   "Persib mengubahnya jadi uang lewat"
+  ],
+  [
+   74.35,
+   76.313,
+   "**tickets**, **jerseys**, **stores**,",
+   "tiket, jersey, toko,"
+  ],
+  [
+   76.313,
+   77.949,
+   "**memberships** and **sponsors**.",
+   "membership, dan sponsor."
+  ],
+  [
+   77.949,
+   79.77,
+   "And once its **assets** are sorted out,",
+   "Kalau asetnya sudah beres,"
+  ],
+  [
+   79.77,
+   82.85,
+   "the club's value is estimated to reach **1 trillion rupiah**.",
+   "nilai klubnya ditaksir tembus Rp1 triliun."
+  ],
+  [
+   82.85,
+   85.006,
+   "That's around **60 million dollars**.",
+   "Sekitar 60 juta dolar AS."
+  ],
+  [
+   85.006,
+   88.308,
+   "Which club in **your country** makes money from its fans like this?",
+   "Klub mana di negaramu yang dapat uang dari fans seperti ini?"
+  ],
+  [
+   88.308,
+   89.53,
+   "Drop the **name** in the comments.",
+   "Tulis namanya di komentar."
+  ],
+  [
+   89.53,
+   92.848,
+   "**Save** this, and **follow** for more business breakdowns.",
+   "Simpan, dan follow buat bedah bisnis lainnya."
+  ]
+ ],
+ "sub_y": 1165,
+ "sub_style": {
+  "en_size": 54,
+  "id_size": 34,
+  "max_w": 840
+ },
+ "fx": {
+  "punch": [
+   [
+    1.62,
+    0.7
+   ],
+   [
+    3.6,
+    0.4
+   ],
+   [
+    5.57,
+    0.8
+   ],
+   [
+    8.54,
+    0.5
+   ],
+   [
+    10.32,
+    0.9
+   ],
+   [
+    12.73,
+    0.4
+   ],
+   [
+    13.73,
+    0.8
+   ],
+   [
+    16.79,
+    0.5
+   ],
+   [
+    18.62,
+    0.5
+   ],
+   [
+    19.36,
+    0.5
+   ],
+   [
+    20.6,
+    0.4
+   ],
+   [
+    22.3,
+    0.6
+   ],
+   [
+    24.28,
+    1.0
+   ],
+   [
+    26.44,
+    0.6
+   ],
+   [
+    28.0,
+    0.7
+   ],
+   [
+    30.41,
+    0.5
+   ],
+   [
+    32.53,
+    0.5
+   ],
+   [
+    33.7,
+    0.8
+   ],
+   [
+    36.32,
+    0.6
+   ],
+   [
+    37.51,
+    0.5
+   ],
+   [
+    38.77,
+    0.8
+   ],
+   [
+    41.75,
+    0.5
+   ],
+   [
+    42.35,
+    0.6
+   ],
+   [
+    43.66,
+    0.5
+   ],
+   [
+    46.84,
+    0.5
+   ],
+   [
+    47.85,
+    0.8
+   ],
+   [
+    49.63,
+    0.6
+   ],
+   [
+    51.56,
+    0.5
+   ],
+   [
+    53.79,
+    0.7
+   ],
+   [
+    55.43,
+    0.5
+   ],
+   [
+    55.83,
+    0.5
+   ],
+   [
+    57.22,
+    0.9
+   ],
+   [
+    59.54,
+    0.8
+   ],
+   [
+    61.18,
+    0.7
+   ],
+   [
+    62.06,
+    1.0
+   ],
+   [
+    64.49,
+    0.8
+   ],
+   [
+    67.61,
+    0.8
+   ],
+   [
+    70.42,
+    0.5
+   ],
+   [
+    73.88,
+    0.6
+   ],
+   [
+    74.41,
+    0.4
+   ],
+   [
+    75.03,
+    0.4
+   ],
+   [
+    75.69,
+    0.4
+   ],
+   [
+    76.37,
+    0.4
+   ],
+   [
+    77.11,
+    0.5
+   ],
+   [
+    79.11,
+    0.5
+   ],
+   [
+    81.48,
+    1.0
+   ],
+   [
+    85.73,
+    0.5
+   ],
+   [
+    88.6,
+    0.4
+   ],
+   [
+    89.6,
+    0.4
+   ],
+   [
+    90.69,
+    0.5
+   ]
+  ],
+  "flash": [
+   [
+    10.32,
+    0.18,
+    "w"
+   ],
+   [
+    24.28,
+    0.16,
+    "w"
+   ],
+   [
+    59.54,
+    0.2,
+    "r"
+   ],
+   [
+    62.06,
+    0.2,
+    "r"
+   ],
+   [
+    81.48,
+    0.2,
+    "w"
+   ]
+  ],
+  "chroma": [
+   [
+    59.54,
+    0.3
+   ],
+   [
+    61.18,
+    0.2
+   ],
+   [
+    62.06,
+    0.3
+   ],
+   [
+    64.49,
+    0.2
+   ],
+   [
+    70.42,
+    0.15
+   ]
+  ],
+  "pale": [
+   0,
+   0,
+   "NONE"
+  ]
+ },
+ "keywords": []
+}

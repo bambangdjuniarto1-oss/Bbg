@@ -197,7 +197,11 @@ def do_scene(job):
         if cfg.get("bisubs"):
             for s0, s1, en, idt in cfg["bisubs"]:
                 if s0 <= tg < s1:
-                    C.draw_subtitle_bi(img, C.parse_rich(en), idt, cfg.get("sub_y", 1235), tg - s0)
+                    if cfg.get("sub_style"):
+                        C.draw_subtitle_bi2(img, C.parse_rich(en), idt, cfg.get("sub_y", 1235), tg - s0,
+                                            **cfg["sub_style"])
+                    else:
+                        C.draw_subtitle_bi(img, C.parse_rich(en), idt, cfg.get("sub_y", 1235), tg - s0)
         else:
             cur = None
             for s0, s1, parts in subs:

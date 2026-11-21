@@ -1177,14 +1177,15 @@ def piano(note, dur=1.8, vel=1.0):
     return harm_tone(midi(note), dur, 2.2, 5.0, nh=8, bright=.8) * .5 * vel + epiano(note, dur, vel) * .6
 
 
-def render_doc(dur, bpm=100.0, marks=(7.05, 20.31, 24.65, 46.53, 60.52, 68.31)):
+def render_doc(dur, bpm=100.0, marks=(7.05, 20.31, 24.65, 46.53, 60.52, 68.31), kinds=None):
     """dokumenter sepak bola: intro malam stadion -> anthem epik (taiko+strings) -> hening (rahasia?) ->
     bed bisnis berdenyut (ostinato) -> mimpi IPO naik -> ujian terberat (drum perang) -> resolusi hangat."""
     beat = 60.0 / bpm
     L = int((dur + 4) * SR)
     dry = np.zeros((2, L))
     syn = np.zeros((2, L))
-    kinds = ["intro", "epic", "brk", "biz", "rise", "war", "res"]
+    kinds = list(kinds or ["intro", "epic", "brk", "biz", "rise", "war", "res"])
+    assert len(kinds) == len(marks) + 1, "jumlah DOC_KINDS harus = jumlah DOC_MARKS + 1"
     bounds = [0.0] + list(marks) + [dur]
     secs = [(bounds[i], bounds[i + 1], kinds[i]) for i in range(len(kinds))]
     K, SN, H = kick(), snare(), hat()
@@ -1278,7 +1279,8 @@ def main():
     global CHORDS, MOTIF
     if VARIANTS[a.variant] == "doc":
         mk = tuple(float(x) for x in os.environ.get("DOC_MARKS", "7.05,20.31,24.65,46.53,60.52,68.31").split(","))
-        sf.write(a.out, render_doc(a.dur, a.bpm, mk).T, SR, subtype="PCM_16")
+        kd = os.environ.get("DOC_KINDS")
+        sf.write(a.out, render_doc(a.dur, a.bpm, mk, kd.split(",") if kd else None).T, SR, subtype="PCM_16")
         print("wrote", a.out)
         return
     if VARIANTS[a.variant] == "sakura":
