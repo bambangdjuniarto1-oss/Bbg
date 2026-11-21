@@ -138,7 +138,7 @@ HERO = [
     hero(62.06, 63.9, "**- $200 rb**", "denda AFC ~ Rp3,5 M", style="red", size=104),
     hero(64.49, 66.4, "**2 laga** tanpa penonton", "laga kandang kompetisi AFC", style="red", size=88),
     hero(67.61, 69.5, "± **$0,5 jt** melayang", "~ Rp8–10 M • denda + tiket hilang (estimasi)", style="red", size=88),
-    hero(70.42, 72.4, "follower **≠** uang", "", style="red", size=96),
+    hero(70.42, 72.4, "follower **bukan** uang", "", style="red", size=96),
     hero(81.48, 84.7, "**Rp1 triliun**", "~ US$60 jt • taksiran bila aset dibereskan", style="gold", size=110),
 ]
 
