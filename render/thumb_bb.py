@@ -23,6 +23,9 @@ TEX = os.environ.get("TN_TEX", "/tmp/claude-0/-home-user-Bbg/e4570b9b-8bb7-5f4c-
 SPEC = {
     "psb": dict(logo="psb/tex/lg_persib.png", card_imgs=["psb/tex/ph_trophies.jpg", "psb/tex/ph_koreo.jpg"],
                 tile_glob=["psb/tex/ph_*.jpg", "psb/tex/pl_*.jpg"], title="3x Champions.", accent="#2563EB", bg="#06122E"),
+    "ps2": dict(logo="psb/tex/lg_persib.png", part="PART 2", card_imgs=["ps2/tex/ph_seoul.jpg", "ps2/tex/ph_store2.jpg"],
+                tile_glob=["ps2/tex/ph_*.jpg", "psb/tex/pl_*.jpg"], title="Persib's Money Machine.", accent="#2563EB",
+                bg="#06122E"),
     "vap": dict(cards=(0, 13), label="LIQUID VAPE · 60 ML", hero="Rp120K", title="Who Takes the Cut?", accent="#A855F7", bg="#12081F"),
     "pst": dict(label="PESTAPORA · 3 DAYS", hero="Rp16B", title="More Than Tickets.", accent="#EC4899", bg="#1A0716"),
     "gta": dict(logo="gta/tex/logo.png", card_imgs=["gta/tex/p_jl.jpg", "gta/tex/shot_beach.jpg"],
@@ -41,7 +44,7 @@ SPEC = {
     "sepatu": dict(label="SHOE CLEANING", hero="Rp50M/mo", title="Clean Shoes, Real Cash.", accent="#FB923C",
                    bg="#170C05"),
 }
-ORDER = list(SPEC)
+ORDER = [k for k in SPEC if k != "ps2"] + ["ps2"]      # nomor lama tetap; Part 2 = 15
 
 
 def hexrgb(h):
@@ -202,11 +205,23 @@ def build(key, frames_dir):
         paste_rot(canvas, card, cx, cy, ang)
 
     # ---- logo / label + angka besar
+    if sp.get("part"):                                  # lencana "PART 2" di atas logo/angka
+        bf = font(46)
+        tw = bf.getlength(sp["part"]) + 4 * len(sp["part"])
+        bw, bh = int(tw + 70), 78
+        badge = Image.new("RGBA", (bw, bh), (0, 0, 0, 0))
+        ImageDraw.Draw(badge).rounded_rectangle((0, 0, bw - 1, bh - 1), bh // 2, fill=acc + (255,))
+        bl = Image.new("RGBA", (W, 140), (0, 0, 0, 0))
+        bl.alpha_composite(badge, ((W - bw) // 2, 30))
+        tx = text_layer(sp["part"], bf, (255, 255, 255, 255), 4)
+        canvas.alpha_composite(glow(bl, acc, 26, 1.3), (0, 232))
+        canvas.alpha_composite(bl, (0, 232))
+        canvas.alpha_composite(tx, (0, 232 + 30 + (bh - 46) // 2 - 14))
     if sp.get("logo"):
         lg = Image.open(os.path.join(TEX, sp["logo"])).convert("RGBA")
-        lg.thumbnail((560, 400), Image.LANCZOS)
+        lg.thumbnail((560, 400 if not sp.get("part") else 360), Image.LANCZOS)
         lay = Image.new("RGBA", (W, 600), (0, 0, 0, 0))
-        lay.alpha_composite(lg, ((W - lg.width) // 2, 270 - lg.height // 2))
+        lay.alpha_composite(lg, ((W - lg.width) // 2, (270 if not sp.get("part") else 330) - lg.height // 2))
         canvas.alpha_composite(glow(lay, acc, 40, 1.4), (0, 230))
         canvas.alpha_composite(lay, (0, 230))
     else:

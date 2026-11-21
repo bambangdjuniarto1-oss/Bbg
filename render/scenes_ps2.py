@@ -193,16 +193,16 @@ def q02(n, A):
     V.disc_ped("ped", 1.6, "psb_blue2", (3.0, -1.0, 0), em=4.0, h=.35)
     cs = []
     for i in range(3):
-        c = P.coin(f"c{i}", (3.0, -1.0, .45 + i * .16), .9)
-        c.rotation_euler = (0, 0, i * .7)
+        c = P.coin(f"c{i}", (2.45 + i * .55, -1.0, .88), .9)          # berdiri menghadap kamera (jelas koin)
+        c.rotation_euler = (0, 0, math.radians(-24))
         pop_in(c, fr(sid, 5.5 + .12 * i), .9, 8)
         cs.append(c)
     mg = V.magnifier("mg", (4.6, -2.4, 1.4), 1.0)
     pop_in(mg, fr(sid, 5.9), 1.0, 12)
     arc_move(mg, fr(sid, 5.9), fr(sid, 6.9), (6.0, -3.2, 2.6), (4.2, -2.4, 1.3), .5, "out")
     vq = phone("vq", "art_vidiq", 7.2, (-8.8, 4.6, .1), .45, sid, 4.0, n, .25)
-    camera(sid, [(3.05, (-.5, 1.0, 2.6), -38, 52, 26), (5.2, (1.2, 0, 1.6), -52, 36, 19),
-                 (7.40, (2.6, -1.0, 1.0), -66, 20, 12.5)], lens=26)
+    camera(sid, [(3.05, (-.5, 1.0, 2.0), -38, 52, 26), (5.2, (1.4, 0, .2), -52, 36, 19),
+                 (7.40, (2.8, -1.2, -1.2), -66, 22, 13.5)], lens=26)
     A["VQ"] = (vq["root"], (0, 0, 7.6))
     A["CN"] = (cs[-1], (0, 0, .5))
 
