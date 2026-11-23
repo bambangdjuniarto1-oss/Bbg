@@ -592,6 +592,53 @@ def sample(arg):
 GEN_X["smp"] = sample
 
 
+def rain(d=4.0):
+    """hujan di atap: desis lebar + tetesan acak, fade masuk/keluar."""
+    t = tt(d)
+    hiss = _f(RNG.standard_normal(len(t)), 900, 9000) * .35
+    drops = np.zeros(len(t))
+    for i in RNG.integers(0, len(t) - 2000, int(d * 140)):
+        n = RNG.integers(300, 1200)
+        drops[i:i + n] += RNG.uniform(.1, .5) * np.exp(-np.arange(n) / RNG.uniform(60, 200)) * RNG.standard_normal(n)
+    drops = _f(drops, 1500, 8000)
+    env = np.minimum(1, t / .8) * np.minimum(1, (d - t) / .8)
+    return (hiss + drops) * env * .6
+
+
+def slate():
+    """klap clapperboard: kayu tajam + ruang."""
+    t = tt(.5)
+    hit = _f(RNG.standard_normal(len(t)), 1200, 9000) * np.exp(-t * 90)
+    body = np.sin(2 * np.pi * 380 * t) * np.exp(-t * 40) * .5
+    room = _f(RNG.standard_normal(len(t)), 300, 3000) * np.exp(-t * 12) * .08
+    return np.tanh((hit + body + room) * 2.2) * .85
+
+
+def light_on():
+    """saklar lampu studio besar: klunk berat + dengung."""
+    t = tt(1.2)
+    clunk = _f(RNG.standard_normal(len(t)), 80, 1200) * np.exp(-t * 35) * 1.2
+    thump = np.sin(2 * np.pi * 55 * t) * np.exp(-t * 9) * .8
+    hum = (np.sin(2 * np.pi * 100 * t) + .4 * np.sin(2 * np.pi * 200 * t)) * np.minimum(1, t / .1) * np.exp(-t * 2.2) * .12
+    return np.tanh(clunk + thump + hum) * .85
+
+
+def drone(d=8.0, root=55.0, swell=True):
+    """scoring placeholder: pad gelap yang membesar (ganti musik asli nanti)."""
+    t = tt(d)
+    s = np.zeros(len(t))
+    for k, (m, a) in enumerate([(1, .5), (1.5, .25), (2, .3), (3, .12), (4.02, .06)]):
+        s += a * np.sin(2 * np.pi * root * m * t + np.sin(2 * np.pi * (.08 + k * .03) * t) * 2)
+    s += _f(RNG.standard_normal(len(t)), 200, 1200) * .05
+    env = (t / d) ** 1.6 if swell else np.ones(len(t))
+    env = np.minimum(env + .15, 1) * np.minimum(1, t / 1.0) * np.minimum(1, (d - t) / 1.2)
+    return np.tanh(s * env * 1.2) * .7
+
+
+GEN_X.update({"rain": lambda a: rain(a or 4.0), "slate": lambda a: slate(), "light_on": lambda a: light_on(),
+              "drone": lambda a: drone(a or 8.0), "drone_flat": lambda a: drone(a or 8.0, 55.0, False)})
+
+
 GEN = {"whoosh": lambda a: whoosh(a or .55), "whoosh_rev": lambda a: whoosh(a or .55, False),
        "whoosh_low": lambda a: whoosh_low(a or .7), "swoosh": lambda a: whoosh(a or .3) * .7,
        "impact": lambda a: impact(), "boom": lambda a: boom(), "riser": lambda a: riser(a or 1.6),

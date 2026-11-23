@@ -385,9 +385,76 @@ def el_endcard(layer, ev, p, pal):
                   pal["accent"] + (255,), track=8, anchor="ms")
 
 
+# ------------------------------------------------------------------ elemen gaya film
+def el_slug(layer, ev, p, pal, t):
+    """keterangan lokasi/waktu diketik (mis. 'STUDIO 7 · 03.12 WIB')."""
+    d = ImageDraw.Draw(layer)
+    txt = ev["text"].upper()
+    n = int(clamp((t - ev["start"]) / ev.get("type_dur", 0.9)) * len(txt) + 1e-6)
+    draw_text(d, (ev.get("x", 70), ev.get("y", 1640)), txt[:n], font("mono", ev.get("size", 28)),
+              pal["white"] + (235,), track=6)
+
+
+def el_subtitle(layer, ev, p, pal):
+    """subtitle dialog gaya film: kecil, bersih, bayangan lembut."""
+    tmp = Image.new("RGBA", layer.size, (0, 0, 0, 0))
+    d = ImageDraw.Draw(tmp)
+    f = font("sans", ev.get("size", 44))
+    for i, ln in enumerate(ev["text"].split("\n")):
+        draw_text(d, (W / 2, ev.get("y", 1520) + i * f.size * 1.25), ln, f, (255, 255, 255, 255), anchor="ms")
+    layer.alpha_composite(shadowed(tmp, 6, .9, (0, 2)))
+
+
+def el_rec(layer, ev, p, pal, t):
+    """indikator REC + timecode berjalan: bukti 'satu take' tanpa potongan."""
+    d = ImageDraw.Draw(layer)
+    e = t - ev["start"] + ev.get("offset", 0)
+    tc = f"{int(e // 3600):02d}:{int(e // 60) % 60:02d}:{int(e) % 60:02d}:{int((e % 1) * 24):02d}"
+    x, y = ev.get("x", W - 70), ev.get("y", 150)
+    f = font("monob", 30)
+    draw_text(d, (x, y), tc, f, (255, 255, 255, 235), track=2, anchor="rs")
+    rx = x - text_w(tc, f, 2) - 120
+    if int(t * 2) % 2 == 0:
+        d.ellipse((rx, y - 26, rx + 22, y - 4), fill=(255, 50, 50, 255))
+    draw_text(d, (rx + 34, y), "REC", f, (255, 255, 255, 235), track=2)
+    if ev.get("label"):
+        draw_text(d, (70, y), ev["label"].upper(), font("mono", 26), (255, 255, 255, 200), track=6)
+    m, L, c = 46, 70, (255, 255, 255, 150)                # sudut bingkai kamera
+    for (cx, cy, sx, sy) in [(m, m + 40, 1, 1), (W - m, m + 40, -1, 1), (m, H - m - 40, 1, -1), (W - m, H - m - 40, -1, -1)]:
+        d.line((cx, cy, cx + sx * L, cy), fill=c, width=3)
+        d.line((cx, cy, cx, cy + sy * L), fill=c, width=3)
+
+
+def el_titlecard(layer, ev, p, pal):
+    """title card iklan: latar hitam, judul lebar, subjudul serif."""
+    d = ImageDraw.Draw(layer)
+    if ev.get("bg", True):
+        d.rectangle((0, 0, W, H), fill=(3, 3, 5, 255))
+    f = font("wide", ev.get("size", 96))
+    if text_w(ev["text"], f) > W - 120:
+        f = font("wide", f.size * (W - 120) / text_w(ev["text"], f))
+    s = 0.94 + 0.06 * ease_out(p)
+    tmp = Image.new("RGBA", layer.size, (0, 0, 0, 0))
+    td = ImageDraw.Draw(tmp)
+    draw_text(td, (W / 2, H / 2 + f.size * 0.3), ev["text"], f, (255, 255, 255, 255), anchor="ms")
+    if ev.get("sub"):
+        draw_text(td, (W / 2, H / 2 + f.size * 0.3 + 100), ev["sub"], font("serif", 60), pal["white"] + (255,), anchor="ms")
+    if abs(s - 1) > 1e-3:
+        tmp = tmp.transform(tmp.size, Image.AFFINE, (1 / s, 0, W / 2 - W / 2 / s, 0, 1 / s, H / 2 - H / 2 / s),
+                            resample=Image.BILINEAR)
+    layer.alpha_composite(tmp)
+
+
+def el_black(layer, ev, p, pal):
+    """layar hitam (fade in/out diatur lewat fin/fout)."""
+    ImageDraw.Draw(layer).rectangle((0, 0, W, H), fill=(0, 0, 0, 255))
+
+
 ELEMENTS = {"kicker": el_kicker, "title": el_title, "card": el_card, "caption": el_caption,
-            "tag": el_tag, "endcard": el_endcard}
-TIMED = {"counter": el_counter, "receipt": el_receipt, "xgrid": el_xgrid, "comment": el_comment}
+            "tag": el_tag, "endcard": el_endcard, "subtitle": el_subtitle, "titlecard": el_titlecard,
+            "black": el_black}
+TIMED = {"counter": el_counter, "receipt": el_receipt, "xgrid": el_xgrid, "comment": el_comment,
+         "slug": el_slug, "rec": el_rec}
 
 
 # ------------------------------------------------------------------ background
@@ -527,7 +594,7 @@ def render_video(cfg_path, out, preview=False):
             draw_text(sd, (90, H - 252), b["slate"][0].upper(), font("monob", 26), pal["accent"] + (255,), track=4)
             draw_text(sd, (90, H - 200), b["slate"][1], font("mono", 24), (220, 220, 220, 255))
         # kilat putih singkat di awal tiap potongan (rasa 'cut' cepat)
-        if b.get("flash", True) and t - b["start"] < 0.1 and b is not bgs[0]:
+        if b.get("flash", cfg.get("flash", True)) and t - b["start"] < 0.1 and b is not bgs[0]:
             fl = Image.new("RGBA", (W, H), (255, 255, 255, int(70 * (1 - (t - b["start"]) / 0.1))))
             frame.alpha_composite(fl)
         for ev in events:

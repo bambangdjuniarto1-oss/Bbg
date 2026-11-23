@@ -1,154 +1,177 @@
-# Pilot Episode: KLING 4.0 (gaya AI filmmaker, host AI "NARA")
+# Pilot KLING 4.0: film pendek "SATU TAKE"
 
-Status: **pra-produksi selesai**. Naskah, karakter, daftar shot, prompt, SFX, grafis, dan animatic sudah siap.
-Yang belum: generate visual + suara di Higgsfield (saldo sekarang 0 kredit) dan hasil tes Kling 4.0 asli.
+Format: **iklan sinematik / film pendek**, bukan tutorial. Fitur Kling 4.0 tidak dijelaskan pakai teks, tapi
+**dibuktikan lewat cerita**: klimaks film adalah satu shot 30 detik tanpa potongan yang memang di-generate
+sekali di Kling 4.0. Info teknis dan CTA ada di caption, bukan di layar.
 
-- Durasi: ±58 detik, 9:16, 13 shot (ganti shot tiap 3–7 detik, potongan cepat di dalam shot panjang via grafis)
-- Animatic (timing + grafis + SFX, background placeholder): `out/kling4_animatic.mp4`
-- Config grafis: `render/scenes/byte_kling4.json` · SFX: `render/scenes/byte_kling4_sfx.json`
-
----
-
-## 1. Karakter host: NARA
-
-Karakter fiktif, **tidak meniru orang nyata** dan tidak meniru host dstudio (tidak pakai kacamata hitam, tidak pakai outfit krem).
-
-**Wajah & tubuh (tetap sama di SEMUA episode):**
-- Perempuan Indonesia, ±27 tahun, kulit sawo matang hangat
-- Rambut hitam bob bergelombang sebahu, belahan samping, beberapa helai jatuh di dahi
-- Alis tebal natural, mata cokelat tua, **tahi lalat kecil di bawah mata kiri** (penanda konsistensi)
-- Makeup minimal, bibir nude kecokelatan
-- **Ear cuff emas tipis di telinga kanan**, **lanyard crew hijau lime** (warna brand Byteinsight) di setiap episode
-
-**Yang berganti per topik:** outfit, set, properti.
-
-| Episode | Outfit | Set |
-|---|---|---|
-| Kling 4.0 (pilot) | Jumpsuit utility abu arang, lengan digulung | Soundstage gelap: dinding storyboard polaroid, monitor edit, lampu film |
-| Seedance | Kemeja satin hitam | Studio tari / panggung, lampu sorot |
-| Iklan AI / budget | Blazer oversized hitam | Ruang meeting agensi, layar presentasi |
-
-**Prompt master karakter** (pakai untuk character sheet, lalu jadikan referensi di semua shot):
-
-```
-Photorealistic portrait of NARA, a 27-year-old Indonesian woman with warm tan skin, shoulder-length wavy black
-bob with side part and loose strands over the forehead, thick natural eyebrows, dark brown eyes, a small beauty
-mark under her left eye, minimal makeup with a nude-brown lip, a thin gold ear cuff on her right ear, wearing a
-charcoal utility jumpsuit with sleeves rolled up and a lime-green film crew lanyard. Confident, friendly,
-slightly playful expression. Shot on 35mm, soft key light, cinematic film studio background, shallow depth of
-field, natural skin texture, no retouching, vertical 9:16.
-```
-
-Character sheet: depan, 3/4 kiri, 3/4 kanan, badan penuh. Simpan 1 gambar terbaik sebagai **NARA_REF**.
+- Durasi ±61 detik, 9:16
+- Teks di layar dibatasi: slug lokasi/waktu, subtitle dialog, timecode REC, title card, end card
+- Animatic (timing + suara, gambar placeholder): `out/kling4_animatic.mp4`
+- Config: `render/scenes/byte_kling4.json` · SFX & scoring sementara: `render/scenes/byte_kling4_sfx.json`
 
 ---
 
-## 2. Naskah + daftar shot
+## 1. Logline
 
-Gaya bicara: **gue/kalian**, cepat, yakin, sedikit bercanda. Fakta Kling 4.0 diambil dari materi resmi Kling dan ulasan pihak ketiga (lihat bagian 6).
+Jam 3 pagi, budget produksi habis. Sutradara muda **NARA** cuma punya **satu take** untuk menyelamatkan filmnya.
+Dia teriak "Action", dan kamera bergerak 30 detik tanpa putus: dari set studio ke jalanan Jakarta yang hujan,
+naik ke atap gedung, menembus ke gurun saat matahari terbit, lalu kembali ke studio. "Cut." Krunya terdiam.
+"Itu… beneran satu take?" Nara senyum: "Satu prompt."
 
-| # | Waktu | Voice-over (NARA) | Visual | Grafis di layar | Jenis shot |
+**KLING 4.0: 30 detik. Satu take.**
+
+---
+
+## 2. Karakter
+
+**NARA** (pemeran utama, karakter tetap Byteinsight di semua episode; outfit & set berganti per topik)
+- Perempuan Indonesia ±27 tahun, kulit sawo matang hangat, rambut hitam bob bergelombang sebahu dengan
+  helai di dahi, alis tebal natural, mata cokelat tua, **tahi lalat kecil di bawah mata kiri**,
+  **ear cuff emas tipis di telinga kanan**, makeup minimal
+- Episode ini: jaket kerja hitam di atas kaus abu, **lanyard crew hijau lime**, headset di leher
+- Karakter fiktif: tidak meniru orang nyata dan tidak meniru host dstudio
+
+**DIMAS** (asisten sutradara, karakter pendukung)
+- Laki-laki Indonesia ±30 tahun, kumis tipis, beanie abu, hoodie hitam, headset, membawa tablet & clapperboard
+
+**Prompt master** (bikin character sheet dulu, lalu dipakai sebagai referensi di semua shot):
+```
+NARA: Photorealistic 27-year-old Indonesian woman, warm tan skin, shoulder-length wavy black bob with loose
+strands over the forehead, thick natural eyebrows, dark brown eyes, small beauty mark under her left eye, thin
+gold ear cuff on her right ear, minimal makeup. Black work jacket over a grey t-shirt, lime-green film crew
+lanyard, headset around her neck. Film director at 3 AM: tired but focused. 35mm film look, natural skin texture.
+
+DIMAS: Photorealistic 30-year-old Indonesian man, thin mustache, grey beanie, black hoodie, production headset,
+holding a tablet. Assistant director, exhausted, loyal. 35mm film look, natural skin texture.
+```
+
+---
+
+## 3. Naskah & daftar shot
+
+Gaya visual seluruh film: `cinematic 35mm film, anamorphic, teal shadows and warm practical lights, haze,
+rain, shallow depth of field, natural skin texture, vertical 9:16`
+
+| # | Waktu | Gambar | Suara | Teks di layar | Shot |
 |---|---|---|---|---|---|
-| S01 | 0.0–3.0 | "Tiga puluh detik. Satu prompt." | Nara jalan ke kamera di soundstage gelap, bawa clapperboard | kicker `KLING 4.0 · TES JUJUR`, counter `0 → 30 DTK` | B-roll (tanpa lip-sync) |
-| S02 | 3.0–6.2 | "Kling 4.0 sekarang bisa bikin video tiga puluh detik, sekali generate." | Close-up Nara ngomong ke kamera, lampu film di belakang | judul `30 DETIK` + `sekali generate` | **Talking** |
-| S03 | 6.2–9.6 | "Dulu? Gue harus nyambung enam klip lima detik." | Nara di meja edit, monitor penuh potongan klip | grid 6 klip `TAKE`, dicoret X | **Talking** |
-| S04 | 9.6–12.6 | "Dan tiap sambungan, mukanya berubah." | Nara angkat 2 foto print, wajahnya beda | caption `tiap sambungan, [muka berubah]` | **Talking** |
-| S05 | 12.6–16.4 | "Sekarang kalian bisa kasih sampai sepuluh keyframe…" | Nara menempel polaroid di dinding storyboard | struk `STORYBOARD · KLING 4.0` (KF 01–05…) | **Talking** |
-| S06 | 16.4–19.6 | "…plus referensi karakter, biar wajahnya nggak lari." | Nara memegang kartu referensi wajah di depan kamera | tag `OMNI REFERENCE` | **Talking** |
-| S07 | 19.6–22.6 | "Suaranya juga langsung jadi." | Nara pakai headphone di depan mixer | tag `AUDIO` + `stereo, langsung dari model` | B-roll |
-| S08 | 22.6–26.0 | "Jadi gue tes. Satu prompt, film pendek." | Nara mengetik di laptop, cahaya layar di wajah | judul `GUE TES` | B-roll |
-| S09 | 26.0–33.0 | *(musik naik, tanpa VO)* | **Hasil tes Kling 4.0 asli** (potongan terbaik) | kartu besar `hasil 1× generate` | Hasil tes |
-| S10 | 33.0–40.0 | "[ISI SETELAH TES: penilaian jujur. Misalnya: gerakannya halus, tapi tangan masih aneh di detik 18.]" | Nara menonton monitor, reaksi | caption pendapat (isi setelah tes) | **Talking** |
-| S11 | 40.0–48.0 | "Tips biar kredit nggak kebakar: draft dulu di mode Flash 720p, kunci adegan pakai keyframe, baru render final." | Nara jalan sambil menunjuk 3 polaroid | judul `HEMAT KREDIT` + caption `draft dulu di [Flash 720p]` | **Talking** |
-| S12 | 48.0–54.8 | "Mau prompt lengkap film pendek tadi? Komen KLING." | Close-up Nara mendekat ke kamera, senyum | kotak komentar `KLING` | **Talking** |
-| S13 | 54.8–58.0 | *(logo)* | End card | `BYTE INSIGHT · @ai.byteinsight` | Grafis |
-
-**Caption Instagram:**
-```
-Video AI 30 detik. Sekali generate. 🎬
-
-Dulu bikin film pendek AI = nyambung 6 klip 5 detik, dan wajah karakternya berubah tiap sambungan.
-Kling 4.0 bisa langsung 30 detik, sampai 10 keyframe, plus referensi karakter.
-
-Gue tes jujur pakai 1 prompt. Hasilnya ada di video.
-
-Mau prompt lengkapnya?
-Komen "KLING", gue kirim ke DM kalian.
-
-#kling #klingai #aivideo #aifilmmaking #byteinsight
-```
+| S01 | 0.0–3.5 | Hitam → ECU mata Nara, pantulan cahaya monitor bergerak di matanya | Hujan deras di atap seng, dengung lampu | slug `STUDIO 7 · 03.12 WIB` | B-roll |
+| S02 | 3.5–7.5 | Wide: soundstage hampir kosong, set fasad ruko palsu, mesin hujan, 2 kru tertidur di apple box, Nara di kursi sutradara | Hujan, drone scoring pelan masuk | – | B-roll |
+| S03 | 7.5–11.5 | Dimas masuk, berhenti di samping Nara, ragu | **DIMAS:** "Mbak… budget-nya habis. Kita cuma punya satu take." | subtitle | **Dialog** |
+| S04 | 11.5–14.5 | CU Nara, diam sebentar, lalu menatap set | **NARA:** "Satu cukup." | subtitle | **Dialog** |
+| S05 | 14.5–17.5 | Lampu studio menyala satu per satu (bang, bang, bang), kru bangun, kamera crane bergerak | Klunk lampu ×3 | – | B-roll |
+| S06 | 17.5–19.0 | ECU clapperboard `SC 1 · TAKE 1` dipukul Dimas | Klap slate, **NARA (OS):** "Action." | subtitle | B-roll |
+| **S07** | **19.0–49.0** | **SATU TAKE 30 DETIK, di-generate SEKALI di Kling 4.0.** Lihat bagian 4 | Musik naik penuh, hujan, kota | `REC` + timecode 00:00 → 00:30, bingkai kamera | **Kling 4.0** |
+| S08 | 49.0–51.5 | Kembali ke studio. Nara menurunkan headset | **NARA:** "Cut." Lalu **hening total** (hujan berhenti) | subtitle | B-roll (VO) |
+| S09 | 51.5–55.0 | Dimas menatap monitor, lalu Nara. Nara berdiri, senyum tipis | **DIMAS:** "Itu… beneran satu take?" **NARA:** "Satu prompt." | subtitle | **Dialog** (2 karakter) |
+| S10 | 55.0–58.5 | Hitam | Boom rendah | title card **KLING 4.0** + *30 detik. Satu take.* | Grafis |
+| S11 | 58.5–61.0 | End card | Ekor reverb | **BYTE INSIGHT** · @ai.byteinsight | Grafis |
 
 ---
 
-## 3. Prompt per shot
+## 4. Shot utama S07: prompt Kling 4.0 (satu generate, 30 detik, keyframe)
 
-Semua shot: tambahkan **NARA_REF** sebagai referensi karakter, rasio 9:16. Akhiran gaya umum:
-`cinematic, shot on 35mm film, teal shadows and warm highlights, soft haze, practical film lights, shallow depth of field, natural skin texture`
+Ini yang jadi "bukti". **Wajib benar-benar 1× generate di Kling 4.0, tanpa potongan.** Kalau gagal dan harus
+disambung, judulnya jangan "satu take" (ganti konsep, jangan bohong ke audiens).
 
-| # | Prompt gambar (start frame) | Prompt gerak (video) |
+```
+One continuous 30-second shot, no cuts. Vertical 9:16, cinematic 35mm anamorphic look.
+The camera starts behind a young Indonesian female director (NARA reference) in a dark film soundstage at night,
+pushes past her shoulder toward a fake Jakarta shophouse set with a rain machine. As the camera passes through
+the set, the rain becomes real and the set becomes a real rainy Jakarta street at night: neon signs, motorbikes,
+reflections on wet asphalt. A woman in a yellow raincoat runs past; the camera follows her up a narrow
+staircase to a rooftop overlooking the city skyline, lightning in the distance. She leaps off the edge, and the
+camera dives with her through the clouds into a golden desert at sunrise, sand blowing. The camera pulls back
+and back, revealing the desert is playing on a monitor in the soundstage, crew silhouettes watching.
+Ambient rain, city, wind, then studio silence.
+```
+
+Keyframe (kalau mode keyframe dipakai; satu gambar per titik, semuanya dari prompt gaya yang sama):
+1. Bahu Nara + set ruko palsu (detik 0) · 2. Jalan Jakarta hujan, neon (5) · 3. Perempuan jas hujan kuning di tangga (11)
+4. Atap gedung, skyline + kilat (16) · 5. Menembus awan (21) · 6. Gurun matahari terbit (25) · 7. Monitor di studio, siluet kru (30)
+
+Generate 2–3 kali, pilih yang paling mulus. Simpan **screen recording proses generate** sebagai bahan konten
+lanjutan ("behind the scene satu take").
+
+---
+
+## 5. Prompt shot pendukung (start frame + gerak)
+
+Semua pakai referensi NARA / DIMAS + gaya visual umum di atas.
+
+| # | Start frame | Gerak |
 |---|---|---|
-| S01 | Nara walking toward camera through a dark film soundstage, holding a black clapperboard, rows of film lights and C-stands behind her, haze in light beams | She walks confidently toward the camera and raises the clapperboard, slow dolly back, light beams flicker |
-| S02 | Medium close-up of Nara facing camera, film lights and blurred crew behind her | Talking to camera with natural hand gestures, subtle push-in |
-| S03 | Nara seated at an editing desk with two monitors full of short video clip thumbnails, timeline glowing | Talking to camera, then gestures at the monitors, slight handheld |
-| S04 | Nara holding two printed photos of a woman whose faces look slightly different, frowning playfully | Talking, lifts both photos toward camera, slow push-in |
-| S05 | Nara pinning instant photos onto a storyboard wall covered with ten polaroid keyframes and red string | Talking while pinning a photo, camera tracks sideways along the wall |
-| S06 | Nara holding a face reference card close to the lens, studio behind softly blurred | Talking, rotates the card toward camera, rack focus from card to her face |
-| S07 | Nara wearing studio headphones at a mixing console with glowing meters | She nods to the beat, smiling, slow orbit around her |
-| S08 | Nara typing on a laptop in a dark studio, screen light on her face | Typing then pressing enter, light from screen pulses, slow push-in |
-| S10 | Nara watching a monitor with an honest, thinking reaction, monitor light on her face | Talking with a thoughtful expression, small head shake then smile |
-| S11 | Nara walking past three hanging polaroids, pointing at them one by one | Talking while walking, camera tracks with her |
-| S12 | Close-up of Nara leaning toward camera, playful smile | Leans in and talks to camera, ends with a wink |
-
-**Prompt tes Kling 4.0 (S09)**: ini konten intinya, jadi di-generate di Kling 4.0 sendiri (kling.ai atau Genjutsu Lite di Higgsfield):
-```
-A 30-second cinematic short film. Jakarta at night in the rain. A young courier on a motorbike weaves through
-neon-lit traffic, stops under a flyover, and opens a glowing package that lights up her face.
-Keyframes: 1) wide aerial of Jakarta skyline in rain, 2) courier riding past neon signs, 3) close-up of rain on
-her helmet visor, 4) she stops under the flyover, 5) package glows, 6) her surprised face lit in gold.
-Anamorphic lens, teal and orange grade, realistic motion, ambient city sound and rain.
-```
+| S01 | Extreme close-up of NARA's eyes in darkness, reflection of a glowing editing monitor in her pupils, rain streaks on a window behind | Very slow push-in, monitor light flickers across her eyes, she blinks once |
+| S02 | Wide shot of a dark film soundstage at 3 AM: fake Jakarta shophouse set with a rain machine, two crew asleep on apple boxes, NARA alone in a director's chair, single work light | Slow crane down toward NARA, haze drifting through the work light |
+| S03 | DIMAS standing beside NARA's chair holding a tablet, hesitant, soundstage behind | He speaks to her quietly, glancing at the tablet (lip-sync) |
+| S04 | Close-up of NARA, lit by the monitor, rain machine blurred behind | Pause, then she looks up at the set and speaks (lip-sync) |
+| S05 | Wide soundstage, giant film lights switching on one by one from back to front, crew waking up | Lights bang on in sequence, camera slowly rises on a crane |
+| S06 | Extreme close-up of a clapperboard reading "SC 1 TAKE 1" in DIMAS's hands, set lights behind | The clapper snaps shut, slight camera shake |
+| S08 | Close-up of NARA lowering her headset from her ears, monitor glow fading | She exhales and lowers the headset, everything goes still |
+| S09 | Two-shot: DIMAS staring at the monitor, NARA standing up beside him | He turns to her and asks; she answers with a small smile (lip-sync, 2 characters) |
 
 ---
 
-## 4. Audio
+## 6. Desain suara
 
-- **Voice-over:** 1 suara perempuan Indonesia yang sama untuk semua episode (TTS Higgsfield, `language: id`, instruksi "santai, percaya diri, sedikit playful"). Satu file per baris naskah.
-- **Musik** (ElevenLabs Music, 60 detik, instrumental):
-  `modern cinematic tech pulse, dark synth bass, ticking percussion, tension build to a lift at 26 seconds, clean ending at 55 seconds, no vocals`
-- **SFX** (gratis, `render/sfx.py`): whoosh tiap potongan, tick saat counter, glitch saat X merah, impact saat judul muncul, riser sebelum hasil tes, typing di kotak komentar. Sudah ada di `byte_kling4_sfx.json`.
-- Mix: VO -14 LUFS, musik di-duck -10 dB saat VO, SFX -6 dB di bawah VO.
-
----
-
-## 5. Rencana generate & anggaran kredit (quote Higgsfield 23 Nov 2026)
-
-| Langkah | Model | Jumlah | Kredit |
-|---|---|---|---|
-| Character sheet NARA | GPT Image (0,75/gambar) | 4 | 3 |
-| Start frame per shot (×2 percobaan) | GPT Image | 22 | ±17 |
-| Voice-over per baris | Seed Audio (±1,1/baris) | 10 | ±11 |
-| Shot talking + lip-sync (S02–S06, S10–S12) | Grok Video 1.5 720p 5 dtk (22,5) atau Intone | 8 × 1,5 take | ±270 |
-| Shot B-roll tanpa lip-sync (S01, S07, S08) | Kling 3.0 Turbo 720p 5 dtk (7,5) | 3 × 1,5 take | ±34 |
-| Musik 60 detik | ElevenLabs Music v2.5 | 1 | ±9 |
-| **Total pilot** | | | **±345 kredit** |
-
-Tes Kling 4.0 (S09) di luar hitungan ini, karena Kling 4.0 belum ada sebagai model sendiri di Higgsfield.
-
-**Cara hemat:** shot talking diganti start frame + animasi kamera dari kode untuk 3 shot (S04, S06, S10) → hemat ±100 kredit.
-
----
-
-## 6. Fakta Kling 4.0 yang dipakai (wajib dicek ulang sebelum posting)
-
-| Klaim di video | Status |
+| Waktu | Suara |
 |---|---|
-| Video 30 detik sekali generate | Ada di halaman fitur resmi Kling |
-| Sampai 10 keyframe | Ada di beberapa ulasan + materi Kling |
-| Referensi karakter (omni reference, sampai 15 aset) | Ada di beberapa ulasan |
-| Audio stereo langsung dari model | Ada di ulasan pihak ketiga |
-| Mode Flash 720p untuk draft | Ada di ulasan pihak ketiga |
-| 4K / HDR 10-bit | **Tidak dipakai**: sumber saling bertentangan |
+| 0–19 | Hujan deras di atap (terus-menerus), dengung lampu, drone scoring gelap pelan |
+| 14.5–17 | 3× klunk lampu studio menyala (berat, bergema) |
+| 17.5 | Klap slate kering, lalu "Action." |
+| 19–49 | **Musik naik penuh** (pulse sinematik), suara kota, petir di detik ±35, angin gurun di ±44 |
+| 49 | "Cut." → **hening total 1 detik** (momen paling penting) |
+| 55 | Boom rendah di title card |
+
+Musik final (ElevenLabs Music via Higgsfield, 61 detik, instrumental):
+`slow dark cinematic drone that builds into a soaring orchestral-electronic pulse from 19 to 49 seconds, abrupt stop at 49, soft low boom at 55, no vocals`
+
+Di animatic sekarang: hujan, klunk lampu, slate, drone, dan boom dari `render/sfx.py` (gratis). Musik dan dialog asli menyusul.
+
+---
+
+## 7. Caption Instagram (info & CTA ada di sini, bukan di video)
+
+```
+Satu take. 30 detik. Satu prompt. 🎬
+
+Semua yang terjadi setelah "Action" itu SATU kali generate di Kling 4.0:
+tanpa potongan, tanpa sambungan.
+
+Yang bikin ini mungkin:
+• video sampai 30 detik sekali generate
+• sampai 10 keyframe buat ngunci alur adegan
+• referensi karakter biar wajah konsisten
+
+Mau prompt lengkap + keyframe-nya?
+Komen "TAKE", gue kirim ke DM.
+
+#kling #klingai #aifilm #aifilmmaking #byteinsight
+```
+
+---
+
+## 8. Anggaran kredit Higgsfield (quote 23 Nov 2026)
+
+| Langkah | Model | Kredit |
+|---|---|---|
+| Character sheet NARA + DIMAS (8 gambar) | GPT Image (0,75) | 6 |
+| Start frame + keyframe S07 (±20 gambar) | GPT Image | 15 |
+| Dialog TTS (5 baris, 2 suara) | Seed Audio (±1,1) | 6 |
+| Shot dialog lip-sync S03, S04, S09 (×1,5 take) | Grok Video 1.5 / Intone (22,5 per 5 dtk) | ±100 |
+| Shot B-roll S01, S02, S05, S06, S08 (×1,5 take) | Kling 3.0 Turbo (7,5 per 5 dtk) | ±56 |
+| Musik 61 detik | ElevenLabs Music v2.5 | ±9 |
+| **Total di Higgsfield** | | **±190** |
+| **S07 satu take 30 dtk** | **Kling 4.0** (kling.ai; belum ada sebagai model sendiri di Higgsfield) | biaya terpisah |
+
+---
+
+## 9. Fakta Kling 4.0 (dipakai di caption, wajib cek ulang sebelum posting)
+
+| Klaim | Status |
+|---|---|
+| Video 30 detik sekali generate | Halaman fitur resmi Kling |
+| Sampai 10 keyframe | Materi Kling + beberapa ulasan |
+| Referensi karakter / omni reference | Beberapa ulasan |
+| 4K / HDR 10-bit | **Tidak dipakai**: sumber bertentangan |
 
 Sumber: [kling.ai: Kling 4.0](https://kling.ai/feature/kling-4-ai-video-generation) · [kling.ai: Kling 4.0 vs 3.0](https://kling.ai/blog/kling-4-vs-3) · [Miraflow](https://miraflow.ai/blog/kling-4-0-explained-30-second-10-keyframe-video-model-2026) · [aiidelist](https://aiidelist.com/blog/kling-4)
-
-Tes sendiri tetap wajib: penilaian di S10 harus dari hasil asli, bukan ditebak.
