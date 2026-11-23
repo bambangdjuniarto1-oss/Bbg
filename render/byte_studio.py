@@ -521,6 +521,11 @@ def render_video(cfg_path, out, preview=False):
         else:
             frame = push_in(bg_img, k, b.get("zoom", 0.08), tuple(b.get("drift", (0, -40))))
         frame = grade(frame, fi, b.get("grade", 1.0)).convert("RGBA")
+        if b.get("slate") and not bg_src:                 # label shot untuk animatic/storyboard
+            sd = ImageDraw.Draw(frame)
+            sd.rounded_rectangle((60, H - 300, W - 60, H - 170), 14, fill=(0, 0, 0, 150), outline=(255, 255, 255, 50))
+            draw_text(sd, (90, H - 252), b["slate"][0].upper(), font("monob", 26), pal["accent"] + (255,), track=4)
+            draw_text(sd, (90, H - 200), b["slate"][1], font("mono", 24), (220, 220, 220, 255))
         # kilat putih singkat di awal tiap potongan (rasa 'cut' cepat)
         if b.get("flash", True) and t - b["start"] < 0.1 and b is not bgs[0]:
             fl = Image.new("RGBA", (W, H), (255, 255, 255, int(70 * (1 - (t - b["start"]) / 0.1))))

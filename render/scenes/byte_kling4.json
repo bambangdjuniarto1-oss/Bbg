@@ -1,0 +1,58 @@
+{
+  "_catatan": "Pilot KLING 4.0 (host NARA). Background masih placeholder + label shot. Setelah generate, ganti tiap bg jadi {\"start\": .., \"src\": \"../../produksi/kling4/shots/S01.mp4\", \"in\": 0} dan hapus 'slate'. Naskah: produksi/kling4/PILOT_KLING4.md",
+  "duration": 58,
+  "audio": "../../out/kling4_sfx.wav",
+  "bg": [
+    {"start": 0.0,  "proc": 0, "drift": [0, -60], "slate": ["S01 · B-roll", "Nara jalan ke kamera, bawa clapperboard"]},
+    {"start": 3.0,  "proc": 1, "drift": [0, -30], "slate": ["S02 · Talking", "Close-up Nara, lampu film di belakang"]},
+    {"start": 6.2,  "proc": 2, "drift": [-40, 0], "slate": ["S03 · Talking", "Nara di meja edit, monitor penuh klip"]},
+    {"start": 9.6,  "proc": 3, "drift": [30, -20], "slate": ["S04 · Talking", "Nara angkat 2 foto, wajah beda"]},
+    {"start": 12.6, "proc": 4, "drift": [60, 0], "slate": ["S05 · Talking", "Nara tempel polaroid di storyboard"]},
+    {"start": 16.4, "proc": 5, "drift": [0, -40], "slate": ["S06 · Talking", "Kartu referensi wajah ke kamera"]},
+    {"start": 19.6, "proc": 6, "drift": [-30, -20], "slate": ["S07 · B-roll", "Nara pakai headphone di mixer"]},
+    {"start": 22.6, "proc": 7, "drift": [0, -50], "slate": ["S08 · B-roll", "Nara mengetik prompt di laptop"]},
+    {"start": 26.0, "proc": 8, "drift": [0, -20], "slate": ["S09 · Hasil tes", "Potongan terbaik hasil Kling 4.0"]},
+    {"start": 33.0, "proc": 9, "drift": [40, 0], "slate": ["S10 · Talking", "Nara nonton monitor, reaksi jujur"]},
+    {"start": 40.0, "proc": 10, "drift": [-60, 0], "slate": ["S11 · Talking", "Nara jalan, tunjuk 3 polaroid"]},
+    {"start": 48.0, "proc": 11, "drift": [0, -30], "slate": ["S12 · Talking", "Close-up Nara mendekat, senyum"]},
+    {"start": 54.8, "proc": 12}
+  ],
+  "events": [
+    {"type": "kicker",  "start": 0.0, "end": 3.0, "text": "Kling 4.0 · Tes jujur", "y": 170},
+    {"type": "counter", "start": 0.2, "end": 3.0, "to": 30, "suffix": " DTK", "label": "1 prompt", "x": 540, "y": 520, "anchor": "ms", "size": 260, "count_dur": 1.6},
+
+    {"type": "title",   "start": 3.0, "end": 6.2, "text": "*30* DETIK", "sub": "sekali generate", "y": 360, "size": 190},
+
+    {"type": "kicker",  "start": 6.2, "end": 9.6, "text": "Cara lama", "y": 300},
+    {"type": "title",   "start": 6.2, "end": 9.6, "text": "6 × 5 DETIK", "sub": "disambung manual", "y": 470, "size": 150},
+    {"type": "xgrid",   "start": 6.6, "end": 9.6, "y": 1100, "x_delay": 1.2},
+
+    {"type": "card",    "start": 9.6, "end": 12.6, "slot": "WAJAH · KLIP 1", "x": 350, "y": 900, "w": 380, "h": 480, "tilt": -5},
+    {"type": "card",    "start": 9.9, "end": 12.6, "slot": "WAJAH · KLIP 2", "x": 740, "y": 960, "w": 380, "h": 480, "tilt": 5, "c1": "#3a2a30"},
+    {"type": "caption", "start": 10.2, "end": 12.6, "text": "tiap sambungan, [muka berubah]", "y": 1480},
+
+    {"type": "receipt", "start": 12.6, "end": 16.4, "title": "Storyboard · Kling 4.0", "x": 70, "y": 520, "row_gap": 0.3,
+     "rows": [["Keyframe 01", "OK"], ["Keyframe 02", "OK"], ["Keyframe 03", "OK"], ["Keyframe 04", "OK"], ["…sampai 10", "OK"]]},
+
+    {"type": "tag",     "start": 16.4, "end": 19.6, "label": "Fitur", "text": "OMNI REFERENCE", "sub": "wajah karakter nggak lari", "x": 80, "y": 560},
+
+    {"type": "tag",     "start": 19.6, "end": 22.6, "label": "Fitur", "text": "AUDIO", "sub": "langsung dari model", "x": 80, "y": 560},
+
+    {"type": "title",   "start": 22.6, "end": 26.0, "text": "GUE *TES*", "sub": "satu prompt, film pendek", "y": 420, "size": 200},
+
+    {"type": "card",    "start": 26.0, "end": 33.0, "slot": "HASIL KLING 4.0 · 30 DTK", "caption": "hasil 1× generate", "x": 540, "y": 900, "w": 900, "h": 1200, "tilt": 0, "fin": 0.4},
+
+    {"type": "kicker",  "start": 33.0, "end": 40.0, "text": "Penilaian gue", "y": 300},
+    {"type": "title",   "start": 33.0, "end": 40.0, "text": "*JUJUR* AJA", "sub": "[isi setelah tes]", "y": 470, "size": 170},
+
+    {"type": "title",   "start": 40.0, "end": 48.0, "text": "HEMAT *KREDIT*", "sub": "3 langkah", "y": 380, "size": 170},
+    {"type": "caption", "start": 40.6, "end": 48.0, "text": "1. draft dulu di [Flash 720p]", "y": 1250, "size": 56},
+    {"type": "caption", "start": 42.8, "end": 48.0, "text": "2. kunci adegan pakai [keyframe]", "y": 1350, "size": 56},
+    {"type": "caption", "start": 45.0, "end": 48.0, "text": "3. baru [render final]", "y": 1450, "size": 56},
+
+    {"type": "title",   "start": 48.0, "end": 54.8, "text": "PROMPT *LENGKAP*", "sub": "gue kirim ke DM", "y": 520, "size": 160},
+    {"type": "comment", "start": 48.6, "end": 54.8, "keyword": "KLING", "label": "Komen kata ini", "y": 1420},
+
+    {"type": "endcard", "start": 54.8, "end": 58.0, "hold": true, "lines": ["BYTE", "INSIGHT"], "handle": "@ai.byteinsight", "fin": 0.15}
+  ]
+}
