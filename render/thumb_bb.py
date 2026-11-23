@@ -26,6 +26,9 @@ SPEC = {
     "ps2": dict(logo="psb/tex/lg_persib.png", part="PART 2", card_imgs=["ps2/tex/ph_seoul.jpg", "ps2/tex/ph_store2.jpg"],
                 tile_glob=["ps2/tex/ph_*.jpg", "psb/tex/pl_*.jpg"], title="Persib's Money Machine.", accent="#2563EB",
                 bg="#06122E"),
+    "fom": dict(logo="fom/tex/logo_p.png", card_imgs=["fom/tex/p_pink.jpg", "fom/tex/art_mui.jpg"],
+                tile_glob=["fom/tex/p_*.jpg", "fom/tex/art_*.jpg"], title="Surviving the Fatwa.", accent="#FF3E9A",
+                bg="#1A0614"),
     "vap": dict(cards=(0, 13), label="LIQUID VAPE · 60 ML", hero="Rp120K", title="Who Takes the Cut?", accent="#A855F7", bg="#12081F"),
     "pst": dict(label="PESTAPORA · 3 DAYS", hero="Rp16B", title="More Than Tickets.", accent="#EC4899", bg="#1A0716"),
     "gta": dict(logo="gta/tex/logo.png", card_imgs=["gta/tex/p_jl.jpg", "gta/tex/shot_beach.jpg"],
@@ -44,7 +47,7 @@ SPEC = {
     "sepatu": dict(label="SHOE CLEANING", hero="Rp50M/mo", title="Clean Shoes, Real Cash.", accent="#FB923C",
                    bg="#170C05"),
 }
-ORDER = [k for k in SPEC if k != "ps2"] + ["ps2"]      # nomor lama tetap; Part 2 = 15
+ORDER = [k for k in SPEC if k not in ("ps2", "fom")] + ["ps2", "fom"]      # nomor lama tetap; Part 2 = 15, FOOM = 16
 
 
 def hexrgb(h):
