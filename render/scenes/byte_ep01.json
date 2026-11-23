@@ -1,0 +1,38 @@
+{
+  "_catatan": "Episode 01 (comeback) @ai.byteinsight. Ganti tiap bg {proc:n} dengan {src: 'footage.mp4', in: detik} kalau footage loe sudah ada. Isi 'image' di card dengan screenshot/frame hasil AI loe. 'audio' = voice-over + musik (opsional).",
+  "duration": 20,
+  "bg": [
+    {"start": 0.0,  "proc": 0, "drift": [0, -60]},
+    {"start": 3.2,  "proc": 1, "drift": [-60, 0]},
+    {"start": 6.0,  "proc": 2, "drift": [40, -30]},
+    {"start": 8.6,  "proc": 3, "drift": [0, -50]},
+    {"start": 11.2, "proc": 4, "drift": [50, 0]},
+    {"start": 13.8, "proc": 5, "drift": [0, -40]},
+    {"start": 16.6, "proc": 6, "drift": [0, -30]}
+  ],
+  "events": [
+    {"type": "kicker",  "start": 0.0, "end": 6.0, "text": "Episode 01 · Comeback", "y": 170},
+    {"type": "title",   "start": 0.0, "end": 6.0, "text": "10 BULAN *HILANG*", "sub": "dan ini yang gue lewatin", "y": 345},
+    {"type": "counter", "start": 0.3, "end": 3.2, "to": 10, "suffix": " BLN", "label": "Vakum", "x": 80, "y": 1190, "count_dur": 1.2},
+    {"type": "card",    "start": 0.6, "end": 3.2, "slot": "FRAME KONTEN TERAKHIR", "caption": "konten terakhir gue", "x": 700, "y": 1380, "w": 500, "h": 300, "tilt": 3},
+
+    {"type": "receipt", "start": 3.2, "end": 6.0, "title": "Yang rilis · selama gue vakum", "x": 70, "y": 620,
+     "rows": [["Kling 4.0", "NEW"], ["Seedance 2.5 4K", "NEW"], ["LTX Reframe", "NEW"], ["Higgsfield Animation", "NEW"]]},
+
+    {"type": "tag",     "start": 6.0, "end": 8.6, "label": "Format lama", "text": "TOOLS REVIEW", "sub": "cuma bahas fitur.", "x": 80, "y": 520},
+    {"type": "xgrid",   "start": 6.2, "end": 8.6, "y": 1120, "x_delay": 0.7},
+    {"type": "caption", "start": 6.6, "end": 8.6, "text": "semua take yang nggak pernah gue post.", "y": 1560, "size": 54},
+
+    {"type": "kicker",  "start": 8.6, "end": 11.2, "text": "Mulai hari ini", "y": 640},
+    {"type": "title",   "start": 8.6, "end": 11.2, "text": "AI *FILMMAKING*", "sub": "bukan sekadar review tools", "y": 820, "size": 150},
+    {"type": "caption", "start": 9.2, "end": 11.2, "text": "dari prompt sampai jadi [film pendek]", "y": 1500},
+
+    {"type": "card",    "start": 11.2, "end": 13.8, "slot": "HASIL KLIP AI 01", "caption": "project pertama", "x": 540, "y": 1180, "w": 620, "h": 360, "tilt": -3},
+    {"type": "counter", "start": 11.4, "end": 13.8, "from": 0, "to": 1, "prefix": "PROJECT 0", "label": "Minggu ini", "x": 80, "y": 780, "size": 170, "count_dur": 0.4},
+
+    {"type": "title",   "start": 13.8, "end": 16.6, "text": "PROMPT *LENGKAP*", "sub": "gue bagi gratis", "y": 600, "size": 150},
+    {"type": "comment", "start": 14.2, "end": 16.6, "keyword": "FILM", "label": "Komen kata ini", "y": 1420},
+
+    {"type": "endcard", "start": 16.6, "end": 20.0, "hold": true, "lines": ["BYTE", "INSIGHT"], "handle": "@ai.byteinsight", "fin": 0.15}
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "_catatan": "Cover grid gaya seragam. Isi 'image' (frame terbaik dari video) atau 'video' + 'at' (detik). Tanpa keduanya = background placeholder.",
+  "brand": "BYTEINSIGHT",
+  "covers": [
+    {"name": "ep01_comeback",  "title": "10 BULAN HILANG", "proc": 0},
+    {"name": "ep02_kling",     "title": "KLING 4.0",       "proc": 2},
+    {"name": "ep03_seedance",  "title": "SEEDANCE 2.5",    "proc": 4},
+    {"name": "ep04_iklan",     "title": "IKLAN 0 RUPIAH",  "proc": 1},
+    {"name": "ep05_filmpendek","title": "FILM PENDEK AI",  "proc": 3},
+    {"name": "ep06_budget",    "title": "BUDGET KREDIT",   "proc": 5}
+  ]
+}
