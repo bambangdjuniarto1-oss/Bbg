@@ -1,0 +1,704 @@
+{
+ "scenes": [
+  {
+   "id": "K01",
+   "bubble": "Cicilan KPR **+Rp83 rb**",
+   "labels": [
+    {
+     "anchor": "NT",
+     "title": "M-BANKING",
+     "sub": "ilustrasi notifikasi tagihan",
+     "color": "cyan",
+     "t": 0.9,
+     "lift": 50,
+     "until": 4.8
+    }
+   ],
+   "tilt": 0,
+   "theme": "city"
+  },
+  {
+   "id": "K02",
+   "bubble": "Per hari **< Rp3 rb**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "K03",
+   "bubble": "BI Rate naik ke **6%**",
+   "labels": [
+    {
+     "anchor": "AK",
+     "title": "KATADATA",
+     "sub": "18 Nov 2026",
+     "color": "purple",
+     "t": 3.3,
+     "lift": 50
+    },
+    {
+     "anchor": "AI",
+     "title": "INDONESIA BUSINESS POST",
+     "sub": "media berbahasa Inggris",
+     "color": "purple",
+     "t": 3.8,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "K04",
+   "bubble": "Ternyata **dicicil**",
+   "labels": [
+    {
+     "anchor": "PH",
+     "title": "RIWAYAT CICILAN",
+     "sub": "simulasi KPR Rp500 jt • 20 th",
+     "color": "cyan",
+     "t": 0.55,
+     "lift": 50,
+     "until": 4.95
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "K05",
+   "bubble": "Sejak Mei, dari **4,75%**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "K06",
+   "bubble": "KPR **Rp500 juta**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "city"
+  },
+  {
+   "id": "K07",
+   "bubble": "Sampai lunas **Rp98 juta**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "K08",
+   "bubble": "Deposito cuma **+Rp17 rb**",
+   "labels": [
+    {
+     "anchor": "AA",
+     "title": "AKURAT",
+     "sub": "pejuang KPR diintai cicilan membengkak",
+     "color": "purple",
+     "t": 1.85,
+     "lift": 50,
+     "until": 6.05
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "K09",
+   "bubble": "Cepat naik, **lambat turun**",
+   "labels": [
+    {
+     "anchor": "AE",
+     "title": "KONTAN",
+     "sub": "kata ekonom",
+     "color": "purple",
+     "t": 0.8,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "K10",
+   "bubble": "Fixed & motor: **aman**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "city"
+  },
+  {
+   "id": "K11",
+   "bubble": "Yang **kena**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "city"
+  },
+  {
+   "id": "K12",
+   "bubble": "Katanya **jaga rupiah**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "K13",
+   "bubble": "Rupiah **rekor terlemah**",
+   "labels": [
+    {
+     "anchor": "A1",
+     "title": "KONTAN",
+     "sub": "ditutup Rp18.268, 16 Nov",
+     "color": "red",
+     "t": 1.3,
+     "lift": 50
+    },
+    {
+     "anchor": "A2",
+     "title": "AFU.ID",
+     "sub": "rekor terlemah 2x sepekan",
+     "color": "red",
+     "t": 3.7,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "K14",
+   "bubble": "Kamu **FIXED** atau **FLOATING**?",
+   "labels": [],
+   "tilt": 0,
+   "theme": "city"
+  }
+ ],
+ "hero": [
+  {
+   "t0": 0.25,
+   "t1": 2.9,
+   "text": "**+Rp83.000**/bulan",
+   "sub": "tambahan cicilan KPR (simulasi Rp500 jt)",
+   "style": "pink",
+   "size": 100,
+   "y": 1480
+  },
+  {
+   "t0": 13.56,
+   "t1": 14.4,
+   "text": "BI Rate **6%**",
+   "sub": "RDG BI 17–18 Nov 2026",
+   "style": "gold",
+   "size": 112,
+   "y": 1480
+  },
+  {
+   "t0": 19.65,
+   "t1": 21.2,
+   "text": "ternyata **DICICIL**",
+   "sub": "naik bertahap sejak Mei",
+   "style": "red",
+   "size": 104,
+   "y": 1480
+  },
+  {
+   "t0": 24.11,
+   "t1": 25.3,
+   "text": "masih **4,75%**",
+   "sub": "BI Rate sebelum Mei 2026",
+   "style": "cyan",
+   "size": 104,
+   "y": 1480
+  },
+  {
+   "t0": 28.17,
+   "t1": 29.8,
+   "text": "**Rp4,50 jt**",
+   "sub": "cicilan awal • bunga 9%",
+   "style": "cyan",
+   "size": 104,
+   "y": 1480
+  },
+  {
+   "t0": 29.89,
+   "t1": 32.4,
+   "text": "**Rp4,91 jt**",
+   "sub": "sekarang • bunga 10,25% (simulasi)",
+   "style": "pink",
+   "size": 104,
+   "y": 1480
+  },
+  {
+   "t0": 32.59,
+   "t1": 35.3,
+   "text": "**+Rp410 rb**/bulan",
+   "sub": "",
+   "style": "red",
+   "size": 100,
+   "y": 1480
+  },
+  {
+   "t0": 38.15,
+   "t1": 40.4,
+   "text": "Rp**98** juta",
+   "sub": "tambahan sampai lunas (20 tahun)",
+   "style": "red",
+   "size": 116,
+   "y": 1480,
+   "count": {
+    "t0": 38.15,
+    "t1": 38.9,
+    "frm": 0,
+    "to": 98,
+    "fmt": "{}"
+   }
+  },
+  {
+   "t0": 47.42,
+   "t1": 48.6,
+   "text": "cuma **+Rp17 rb**",
+   "sub": "deposito Rp100 jt, bunga +0,25%, setelah pajak 20%",
+   "style": "cyan",
+   "size": 96,
+   "y": 1480
+  },
+  {
+   "t0": 55.3,
+   "t1": 56.95,
+   "text": "**AMAN**",
+   "sub": "bunga tetap • cicilan motor",
+   "style": "green",
+   "size": 116,
+   "y": 1480
+  },
+  {
+   "t0": 69.17,
+   "t1": 71.6,
+   "text": "**Rp18.268**/US$",
+   "sub": "penutupan terlemah: Senin 16 Nov 2026",
+   "style": "red",
+   "size": 104,
+   "y": 1480
+  },
+  {
+   "t0": 71.72,
+   "t1": 73.6,
+   "text": "**REKOR** terlemah",
+   "sub": "sepanjang sejarah",
+   "style": "red",
+   "size": 100,
+   "y": 1480
+  }
+ ],
+ "comments": [
+  {
+   "t": 77.2,
+   "text": "FLOATING, baru kerasa naik 2x tahun ini",
+   "y": 1400
+  },
+  {
+   "t": 78.4,
+   "text": "FIXED, tapi 2027 udah habis masa fix-nya",
+   "y": 1550
+  }
+ ],
+ "comment_scene": "K14",
+ "bisubs": [
+  [
+   0,
+   3.569,
+   "**Rp83.000** sebulan, segitu tambahan **cicilan KPR**",
+   ""
+  ],
+  [
+   3.569,
+   5.55,
+   "yang lagi ditagih bank ke banyak orang **minggu ini**,",
+   ""
+  ],
+  [
+   5.55,
+   7.111,
+   "dan kebanyakan **santai aja**,",
+   ""
+  ],
+  [
+   7.111,
+   9.297,
+   "karena kalau dibagi per hari, **nggak sampai Rp3.000**.",
+   ""
+  ],
+  [
+   9.297,
+   12.297,
+   "Tambahan itu muncul setelah **Bank Indonesia** naikin",
+   ""
+  ],
+  [
+   12.297,
+   14.545,
+   "suku bunga acuan jadi **6%**.",
+   ""
+  ],
+  [
+   14.545,
+   17.84,
+   "Tapi coba kamu buka lagi **riwayat cicilan** dari awal tahun,",
+   ""
+  ],
+  [
+   17.84,
+   21.345,
+   "dan kamu bakal sadar, kenaikannya **ternyata juga dicicil**,",
+   ""
+  ],
+  [
+   21.345,
+   22.964,
+   "sedikit-sedikit **sejak bulan Mei**,",
+   ""
+  ],
+  [
+   22.964,
+   25.44,
+   "waktu bunga acuan masih **4,75%**.",
+   ""
+  ],
+  [
+   25.44,
+   29.05,
+   "KPR **Rp500 juta** yang dulu cicilannya **Rp4,5 juta**,",
+   ""
+  ],
+  [
+   29.05,
+   31.302,
+   "sekarang hampir **Rp4,9 juta**.",
+   ""
+  ],
+  [
+   31.302,
+   35.559,
+   "Artinya ada **Rp410 ribu** lebih banyak yang keluar tiap bulan,",
+   ""
+  ],
+  [
+   35.559,
+   37.459,
+   "dan kalau ditotal sampai lunas,",
+   ""
+  ],
+  [
+   37.459,
+   40.635,
+   "jumlahnya hampir **Rp98 juta**.",
+   ""
+  ],
+  [
+   40.635,
+   43.826,
+   "Mungkin kamu mikir, ya udah, setidaknya **tabungan ikut naik**.",
+   ""
+  ],
+  [
+   43.826,
+   45.607,
+   "Tapi **deposito Rp100 juta**,",
+   ""
+  ],
+  [
+   45.607,
+   48.711,
+   "setelah dipotong pajak, tambahannya **cuma Rp17.000** sebulan,",
+   ""
+  ],
+  [
+   48.711,
+   50.73,
+   "karena kata para ekonom, bunga kredit itu",
+   ""
+  ],
+  [
+   50.73,
+   52.559,
+   "**cepat naiknya**, tapi **lambat turunnya**.",
+   ""
+  ],
+  [
+   52.559,
+   55.24,
+   "Kalau KPR kamu masih **bunga tetap**, atau lagi nyicil **motor**,",
+   ""
+  ],
+  [
+   55.24,
+   57.188,
+   "tenang aja, cicilannya **nggak berubah**.",
+   ""
+  ],
+  [
+   57.188,
+   59.373,
+   "Yang kena itu yang pakai **bunga floating**,",
+   ""
+  ],
+  [
+   59.373,
+   62.121,
+   "yang **masa bunga tetapnya** sebentar lagi habis,",
+   ""
+  ],
+  [
+   62.121,
+   63.654,
+   "dan yang **baru mau akad**.",
+   ""
+  ],
+  [
+   63.654,
+   65.016,
+   "Dan yang bikin banyak orang **garuk kepala**,",
+   ""
+  ],
+  [
+   65.016,
+   66.921,
+   "semua kenaikan ini katanya buat **jaga rupiah**,",
+   ""
+  ],
+  [
+   66.921,
+   71.664,
+   "padahal Jumat kemarin rupiah justru ditutup di **Rp18.270** per dolar,",
+   ""
+  ],
+  [
+   71.664,
+   73.883,
+   "**paling lemah** sepanjang sejarah.",
+   ""
+  ],
+  [
+   73.883,
+   76.588,
+   "Kalau kamu sendiri, KPR-nya pakai **bunga apa**?",
+   ""
+  ],
+  [
+   76.588,
+   78.654,
+   "Tulis **FIXED** atau **FLOATING** di komentar,",
+   ""
+  ],
+  [
+   78.654,
+   81.59,
+   "nanti saya bantu hitungin **skenario cicilan** kamu.",
+   ""
+  ]
+ ],
+ "sub_y": 1190,
+ "sub_style": {
+  "en_size": 60,
+  "id_size": 34,
+  "max_w": 860
+ },
+ "fx": {
+  "punch": [
+   [
+    0.25,
+    0.7
+   ],
+   [
+    2.89,
+    0.4
+   ],
+   [
+    8.85,
+    0.5
+   ],
+   [
+    11.31,
+    0.4
+   ],
+   [
+    13.56,
+    0.9
+   ],
+   [
+    16.09,
+    0.4
+   ],
+   [
+    19.65,
+    1.2
+   ],
+   [
+    20.49,
+    0.6
+   ],
+   [
+    22.76,
+    0.5
+   ],
+   [
+    24.11,
+    0.6
+   ],
+   [
+    26.39,
+    0.5
+   ],
+   [
+    28.17,
+    0.5
+   ],
+   [
+    29.89,
+    0.6
+   ],
+   [
+    32.59,
+    0.8
+   ],
+   [
+    36.99,
+    0.4
+   ],
+   [
+    38.64,
+    1.2
+   ],
+   [
+    43.36,
+    0.4
+   ],
+   [
+    44.3,
+    0.4
+   ],
+   [
+    47.42,
+    0.8
+   ],
+   [
+    50.79,
+    0.6
+   ],
+   [
+    51.72,
+    0.4
+   ],
+   [
+    53.77,
+    0.5
+   ],
+   [
+    55.3,
+    0.6
+   ],
+   [
+    58.84,
+    0.6
+   ],
+   [
+    61.38,
+    0.6
+   ],
+   [
+    63.01,
+    0.6
+   ],
+   [
+    64.52,
+    0.5
+   ],
+   [
+    66.41,
+    0.5
+   ],
+   [
+    66.98,
+    0.6
+   ],
+   [
+    69.17,
+    1.3
+   ],
+   [
+    71.72,
+    1.0
+   ],
+   [
+    76.94,
+    0.6
+   ],
+   [
+    77.57,
+    0.6
+   ],
+   [
+    77.2,
+    0.4
+   ],
+   [
+    78.4,
+    0.4
+   ]
+  ],
+  "flash": [
+   [
+    13.56,
+    0.14,
+    "w"
+   ],
+   [
+    19.65,
+    0.24,
+    "r"
+   ],
+   [
+    38.64,
+    0.24,
+    "r"
+   ],
+   [
+    69.17,
+    0.26,
+    "r"
+   ],
+   [
+    71.72,
+    0.18,
+    "r"
+   ]
+  ],
+  "chroma": [
+   [
+    19.65,
+    0.35
+   ],
+   [
+    38.64,
+    0.35
+   ],
+   [
+    66.98,
+    0.2
+   ],
+   [
+    69.17,
+    0.4
+   ],
+   [
+    71.72,
+    0.3
+   ]
+  ],
+  "pale": [
+   0,
+   0,
+   "NONE"
+  ]
+ },
+ "keywords": []
+}
