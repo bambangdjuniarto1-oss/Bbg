@@ -9,10 +9,13 @@ import json
 import re
 import sys
 
+sys.path.insert(0, "render")
+from kpr_time import tm  # noqa: E402   (semua waktu di bawah ditulis pada timeline v1 lalu dipetakan ke VO v2)
+
 WORDS = json.load(open(sys.argv[1] if len(sys.argv) > 1 else "render/scenes/kpr_words.json"))
 src = open("render/scenes_kpr.py").read()
-TL = [(a, float(b)) for a, b in re.findall(r'\("(K\d\d)", ([\d.]+)\)', src)]
-END = float(re.search(r"END_T = ([\d.]+)", src).group(1))
+TL = [(a, round(tm(float(b)), 3)) for a, b in re.findall(r'\("(K\d\d)", ([\d.]+)\)', src)]
+END = round(tm(82.6), 2)
 T0 = dict(TL)
 CITY = set(re.search(r"CITY = \{([^}]*)\}", src).group(1).replace('"', "").replace(" ", "").split(","))
 
@@ -127,6 +130,21 @@ FLASH = [(13.56, .14, "w"), (19.65, .24, "r"), (38.64, .24, "r"), (69.17, .26, "
 CHROMA = [(19.65, .35), (38.64, .35), (66.98, .2), (69.17, .4), (71.72, .3)]
 PALE = [0, 0, "NONE"]
 
+for h in HERO:
+    h["t0"], h["t1"] = round(tm(h["t0"]), 3), round(tm(h["t1"]), 3)
+    if h.get("count"):
+        h["count"]["t0"], h["count"]["t1"] = round(tm(h["count"]["t0"]), 3), round(tm(h["count"]["t1"]), 3)
+for c in COMMENTS:
+    c["t"] = round(tm(c["t"]), 3)
+PUNCH = [(round(tm(t), 3), a) for t, a in PUNCH]
+FLASH = [(round(tm(t), 3), a, c) for t, a, c in FLASH]
+CHROMA = [(round(tm(t), 3), a) for t, a in CHROMA]
+for _, _, labels in S:
+    for l_ in labels:
+        l_["t"] = tm(l_["t"])
+        if "until" in l_:
+            l_["until"] = tm(l_["until"])
+
 scenes = []
 for sid, bub, labels in S:
     t0 = T0[sid]
@@ -141,49 +159,36 @@ cfg = dict(scenes=scenes, hero=HERO, comments=COMMENTS, comment_scene="K14", bis
            fx=dict(punch=PUNCH, flash=FLASH, chroma=CHROMA, pale=PALE), keywords=[])
 json.dump(cfg, open("render/scenes/kpr.json", "w"), ensure_ascii=False, indent=1)
 
-# ---------------------------------------------------------------- SFX
+# ---------------------------------------------------------------- SFX (v2: lebih sedikit, halus, diredam di bawah VO)
+# bom kejutan jatuh SEDIKIT SEBELUM kata kunci (kata tetap terdengar jelas), tanpa glitch/sirene/bass drop.
 ev = []
 for sid, t in TL[1:]:
-    ev.append([t - .22, "whoosh_low", .26, .55])
-ev += [
-    # KORBAN: notifikasi tagihan, santai
-    [0.0, "boom", .3], [.6, "notif", .55], [.85, "ding", .3], [2.89, "pop", .3], [5.6, "pop", .3],
-    [7.4, "paper", .35, .45], [7.72, "flutter", .3, .8], [8.85, "coin", .3], [8.95, "coin", .25], [9.05, "coin", .22],
+    ev.append([t - .25, "whoosh_low", .18, .55])
+EV1 = [
+    # KORBAN
+    [.55, "notif", .4], [5.6, "pop", .22], [7.72, "paper", .22, .45], [8.85, "coin", .2],
     # BI Rate 6%
-    [11.12, "clank", .35], [11.31, "pop", .3], [12.4, "paper", .3, .45], [12.9, "paper", .3, .45],
-    [13.3, "riser", .4, .3], [13.56, "impact", .55], [13.56, "news", .35],
-    # KEJUTAN 1: riwayat dicicil -> BOM
-    [14.6, "notif", .4], [15.0, "type", .25, 1.5], [16.1, "swoosh", .3], [18.6, "riser", .45, 1.0],
-    [19.65, "boom", .75], [19.65, "bass_drop", .55], [19.65, "stamp", .55], [20.49, "glitch", .35, .3],
-    [21.45, "tick", .25], [21.65, "tick", .25], [21.85, "tick", .25], [22.05, "tick", .25], [22.25, "pop", .3],
-    [22.45, "pop", .3], [22.76, "impact", .35], [23.4, "pop", .25], [24.11, "ding", .35],
-    # KPR 500 jt: uang bertambah, koin keluar tiap bulan
-    [26.39, "pop", .4], [28.17, "cash", .35], [29.89, "cash", .4], [29.89, "impact", .3],
-    [32.59, "coins_pour", .4, 1.8], [32.59, "impact", .4],
-    # BOM 98 juta
-    [35.6, "whoosh", .35, .5], [36.34, "flutter", .3, 1.0], [36.99, "pop", .3], [37.2, "riser", .5, 1.4],
-    [38.64, "boom", .8], [38.64, "bass_drop", .55], [38.64, "coins_pour", .45, 1.6], [38.9, "ding", .35],
-    # KAIL: timbangan, deposito cuma 17 rb
-    [41.2, "coins_pour", .25, .6], [42.2, "paper", .3, .45], [44.3, "pop", .3], [47.42, "coin", .35],
-    [47.6, "clank", .4], [47.9, "impact", .35],
-    # cepat naik, lambat turun
-    [49.3, "paper", .3, .45], [50.6, "riser", .35, .25], [50.79, "whoosh", .45, .5], [51.72, "tick", .25],
-    [52.07, "tick", .25], [52.42, "tick", .25],
-    # siapa aman / siapa kena
-    [53.77, "sparkle", .4], [54.82, "pop", .35], [55.3, "ding", .4], [58.84, "siren", .35, 1.2], [58.84, "stamp", .4],
-    [61.38, "stamp", .45], [63.01, "stamp", .45],
-    # KEJUTAN 2: jaga rupiah -> rekor terlemah
-    [63.6, "pop", .3], [64.52, "pop", .35], [66.41, "sparkle", .3], [66.98, "riser", .55, 2.1], [68.0, "paper", .3, .45],
-    [69.17, "boom", .85], [69.17, "bass_drop", .6], [69.17, "glitch", .4, .4], [70.4, "paper", .3, .45],
-    [71.72, "stamp", .65], [71.72, "impact", .5],
+    [13.35, "riser", .25, .3], [13.5, "impact", .3],
+    # KEJUTAN 1: dicicil (bom)
+    [14.6, "notif", .25], [16.1, "swoosh", .2], [19.0, "riser", .3, .6], [19.5, "boom", .26],
+    [21.45, "pop", .16], [22.05, "pop", .16], [22.45, "pop", .18], [24.0, "ding", .22],
+    # KPR Rp500 jt
+    [26.3, "pop", .25], [28.1, "cash", .22], [29.8, "cash", .25], [32.5, "coins_pour", .22, 1.6],
+    # BOM Rp98 jt
+    [37.3, "riser", .3, 1.1], [38.45, "boom", .3], [38.6, "coins_pour", .18, 1.2],
+    # KAIL: deposito, ekonom
+    [41.2, "coins_pour", .14, .5], [47.35, "coin", .25], [47.7, "clank", .25],
+    [50.7, "whoosh", .25, .5], [51.72, "tick", .14], [52.07, "tick", .14], [52.42, "tick", .14],
+    # aman / kena
+    [53.7, "sparkle", .25], [54.8, "pop", .22], [58.8, "stamp", .25], [61.35, "stamp", .27], [62.98, "stamp", .27],
+    # KEJUTAN 2: rupiah (bom)
+    [64.5, "pop", .2], [66.4, "sparkle", .2], [67.6, "riser", .3, 1.4], [69.0, "boom", .3], [71.6, "stamp", .26],
     # CTA
-    [74.0, "whoosh", .35, .7], [76.94, "pop", .45], [77.57, "pop", .45], [77.2, "notif", .45], [78.4, "notif", .45],
-    [79.4, "sparkle", .3],
+    [74.0, "whoosh", .25, .7], [76.9, "pop", .3], [77.5, "pop", .3], [77.2, "notif", .3], [78.4, "notif", .3],
 ]
-for h in HERO:
-    if h.get("count"):
-        c = h["count"]
-        ev.append([c["t0"], "ticks", .26, c["t1"] - c["t0"]])
+for e in EV1:
+    e[0] = round(tm(e[0]), 3)
+    ev.append(e)
 ev.sort(key=lambda e: e[0])
 json.dump(ev, open("render/scenes/kpr_sfx.json", "w"), indent=0)
 print(len(SUBS), "subtitle,", len(ev), "SFX")

@@ -138,6 +138,28 @@ def per_hari(out):
     im.save(os.path.join(out, "per_hari.png"))
 
 
+def kurs(out):
+    """papan LED kurs (money changer) — angka besar terbaca dari jauh."""
+    W_, H_ = 1600, 900
+    im = Image.new("RGB", (W_, H_), (6, 6, 10))
+    d = ImageDraw.Draw(im)
+    for y in range(0, H_, 6):                      # garis LED halus
+        d.line((0, y, W_, y), fill=(14, 14, 20), width=1)
+    d.text((W_ / 2, 120), "KURS HARI INI", font=f(80), fill=(255, 196, 40), anchor="mm")
+    d.text((W_ / 2, 300), "USD / IDR", font=f(130), fill=(240, 240, 240), anchor="mm")
+    d.text((W_ / 2, 560), "18.268", font=f(300), fill=(255, 45, 75), anchor="mm")
+    d.text((W_ / 2, 790), "REKOR TERLEMAH • 16 NOV 2026", font=f(64), fill=(255, 45, 75), anchor="mm")
+    im.save(os.path.join(out, "kurs.png"))
+
+
+def banner(out, name, top, big, col=(37, 99, 235)):
+    im = Image.new("RGB", (1400, 600), col)
+    d = ImageDraw.Draw(im)
+    d.text((700, 170), top, font=f(110), fill=WHITE, anchor="mm")
+    d.text((700, 390), big, font=f(170), fill=(255, 214, 80), anchor="mm")
+    im.save(os.path.join(out, name + ".png"))
+
+
 ARTS = {0: "art_bi6", 1: "art_kata", 2: "art_rupiah", 3: "art_rupiah2", 4: "art_akurat", 5: "art_ekonom",
         6: "art_cnbc", 7: "art_ibp", 8: "art_floating", 9: "art_simulasi", 10: "art_bertahap", 11: "art_afu"}
 
@@ -153,6 +175,9 @@ def main():
     chart_bi(a.out)
     chart_idr(a.out)
     per_hari(a.out)
+    kurs(a.out)
+    banner(a.out, "bn_kpr", "GRIYA ASRI", "KPR")
+    banner(a.out, "bn_rumah", "RUMAH CONTOH", "TIPE 36", (22, 128, 61))
     for i, n in ARTS.items():
         p = os.path.join(a.web, f"t{i}.png")
         if os.path.exists(p) and os.path.getsize(p) > 60000:
