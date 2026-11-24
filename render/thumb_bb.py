@@ -29,7 +29,7 @@ SPEC = {
     "fom": dict(logo="fom/tex/logo_p.png", card_imgs=["fom/tex/p_pink.jpg", "fom/tex/art_mui.jpg"],
                 tile_glob=["fom/tex/p_*.jpg", "fom/tex/art_*.jpg"], title="Surviving the Fatwa.", accent="#FF3E9A",
                 bg="#1A0614"),
-    "kpr": dict(label="KPR · BI RATE 6%", hero="+Rp98M", card_imgs=["kfull/K06/frames/0250.png", "kfull/K13/frames/0170.png"],
+    "kpr": dict(label="KPR · BI RATE 6%", hero="+Rp98M", card_imgs=["kfull/K06/frames/0230.png", "kfull/K12/frames/0100.png"],
                 tile_glob=["kfull/K0[1-9]/frames/01[0-9]0.png", "kfull/K1[0-4]/frames/01[0-9]0.png"],
                 title="Your Mortgage Just Grew.", accent="#FF3FA4", bg="#170A22"),
     "vap": dict(cards=(0, 13), label="LIQUID VAPE · 60 ML", hero="Rp120K", title="Who Takes the Cut?", accent="#A855F7", bg="#12081F"),
