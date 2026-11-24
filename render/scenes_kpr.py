@@ -158,11 +158,11 @@ def k01(n, A):
     x, y = KC.HOUSE_XS[3], KC.ROWS_Y[0]
     bp = person("bapak", "bapak", (x - 1.6, y - 5.0, G0), 0.0, "think")
     ib = person("ibu", "hijab", (x + .4, y - 5.2, G0), -.3, "stand")
-    nt = P.photo("nt", "notif", 2.3, (x - .6, y - 5.6, 5.0), 0.0, em=1.3, border=.05)
+    nt = P.photo("nt", "notif", 2.0, (x - .6, y - 4.6, 4.3), 0.0, em=.9, border=.05)
     pop_in(nt, fr(sid, .6), 1.0, 12)
     float_bob(nt, fr(sid, .6), n_all(n), .15, 60)
     camera(sid, [(0.0, (-10, -8, 0), -100, 42, 250), (2.0, (-40, -16, 2), -96, 26, 70),
-                 (5.50, (x - .6, y - 5.2, 3.6), -90, 14, 8.5)], lens=24)
+                 (5.50, (x - .6, y - 5.2, 3.4), -90, 12, 9.2)], lens=24)
     A["NT"] = (nt, (0, 0, 2.2))
     A["GATE"] = (info["estate"]["gate"])
     _ = (bp, ib)
@@ -173,7 +173,7 @@ def k02(n, A):
     kalender 30 hari, bapak santai (angkat bahu); kamera dari kanan-depan."""
     sid = "K02"
     neon(rig_c=(0, 0, 3), rig_s=1.3)
-    cd = P.photo("cd", "per_hari", 4.6, (0, 2.0, 2.6), 0.0, em=1.25, border=.06)
+    cd = P.photo("cd", "per_hari", 4.6, (0, 2.0, 2.6), 0.0, em=.75, border=.06)
     pop_in(cd, fr(sid, 5.6), 1.0, 12)
     cal = N.calendar("cal", (-3.9, .6, .2), .5)
     pop_in(cal["frame"], fr(sid, 7.72), 1.0, 10)
@@ -201,7 +201,7 @@ def k03(n, A):
     pop_in(a1, fr(sid, 12.4), 1.0, 12)
     pop_in(a2, fr(sid, 12.9), 1.0, 12)
     camera(sid, [(9.30, (cx, cy - 20, 9), -100, 4, 44), (11.8, (cx, cy - 14, 26), -94, 8, 52),
-                 (14.45, (cx, cy - 6, 50), -90, 8, 42)], lens=24)
+                 (14.45, (cx, cy - 6, 55), -90, 6, 40)], lens=24)
     A["AK"] = (a1, (0, 0, 9.4))
     A["AI"] = (a2, (0, 0, 9.4))
     _ = info
