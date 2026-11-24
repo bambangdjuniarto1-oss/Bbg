@@ -115,7 +115,6 @@ HERO = [
     hero(47.42, 48.6, "cuma **+Rp17 rb**", "deposito Rp100 jt, bunga +0,25%, setelah pajak 20%", style="cyan", size=96),
     hero(55.3, 56.95, "**AMAN**", "bunga tetap • cicilan motor", style="green", size=116),
     hero(69.17, 71.6, "**Rp18.268**/US$", "penutupan terlemah: Senin 16 Nov 2026", style="red", size=104),
-    hero(71.72, 73.6, "**REKOR** terlemah", "sepanjang sejarah", style="red", size=100),
 ]
 
 COMMENTS = [dict(t=77.2, text="FLOATING, baru kerasa naik 2x tahun ini", y=1400),
