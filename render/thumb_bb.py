@@ -52,8 +52,11 @@ SPEC = {
     "ojl": dict(label="OJOL · GOTO Q3", hero="Rp441B", card_imgs=["ojl/full/O09/frames/0200.png", "ojl/full/O11/frames/0200.png"],
                 tile_glob=["ojl/full/O0[1-9]/frames/01[0-9]0.png", "ojl/full/O1[0-2]/frames/01[0-9]0.png"],
                 title="Where Does Your Fare Go?", accent="#00D26A", bg="#04140B"),
+    "ojl_id": dict(label="OJOL · GOTO Q3", hero="Rp441 M", card_imgs=["ojl/full/O09/frames/0200.png", "ojl/full/O11/frames/0200.png"],
+                   tile_glob=["ojl/full/O0[1-9]/frames/01[0-9]0.png", "ojl/full/O1[0-2]/frames/01[0-9]0.png"],
+                   title="Ongkos Ojolmu Lari ke Mana?", foot="Bedah Bisnis", accent="#00D26A", bg="#04140B"),
 }
-ORDER = [k for k in SPEC if k not in ("ps2", "fom", "kpr", "ojl")] + ["ps2", "fom", "kpr", "ojl"]      # nomor lama tetap; Part 2 = 15, FOOM = 16
+ORDER = [k for k in SPEC if k not in ("ps2", "fom", "kpr", "ojl", "ojl_id")] + ["ps2", "fom", "kpr", "ojl", "ojl_id"]      # nomor lama tetap; Part 2 = 15, FOOM = 16
 
 
 def hexrgb(h):
@@ -257,7 +260,7 @@ def build(key, frames_dir):
         canvas.alpha_composite(glow(lay, (0, 0, 0), 16, 1.2), (0, y))
         canvas.alpha_composite(lay, (0, y))
         y += int(ts * 1.04)
-    foot = text_layer("Business Breakdown", font(30), (150, 156, 168, 255), 1)
+    foot = text_layer(sp.get("foot", "Business Breakdown"), font(30), (150, 156, 168, 255), 1)
     canvas.alpha_composite(foot, (0, y + int(ts * .32) + 6))
     return canvas.convert("RGB")
 
