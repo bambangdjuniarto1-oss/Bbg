@@ -341,7 +341,7 @@
    "t0": 59.97,
    "t1": 61.5,
    "text": "**+59%**",
-   "sub": "pendapatan pinjaman 9 bln 2026: Rp4,25 T vs Rp2,68 T",
+   "sub": "pendapatan pinjaman 9 bln 2026 (Rp4,25 T)",
    "style": "gold",
    "size": 124,
    "y": 1480
@@ -359,17 +359,17 @@
  "comments": [
   {
    "t": 69.0,
-   "text": "TURUN. Order makin jarang, bonus susah",
+   "text": "TURUN, order makin jarang",
    "y": 1400
   },
   {
    "t": 70.2,
-   "text": "SAMA aja, potongannya pindah tempat",
+   "text": "SAMA aja bro",
    "y": 1550
   },
   {
    "t": 73.3,
-   "text": "@temen_narik baca ini bro",
+   "text": "@temen_narik baca ini",
    "y": 1700
   }
  ],

@@ -384,13 +384,13 @@ def o13(n, A):
     gx, gy = -40.0, 1.0
     gt = W.MB("gate")
     for xx in (gx - 6.0, gx + 6.0):
-        gt.box(xx - .7, gy - .6, G0, xx + .7, gy + .6, G0 + 15, "phone_blk")
-    gt.box(gx - 6.7, gy - .6, G0 + 15, gx + 6.7, gy + .6, G0 + 16.4, "phone_blk")
-    gt.box(gx - 5.3, gy - .25, G0 + 14.2, gx + 5.3, gy + .25, G0 + 15.0, "n_green")
+        gt.box(xx - .7, gy - .6, G0, xx + .7, gy + .6, G0 + 12, "phone_blk")
+    gt.box(gx - 6.7, gy - .6, G0 + 12, gx + 6.7, gy + .6, G0 + 13.4, "phone_blk")
+    gt.box(gx - 5.3, gy - .25, G0 + 11.2, gx + 5.3, gy + .25, G0 + 12.0, "n_green")
     go = gt.build()
     V.glow(go, {"n_green": 5.0})
     pop_in(go, fr(sid, 61.5), 1.0, 9)
-    pm, pmf = sign("pm", "PINTU MASUK", (gx, gy - .8, 17.8), .9, "n_green", 8.0)
+    pm, pmf = sign("pm", "PINTU MASUK", (gx, gy - .8, 14.6), .85, "n_green", 8.0)
     pop_pair((pm, pmf), fr(sid, 63.99))
     for i in range(5):
         rd = OJ.ojol_rider(f"gr{i}", (0, 0, G0), 0.0, .82)
@@ -413,10 +413,10 @@ def o14(n, A):
     bx, by = OJ.BASE_C
     for i, (lab, t, col, dx) in enumerate((("NAIK", 70.16, "n_green", 2.4), ("SAMA", 70.66, "n_gold", 0.0),
                                            ("TURUN", 71.31, "n_pink", -2.4))):
-        s, sf = sign(f"v{i}", lab, (bx + dx, by + 3.6, 8.6 - 1.35 * i), .8, col, 8.0, rot_z=math.pi)
+        s, sf = sign(f"v{i}", lab, (bx + dx, by + 3.6, 7.5 - 1.15 * i), .75, col, 8.0, rot_z=math.pi)
         pop_pair((s, sf), fr(sid, t))
     camera(sid, [(67.2, (bx, by, 2.4), 60, 8, 15), (69.4, (bx, by + .5, 3.4), 84, 10, 16.5),
-                 (71.7, (bx, by + 1, 4.2), 100, 10, 18.5)], lens=24)
+                 (71.7, (bx, by + 1, 4.6), 100, 10, 18.5)], lens=24)
 
 
 def o15(n, A):

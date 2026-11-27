@@ -112,13 +112,13 @@ HERO = [
     hero(53.84, 56.0, "Rp**550** miliar", "EBITDA disesuaikan GoPay • Q3 2026", dict(t0=53.84, t1=54.6, frm=0, to=550, fmt="{}"),
          style="red", size=116),
     hero(56.0, 58.4, "> Rp**347** miliar", "ojek + antar makanan (on-demand) • Q3 2026", style="green", size=96),
-    hero(59.97, 61.5, "**+59%**", "pendapatan pinjaman 9 bln 2026: Rp4,25 T vs Rp2,68 T", style="gold", size=124),
+    hero(59.97, 61.5, "**+59%**", "pendapatan pinjaman 9 bln 2026 (Rp4,25 T)", style="gold", size=124),
     hero(63.93, 65.0, "**PINTU MASUK**", "", style="green", size=104),
 ]
 
-COMMENTS = [dict(t=69.0, text="TURUN. Order makin jarang, bonus susah", y=1400),
-            dict(t=70.2, text="SAMA aja, potongannya pindah tempat", y=1550),
-            dict(t=73.3, text="@temen_narik baca ini bro", y=1700)]
+COMMENTS = [dict(t=69.0, text="TURUN, order makin jarang", y=1400),
+            dict(t=70.2, text="SAMA aja bro", y=1550),
+            dict(t=73.3, text="@temen_narik baca ini", y=1700)]
 
 PUNCH = [(0.05, .6), (1.48, .6), (4.56, .7), (7.78, .5), (10.56, .5), (14.16, 1.3), (18.77, .4), (22.32, .5),
          (25.81, .9), (27.39, .3), (29.69, .4), (30.53, .5), (36.09, .7), (39.81, .6), (40.79, .6), (42.59, .8),
