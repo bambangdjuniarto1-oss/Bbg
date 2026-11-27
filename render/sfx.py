@@ -592,6 +592,31 @@ def sample(arg):
 GEN_X["smp"] = sample
 
 
+def motor(d=1.5):
+    """motor matic lewat (doppler): dengung mesin 4-tak (letupan ~42 Hz + harmonik), CVT mendesing, ban."""
+    t = tt(d)
+    u = t / d
+    f = 42 * (1.16 - .3 / (1 + np.exp(-(u - .5) * 12)))            # pitch turun saat melewati kamera
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    pulse = np.maximum(0, np.sin(ph)) ** 6                           # letupan knalpot
+    eng = _f(pulse + .4 * np.sin(2 * ph) + .25 * np.sin(3 * ph), 60, 1400)
+    whine = .12 * np.sin(2 * np.pi * np.cumsum(f * 21) / SR)          # CVT
+    tyre = _f(RNG.standard_normal(len(t)), 300, 2400) * .25
+    env = 1 / (1 + ((u - .5) * 5) ** 2)
+    return _norm((eng + whine + tyre) * env, .7)
+
+
+def horn(d=.38):
+    """klakson motor pendek (dua nada sumbang)."""
+    t = tt(d)
+    x = sum(np.sign(np.sin(2 * np.pi * fq * t)) for fq in (415.0, 494.0))
+    env = np.minimum(1, t / .01) * np.minimum(1, (d - t) / .05)
+    return _norm(_f(x, 300, 3500) * env, .6)
+
+
+GEN_X.update({"motor": lambda a: motor(a or 1.5), "horn": lambda a: horn(a or .38)})
+
+
 GEN = {"whoosh": lambda a: whoosh(a or .55), "whoosh_rev": lambda a: whoosh(a or .55, False),
        "whoosh_low": lambda a: whoosh_low(a or .7), "swoosh": lambda a: whoosh(a or .3) * .7,
        "impact": lambda a: impact(), "boom": lambda a: boom(), "riser": lambda a: riser(a or 1.6),
@@ -601,7 +626,7 @@ GEN = {"whoosh": lambda a: whoosh(a or .55), "whoosh_rev": lambda a: whoosh(a or
        "sticker": lambda a: sticker(), "type": lambda a: typing(int(a or 6))}
 GEN.update(GEN_X)
 PAN = {"whoosh": .25, "whoosh_rev": -.25, "swoosh": -.2, "tick": .15, "ticks": .15, "pop": 0, "coin": .2,
-       "car": -.3, "heli": .35, "ping": .15, "cash": .15, "flutter": -.2}
+       "car": -.3, "motor": .3, "horn": -.15, "heli": .35, "ping": .15, "cash": .15, "flutter": -.2}
 
 
 def main():

@@ -203,27 +203,41 @@ def pangkalan(seed=11):
 
 # ------------------------------------------------------------------ deret kuliner (antar makanan)
 def food_street(seed=13):
+    """jalan kuliner: dua deret warung SALING BERHADAPAN, aspal + trotoar di tengah (y ~ -30..-16),
+    driver jaket hijau menunggu pesanan dengan kotak makanan di depan warung."""
     x0, x1, y0, y1 = FOOD
     rnd = random.Random(seed)
-    out = {"stalls": []}
+    out = {"stalls": [], "street_y": (y0 + y1) / 2 + 1.0}
     b = W.MB("oj_food")
     n = 6
     w = (x1 - x0) / n
-    for row, (ya, face) in enumerate(((y1 - 1, -1), (y0 + 9, -1))):
+    ya, yb = y1 - 1, y0 + 3                       # deret utara (menghadap -y) / deret selatan (menghadap +y)
+    b.box(x0 - 2, yb + 7, G0 - .02, x1 + 2, ya - 7, G0 + .1, "pk_walk")
+    b.box(x0 - 2, yb + 10, G0 - .01, x1 + 2, ya - 10, G0 + .115, "pk_asph")
+    for xx in range(int(x0), int(x1), 6):
+        b.box(xx, (ya + yb) / 2 - .1, G0 + .115, xx + 3, (ya + yb) / 2 + .1, G0 + .13, "pk_line")
+    for row, (yr, face) in enumerate(((ya, -1), (yb, 1))):
         for i in range(n):
             xa = x0 + i * w + .4
             col = ("stall1", "stall2", "stall3")[(i + row) % 3]
-            b.box(xa, ya - 7, G0, xa + w - .8, ya, G0 + 4.2, rnd.choice(("rk1", "rk2", "rk3", "rk4")))
-            b.box(xa + .5, ya - 7.05, G0 + .2, xa + w - 1.3, ya - 7.0, G0 + 2.8, "rk_shut")
-            b.prism_x([(ya - 8.6, 3.1), (ya - 7, 3.1), (ya - 7, 3.9)], xa, xa + w - .8, col)
-            b.box(xa + .6, ya - 8.0, G0, xa + w - 1.4, ya - 7.4, G0 + 1.0, "c_white")     # meja etalase
-            out["stalls"].append((xa + (w - .8) / 2, ya - 8.6))
+            if face < 0:
+                b.box(xa, yr - 7, G0, xa + w - .8, yr, G0 + 4.2, rnd.choice(("rk1", "rk2", "rk3", "rk4")))
+                b.box(xa + .5, yr - 7.05, G0 + .2, xa + w - 1.3, yr - 7.0, G0 + 2.8, "rk_shut")
+                b.prism_x([(yr - 8.6, 3.1), (yr - 7, 3.1), (yr - 7, 3.9)], xa, xa + w - .8, col)
+                b.box(xa + .6, yr - 8.0, G0, xa + w - 1.4, yr - 7.4, G0 + 1.0, "c_white")     # meja etalase
+                out["stalls"].append((xa + (w - .8) / 2, yr - 8.6, face))
+            else:
+                b.box(xa, yr, G0, xa + w - .8, yr + 7, G0 + 4.2, rnd.choice(("rk1", "rk2", "rk3", "rk4")))
+                b.box(xa + .5, yr + 7.0, G0 + .2, xa + w - 1.3, yr + 7.05, G0 + 2.8, "rk_shut")
+                b.prism_x([(yr + 7, 3.9), (yr + 7, 3.1), (yr + 8.6, 3.1)], xa, xa + w - .8, col)
+                b.box(xa + .6, yr + 7.4, G0, xa + w - 1.4, yr + 8.0, G0 + 1.0, "c_white")
+                out["stalls"].append((xa + (w - .8) / 2, yr + 8.6, face))
     b.build()
-    for i, (sx, sy) in enumerate(out["stalls"][:6]):
-        if i % 2 == 0:
-            ojol_rider(f"oj_fr{i}", (sx - 1.2, sy - 1.6, G0), 0.0, .8)
+    for i, (sx, sy, face) in enumerate(out["stalls"]):
+        if i % 2 == (0 if face < 0 else 1):
+            ojol_rider(f"oj_fr{i}", (sx - 1.2, sy + 1.4 * face, G0), 0.0, .8)
             bx = W.MB(f"oj_fb{i}")
-            bx.box(sx - 1.75, sy - 1.95, G0 + 1.05, sx - .85, sy - 1.25, G0 + 1.75, "food_box")
+            bx.box(sx - 1.75, sy + 1.4 * face - .35, G0 + 1.05, sx - .85, sy + 1.4 * face + .35, G0 + 1.75, "food_box")
             bx.build()
     return out
 

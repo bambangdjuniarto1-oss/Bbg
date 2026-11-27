@@ -1,0 +1,760 @@
+{
+ "scenes": [
+  {
+   "id": "O01",
+   "bubble": "Bayar ojol **Rp15.500**",
+   "labels": [
+    {
+     "anchor": "FC",
+     "title": "SIMULASI 1 ORDER",
+     "sub": "contoh rincian versi SPAI",
+     "color": "cyan",
+     "t": 1.6,
+     "lift": 50,
+     "until": 2.9
+    }
+   ],
+   "tilt": 0,
+   "theme": "city"
+  },
+  {
+   "id": "O02",
+   "bubble": "Driver bawa **Rp11.040**",
+   "labels": [
+    {
+     "anchor": "APP",
+     "title": "APLIKASI DRIVER",
+     "sub": "ilustrasi rincian pendapatan",
+     "color": "cyan",
+     "t": 0.45,
+     "lift": 50,
+     "until": 4.55
+    }
+   ],
+   "tilt": 0,
+   "theme": "city"
+  },
+  {
+   "id": "O03",
+   "bubble": "**GoTo**, induk Gojek",
+   "labels": [
+    {
+     "anchor": "LOGO",
+     "title": "GOTO GOJEK TOKOPEDIA",
+     "sub": "emiten BEI: GOTO",
+     "color": "green",
+     "t": 1.95,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "city"
+  },
+  {
+   "id": "O04",
+   "bubble": "Untung **Rp441 M** / 3 bulan",
+   "labels": [
+    {
+     "anchor": "LK",
+     "title": "LAPORAN KEUANGAN INTERIM",
+     "sub": "30 Sep 2026 • disampaikan ke BEI",
+     "color": "cyan",
+     "t": 2.95,
+     "lift": 50
+    },
+    {
+     "anchor": "AD",
+     "title": "DETIKFINANCE",
+     "sub": "GoTo cetak laba Rp441 miliar",
+     "color": "purple",
+     "t": 3.75,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "O05",
+   "bubble": "Uang driver **pindah**?",
+   "labels": [],
+   "tilt": 0,
+   "theme": "city"
+  },
+  {
+   "id": "O06",
+   "bubble": "Driver dapat **92%**",
+   "labels": [
+    {
+     "anchor": "AJ",
+     "title": "JAWAPOS",
+     "sub": "potongan 8% berlaku 1 Juli 2026",
+     "color": "purple",
+     "t": 1.0,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "O07",
+   "bubble": "Tarif tetap, **insentif +**",
+   "labels": [
+    {
+     "anchor": "AK",
+     "title": "KATADATA",
+     "sub": "insentif driver diperluas",
+     "color": "purple",
+     "t": 0.55,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "O08",
+   "bubble": "Ojek & makanan cuma **+3%**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "city"
+  },
+  {
+   "id": "O09",
+   "bubble": "Dipotong **sebelum komisi**",
+   "labels": [
+    {
+     "anchor": "PH",
+     "title": "RINCIAN PENDAPATAN",
+     "sub": "ilustrasi • contoh SPAI",
+     "color": "cyan",
+     "t": 0.3,
+     "lift": 50,
+     "until": 2.9
+    },
+    {
+     "anchor": "AH",
+     "title": "DETIKFINANCE",
+     "sub": "hitungan potongan ojol 8%",
+     "color": "purple",
+     "t": 1.0,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "O10",
+   "bubble": "Untungnya di **HP kamu**",
+   "labels": [
+    {
+     "anchor": "GP",
+     "title": "DOMPET DIGITAL",
+     "sub": "",
+     "color": "cyan",
+     "t": 6.9,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "city"
+  },
+  {
+   "id": "O11",
+   "bubble": "GoPay **Rp550 M**",
+   "labels": [
+    {
+     "anchor": "SL",
+     "title": "PRESENTASI GOTO Q3 2026",
+     "sub": "EBITDA disesuaikan fintech +304%",
+     "color": "cyan",
+     "t": 1.7,
+     "lift": 50
+    },
+    {
+     "anchor": "AG",
+     "title": "KATADATA",
+     "sub": "GoPay salip Gojek",
+     "color": "purple",
+     "t": 4.6,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "O12",
+   "bubble": "Pinjaman **+59%**",
+   "labels": [
+    {
+     "anchor": "LR",
+     "title": "CATATAN 25 • LK INTERIM",
+     "sub": "pendapatan pinjaman 9 bulan 2026",
+     "color": "gold",
+     "t": 1.5,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "O13",
+   "bubble": "Aplikasi = **pintu masuk**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "city"
+  },
+  {
+   "id": "O14",
+   "bubble": "Driver: **naik / sama / turun**?",
+   "labels": [],
+   "tilt": 0,
+   "theme": "city"
+  },
+  {
+   "id": "O15",
+   "bubble": "**Tag** teman ojolmu",
+   "labels": [],
+   "tilt": 0,
+   "theme": "city"
+  }
+ ],
+ "hero": [
+  {
+   "t0": 1.42,
+   "t1": 2.95,
+   "text": "**Rp15.500**",
+   "sub": "dibayar penumpang",
+   "style": "cyan",
+   "size": 112,
+   "y": 1480
+  },
+  {
+   "t0": 4.5,
+   "t1": 5.7,
+   "text": "**Rp11.040**",
+   "sub": "dibawa pulang driver",
+   "style": "pink",
+   "size": 112,
+   "y": 1480
+  },
+  {
+   "t0": 7.7,
+   "t1": 8.85,
+   "text": "potongan **8%**",
+   "sub": "Perpres 27/2026 • berlaku 1 Juli 2026",
+   "style": "gold",
+   "size": 100,
+   "y": 1480
+  },
+  {
+   "t0": 14.16,
+   "t1": 18.55,
+   "text": "Rp**441** miliar",
+   "sub": "laba GoTo • Q3 2026 (Jul–Sep)",
+   "style": "red",
+   "size": 116,
+   "y": 1480,
+   "count": {
+    "t0": 14.16,
+    "t1": 14.95,
+    "frm": 0,
+    "to": 441,
+    "fmt": "{}"
+   }
+  },
+  {
+   "t0": 25.75,
+   "t1": 28.2,
+   "text": "**92%**",
+   "sub": "tarif perjalanan untuk driver GoRide",
+   "style": "green",
+   "size": 130,
+   "y": 1480
+  },
+  {
+   "t0": 36.03,
+   "t1": 36.75,
+   "text": "cuma **+3%**",
+   "sub": "laba ojek & antar makanan (EBITDA disesuaikan)",
+   "style": "cyan",
+   "size": 104,
+   "y": 1480
+  },
+  {
+   "t0": 39.75,
+   "t1": 42.5,
+   "text": "-Rp2.500  -Rp1.000",
+   "sub": "biaya aplikasi & asuransi (contoh SPAI)",
+   "style": "pink",
+   "size": 88,
+   "y": 1480
+  },
+  {
+   "t0": 42.53,
+   "t1": 43.55,
+   "text": "baru **8%**",
+   "sub": "komisi dihitung dari sisa Rp12.000",
+   "style": "gold",
+   "size": 100,
+   "y": 1480
+  },
+  {
+   "t0": 50.22,
+   "t1": 51.3,
+   "text": "di **HP kamu**",
+   "sub": "",
+   "style": "cyan",
+   "size": 116,
+   "y": 1480
+  },
+  {
+   "t0": 53.84,
+   "t1": 56.0,
+   "text": "Rp**550** miliar",
+   "sub": "EBITDA disesuaikan GoPay • Q3 2026",
+   "style": "red",
+   "size": 116,
+   "y": 1480,
+   "count": {
+    "t0": 53.84,
+    "t1": 54.6,
+    "frm": 0,
+    "to": 550,
+    "fmt": "{}"
+   }
+  },
+  {
+   "t0": 56.0,
+   "t1": 58.4,
+   "text": "> Rp**347** miliar",
+   "sub": "ojek + antar makanan (on-demand) • Q3 2026",
+   "style": "green",
+   "size": 96,
+   "y": 1480
+  },
+  {
+   "t0": 59.97,
+   "t1": 61.5,
+   "text": "**+59%**",
+   "sub": "pendapatan pinjaman 9 bln 2026: Rp4,25 T vs Rp2,68 T",
+   "style": "gold",
+   "size": 124,
+   "y": 1480
+  },
+  {
+   "t0": 63.93,
+   "t1": 65.0,
+   "text": "**PINTU MASUK**",
+   "sub": "",
+   "style": "green",
+   "size": 104,
+   "y": 1480
+  }
+ ],
+ "comments": [
+  {
+   "t": 69.0,
+   "text": "TURUN. Order makin jarang, bonus susah",
+   "y": 1400
+  },
+  {
+   "t": 70.2,
+   "text": "SAMA aja, potongannya pindah tempat",
+   "y": 1550
+  },
+  {
+   "t": 73.3,
+   "text": "@temen_narik baca ini bro",
+   "y": 1700
+  }
+ ],
+ "comment_scene": "O14",
+ "bisubs": [
+  [
+   0,
+   3.0,
+   "Setiap kali kamu bayar ojol **Rp15.500**,",
+   ""
+  ],
+  [
+   3.0,
+   5.68,
+   "driver kamu cuma bawa pulang **Rp11.040**,",
+   ""
+  ],
+  [
+   5.68,
+   8.9,
+   "padahal potongannya katanya sudah turun jadi **8%**.",
+   ""
+  ],
+  [
+   8.9,
+   10.5,
+   "Dan di saat yang sama,",
+   ""
+  ],
+  [
+   10.5,
+   13.04,
+   "**GoTo**, induk perusahaan Gojek,",
+   ""
+  ],
+  [
+   13.04,
+   18.715,
+   "justru cetak untung **Rp441 miliar** cuma dalam **3 bulan**.",
+   ""
+  ],
+  [
+   18.715,
+   21.335,
+   "Kedengarannya kayak uang driver **pindah ke kantong perusahaan**,",
+   ""
+  ],
+  [
+   21.335,
+   23.73,
+   "tapi ceritanya ternyata **nggak sesederhana itu**.",
+   ""
+  ],
+  [
+   23.73,
+   25.75,
+   "Dari sisi Gojek, driver **GoRide** sekarang dapat",
+   ""
+  ],
+  [
+   25.75,
+   28.27,
+   "**92%** dari tarif perjalanan,",
+   ""
+  ],
+  [
+   28.27,
+   30.35,
+   "harga buat penumpang **nggak dinaikkan**,",
+   ""
+  ],
+  [
+   30.35,
+   32.73,
+   "dan **insentif driver** malah diperluas.",
+   ""
+  ],
+  [
+   32.73,
+   35.49,
+   "Gojek bahkan ngaku untung bisnis ojek dan antar makanannya",
+   ""
+  ],
+  [
+   35.49,
+   36.79,
+   "cuma tumbuh **3%**.",
+   ""
+  ],
+  [
+   36.79,
+   39.23,
+   "Potongan yang masih **terasa besar** buat driver itu",
+   ""
+  ],
+  [
+   39.23,
+   41.49,
+   "datang dari **biaya aplikasi** dan **asuransi**,",
+   ""
+  ],
+  [
+   41.49,
+   43.745,
+   "yang dihitung **sebelum komisi**.",
+   ""
+  ],
+  [
+   43.745,
+   46.545,
+   "Nah, kalau bisnis ojeknya cuma tumbuh **3%**,",
+   ""
+  ],
+  [
+   46.545,
+   49.145,
+   "berarti untung **ratusan miliar** itu datang dari tempat lain,",
+   ""
+  ],
+  [
+   49.145,
+   51.315,
+   "dan tempat itu ada di **HP kamu**.",
+   ""
+  ],
+  [
+   51.315,
+   53.835,
+   "Di kuartal yang sama, **GoPay** menghasilkan untung",
+   ""
+  ],
+  [
+   53.835,
+   55.475,
+   "**Rp550 miliar**,",
+   ""
+  ],
+  [
+   55.475,
+   58.535,
+   "**lebih besar** dari seluruh bisnis ojek dan antar makanan.",
+   ""
+  ],
+  [
+   58.535,
+   61.555,
+   "Dan pendapatan dari **pinjaman** naik **59%**.",
+   ""
+  ],
+  [
+   61.555,
+   64.815,
+   "Jadi sekarang, aplikasi ojek itu lebih mirip **pintu masuk**,",
+   ""
+  ],
+  [
+   64.815,
+   67.295,
+   "karena uangnya ada di **dompet digital** kamu.",
+   ""
+  ],
+  [
+   67.295,
+   69.515,
+   "Kalau kamu **driver**, tulis di komentar pendapatanmu",
+   ""
+  ],
+  [
+   69.515,
+   71.875,
+   "sejak **Juli**: **naik**, **sama**, atau **turun**?",
+   ""
+  ],
+  [
+   71.875,
+   74.835,
+   "Kalau kamu **penumpang**, **tag teman** kamu yang narik ojol,",
+   ""
+  ],
+  [
+   74.835,
+   78.095,
+   "biar dia tahu ke mana sebenarnya **uang ini mengalir**.",
+   ""
+  ]
+ ],
+ "sub_y": 1190,
+ "sub_style": {
+  "en_size": 60,
+  "id_size": 34,
+  "max_w": 860
+ },
+ "fx": {
+  "punch": [
+   [
+    0.05,
+    0.6
+   ],
+   [
+    1.48,
+    0.6
+   ],
+   [
+    4.56,
+    0.7
+   ],
+   [
+    7.78,
+    0.5
+   ],
+   [
+    10.56,
+    0.5
+   ],
+   [
+    14.16,
+    1.3
+   ],
+   [
+    18.77,
+    0.4
+   ],
+   [
+    22.32,
+    0.5
+   ],
+   [
+    25.81,
+    0.9
+   ],
+   [
+    27.39,
+    0.3
+   ],
+   [
+    29.69,
+    0.4
+   ],
+   [
+    30.53,
+    0.5
+   ],
+   [
+    36.09,
+    0.7
+   ],
+   [
+    39.81,
+    0.6
+   ],
+   [
+    40.79,
+    0.6
+   ],
+   [
+    42.59,
+    0.8
+   ],
+   [
+    45.78,
+    0.5
+   ],
+   [
+    47.23,
+    0.4
+   ],
+   [
+    50.28,
+    1.2
+   ],
+   [
+    52.58,
+    0.6
+   ],
+   [
+    53.9,
+    1.3
+   ],
+   [
+    55.53,
+    0.5
+   ],
+   [
+    59.31,
+    0.5
+   ],
+   [
+    60.03,
+    1.0
+   ],
+   [
+    63.99,
+    0.9
+   ],
+   [
+    65.75,
+    0.5
+   ],
+   [
+    68.59,
+    0.4
+   ],
+   [
+    70.16,
+    0.6
+   ],
+   [
+    70.66,
+    0.6
+   ],
+   [
+    71.31,
+    0.6
+   ],
+   [
+    73.3,
+    0.5
+   ],
+   [
+    76.69,
+    0.5
+   ],
+   [
+    69.0,
+    0.4
+   ],
+   [
+    70.2,
+    0.4
+   ]
+  ],
+  "flash": [
+   [
+    14.16,
+    0.26,
+    "r"
+   ],
+   [
+    25.81,
+    0.14,
+    "w"
+   ],
+   [
+    50.28,
+    0.22,
+    "w"
+   ],
+   [
+    53.9,
+    0.26,
+    "r"
+   ],
+   [
+    60.03,
+    0.18,
+    "w"
+   ]
+  ],
+  "chroma": [
+   [
+    14.16,
+    0.4
+   ],
+   [
+    42.59,
+    0.25
+   ],
+   [
+    50.28,
+    0.3
+   ],
+   [
+    53.9,
+    0.4
+   ],
+   [
+    60.03,
+    0.25
+   ]
+  ],
+  "pale": [
+   0,
+   0,
+   "NONE"
+  ]
+ },
+ "keywords": []
+}

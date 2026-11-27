@@ -176,22 +176,23 @@ def o03(n, A):
 
 def o04(n, A):
     """BOM: GoTo cetak untung Rp441 miliar cuma dalam 3 bulan: slide resmi 'Third Consecutive Quarter of Net
-    Profit' di layar raksasa, menara uang naik, sampul laporan keuangan interim (dilaporkan ke BEI), berita detik."""
+    Profit' di layar raksasa, tumpukan uang merah naik di depannya, sampul laporan keuangan interim (dilaporkan ke
+    BEI) di kiri depan, berita detikFinance di kanan depan. Semua dalam lebar frame 9:16."""
     sid = "O04"
     neon(rig_c=(0, 0, 4), rig_s=1.6, fade=(14, 60))
-    sl = Q.tv("sl", "sl_profit", 10.0, (0, 3.0, 0), em=1.1, rot_z=0.0)
-    pop_in(sl["root"], fr(sid, 13.0), 1.0, 9)
-    m, h = OJ.R.money_stack("mn", 44, (4.6, -1.6, 0), "money_red", 2, 2, .7)
+    sl = Q.tv("sl", "sl_profit", 8.0, (0, 3.0, 0), em=1.1, rot_z=0.0)
+    pop_in(sl["root"], fr(sid, 12.95), 1.0, 8)
+    m, h = R.money_stack("mn", 9, (0, -1.2, 0), "money_red", 4, 3, .75)
     key(m, "scale", 1, (1, 1, .001))
-    key(m, "scale", fr(sid, 13.6), (1, 1, .001))
-    anim(m, "scale", fr(sid, 13.6), fr(sid, 14.6), (1, 1, .001), (1, 1, 1), "out")
-    lk = P.photo("lk", "lk_cover", 4.6, (-5.4, -.8, .2), .35, em=1.0, border=.06)
+    key(m, "scale", fr(sid, 14.1), (1, 1, .001))
+    anim(m, "scale", fr(sid, 14.1), fr(sid, 14.9), (1, 1, .001), (1, 1, 1), "out")
+    lk = P.photo("lk", "lk_cover", 3.6, (-2.7, -3.0, .15), .3, em=1.0, border=.06)
     pop_in(lk, fr(sid, 15.8), 1.0, 9)
-    ad = phone("ad", "art_detik441", 5.6, (-9.4, 3.4, .1), .5, sid, 16.4, n, .3)
-    camera(sid, [(12.95, (0, 0, 4.0), -60, 6, 17), (15.2, (0, 0, 4.4), -84, 8, 19),
-                 (18.6, (-.6, 0, 4.2), -100, 9, 20)], lens=24)
-    A["LK"] = (lk, (0, 0, 4.9))
-    A["AD"] = (ad["root"], (0, 0, 6.0))
+    ad = phone("ad", "art_detik441", 4.3, (2.75, -2.9, .1), -.3, sid, 16.4, n, .3)
+    camera(sid, [(12.95, (0, 0, 4.6), -72, 6, 17), (15.2, (0, -.5, 3.8), -88, 8, 15.5),
+                 (18.6, (0, -1, 3.4), -102, 10, 14.5)], lens=24)
+    A["LK"] = (lk, (0, 0, 3.9))
+    A["AD"] = (ad["root"], (0, 0, 4.6))
     _ = h
 
 
@@ -213,52 +214,58 @@ def o05(n, A):
 
 # ================================================================== KATA GOJEK
 def o06(n, A):
-    """Driver GoRide sekarang dapat 92% dari tarif: diagram lingkaran neon 92/8, ikon driver, berita JawaPos."""
+    """Driver GoRide sekarang dapat 92% dari tarif: diagram lingkaran neon 92/8 (irisan 8% lepas), papan DRIVER 92%
+    di atas, APLIKASI 8% di samping irisan, driver bersorak di kiri depan, berita JawaPos di kanan depan."""
     sid = "O06"
     neon(rig_c=(0, 0, 3.5), rig_s=1.5)
     root = bpy.data.objects.new("pie_root", None)
     lp._link(root)
-    root.location = (0, 1.0, 4.0)
+    root.location = (0, 1.0, 5.0)
     root.rotation_euler = (math.radians(90), 0, 0)
-    for sl in V.pie("pie", [("n_green", .92), ("n_pink", .08)], 3.4, .9, (0, 0, 0), 64, 2.2):
+    for sl in V.pie("pie", [("n_green", .92), ("n_pink", .08)], 3.2, .9, (0, 0, 0), 64, 2.2):
         sl.parent = root
         if sl.name.endswith("_1"):
             mx, my = sl["mid"]
             anim(sl, "location", fr(sid, 26.4), fr(sid, 26.9), (0, 0, 0), (mx * .9, my * .9, 0), "out")
-    pop_in(root, fr(sid, 23.7), 1.0, 10)
-    s1, s1f = sign("d92", "DRIVER 92%", (-1.0, -.6, 8.4), .62, "n_green", 8.0)
-    s2, s2f = sign("a8", "APLIKASI 8%", (3.6, -.4, 6.6), .42, "n_pink", 7.0)
+    pop_in(root, fr(sid, 23.65), 1.0, 10)
+    s1, s1f = sign("d92", "DRIVER 92%", (-.4, -.6, 10.3), .6, "n_green", 8.0)
+    s2, s2f = sign("a8", "APLIKASI 8%", (2.3, -.8, 8.75), .38, "n_pink", 7.0)
     pop_pair((s1, s1f), fr(sid, 25.81))
     pop_pair((s2, s2f), fr(sid, 26.4))
-    dr = OJ.ojol_driver("dr", (-4.4, -.6, 0), .4, "cheer")
+    dr = OJ.ojol_driver("dr", (-2.9, -2.4, 0), .25, "cheer")
     pop_in(dr["body"], fr(sid, 23.8), L.CH_S, 9)
-    aj = phone("aj", "art_jawapos8", 5.4, (5.8, 3.2, .1), -.45, sid, 24.4, n, .3)
-    camera(sid, [(23.6, (0, 0, 4.0), -128, 10, 17), (26.0, (0, 0, 4.2), -98, 8, 17.5),
-                 (28.25, (.4, 0, 4.2), -80, 10, 18)], lens=24)
-    A["AJ"] = (aj["root"], (0, 0, 5.8))
+    aj = phone("aj", "art_jawapos8", 4.4, (2.9, -2.6, .1), -.3, sid, 24.4, n, .3)
+    camera(sid, [(23.6, (0, 0, 5.0), -112, 8, 16.5), (26.0, (0, 0, 5.2), -94, 8, 16), (28.25, (.2, 0, 5.0), -80, 9, 16)],
+           lens=24)
+    A["AJ"] = (aj["root"], (0, 0, 4.7))
 
 
 def o07(n, A):
-    """Harga penumpang tidak dinaikkan, insentif driver malah diperluas: label harga 'TARIF TETAP' terkunci gembok,
-    kotak hadiah 'INSENTIF' terbuka mengeluarkan koin; berita Katadata (insentif)."""
+    """Harga penumpang tidak dinaikkan, insentif driver malah diperluas: label harga Rp15.500 'TARIF TETAP' dikunci
+    gembok emas (kiri), kotak hadiah 'INSENTIF +' memuntahkan koin (kanan), berita Katadata di tengah belakang."""
     sid = "O07"
     neon(rig_c=(0, 0, 3.5), rig_s=1.5)
-    tg, tgf = sign("tg", "TARIF TETAP", (-3.4, .6, 4.6), .6, "n_cyan", 8.0)
+    import world_gta as GT
+    ak = phone("ak", "art_insentif", 6.6, (0, 2.4, .1), 0.0, sid, 28.3, n, .3)
+    tg, tgf = sign("tg", "Rp15.500", (-2.0, -1.0, 4.4), .55, "n_cyan", 8.0)
     pop_pair((tg, tgf), fr(sid, 28.33))
+    tt, ttf = sign("tt", "TARIF TETAP", (-2.0, -1.0, 6.0), .4, "n_white", 6.0)
+    pop_pair((tt, ttf), fr(sid, 28.9))
+    lk = GT.padlock("lock", (-2.0, -1.3, 2.0), .8, "n_gold", 4.0)
+    pop_in(lk, fr(sid, 29.2), 1.0, 9)
     gb = W.MB("gift")
-    gb.box(-1.3, -1.3, 0, 1.3, 1.3, 2.2, "n_green")
-    gb.box(-1.45, -1.45, 2.2, 1.45, 1.45, 2.65, "n_gold")
-    gb.box(-.18, -1.5, 0, .18, 1.5, 2.66, "n_gold")
-    go = gb.build((3.2, .4, 0))
+    gb.box(-1.0, -1.0, 0, 1.0, 1.0, 1.7, "n_green")
+    gb.box(-1.12, -1.12, 1.7, 1.12, 1.12, 2.05, "n_gold")
+    gb.box(-.15, -1.15, 0, .15, 1.15, 2.06, "n_gold")
+    go = gb.build((2.2, -1.2, 0))
     V.glow(go, {"n_green": 1.4, "n_gold": 4.0})
-    pop_in(go, fr(sid, 30.4), 1.0, 9)
-    ins, insf = sign("ins", "INSENTIF +", (3.2, -.8, 4.4), .5, "n_gold", 8.0)
+    pop_in(go, fr(sid, 30.3), 1.0, 9)
+    ins, insf = sign("ins", "INSENTIF +", (2.2, -1.6, 3.4), .42, "n_gold", 8.0)
     pop_pair((ins, insf), fr(sid, 30.53))
-    coin_arc("cg", sid, 30.9, 10, (3.2, .4, 2.8), (3.2, -2.5, 6.0), .06, .55, 1.5, 9, 16)
-    ak = phone("ak", "art_insentif", 5.4, (-7.6, 3.4, .1), .5, sid, 28.6, n, .3)
-    camera(sid, [(28.25, (0, 0, 3.4), -66, 14, 15), (30.4, (.5, 0, 3.4), -86, 10, 14.5),
-                 (32.6, (1.0, 0, 3.4), -104, 10, 15)], lens=24)
-    A["AK"] = (ak["root"], (0, 0, 5.8))
+    coin_arc("cg", sid, 30.9, 12, (2.2, -1.2, 2.2), (2.2, -2.4, 6.4), .06, .55, 1.5, 9, 16)
+    camera(sid, [(28.25, (0, 0, 4.0), -70, 10, 15), (30.4, (.2, -.4, 3.8), -88, 8, 14), (32.6, (.4, -.6, 3.6), -104, 9, 14)],
+           lens=24)
+    A["AK"] = (ak["root"], (0, 0, 7.0))
 
 
 def o08(n, A):
@@ -267,33 +274,36 @@ def o08(n, A):
     sid = "O08"
     kota(n)
     x0, x1, y0, y1 = OJ.FOOD
-    s3, s3f = sign("p3", "+3%", ((x0 + x1) / 2, y1 - 12, 9.0), 1.1, "n_green", 8.0)
-    pop_pair((s3, s3f), fr(sid, 36.09))
-    for i in range(3):
+    yc = (y0 + y1) / 2 + 1.0                     # sumbu jalan kuliner
+    s3, s3f = sign("p3", "+3%", (x0 + 34, yc, 6.4), 1.2, "n_green", 8.0, rot_z=-math.pi / 2)
+    pop_pair((s3, s3f), fr(sid, 35.85))
+    for i in range(4):
         rd = OJ.ojol_rider(f"fr{i}", (0, 0, G0), 0.0, .82)
-        y = y1 - 11.0 - i * 1.2
-        anim(rd, "location", 1, n_all(n), (x0 - 10 - 6 * i, y, G0), (x1 + 4 - 6 * i, y, G0), "lin")
-    camera(sid, [(32.6, (x0 + 6, y1 - 10, 3.2), -60, 14, 18), (34.6, (x0 + 18, y1 - 10, 3.4), -82, 14, 19),
-                 (36.7, (x0 + 30, y1 - 10, 3.8), -100, 16, 21)], lens=24)
+        y = yc + (-1.8 if i % 2 else 1.8)
+        anim(rd, "location", 1, n_all(n), (x0 - 4 + 5 * i, y, G0), (x0 + 30 + 5 * i, y, G0), "lin")
+    # kamera menyusuri jalan kuliner (dari ujung barat), warung kiri-kanan, papan +3% di ujung jalan
+    camera(sid, [(32.6, (x0 + 10, yc, 2.2), 172, 12, 12), (34.6, (x0 + 18, yc, 2.8), 180, 14, 13),
+                 (36.7, (x0 + 28, yc, 4.4), 188, 12, 14)], lens=24)
 
 
 def o09(n, A):
     """Potongan yang masih terasa besar datang dari biaya aplikasi & asuransi yang dihitung sebelum komisi:
-    HP Android raksasa dengan rincian pendapatan; tiga balok potongan terlepas dari tumpukan koin; berita detik."""
+    HP Android raksasa dengan rincian pendapatan (kiri), tiga papan potongan bertumpuk (kanan), papan 'DIHITUNG
+    SEBELUM KOMISI' di atas, berita detikFinance kanan bawah."""
     sid = "O09"
     neon(rig_c=(0, 0, 4), rig_s=1.6)
-    ph = phone("ph", "app_driver", 10.0, (-1.6, 1.4, .1), .12, sid, 36.75, n, .2, 39.0)
-    for i, (lab, t, col) in enumerate((("BIAYA APLIKASI Rp2.500", 39.81, "n_pink"), ("ASURANSI Rp1.000", 40.79, "n_pink"),
+    ph = phone("ph", "app_driver", 9.0, (-1.7, 1.2, .1), .1, sid, 36.75, n, .2, 39.0)
+    for i, (lab, t, col) in enumerate((("APLIKASI -Rp2.500", 39.81, "n_pink"), ("ASURANSI -Rp1.000", 40.79, "n_pink"),
                                        ("KOMISI 8%", 42.59, "n_gold"))):
-        s, sf = sign(f"c{i}", lab, (4.2, -.8, 7.6 - i * 1.6), .34, col, 8.0)
+        s, sf = sign(f"c{i}", lab, (2.1, -.8, 8.5 - i * 1.4), .36, col, 8.0)
         pop_pair((s, sf), fr(sid, t))
-    st, stf = sign("seb", "DIHITUNG SEBELUM KOMISI", (1.0, -1.6, 2.0), .38, "n_cyan", 8.0)
+    st, stf = sign("seb", "DIHITUNG SEBELUM KOMISI", (.4, -1.4, 10.5), .32, "n_cyan", 8.0)
     pop_pair((st, stf), fr(sid, 42.17))
-    ah = phone("ah", "art_hitung", 5.0, (8.6, 3.4, .1), -.5, sid, 37.4, n, .3)
-    camera(sid, [(36.7, (0, 0, 5.4), -70, 18, 18), (39.6, (.6, 0, 5.2), -86, 10, 17),
-                 (43.6, (1.0, 0, 5.0), -96, 8, 17.5)], lens=24)
-    A["PH"] = (ph["root"], (0, 0, 10.6))
-    A["AH"] = (ah["root"], (0, 0, 5.4))
+    ah = phone("ah", "art_hitung", 4.4, (2.7, -1.4, .1), -.25, sid, 37.4, n, .3)
+    camera(sid, [(36.7, (.4, 0, 5.6), -74, 12, 17.5), (39.6, (.6, 0, 5.6), -88, 8, 17), (43.6, (.6, 0, 5.8), -98, 8, 17.5)],
+           lens=24)
+    A["PH"] = (ph["root"], (0, 0, 9.6))
+    A["AH"] = (ah["root"], (0, 0, 4.8))
 
 
 def o10(n, A):
@@ -317,30 +327,30 @@ def o10(n, A):
 # ================================================================== GoPay
 def o11(n, A):
     """GoPay (fintech) Rp550 miliar — lebih besar dari seluruh ojek & antar makanan (Rp347 miliar): dua pilar
-    neon naik (biru vs hijau) dengan logo; slide resmi Fintech +304%; berita Katadata 'GoPay salip Gojek'."""
+    neon naik (biru vs hijau) dengan logo; slide resmi Fintech di belakang; berita Katadata kanan depan."""
     sid = "O11"
     neon(rig_c=(0, 0, 4), rig_s=1.6, fade=(14, 60))
-    p1 = V.pillar("pg", 7.2, 2.4, 2.4, "n_cyan", 1.4, 6.0, (2.2, 0, 0))
-    p2 = V.pillar("po", 4.55, 2.4, 2.4, "n_green", 1.4, 6.0, (-2.2, 0, 0))
+    p1 = V.pillar("pg", 7.2, 2.2, 2.2, "n_cyan", 1.4, 6.0, (1.6, 0, 0))
+    p2 = V.pillar("po", 4.55, 2.2, 2.2, "n_green", 1.4, 6.0, (-1.6, 0, 0))
     for p, t in ((p2, 51.5), (p1, 53.9)):
         key(p, "scale", 1, (1, 1, .001))
         key(p, "scale", fr(sid, t), (1, 1, .001))
         anim(p, "scale", fr(sid, t), fr(sid, t + .8), (1, 1, .001), (1, 1, 1), "out")
-    l1 = OJ._img_plane("l1", "gopay_logo", 3.4, (2.2, -1.3, 8.2), 0.0, 2.0)
-    l2 = OJ._img_plane("l2", "gojek", 3.4, (-2.2, -1.3, 5.5), 0.0, 2.0)
+    l1 = OJ._img_plane("l1", "gopay_card", 2.6, (1.6, -1.2, 8.0), 0.0, 1.4)
+    l2 = OJ._img_plane("l2", "gojek", 2.8, (-1.6, -1.2, 5.3), 0.0, 2.0)
     pop_in(l1, fr(sid, 54.0), 1.0, 8)
     pop_in(l2, fr(sid, 51.6), 1.0, 8)
-    v1, v1f = sign("v1", "Rp550 M", (2.2, -1.4, 9.7), .5, "n_cyan", 8.0)
-    v2, v2f = sign("v2", "Rp347 M", (-2.2, -1.4, 7.0), .5, "n_green", 8.0)
+    v1, v1f = sign("v1", "Rp550 M", (1.6, -1.3, 9.6), .48, "n_cyan", 8.0)
+    v2, v2f = sign("v2", "Rp347 M", (-1.6, -1.3, 6.8), .48, "n_green", 8.0)
     pop_pair((v1, v1f), fr(sid, 54.4))
     pop_pair((v2, v2f), fr(sid, 56.3))
-    sl = P.photo("sl", "sl_fintech", 5.2, (-8.0, 3.0, .3), .45, em=1.0, border=.05)
+    sl = P.photo("sl", "sl_fintech", 5.2, (0, 4.6, 2.4), 0.0, em=1.0, border=.05)
     pop_in(sl, fr(sid, 52.6), 1.0, 9)
-    ag = phone("ag", "art_gopay", 5.4, (8.4, 3.0, .1), -.45, sid, 55.6, n, .3)
-    camera(sid, [(51.2, (0, 0, 4.2), -112, 8, 20), (54.6, (0, 0, 4.8), -92, 6, 20),
-                 (58.45, (0, 0, 5.0), -74, 8, 21)], lens=24)
-    A["SL"] = (sl, (0, 0, 3.4))
-    A["AG"] = (ag["root"], (0, 0, 6.0))
+    ag = phone("ag", "art_gopay", 4.2, (3.0, -2.6, .1), -.3, sid, 55.6, n, .3)
+    camera(sid, [(51.2, (0, 0, 5.0), -108, 8, 17), (54.6, (0, 0, 5.4), -92, 6, 17), (58.45, (.3, 0, 5.4), -78, 8, 17.5)],
+           lens=24)
+    A["SL"] = (sl, (0, 0, 5.6))
+    A["AG"] = (ag["root"], (0, 0, 4.6))
 
 
 def o12(n, A):
@@ -352,14 +362,17 @@ def o12(n, A):
     ar = W.MB("arrow")
     ar.box(-.3, -.3, 0, .3, .3, 6.0, "n_green")
     ar.poly([(-1.0, 0, 6.0), (1.0, 0, 6.0), (0, 0, 7.8)], [(0, 1, 2)], "n_green")
-    aro = ar.build((5.8, -1.4, 0))
+    aro = ar.build((3.5, -1.2, 0))
     V.glow(aro, {"n_green": 7.0})
     key(aro, "scale", 1, (1, 1, .001))
     key(aro, "scale", fr(sid, 59.6), (1, 1, .001))
     anim(aro, "scale", fr(sid, 59.6), fr(sid, 60.3), (1, 1, .001), (1, 1, 1), "out")
-    pj, pjf = sign("pj", "PINJAMAN", (5.8, -1.6, 9.0), .45, "n_green", 8.0)
+    pj, pjf = sign("pj", "PINJAMAN", (2.4, -1.4, 9.4), .45, "n_green", 8.0)
     pop_pair((pj, pjf), fr(sid, 59.31))
-    camera(sid, [(58.45, (1, 0, 4.4), -56, 6, 16), (61.45, (1.2, 0, 4.6), -88, 8, 16.5)], lens=24)
+    lr = P.photo("lr", "lk_rev", 3.0, (-1.2, -3.2, .3), .12, em=1.0, border=.05)
+    pop_in(lr, fr(sid, 59.75), 1.0, 9)
+    camera(sid, [(58.45, (1, 0, 4.6), -64, 6, 17), (61.45, (1.2, -.6, 4.6), -94, 8, 17.5)], lens=24)
+    A["LR"] = (lr, (0, 0, 3.6))
 
 
 # ================================================================== RESOLUSI + CTA

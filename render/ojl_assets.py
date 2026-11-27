@@ -8,6 +8,8 @@ import argparse
 import glob
 import os
 
+import numpy as np
+
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -93,6 +95,18 @@ def fare_card(out):
     im.save(os.path.join(out, "fare_card.png"))
 
 
+def lk_rev(pdf, out):
+    """Catatan 25 LK interim (hal. 114): baris 'Pinjaman' 4.248.932 vs 2.679.597 (+59%) distabilo kuning."""
+    src = glob.glob(os.path.join(pdf, "lk_rev-*.png"))[0]
+    im = Image.open(src).convert("RGB")
+    k = im.width / 1275
+    im = im.crop((int(190 * k), int(115 * k), int(1135 * k), int(590 * k)))
+    hl = Image.new("RGB", im.size, (255, 255, 255))
+    ImageDraw.Draw(hl).rectangle((int(40 * k), int(350 * k), im.width - int(10 * k), int(374 * k)), fill=(255, 226, 60))
+    im = Image.fromarray(np.minimum(np.array(im), np.array(hl)))
+    im.save(os.path.join(out, "lk_rev.jpg"), quality=93)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("out")
@@ -114,6 +128,7 @@ def main():
                    ("pres_15-*.png", "sl_loan"), ("lk_cover-*.png", "lk_cover"), ("lk_pl-*.png", "lk_pl")):
         src = glob.glob(os.path.join(a.pdf, pat))[0]
         Image.open(src).convert("RGB").save(os.path.join(a.out, n + ".jpg"), quality=93)
+    lk_rev(a.pdf, a.out)
     for i, n in ARTS.items():
         p = os.path.join(a.web, f"t{i}.png")
         if os.path.exists(p) and os.path.getsize(p) > 60000:
