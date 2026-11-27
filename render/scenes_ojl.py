@@ -153,12 +153,12 @@ def o02(n, A):
     x, y = bx + 2.0, by + 6.8
     R.motor("mt", (x, y, G0), math.radians(90), "bk_blk", .85)
     dr = OJ.ojol_driver("dr", (x + 1.0, y + .6, G0), math.pi + .25, None, phone=True)
-    ap = P.photo("app", "app_driver", 5.2, (x - 3.4, y + .4, 1.6), math.pi - .35, em=.9, border=.06)
+    ap = P.photo("app", "app_driver", 5.2, (x - 1.7, y + .9, 1.4), math.pi - .25, em=.9, border=.06)
     pop_in(ap, fr(sid, 3.0), 1.0, 9)
-    s8, s8f = sign("s8", "8%?", (x + 2.8, y + 1.4, 5.0), .7, "n_pink", 8.0, rot_z=math.pi)
+    s8, s8f = sign("s8", "8%?", (x + .9, y + 1.6, 5.3), .7, "n_pink", 8.0, rot_z=math.pi)
     pop_pair((s8, s8f), fr(sid, 7.6))
-    camera(sid, [(2.95, (x - .4, y + .6, 2.6), 40, 10, 10.5), (5.5, (x - 1.2, y + .6, 3.2), 72, 9, 11.5),
-                 (8.75, (x - .8, y + .6, 3.4), 94, 8, 12.5)], lens=24)
+    camera(sid, [(2.95, (x - .2, y + .6, 2.8), 48, 10, 10.5), (5.5, (x - .4, y + .6, 3.4), 72, 9, 11.5),
+                 (8.75, (x - .4, y + .6, 3.6), 96, 8, 12.5)], lens=24)
     A["APP"] = (ap, (0, 0, 5.6))
     A["DR"] = (dr["body"], (0, 0, 2.6))
 
