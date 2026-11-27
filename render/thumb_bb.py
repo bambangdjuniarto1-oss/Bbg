@@ -49,8 +49,11 @@ SPEC = {
     "tahu": dict(label="TOFU DELIVERY", hero="Rp7.5M/mo", title="Tofu on Wheels.", accent="#FACC15", bg="#141204"),
     "sepatu": dict(label="SHOE CLEANING", hero="Rp50M/mo", title="Clean Shoes, Real Cash.", accent="#FB923C",
                    bg="#170C05"),
+    "ojl": dict(label="OJOL · GOTO Q3", hero="Rp441B", card_imgs=["ojl/full/O09/frames/0200.png", "ojl/full/O11/frames/0200.png"],
+                tile_glob=["ojl/full/O0[1-9]/frames/01[0-9]0.png", "ojl/full/O1[0-2]/frames/01[0-9]0.png"],
+                title="Where Does Your Fare Go?", accent="#00D26A", bg="#04140B"),
 }
-ORDER = [k for k in SPEC if k not in ("ps2", "fom", "kpr")] + ["ps2", "fom", "kpr"]      # nomor lama tetap; Part 2 = 15, FOOM = 16
+ORDER = [k for k in SPEC if k not in ("ps2", "fom", "kpr", "ojl")] + ["ps2", "fom", "kpr", "ojl"]      # nomor lama tetap; Part 2 = 15, FOOM = 16
 
 
 def hexrgb(h):
