@@ -100,7 +100,7 @@ def b02(n, A):
     neon(rig_c=(0, 0, 3.5), rig_s=1.4)
     c1 = P.logo_card("c1", "sp01", 1.3, (0, 0, 4.7), 0.0, pad=.32, em=1.2, plate_em=.8)
     c2 = P.logo_card("c2", "sp03", 1.5, (0, 0, 1.6), 0.0, pad=.32, em=1.2, plate_em=.8)
-    slam(c1, fr(sid, 2.62), 9.0, 4.7)
+    slam(c1, fr(sid, 2.31), 9.0, 4.7)
     slam(c2, fr(sid, 3.70), 7.5, 1.6)
     x1 = B.cross_x("x1", (0, -.4, 5.65), 1.25)
     x2 = B.cross_x("x2", (0, -.4, 2.7), 1.25)
@@ -179,8 +179,8 @@ def b06(n, A):
     pop_pair((s2, s2f), fr(sid, 15.45))
     for k, q in enumerate(info["store"]["queue"]):
         L.walk_cycle(q, 1, n_all(n), 18, .25, arms=False)
-    camera(sid, [(13.69, (cx - 3, yf - 1, 3.2), -66, 14, 22), (15.6, (cx - 1, yf - 1, 3.6), -80, 16, 21),
-                 (17.41, (cx + 1, yf, 5.0), -94, 24, 22)], lens=24)
+    camera(sid, [(13.69, (cx - 6, yf - 1, 2.6), -62, 30, 24), (15.6, (cx - 3, yf - 1, 3.0), -78, 32, 25),
+                 (17.41, (cx, yf, 4.0), -92, 36, 26)], lens=24)
     A["ST"] = (info["store"]["sign"], (0, 0, 1.6))
 
 

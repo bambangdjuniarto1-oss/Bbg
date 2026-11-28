@@ -230,12 +230,12 @@ def persib_store():
     b.box(cx - 1.4, yf - .06, G0, cx + 1.4, yf - .01, G0 + 3.6, "bb_navy")
     b.box(cx - 10, yf - 3.0, G0 - .01, cx + 10, yf, G0 + .08, "pk_walk")
     so = b.build()
-    V.glow(so, {"store_gl": .8})
+    V.glow(so, {"store_gl": .25})
     lg = P.logo_card("store_lg", "lg_persib", 2.4, (cx - 6.0, yf - .25, G0 + 5.9), 0.0, plate=None, em=1.4)
     tx = _text("store_tx", "PERSIB STORE", (cx + 1.6, yf - .25, G0 + 6.4), 1.25, "bb_white", 2.0)
     # jersey di etalase
     for k, x in enumerate((-6.0, -3.0, 3.0, 6.0)):
-        P.jersey(f"store_j{k}", (cx + x, yf + .5, G0 + 1.0), .55, "psb_blue" if k % 2 == 0 else "psb_white",
+        P.jersey(f"store_j{k}", (cx + x, yf - .35, G0 + .8), .55, "psb_blue" if k % 2 == 0 else "psb_white",
                  "psb_white" if k % 2 == 0 else "psb_blue", ("7", "10", "25", "14")[k])
     # antrean bobotoh
     q = []
