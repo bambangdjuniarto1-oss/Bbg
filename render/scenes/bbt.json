@@ -1,0 +1,775 @@
+{
+ "scenes": [
+  {
+   "id": "B01",
+   "bubble": "Sponsor terbesar **Persib**?",
+   "labels": [
+    {
+     "anchor": "GBLA",
+     "title": "STADION GBLA",
+     "sub": "Gelora Bandung Lautan Api",
+     "color": "cyan",
+     "t": 1.3,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "city"
+  },
+  {
+   "id": "B02",
+   "bubble": "Bukan **Indofood**, bukan **bjb**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "B03",
+   "bubble": "Tapi **KAMU**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "city"
+  },
+  {
+   "id": "B04",
+   "bubble": "**16 sponsor** musim 2026/27",
+   "labels": [
+    {
+     "anchor": "BD",
+     "title": "16 MITRA SPONSOR PERSIB",
+     "sub": "logo resmi • persib.co.id",
+     "color": "cyan",
+     "t": 0.57,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "city"
+  },
+  {
+   "id": "B05",
+   "bubble": "Sponsor: **Rp43–77 M**/tahun",
+   "labels": [
+    {
+     "anchor": "RM",
+     "title": "RM.ID",
+     "sub": "Deputy CEO Adhitia: sponsor masuk > keluar",
+     "color": "purple",
+     "t": 1.2,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "B06",
+   "bubble": "Bobotoh: **tiket + jersey**",
+   "labels": [
+    {
+     "anchor": "ST",
+     "title": "PERSIB STORE",
+     "sub": "jersey & merchandise resmi",
+     "color": "cyan",
+     "t": 0.31,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "city"
+  },
+  {
+   "id": "B07",
+   "bubble": "Bobotoh: **Rp68–118 M**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "B08",
+   "bubble": "Bobotoh = **sponsor terbesar**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "B09",
+   "bubble": "Hitung **per kepala**",
+   "labels": [
+    {
+     "anchor": "AL",
+     "title": "ALUN-ALUN BANDUNG",
+     "sub": "",
+     "color": "green",
+     "t": 0.35,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "city"
+  },
+  {
+   "id": "B10",
+   "bubble": "Cuma **Rp10 ribu**/orang",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "B11",
+   "bubble": "1 jersey = **Rp1,19 juta**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "city"
+  },
+  {
+   "id": "B12",
+   "bubble": "= jatah **119 bobotoh**",
+   "labels": [
+    {
+     "anchor": "AJ",
+     "title": "ANTARA",
+     "sub": "Deputy CEO Adhitia Putra Herawan • jersey 2026/27",
+     "color": "purple",
+     "t": 0.46,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "B13",
+   "bubble": "Bobotoh **nggak dapat tempat**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "B14",
+   "bubble": "Dada jersey: **NexAI**",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "B15",
+   "bubble": "Kontrak **paling kecil**",
+   "labels": [
+    {
+     "anchor": "AN",
+     "title": "EMITENNEWS",
+     "sub": "NexAI (MGLV) masuk daftar sponsor Persib",
+     "color": "purple",
+     "t": 1.54,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "B16",
+   "bubble": "NexAI naik **Rp24 T**",
+   "labels": [
+    {
+     "anchor": "AK",
+     "title": "KONTAN",
+     "sub": "saham MGLV melesat 457% sepanjang 2026",
+     "color": "purple",
+     "t": 1.35,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "B17",
+   "bubble": "= **400 tahun** sponsor",
+   "labels": [],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "B18",
+   "bubble": "**Glenn Sugita** di dua kubu",
+   "labels": [
+    {
+     "anchor": "A1",
+     "title": "EMITENNEWS",
+     "sub": "MGLV jadi NexAI, bos Persib pegang kendali",
+     "color": "purple",
+     "t": 0.7,
+     "lift": 50
+    },
+    {
+     "anchor": "A2",
+     "title": "ANTARA",
+     "sub": "CEO PT Persib Bandung Bermartabat",
+     "color": "purple",
+     "t": 2.4,
+     "lift": 50
+    }
+   ],
+   "tilt": 0,
+   "theme": "neon"
+  },
+  {
+   "id": "B19",
+   "bubble": "Logo **kamu** di jersey?",
+   "labels": [],
+   "tilt": 0,
+   "theme": "city"
+  }
+ ],
+ "hero": [
+  {
+   "t0": 4.72,
+   "t1": 5.83,
+   "text": "**KAMU**",
+   "sub": "sponsor terbesar Persib",
+   "style": "cyan",
+   "size": 140,
+   "y": 1480
+  },
+  {
+   "t0": 9.3,
+   "t1": 13.55,
+   "text": "Rp**43–77** miliar",
+   "sub": "estimasi setoran 16 sponsor / tahun",
+   "style": "cyan",
+   "size": 104,
+   "y": 1480
+  },
+  {
+   "t0": 17.41,
+   "t1": 21.2,
+   "text": "Rp**68–118** miliar",
+   "sub": "estimasi tiket + jersey dari bobotoh / tahun",
+   "style": "gold",
+   "size": 100,
+   "y": 1480
+  },
+  {
+   "t0": 23.06,
+   "t1": 24.6,
+   "text": "sponsor **#1**",
+   "sub": "kalau bobotoh itu perusahaan",
+   "style": "gold",
+   "size": 112,
+   "y": 1480
+  },
+  {
+   "t0": 33.4,
+   "t1": 35.3,
+   "text": "cuma Rp**10** ribu",
+   "sub": "uang sponsor per bobotoh / tahun",
+   "style": "cyan",
+   "size": 112,
+   "y": 1480
+  },
+  {
+   "t0": 38.94,
+   "t1": 41.45,
+   "text": "Rp**1.191.919**",
+   "sub": "jersey player issue 2026/27",
+   "style": "pink",
+   "size": 104,
+   "y": 1480
+  },
+  {
+   "t0": 44.4,
+   "t1": 47.3,
+   "text": "= **119** bobotoh",
+   "sub": "jatah uang sponsor setahun",
+   "style": "cyan",
+   "size": 110,
+   "y": 1480,
+   "count": {
+    "t0": 44.4,
+    "t1": 45.2,
+    "frm": 0,
+    "to": 119,
+    "fmt": "{}"
+   }
+  },
+  {
+   "t0": 58.3,
+   "t1": 60.75,
+   "text": "Rp**0,8–2** miliar",
+   "sub": "estimasi kontrak NexAI • paling kecil",
+   "style": "pink",
+   "size": 104,
+   "y": 1480
+  },
+  {
+   "t0": 65.0,
+   "t1": 66.8,
+   "text": "+Rp**24** triliun",
+   "sub": "naik nilai pasar NexAI (MGLV) Jan–Sep 2026",
+   "style": "green",
+   "size": 110,
+   "y": 1480,
+   "count": {
+    "t0": 65.0,
+    "t1": 65.8,
+    "frm": 0,
+    "to": 24,
+    "fmt": "{}"
+   }
+  },
+  {
+   "t0": 67.1,
+   "t1": 69.4,
+   "text": "**400** tahun",
+   "sub": "uang sponsor Persib",
+   "style": "gold",
+   "size": 120,
+   "y": 1480,
+   "count": {
+    "t0": 67.1,
+    "t1": 67.9,
+    "frm": 0,
+    "to": 400,
+    "fmt": "{}"
+   }
+  }
+ ],
+ "comments": [
+  {
+   "t": 76.6,
+   "text": "BOBOTOH SAJAGAT",
+   "y": 1400
+  },
+  {
+   "t": 77.4,
+   "text": "Logo Viking dong!",
+   "y": 1550
+  },
+  {
+   "t": 78.3,
+   "text": "@balad_bobotoh liat ini",
+   "y": 1700
+  }
+ ],
+ "comment_scene": "B19",
+ "bisubs": [
+  [
+   0,
+   2.283,
+   "**Sponsor terbesar** Persib itu",
+   ""
+  ],
+  [
+   2.283,
+   4.394,
+   "bukan **Indofood**, bukan **bank bjb**,",
+   ""
+  ],
+  [
+   4.394,
+   5.773,
+   "tapi **kamu**.",
+   ""
+  ],
+  [
+   5.773,
+   9.236,
+   "**16 sponsor** Persib musim ini diperkirakan menyetor",
+   ""
+  ],
+  [
+   9.236,
+   13.625,
+   "**Rp43–77 miliar** setahun.",
+   ""
+  ],
+  [
+   13.625,
+   16.681,
+   "Sementara **bobotoh**, dari **tiket** dan **jersey** aja,",
+   ""
+  ],
+  [
+   16.681,
+   21.236,
+   "bisa menyumbang **Rp68–118 miliar**.",
+   ""
+  ],
+  [
+   21.236,
+   22.94,
+   "Jadi kalau bobotoh itu **perusahaan**,",
+   ""
+  ],
+  [
+   22.94,
+   24.394,
+   "dia **sponsor terbesar** Persib,",
+   ""
+  ],
+  [
+   24.394,
+   27.195,
+   "lebih besar dari **semua brand** itu kalau digabung.",
+   ""
+  ],
+  [
+   27.195,
+   30.435,
+   "Bedanya makin kerasa kalau dihitung **per kepala**.",
+   ""
+  ],
+  [
+   30.435,
+   32.806,
+   "Uang sponsor kalau dibagi ke sekitar **6 juta bobotoh**,",
+   ""
+  ],
+  [
+   32.806,
+   35.329,
+   "cuma sekitar **Rp10 ribu** per orang setahun.",
+   ""
+  ],
+  [
+   35.329,
+   38.625,
+   "Sedangkan **kamu**, buat satu jersey versi pemain aja,",
+   ""
+  ],
+  [
+   38.625,
+   41.477,
+   "keluar **Rp1,19 juta**,",
+   ""
+  ],
+  [
+   41.477,
+   43.607,
+   "artinya satu jersey yang kamu beli,",
+   ""
+  ],
+  [
+   43.607,
+   47.338,
+   "setara jatah **119 bobotoh** dari uang sponsor.",
+   ""
+  ],
+  [
+   47.338,
+   49.773,
+   "Tapi yang **bayar paling besar**,",
+   ""
+  ],
+  [
+   49.773,
+   51.921,
+   "justru **nggak dapat tempat** di jersey.",
+   ""
+  ],
+  [
+   51.921,
+   54.181,
+   "**Bagian dada**, posisi **paling mahal**,",
+   ""
+  ],
+  [
+   54.181,
+   55.903,
+   "ditempati **NexAI**,",
+   ""
+  ],
+  [
+   55.903,
+   58.181,
+   "yang nilai kontraknya diperkirakan **paling kecil**,",
+   ""
+  ],
+  [
+   58.181,
+   60.792,
+   "cuma **Rp0,8–2 miliar**.",
+   ""
+  ],
+  [
+   60.792,
+   63.44,
+   "Padahal, dari **Januari** sampai akhir **September**,",
+   ""
+  ],
+  [
+   63.44,
+   66.81,
+   "nilai perusahaannya naik sekitar **Rp24 triliun**,",
+   ""
+  ],
+  [
+   66.81,
+   69.44,
+   "setara **400 tahun** uang sponsor Persib.",
+   ""
+  ],
+  [
+   69.44,
+   71.736,
+   "Dan di jajaran manajemennya ada **Glenn Sugita**,",
+   ""
+  ],
+  [
+   71.736,
+   73.472,
+   "orang yang juga **mengendalikan Persib**.",
+   ""
+  ],
+  [
+   73.472,
+   76.195,
+   "Jadi, kalau bobotoh boleh pasang **logo sendiri** di jersey,",
+   ""
+  ],
+  [
+   76.195,
+   76.861,
+   "kamu mau tulis **apa**?",
+   ""
+  ],
+  [
+   76.861,
+   79.469,
+   "**Tulis di komentar**, terus **tag** teman bobotoh kamu.",
+   ""
+  ]
+ ],
+ "sub_y": 1190,
+ "sub_style": {
+  "en_size": 60,
+  "id_size": 34,
+  "max_w": 860
+ },
+ "fx": {
+  "punch": [
+   [
+    0.05,
+    0.6
+   ],
+   [
+    2.68,
+    0.6
+   ],
+   [
+    3.3,
+    0.5
+   ],
+   [
+    3.81,
+    0.6
+   ],
+   [
+    4.3,
+    0.5
+   ],
+   [
+    4.75,
+    1.3
+   ],
+   [
+    5.83,
+    0.5
+   ],
+   [
+    9.3,
+    0.9
+   ],
+   [
+    13.69,
+    0.4
+   ],
+   [
+    14.98,
+    0.5
+   ],
+   [
+    15.48,
+    0.5
+   ],
+   [
+    17.41,
+    0.9
+   ],
+   [
+    22.2,
+    0.5
+   ],
+   [
+    23.06,
+    1.0
+   ],
+   [
+    25.21,
+    0.6
+   ],
+   [
+    27.25,
+    0.4
+   ],
+   [
+    29.53,
+    0.5
+   ],
+   [
+    31.94,
+    0.5
+   ],
+   [
+    33.46,
+    0.8
+   ],
+   [
+    35.78,
+    0.5
+   ],
+   [
+    38.94,
+    0.9
+   ],
+   [
+    44.43,
+    0.9
+   ],
+   [
+    47.4,
+    0.4
+   ],
+   [
+    48.12,
+    0.5
+   ],
+   [
+    50.75,
+    0.8
+   ],
+   [
+    52.38,
+    0.5
+   ],
+   [
+    53.26,
+    0.5
+   ],
+   [
+    55.0,
+    1.3
+   ],
+   [
+    57.37,
+    0.5
+   ],
+   [
+    58.37,
+    0.8
+   ],
+   [
+    61.63,
+    0.4
+   ],
+   [
+    65.07,
+    1.0
+   ],
+   [
+    67.15,
+    0.9
+   ],
+   [
+    70.91,
+    1.0
+   ],
+   [
+    72.24,
+    0.6
+   ],
+   [
+    73.53,
+    0.5
+   ],
+   [
+    76.66,
+    0.6
+   ],
+   [
+    77.48,
+    0.5
+   ],
+   [
+    78.2,
+    0.5
+   ]
+  ],
+  "flash": [
+   [
+    4.75,
+    0.22,
+    "w"
+   ],
+   [
+    23.06,
+    0.16,
+    "w"
+   ],
+   [
+    44.43,
+    0.16,
+    "w"
+   ],
+   [
+    55.0,
+    0.26,
+    "r"
+   ],
+   [
+    65.07,
+    0.22,
+    "w"
+   ],
+   [
+    70.91,
+    0.2,
+    "r"
+   ]
+  ],
+  "chroma": [
+   [
+    4.75,
+    0.35
+   ],
+   [
+    23.06,
+    0.25
+   ],
+   [
+    50.75,
+    0.3
+   ],
+   [
+    55.0,
+    0.4
+   ],
+   [
+    65.07,
+    0.3
+   ],
+   [
+    70.91,
+    0.35
+   ]
+  ],
+  "pale": [
+   0,
+   0,
+   "NONE"
+  ]
+ },
+ "keywords": []
+}

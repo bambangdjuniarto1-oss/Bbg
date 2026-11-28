@@ -66,7 +66,7 @@ def _ell(a, b, t):
     return a * math.cos(t), b * math.sin(t)
 
 
-def stadium(name="gbla", crowd=True, seed=4, n_seg=120, lights=True):
+def stadium(name="gbla", crowd=True, seed=4, n_seg=120, lights=True, ground=True):
     """stadion oval: lapangan + lintasan + 2 cincin tribun (bawah 8 trap, atas 9 trap) penuh bobotoh,
     atap cincin putih + lampu sorot, dinding luar dengan strip biru menyala. Pusat lapangan di (0,0,0).
     Return dict(fans=[obj grup], roof, pitch, a_out, b_out, z_top)."""
@@ -206,6 +206,8 @@ def stadium(name="gbla", crowd=True, seed=4, n_seg=120, lights=True):
                 if rnd.random() < .3:            # tangan terangkat / syal
                     mb.box(x - .05, y - .05, tz + .45, x + .05, y + .05, tz + .95, rnd.choice(("psb_blue", "psb_white")))
         out["fans"] = [m.build() for m in mbs]
+    if not ground:
+        return out
     # ---- halaman luar gelap + lampu jalan
     gm = W.MB(name + "_ground")
     gm.box(-90, -90, -.05, 90, 90, 0, "psb_ground")

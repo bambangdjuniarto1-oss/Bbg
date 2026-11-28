@@ -182,7 +182,7 @@ CHORDS_F = [
 MOTIF_F = [(0, 74), (.5, 77), (1, 81), (2, 79), (2.5, 77), (3, 76),
            (4, 74), (4.5, 72), (5, 74), (6, 77), (6.5, 76), (7, 72)]
 # variasi G (video bisnis media): gaya beda total, groove hip-hop/business ~94 BPM, lihat render_biz()
-VARIANTS = {"M": "doc", "L": "sakura", "K": "vice", "J": "neon", "I": "street", "H": "fest", "G": "biz", "A": None, "B": (CHORDS_B, MOTIF_B), "C": (CHORDS_C, MOTIF_C), "D": (CHORDS_D, MOTIF_D),
+VARIANTS = {"N": "anthem", "M": "doc", "L": "sakura", "K": "vice", "J": "neon", "I": "street", "H": "fest", "G": "biz", "A": None, "B": (CHORDS_B, MOTIF_B), "C": (CHORDS_C, MOTIF_C), "D": (CHORDS_D, MOTIF_D),
             "E": (CHORDS_E, MOTIF_E), "F": (CHORDS_F, MOTIF_F)}
 
 
@@ -1267,6 +1267,188 @@ def render_doc(dur, bpm=100.0, marks=(7.05, 20.31, 24.65, 46.53, 60.52, 68.31), 
     return buf
 
 
+# ================================================================== N: anthem stadion (Persib/bobotoh)
+AN_MAJ = [(38, [62, 66, 69]), (47, [59, 62, 66]), (43, [59, 62, 67]), (45, [61, 64, 69])]      # D Bm G A
+AN_MIN = [(47, [59, 62, 66]), (43, [59, 62, 67]), (40, [59, 64, 67]), (42, [61, 66, 70])]      # Bm G Em F#
+AN_SING = [(0, 66, 1), (1, 66, 1), (2, 69, 1.5), (3.5, 66, .5), (4, 64, 1), (5, 62, 1), (6, 64, 2),
+           (8, 66, 1), (9, 66, 1), (10, 69, 1.5), (11.5, 71, .5), (12, 69, 1), (13, 66, 1), (14, 62, 2)]
+_VOW = {"o": (500, 850, 2500), "a": (750, 1200, 2600), "e": (480, 1900, 2600), "i": (320, 2300, 3000)}
+
+
+def crowd_sing(note, dur, vowel="o", n=28, spread=.35):
+    """ribuan bobotoh bernyanyi 'oh-oh': n suara glotal di sekitar nada (sedikit fals), formant vokal, napas."""
+    t = np.arange(int(dur * SR)) / SR
+    g = np.zeros_like(t)
+    for k in range(n):
+        oct_ = -12 if k % 3 == 0 else 0
+        f = midi(note + oct_ + RNG.normal(0, spread)) * (1 + .012 * np.sin(2 * np.pi * RNG.uniform(4, 6.5) * t + RNG.uniform(0, 6)))
+        ph = np.cumsum(f) / SR + RNG.uniform(0, 1)
+        on = np.minimum(1, np.maximum(0, t - RNG.uniform(0, .07)) / .06)
+        g += (2 * (ph % 1) - 1) * on * RNG.uniform(.5, 1)
+    f1, f2, f3 = _VOW[vowel]
+    out = bp(g, f1 * .8, f1 * 1.25) + .7 * bp(g, f2 * .85, f2 * 1.15) + .3 * bp(g, f3 * .9, f3 * 1.1)
+    out += bp(RNG.standard_normal(len(t)), 600, 4000) * .08 * n / 28
+    env = np.minimum(1, t / .05) * np.minimum(1, (dur - t) / .12)
+    return out * env / n * 1.4
+
+
+def shout(vowel, dur, lo=150, hi=320):
+    """teriakan serempak satu suku kata (mis. 'PER' / 'SIB')."""
+    t = np.arange(int(dur * SR)) / SR
+    g = np.zeros_like(t)
+    for k in range(30):
+        f = RNG.uniform(lo, hi) * (1 - .12 * t / dur)
+        ph = np.cumsum(np.full_like(t, f)) / SR + RNG.uniform(0, 1)
+        g += (2 * (ph % 1) - 1) * RNG.uniform(.5, 1)
+    f1, f2, f3 = _VOW[vowel]
+    out = bp(g, f1 * .8, f1 * 1.25) + .8 * bp(g, f2 * .85, f2 * 1.15) + .3 * bp(g, f3 * .9, f3 * 1.1)
+    out += bp(RNG.standard_normal(len(t)), 1500, 6000) * .25          # konsonan/desis
+    env = np.minimum(1, t / .015) * np.exp(-t * 3.2) * np.minimum(1, (dur - t) / .04)
+    return out * env / 30 * 3.0
+
+
+def clap_crowd():
+    t = np.arange(int(.22 * SR)) / SR
+    out = np.zeros_like(t)
+    for k in range(40):
+        i = int(abs(RNG.normal(0, .012)) * SR)
+        c = bp(RNG.standard_normal(int(.03 * SR)), 900, 5000) * np.exp(-np.arange(int(.03 * SR)) / SR * 140)
+        out[i:i + len(c)] += c[: len(out) - i] * RNG.uniform(.4, 1)
+    return out / 8
+
+
+def tom(f0=90, big=1.0):
+    t = np.arange(int(.7 * SR)) / SR
+    f = f0 + 70 * np.exp(-t * 25)
+    s = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 6)
+    s += bp(RNG.standard_normal(len(t)), 150, 2500) * np.exp(-t * 35) * .35
+    return np.tanh(s * 1.5 * big) * .75
+
+
+def roll(dur):
+    """snare roll yang makin rapat & keras (build-up)."""
+    out = np.zeros(int((dur + .4) * SR))
+    SN = snare()
+    t = 0.0
+    while t < dur:
+        u = t / dur
+        i = int(t * SR)
+        out[i:i + len(SN)] += SN[: len(out) - i] * (.25 + .75 * u)
+        t += .125 * (1 - .6 * u)
+    return out[: int(dur * SR)]
+
+
+def render_anthem(dur, bpm=124.0, marks=(5.83, 21.30, 27.25, 35.39, 47.40, 60.85, 73.53), kinds=None):
+    """anthem stadion penuh semangat: drum suporter + kick/clap + supersaw + brass + nyanyian massal 'oh-oh'
+    + teriakan 'PER-SIB!' & tepuk tiga kali (yel generik, disintesis — bukan rekaman chant asli)."""
+    beat = 60.0 / bpm
+    L = int((dur + 4) * SR)
+    dry = np.zeros((2, L))
+    syn = np.zeros((2, L))
+    ch = np.zeros((2, L))
+    kinds = list(kinds or ["intro", "main", "sing", "brk", "main", "tense", "climax", "outro"])
+    bounds = [0.0] + list(marks) + [dur]
+    secs = [(bounds[i], bounds[i + 1], kinds[i]) for i in range(len(kinds))]
+    K, SN, CL, H = kick(), snare(), clap(), hat()
+    for s0, s1, kind in secs:
+        prog = AN_MIN if kind == "tense" else AN_MAJ
+        nb = int(np.ceil((s1 - s0) / beat))
+        for bt in range(nb):
+            t0 = s0 + bt * beat
+            if t0 >= s1 - .02:
+                break
+            root, notes = prog[(bt // 4) % 4]
+            bb = bt % 4
+            bar = bt // 4
+            if kind == "intro":
+                if bb == 0:
+                    add(dry, t0, taiko(.8), .55)
+                    add(syn, t0, sum(string_ens(n_, 4 * beat + .3, 900) for n_ in notes), .3)
+                if bb in (0, 2):
+                    add(dry, t0, tom(80), .45, -.2)
+                if bt % 4 == 3:
+                    add(ch, t0, clap_crowd(), .7, .1)
+                continue
+            if bb == 0:
+                bl = min(4 * beat, s1 - t0) + .3
+                lvl = {"brk": .22, "tense": .3, "outro": .3}.get(kind, .38)
+                add(syn, t0, sum(supersaw(n_, bl) for n_ in notes), lvl)
+                add(dry, t0, bass_note(root, bl * .9), .45)
+            if kind == "brk":
+                # pulse ringan: kick 1&3, tepuk 2&4, pluck
+                if bb in (0, 2):
+                    add(dry, t0, K, .55)
+                if bb in (1, 3):
+                    add(ch, t0, clap_crowd(), .55)
+                add(syn, t0, pluck(notes[bt % 3] + 12, beat * .9), .28, -.3 + .6 * (bt % 2))
+                add(syn, t0 + beat / 2, pluck(notes[(bt + 1) % 3] + 12, beat * .9), .2, .3)
+                continue
+            # main / sing / tense / climax / outro: groove stadion
+            add(dry, t0, K, .8 if kind != "tense" else .7)
+            if bb in (1, 3):
+                add(dry, t0, SN, .45)
+                add(dry, t0, CL, .4)
+            for k in range(2):
+                add(dry, t0 + k * beat / 2, H, .1, .3)
+            # drum suporter: DUM . DUM-DUM
+            if bb == 0:
+                add(dry, t0, tom(70, 1.1), .55, -.25)
+            if bb == 2:
+                add(dry, t0, tom(85), .45, .2)
+                add(dry, t0 + beat / 2, tom(85), .4, .2)
+            if kind == "tense":
+                if bb == 0:
+                    add(dry, t0, taiko(1.0), .7)
+                add(syn, t0, pluck(notes[bt % 3] + 12, beat * .5), .25, -.3)
+                add(syn, t0 + beat / 2, pluck(notes[(bt + 2) % 3] + 12, beat * .5), .2, .3)
+                continue
+            if bb == 0 and kind in ("main", "climax"):
+                add(syn, t0, brass_stab([n_ + 12 for n_ in notes]), .55)
+            if bb == 2 and kind in ("main", "climax") and bar % 2 == 1:
+                add(syn, t0 + beat / 2, brass_stab([n_ + 12 for n_ in notes], .3), .4)
+            # nyanyian massal 'oh-oh' (melodi 16 ketuk)
+            if kind in ("sing", "climax", "outro"):
+                pos = bt % 16
+                for (st, nt, ln) in AN_SING:
+                    if st == pos or (st - pos == .5 and False):
+                        add(ch, t0, crowd_sing(nt, ln * beat * .95, "o"), .9 if kind != "outro" else 1.0,
+                            RNG.uniform(-.25, .25))
+                    elif int(st) == pos and st != pos:
+                        add(ch, t0 + (st - pos) * beat, crowd_sing(nt, ln * beat * .95, "o"), .9, RNG.uniform(-.25, .25))
+        # yel 'PER-SIB!' + tepuk 3x di tiap awal bagian (kecuali tense), di outro diulang
+        if kind in ("main", "sing", "climax", "outro"):
+            reps = 3 if kind == "outro" else 1
+            for r in range(reps):
+                tb = s0 + r * 4 * beat
+                if tb + 4 * beat > s1 + .1:
+                    break
+                for k in range(3):
+                    add(ch, tb + k * beat, clap_crowd(), 1.0, RNG.uniform(-.2, .2))
+                add(ch, tb + 3 * beat, shout("e", .28), 1.0, -.05)
+                add(ch, tb + 3.5 * beat, shout("i", .45, 180, 380), 1.1, .05)
+        if kind in ("intro", "brk"):
+            rl = min(1.6, s1 - s0 - .2)
+            add(dry, s1 - rl, roll(rl), .55)
+            add(dry, s1 - rl, swell(rl), .8)
+        if kind in ("main", "sing", "climax", "tense"):
+            add(dry, s0, impact(2.4), .75)
+    # riuh tribun tipis di seluruh lagu
+    tt_ = np.arange(L) / SR
+    bed = crowd(dur + 4)
+    bed = np.pad(bed, (0, max(0, L - len(bed))))[:L]
+    for c_ in range(2):
+        dry[c_] += bed * 1.6
+    buf = dry + reverb(syn, 2.2, .32) + reverb(ch, 2.8, .55)
+    add(buf, dur - 2.6, impact(2.4), .5)
+    buf = buf[:, : int(dur * SR)]
+    fade = int(1.6 * SR)
+    buf[:, -fade:] *= np.linspace(1, 0, fade)
+    buf = np.tanh(buf * 1.15) / np.tanh(1.15)
+    buf /= np.abs(buf).max() / .89
+    _ = tt_
+    return buf
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("out")
@@ -1281,6 +1463,11 @@ def main():
         mk = tuple(float(x) for x in os.environ.get("DOC_MARKS", "7.05,20.31,24.65,46.53,60.52,68.31").split(","))
         kd = os.environ.get("DOC_KINDS")
         sf.write(a.out, render_doc(a.dur, a.bpm, mk, kd.split(",") if kd else None).T, SR, subtype="PCM_16")
+        print("wrote", a.out)
+        return
+    if VARIANTS[a.variant] == "anthem":
+        mk = tuple(float(x) for x in os.environ.get("AN_MARKS", "5.83,21.30,27.25,35.39,47.40,60.85,73.53").split(","))
+        sf.write(a.out, render_anthem(a.dur, a.bpm, mk).T, SR, subtype="PCM_16")
         print("wrote", a.out)
         return
     if VARIANTS[a.variant] == "sakura":
