@@ -55,8 +55,14 @@ SPEC = {
     "ojl_id": dict(label="OJOL · GOTO Q3", hero="Rp441 M", card_imgs=["ojl/full/O09/frames/0200.png", "ojl/full/O11/frames/0200.png"],
                    tile_glob=["ojl/full/O0[1-9]/frames/01[0-9]0.png", "ojl/full/O1[0-2]/frames/01[0-9]0.png"],
                    title="Ongkos Ojolmu Lari ke Mana?", foot="Bedah Bisnis", accent="#00D26A", bg="#04140B"),
+    "bbt": dict(logo="bbt/tex/lg_persib.png", card_imgs=["bbt/full/B08/frames/0160.png", "bbt/full/B14/frames/0120.png"],
+                tile_glob=["bbt/full/B0[1-9]/frames/00[4-9]0.png", "bbt/full/B1[0-9]/frames/00[4-9]0.png"],
+                title="The Biggest Sponsor Is You.", accent="#2D6BFF", bg="#06122E"),
+    "bbt_id": dict(logo="bbt/tex/lg_persib.png", card_imgs=["bbt/full/B08/frames/0160.png", "bbt/full/B14/frames/0120.png"],
+                   tile_glob=["bbt/full/B0[1-9]/frames/00[4-9]0.png", "bbt/full/B1[0-9]/frames/00[4-9]0.png"],
+                   title="Sponsor Terbesar Persib: Kamu.", foot="Bedah Bisnis", accent="#2D6BFF", bg="#06122E"),
 }
-ORDER = [k for k in SPEC if k not in ("ps2", "fom", "kpr", "ojl", "ojl_id")] + ["ps2", "fom", "kpr", "ojl", "ojl_id"]      # nomor lama tetap; Part 2 = 15, FOOM = 16
+ORDER = [k for k in SPEC if k not in ("ps2", "fom", "kpr", "ojl", "ojl_id", "bbt", "bbt_id")] + ["ps2", "fom", "kpr", "ojl", "ojl_id", "bbt", "bbt_id"]      # nomor lama tetap; Part 2 = 15, FOOM = 16
 
 
 def hexrgb(h):
