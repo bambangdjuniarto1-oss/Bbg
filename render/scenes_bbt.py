@@ -415,20 +415,20 @@ def b15(n, A):
     NexAI; berita EmitenNews (NexAI masuk daftar sponsor) di kanan depan."""
     sid = "B15"
     neon(rig_c=(0, 0, 4), rig_s=1.6, fade=(14, 60))
-    p1 = V.pillar("pt", 5.0, 2.2, 2.2, "n_cyan", 1.4, 6.0, (-1.6, 0, 0))
-    p2 = V.pillar("pn", .5, 2.2, 2.2, "n_pink", 1.4, 6.0, (1.6, 0, 0))
+    p1 = V.pillar("pt", 5.0, 2.2, 2.2, "n_cyan", 1.4, 6.0, (-2.0, 0, 0))
+    p2 = V.pillar("pn", .5, 2.2, 2.2, "n_pink", 1.4, 6.0, (.9, 0, 0))
     grow_z(p1, fr(sid, 56.0), fr(sid, 56.7))
     grow_z(p2, fr(sid, 58.2), fr(sid, 58.6))
-    l2 = P.logo_card("ln", "sp10", .9, (1.6, -.2, .75), 0.0, pad=.18, em=1.2, plate_em=.85)
+    l2 = P.logo_card("ln", "sp10", .9, (.9, -.2, .75), 0.0, pad=.18, em=1.2, plate_em=.85)
     pop_in(l2, fr(sid, 56.1), 1.0, 8)
-    v1, v1f = sign("v1", "16 SPONSOR Rp43-77 M", (-1.4, -1.3, 5.75), .26, "n_cyan", 8.0)
-    v2, v2f = sign("v2", "Rp0,8-2 M", (1.6, -1.3, 2.9), .42, "n_pink", 8.0)
+    v1, v1f = sign("v1", "16 SPONSOR Rp43-77 M", (-1.6, -1.3, 5.75), .26, "n_cyan", 8.0)
+    v2, v2f = sign("v2", "Rp0,8-2 M", (.6, -1.3, 2.6), .34, "n_pink", 8.0)
     pop_pair((v1, v1f), fr(sid, 56.6))
     pop_pair((v2, v2f), fr(sid, 58.3))
-    an = phone("an", "art_nxsp", 4.0, (2.95, -2.7, .1), -.3, sid, 57.3, n, .3)
-    camera(sid, [(55.96, (0, 0, 4.0), -110, 8, 16), (58.4, (0, 0, 3.9), -92, 6, 15.5), (60.85, (.3, 0, 3.9), -80, 8, 15.5)],
+    an = phone("an", "art_nxsp", 3.3, (2.35, -3.1, .1), -.4, sid, 57.3, n, .3)
+    camera(sid, [(55.96, (0, 0, 2.4), -110, 8, 16), (58.4, (0, 0, 2.3), -92, 6, 15.5), (60.85, (.2, 0, 2.3), -82, 8, 15.5)],
            lens=24)
-    A["AN"] = (an["root"], (0, 0, 4.4))
+    A["AN"] = (an["root"], (0, 0, 3.6))
 
 
 def b16(n, A):

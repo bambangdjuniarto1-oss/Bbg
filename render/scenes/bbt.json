@@ -198,18 +198,21 @@
     {
      "anchor": "A1",
      "title": "EMITENNEWS",
-     "sub": "MGLV jadi NexAI, bos Persib pegang kendali",
+     "sub": "bos Persib kendalikan NexAI",
      "color": "purple",
      "t": 0.7,
-     "lift": 50
+     "lift": 12,
+     "dy": 200,
+     "until": 2.35
     },
     {
      "anchor": "A2",
      "title": "ANTARA",
-     "sub": "CEO PT Persib Bandung Bermartabat",
+     "sub": "Glenn Sugita, CEO PT PBB",
      "color": "purple",
      "t": 2.4,
-     "lift": 50
+     "lift": 12,
+     "dy": 200
     }
    ],
    "tilt": 0,
@@ -326,7 +329,7 @@
    "sub": "uang sponsor Persib",
    "style": "gold",
    "size": 120,
-   "y": 1480,
+   "y": 1720,
    "count": {
     "t0": 67.1,
     "t1": 67.9,

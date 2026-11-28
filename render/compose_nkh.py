@@ -174,7 +174,7 @@ def do_scene(job):
             ax, ay = ax + lb.get("dx", 0), ay + lb.get("dy", 0)      # geser manual bila menabrak objek 3D
             if not (-40 < ax < 1120 and ay < 1900) or ay - lb.get("lift", 110) - 90 < 500:
                 continue
-            half = max(C.font(C.F800, 34).getlength(lb["title"]), 120) / 2 + 40
+            half = max(C.label_text_w(lb["title"], lb.get("sub", "")), 120) / 2 + 40
             ax = min(max(ax, half + 10), 1070 - half)
             C.draw_label(img, lb["title"], lb.get("sub", ""), lb["color"], ax, ay, t - lb["t"], lb.get("lift", 110))
         for h in cfg["hero"]:

@@ -63,8 +63,10 @@ for k, (nw, txt) in enumerate(CUES):
     SUBS.append([round(max(0, t0), 3), round(end, 3), txt, ""])
 
 
-def lb(anchor, title, t, color="cyan", sub="", lift=60, until=None):
+def lb(anchor, title, t, color="cyan", sub="", lift=60, until=None, dy=0):
     d = dict(anchor=anchor, title=title, sub=sub, color=color, t=t, lift=lift)
+    if dy:
+        d["dy"] = dy
     if until is not None:
         d["until"] = until
     return d
@@ -95,8 +97,8 @@ S = [
     ("B15", "Kontrak **paling kecil**", [lb("AN", "EMITENNEWS", 57.5, "purple", "NexAI (MGLV) masuk daftar sponsor Persib", 50)]),
     ("B16", "NexAI naik **Rp24 T**", [lb("AK", "KONTAN", 62.2, "purple", "saham MGLV melesat 457% sepanjang 2026", 50)]),
     ("B17", "= **400 tahun** sponsor", []),
-    ("B18", "**Glenn Sugita** di dua kubu", [lb("A1", "EMITENNEWS", 70.2, "purple", "MGLV jadi NexAI, bos Persib pegang kendali", 50),
-                                       lb("A2", "ANTARA", 71.9, "purple", "CEO PT Persib Bandung Bermartabat", 50)]),
+    ("B18", "**Glenn Sugita** di dua kubu", [lb("A1", "EMITENNEWS", 70.2, "purple", "bos Persib kendalikan NexAI", 12, until=71.85, dy=200),
+                                       lb("A2", "ANTARA", 71.9, "purple", "Glenn Sugita, CEO PT PBB", 12, dy=200)]),
     ("B19", "Logo **kamu** di jersey?", []),
 ]
 
@@ -113,7 +115,7 @@ HERO = [
     hero(65.00, 66.8, "+Rp**24** triliun", "naik nilai pasar NexAI (MGLV) Jan–Sep 2026", dict(t0=65.0, t1=65.8, frm=0, to=24, fmt="{}"),
          style="green", size=110),
     hero(67.10, 69.4, "**400** tahun", "uang sponsor Persib", dict(t0=67.1, t1=67.9, frm=0, to=400, fmt="{}"), style="gold",
-         size=120),
+         size=120, y=1720),
 ]
 
 COMMENTS = [dict(t=76.6, text="BOBOTOH SAJAGAT", y=1400),

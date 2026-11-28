@@ -132,13 +132,18 @@ def draw_bubble(img, text, t_in, x, y):
         img.alpha_composite(layer, (int(x), int(y)))
 
 
+def label_text_w(title, sub):
+    """Lebar teks label: judul, atau sub yang ditulis berspasi antarhuruf (dipakai juga untuk batas tepi)."""
+    return max(font(F800, 34).getlength(title), font(F700, 20).getlength(" ".join(sub)) + 20 if sub else 0)
+
+
 def draw_label(img, title, sub, color, ax, ay, t_in, lift=110):
     s = ease_out_back(t_in / 0.35)
     if s <= 0.02:
         return
     col = LABEL_COL.get(color, color)
     ft, fs = font(F800, 34), font(F700, 20)
-    tw = max(ft.getlength(title), fs.getlength(sub) * 1.0 + 20)
+    tw = label_text_w(title, sub)
     bw, bh = int(tw + 44), 84 if sub else 58
     lw, lh = bw + 20, bh + lift + 30
     layer = Image.new("RGBA", (lw, lh), (0, 0, 0, 0))
