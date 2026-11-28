@@ -305,6 +305,17 @@ def b11(n, A):
     camera(sid, [(35.39, (cx - .6, yf - 2.2, 2.2), -62, 8, 10.5), (38.0, (cx, yf - 2.2, 2.2), -80, 6, 9.0),
                  (41.54, (cx + .4, yf - 2.2, 2.3), -96, 6, 8.6)], lens=24)
     A["ST"] = (info["store"]["sign"], (0, 0, 1.6))
+    # papan & logo toko selalu terpotong di tepi atas pada kamera dekat ini -> sembunyikan di B11
+    def _hide(ob):
+        ob.hide_render = True
+        for ch in ob.children:
+            _hide(ch)
+    for key_ in ("sign", "logo"):
+        ob = info["store"].get(key_)
+        if ob is not None and hasattr(ob, "hide_render"):
+            _hide(ob)
+        elif isinstance(ob, dict) and "root" in ob:
+            _hide(ob["root"])
 
 
 def b12(n, A):
