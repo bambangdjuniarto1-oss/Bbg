@@ -1438,7 +1438,8 @@ def render_anthem(dur, bpm=124.0, marks=(5.83, 21.30, 27.25, 35.39, 47.40, 60.85
     bed = np.pad(bed, (0, max(0, L - len(bed))))[:L]
     for c_ in range(2):
         dry[c_] += bed * 1.6
-    buf = dry + reverb(syn, 2.2, .32) + reverb(ch, 2.8, .55)
+    chg = float(os.environ.get("AN_CHANT", "1.0"))          # <1: yel sintetis dikecilkan (mis. ada rekaman chant asli)
+    buf = dry + reverb(syn, 2.2, .32) + reverb(ch, 2.8, .55) * chg
     add(buf, dur - 2.6, impact(2.4), .5)
     buf = buf[:, : int(dur * SR)]
     fade = int(1.6 * SR)
